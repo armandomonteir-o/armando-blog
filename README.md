@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Armando — art & digital technology
 
-## Getting Started
+Personal blog by Armando Monteiro about art and digital technology.
 
-First, run the development server:
+**Design aesthetic**: Neobrutalism + Retro-digital + Frutiger Aero — intentional, non-negotiable.
+
+**Stack**: Next.js 16 (App Router) · Tailwind v4 · TypeScript · Headless WordPress · WPGraphQL · Zustand
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+nvm use          # switches to node 22 via .nvmrc
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Documentation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All technical documentation lives in [`/docs`](./docs/):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [`ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — layout system, routing, scroll behavior
+- [`DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) — colors, typography, CSS variables, dark mode
+- [`DATA-MODELS.md`](./docs/DATA-MODELS.md) — TypeScript interfaces, WP/ACF mapping
+- [`MIGRATION-GUIDE.md`](./docs/MIGRATION-GUIDE.md) — step-by-step migration plan
+- [`COMPONENTS.md`](./docs/COMPONENTS.md) — component catalog with data dependencies
+- [`adr/`](./docs/adr/) — architecture decision records
+- [`pitfalls/`](./docs/pitfalls/) — known gotchas and non-obvious behavior
 
-## Learn More
+## Repository structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/           Next.js App Router (pages and layouts)
+components/    Shared React components
+lib/           GraphQL client, utilities, hooks
+store/         Zustand stores
+types/         TypeScript interfaces
+constants/     Shared lookup tables (categoryColors, navigation)
+styles/        CSS custom properties and global styles
+docs/          Project documentation
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Reference prototype
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Figma Make prototype lives in `Neobrutalist Art Blog Homepage/` (gitignored — local reference only). All visual decisions are derived from it. Do not change any styling without consulting it.

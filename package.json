@@ -2,6 +2,20 @@
   "name": "armando-blog",
   "version": "0.1.0",
   "private": true,
+  "description": "Personal blog about art and digital technology — Next.js 16 + Headless WordPress.",
+  "author": "Armando Monteiro",
+  "license": "MIT",
+  "keywords": [
+    "nextjs",
+    "headless-wordpress",
+    "wpgraphql",
+    "blog",
+    "neobrutalism"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armandomonteir-o/armando-blog.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
