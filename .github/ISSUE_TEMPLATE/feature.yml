@@ -1,0 +1,30 @@
+name: Feature
+description: New feature or functionality
+labels: ["type: feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening, check the [milestone board](../../milestones) to see if this is already planned.
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What problem does this solve? Why is it needed?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Checkboxes for what "done" looks like
+      value: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Links to CLAUDE.md sections, docs, or prototype screenshots
