@@ -72,7 +72,7 @@ export default async function PostPage({
 
       {/* Post body */}
       <div
-        className="relative overflow-hidden"
+        className="relative"
         style={{ backgroundColor: "var(--arm-bg)", transition: "background-color 0.3s ease" }}
       >
         {/* Pixel grid background */}
@@ -85,7 +85,10 @@ export default async function PostPage({
           }}
         />
 
-        <AeroElements />
+        {/* AeroElements wrapped so it can't cause horizontal overflow */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <AeroElements />
+        </div>
 
         <div className="relative z-10 flex flex-col xl:flex-row gap-6 p-4 sm:p-6 max-w-[1200px] mx-auto">
           {/* Table of contents sidebar — hidden on mobile */}

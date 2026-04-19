@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "motion/react";
 import { ArrowLeft, Eye, Heart, MessageCircle, Share2, Bookmark, ChevronRight } from "lucide-react";
 import { WavyText } from "@/components/ui/WavyText";
 
@@ -40,14 +41,16 @@ export function PostHero({
 
   return (
     <div className="relative" style={{ minHeight: "420px", overflow: "hidden" }}>
-      {/* Hero image */}
-      <div
+      {/* Hero image — zoom-in on mount (backgroundAttachment:fixed doesn't work with custom scroll containers) */}
+      <motion.div
         className="absolute inset-0"
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
         style={{
           backgroundImage: `url(${heroImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center 30%",
-          backgroundAttachment: "fixed",
         }}
       />
       {/* Scanline overlay */}
