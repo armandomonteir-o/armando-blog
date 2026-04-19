@@ -97,7 +97,7 @@ const timeline = [
     description:
       "Redesign completo com estética Frutiger Aero. Glassmorphism, bolhas glossy e gradientes translúcidos. O blog se torna uma experiência visual imersiva.",
     icon: Zap,
-    color: "#80b0ff",
+    color: "#c8e0ff",
   },
 ];
 
@@ -105,7 +105,7 @@ const interests = [
   { icon: Headphones, label: "Synthwave & Ambient", color: "#f59e0b" },
   { icon: Gamepad2, label: "Jogos Indie & Pixel Art", color: "#4ade80" },
   { icon: Coffee, label: "Café & Lo-fi Beats", color: "#e05050" },
-  { icon: Code, label: "Creative Coding", color: "#80b0ff" },
+  { icon: Code, label: "Creative Coding", color: "#c8e0ff" },
   { icon: Palette, label: "Design Generativo", color: "#c084fc" },
   { icon: BookOpen, label: "Sci-Fi & Filosofia", color: "#f59e0b" },
 ];
@@ -182,7 +182,7 @@ function StatCard({
           fontFamily: "'Space Mono', monospace",
           fontSize: "8px",
           fontWeight: 700,
-          color: "#5a8ad0",
+          color: "#a0c4ff",
           marginTop: "4px",
           letterSpacing: "0.1em",
         }}
@@ -558,7 +558,7 @@ export default function SobrePage() {
                         fontFamily: "'Space Grotesk', sans-serif",
                         fontSize: "14px",
                         lineHeight: 1.75,
-                        color: "#80b0ff",
+                        color: "#c8e0ff",
                       }}
                     >
                       {p}
@@ -614,13 +614,13 @@ export default function SobrePage() {
                           "rgba(5,96,224,0.3)";
                       }}
                     >
-                      <s.icon size={13} style={{ color: "#80b0ff" }} />
+                      <s.icon size={13} style={{ color: "#c8e0ff" }} />
                       <span
                         style={{
                           fontFamily: "'Space Mono', monospace",
                           fontSize: "8px",
                           fontWeight: 700,
-                          color: "#80b0ff",
+                          color: "#c8e0ff",
                         }}
                       >
                         {s.label}
@@ -645,7 +645,7 @@ export default function SobrePage() {
                     icon={Eye}
                     label="VIEWS"
                     value={AUTHOR.stats.views}
-                    color="#80b0ff"
+                    color="#c8e0ff"
                     delay={0.1}
                   />
                   <StatCard
@@ -752,7 +752,7 @@ export default function SobrePage() {
                     style={{
                       fontFamily: "'Space Mono', monospace",
                       fontSize: "9px",
-                      color: "#5a8ad0",
+                      color: "#a0c4ff",
                     }}
                   >
                     ÚLTIMOS 9 MESES
@@ -783,7 +783,7 @@ export default function SobrePage() {
                     style={{
                       fontFamily: "'Space Mono', monospace",
                       fontSize: "9px",
-                      color: "#5a8ad0",
+                      color: "#a0c4ff",
                     }}
                   >
                     PROFICIENCY %
@@ -867,7 +867,7 @@ export default function SobrePage() {
                             fontFamily: "'Space Grotesk', sans-serif",
                             fontSize: "13px",
                             lineHeight: 1.65,
-                            color: "#80b0ff",
+                            color: "#c8e0ff",
                           }}
                         >
                           {item.description}
@@ -962,7 +962,7 @@ export default function SobrePage() {
                 style={{
                   fontFamily: "'Space Mono', monospace",
                   fontSize: "10px",
-                  color: "#5a8ad0",
+                  color: "#a0c4ff",
                 }}
               >
                 SNAPSHOTS DO MEU UNIVERSO CRIATIVO
@@ -1003,7 +1003,7 @@ export default function SobrePage() {
                           fontFamily: "'Space Mono', monospace",
                           fontSize: "8px",
                           fontWeight: 700,
-                          color: "#80b0ff",
+                          color: "#c8e0ff",
                           letterSpacing: "0.1em",
                         }}
                       >

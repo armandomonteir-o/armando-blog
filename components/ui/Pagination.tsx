@@ -16,7 +16,7 @@ const paginationButtonStyle: React.CSSProperties = {
   fontWeight: 700,
   border: "2px solid #0560e0",
   backgroundColor: "#0458d4",
-  color: "#80b0ff",
+  color: "#c8e0ff",
   cursor: "pointer",
   transition: "transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease",
 };
@@ -53,7 +53,7 @@ export function Pagination({
   return (
     <div className="mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       <div className="flex items-center gap-2">
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0" }}>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#a0c4ff" }}>
           SHOWING {startIdx + 1}-{Math.min(startIdx + itemsPerPage, totalItems)} OF {totalItems}
         </span>
         <div

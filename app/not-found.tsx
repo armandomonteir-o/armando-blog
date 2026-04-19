@@ -294,7 +294,7 @@ export default function NotFound() {
                 style={{
                   fontFamily: "'Space Mono', monospace",
                   fontSize: "9px",
-                  color: "#5a8ad0",
+                  color: "#a0c4ff",
                   marginLeft: "8px",
                 }}
               >
@@ -349,7 +349,7 @@ export default function NotFound() {
                   style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: "8px",
-                    color: "#5a8ad0",
+                    color: "#a0c4ff",
                   }}
                 >
                   SEARCHING_REALITY.EXE...

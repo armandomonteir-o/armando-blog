@@ -108,7 +108,7 @@ export function Sidebar({
               fontFamily: "'Space Mono', monospace",
               fontSize: "10px",
               fontWeight: 700,
-              color: "#80b0ff",
+              color: "#c8e0ff",
               letterSpacing: "0.05em",
               whiteSpace: "nowrap",
             }}
@@ -121,7 +121,7 @@ export function Sidebar({
               fontFamily: "'Space Mono', monospace",
               fontSize: "10px",
               fontWeight: 700,
-              color: "#80b0ff",
+              color: "#c8e0ff",
             }}
           >
             NAV
@@ -194,7 +194,7 @@ export function Sidebar({
                   title={!isExpanded ? item.label : undefined}
                   style={{
                     backgroundColor: isActive ? "#fff" : "transparent",
-                    color: isActive ? "#0347c1" : "#80b0ff",
+                    color: isActive ? "#0347c1" : "#c8e0ff",
                     border: isActive ? "2px solid #fff" : "2px solid transparent",
                     fontWeight: isActive ? 700 : 500,
                     fontSize: "14px",
@@ -329,7 +329,7 @@ export function Sidebar({
               fontSize: "12px",
               fontWeight: 500,
               fontFamily: "'Space Mono', monospace",
-              color: "#80b0ff",
+              color: "#c8e0ff",
               backgroundColor: "transparent",
               border: "none",
               justifyContent: isExpanded ? "flex-start" : "center",
@@ -339,7 +339,7 @@ export function Sidebar({
               e.currentTarget.style.color = "#fff";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#80b0ff";
+              e.currentTarget.style.color = "#c8e0ff";
             }}
           >
             {isDark ? (

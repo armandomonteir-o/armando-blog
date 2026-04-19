@@ -123,7 +123,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
       {/* Hamburger — mobile */}
       <button
         className="lg:hidden flex items-center justify-center w-9 h-9 cursor-pointer flex-shrink-0 mr-2 relative z-10"
-        style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4", color: "#80b0ff" }}
+        style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4", color: "#c8e0ff" }}
         onClick={onMobileMenuToggle}
         aria-label="Abrir menu"
       >
@@ -133,7 +133,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
       {/* Back button — desktop */}
       <button
         className="hidden lg:flex items-center justify-center w-9 h-9 cursor-pointer flex-shrink-0 relative z-10"
-        style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4", color: "#80b0ff" }}
+        style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4", color: "#c8e0ff" }}
         onClick={() => router.back()}
         title="Voltar"
       >
@@ -154,7 +154,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
           <Search
             size={14}
             className="mr-2 sm:mr-3 flex-shrink-0"
-            style={{ color: searchFocused ? "#4ade80" : "#80b0ff" }}
+            style={{ color: searchFocused ? "#4ade80" : "#c8e0ff" }}
           />
           <input
             type="text"
@@ -168,7 +168,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
           {searchQuery && (
             <button
               className="flex-shrink-0 cursor-pointer"
-              style={{ background: "none", border: "none", color: "#80b0ff", padding: 0 }}
+              style={{ background: "none", border: "none", color: "#c8e0ff", padding: 0 }}
               onClick={() => {
                 setSearchQuery("");
                 setSearchFocused(false);
@@ -198,7 +198,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                 style={{
                   fontFamily: "'Space Mono', monospace",
                   fontSize: "9px",
-                  color: "#80b0ff",
+                  color: "#c8e0ff",
                   letterSpacing: "0.1em",
                 }}
               >
@@ -233,7 +233,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                     e.currentTarget.style.background = "transparent";
                   }}
                 >
-                  <Search size={11} style={{ color: "#5a8ad0", flexShrink: 0 }} />
+                  <Search size={11} style={{ color: "#a0c4ff", flexShrink: 0 }} />
                   <div className="flex-1 min-w-0">
                     <div
                       className="truncate"
@@ -249,7 +249,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                       style={{
                         fontFamily: "'Space Mono', monospace",
                         fontSize: "9px",
-                        color: "#5a8ad0",
+                        color: "#a0c4ff",
                       }}
                     >
                       {r.category.toUpperCase()}
@@ -263,7 +263,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                   style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: "10px",
-                    color: "#5a8ad0",
+                    color: "#a0c4ff",
                   }}
                 >
                   NENHUM RESULTADO ENCONTRADO
@@ -282,7 +282,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             style={{
               border: "2px solid #0560e0",
               backgroundColor: notifOpen ? "#022a6e" : "#0458d4",
-              color: "#80b0ff",
+              color: "#c8e0ff",
             }}
             onClick={() => setNotifOpen((v) => !v)}
             aria-label="Notificações"
@@ -365,7 +365,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                   style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: 9,
-                    color: "#80b0ff",
+                    color: "#c8e0ff",
                     background: "transparent",
                     border: "none",
                     cursor: "pointer",
@@ -423,7 +423,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                           style={{
                             fontFamily: "'Space Mono', monospace",
                             fontSize: 10,
-                            color: n.unread ? "#e0eeff" : "#80b0ff",
+                            color: n.unread ? "#e0eeff" : "#c8e0ff",
                             fontWeight: n.unread ? 700 : 400,
                             letterSpacing: "0.04em",
                             textTransform: "uppercase",
@@ -477,7 +477,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                   style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: 10,
-                    color: "#80b0ff",
+                    color: "#c8e0ff",
                     background: "transparent",
                     border: "none",
                     cursor: "pointer",

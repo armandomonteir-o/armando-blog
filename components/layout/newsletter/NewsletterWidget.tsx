@@ -87,7 +87,7 @@ export function NewsletterWidget() {
                         fontFamily: "'Space Mono', monospace",
                         fontSize: "10px",
                         lineHeight: 1.55,
-                        color: "#5a8ad0",
+                        color: "#a0c4ff",
                       }}
                     >
                       Sem spam, sem conteudo premium — so um aviso quando sair post novo.
@@ -101,7 +101,7 @@ export function NewsletterWidget() {
                     <Mail
                       size={13}
                       className="absolute left-2.5 top-1/2 -translate-y-1/2"
-                      style={{ color: "#5a8ad0" }}
+                      style={{ color: "#a0c4ff" }}
                     />
                     <input
                       type="email"
@@ -216,7 +216,7 @@ export function NewsletterWidget() {
                     style={{
                       fontFamily: "'Space Mono', monospace",
                       fontSize: "9px",
-                      color: "#5a8ad0",
+                      color: "#a0c4ff",
                     }}
                   >
                     ID: #{notifyId} — confira sua caixa de entrada.

@@ -58,7 +58,7 @@ function GenreChip({
       style={{
         border: isActive ? `2px solid ${color}` : "2px solid #0560e0",
         backgroundColor: isActive ? `${color}22` : "#0458d4",
-        color: isActive ? color : "#80b0ff",
+        color: isActive ? color : "#c8e0ff",
         fontFamily: "'Space Mono', monospace",
         fontSize: "10px",
         fontWeight: 700,
@@ -118,7 +118,7 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
                   fontFamily: "'Space Mono', monospace",
                   fontSize: "8px",
                   fontWeight: 700,
-                  color: "#80b0ff",
+                  color: "#c8e0ff",
                 }}
               >
                 PLAYLIST-{playlist.id.split("-")[1]}.SPT
@@ -233,7 +233,7 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
                 fontFamily: "'Space Mono', monospace",
                 fontSize: "10px",
                 lineHeight: 1.5,
-                color: "#80b0ff",
+                color: "#c8e0ff",
                 marginBottom: "10px",
               }}
             >
@@ -245,19 +245,19 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
               className="flex items-center gap-3 py-2 mb-3"
               style={{ borderTop: "1px solid #0560e0", borderBottom: "1px solid #0560e0" }}
             >
-              <div className="flex items-center gap-1" style={{ color: "#5a8ad0" }}>
+              <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
                 <Clock size={10} />
                 <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>
                   {playlist.totalDuration}
                 </span>
               </div>
-              <div className="flex items-center gap-1" style={{ color: "#5a8ad0" }}>
+              <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
                 <Users size={10} />
                 <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>
                   {playlist.followers.toLocaleString("pt-BR")}
                 </span>
               </div>
-              <div className="flex items-center gap-1 ml-auto" style={{ color: "#5a8ad0" }}>
+              <div className="flex items-center gap-1 ml-auto" style={{ color: "#a0c4ff" }}>
                 <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "7px" }}>
                   UPD: {playlist.lastUpdated}
                 </span>
@@ -273,7 +273,7 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
                 fontFamily: "'Space Mono', monospace",
                 fontSize: "9px",
                 fontWeight: 700,
-                color: "#80b0ff",
+                color: "#c8e0ff",
               }}
             >
               <span>{expanded ? "OCULTAR" : "VER"} TOP TRACKS</span>
@@ -335,7 +335,7 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
                             style={{
                               fontFamily: "'Space Mono', monospace",
                               fontSize: "8px",
-                              color: "#5a8ad0",
+                              color: "#a0c4ff",
                             }}
                           >
                             {track.artist}
@@ -345,7 +345,7 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
                           style={{
                             fontFamily: "'Space Mono', monospace",
                             fontSize: "8px",
-                            color: "#5a8ad0",
+                            color: "#a0c4ff",
                             flexShrink: 0,
                           }}
                         >
@@ -666,7 +666,7 @@ export default function PlaylistsPage() {
                     style={{
                       fontFamily: "'Space Mono', monospace",
                       fontSize: "9px",
-                      color: "#5a8ad0",
+                      color: "#a0c4ff",
                     }}
                   >
                     {filteredPlaylists.length} ENTRIES FOUND
@@ -683,14 +683,14 @@ export default function PlaylistsPage() {
                       className="w-16 h-16 flex items-center justify-center mb-4"
                       style={{ border: "3px solid #0560e0", backgroundColor: "#0458d4" }}
                     >
-                      <Music size={28} style={{ color: "#5a8ad0" }} />
+                      <Music size={28} style={{ color: "#a0c4ff" }} />
                     </div>
                     <p
                       style={{
                         fontFamily: "'Space Grotesk', sans-serif",
                         fontWeight: 700,
                         fontSize: "16px",
-                        color: "#80b0ff",
+                        color: "#c8e0ff",
                         marginBottom: 8,
                       }}
                     >
@@ -700,7 +700,7 @@ export default function PlaylistsPage() {
                       style={{
                         fontFamily: "'Space Mono', monospace",
                         fontSize: "10px",
-                        color: "#5a8ad0",
+                        color: "#a0c4ff",
                       }}
                     >
                       Tente selecionar outros generos no filtro acima
@@ -714,7 +714,7 @@ export default function PlaylistsPage() {
                         fontFamily: "'Space Mono', monospace",
                         fontSize: "11px",
                         fontWeight: 700,
-                        color: "#80b0ff",
+                        color: "#c8e0ff",
                         boxShadow: "3px 3px 0 #022a6e",
                       }}
                     >

@@ -60,7 +60,7 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
           />
           <span
             className="flex-shrink-0"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0" }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#a0c4ff" }}
           >
             {comments.length} RESPONSES
           </span>
@@ -73,7 +73,7 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
         >
           <div
             className="mb-2"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0" }}
+            style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#a0c4ff" }}
           >
             {">"} ESCREVA SEU COMENTARIO_
           </div>
@@ -191,7 +191,7 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                       style={{
                         fontFamily: "'Space Mono', monospace",
                         fontSize: "8px",
-                        color: "#5a8ad0",
+                        color: "#a0c4ff",
                         letterSpacing: "0.05em",
                       }}
                     >
@@ -349,7 +349,7 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                             border: `1px solid ${accent}25`,
                             fontFamily: "'Space Mono', monospace",
                             fontSize: "9px",
-                            color: "#5a8ad0",
+                            color: "#a0c4ff",
                             transition: "all 0.15s ease",
                           }}
                           onMouseEnter={(e) => {
@@ -360,7 +360,7 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                           onMouseLeave={(e) => {
                             e.currentTarget.style.backgroundColor = "transparent";
                             e.currentTarget.style.borderColor = `${accent}25`;
-                            e.currentTarget.style.color = "#5a8ad0";
+                            e.currentTarget.style.color = "#a0c4ff";
                           }}
                         >
                           <span style={{ fontSize: "10px" }}>{r.emoji}</span>

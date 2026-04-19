@@ -101,7 +101,7 @@ export function FeaturedPost() {
                   fontFamily: "'Space Mono', monospace",
                   fontSize: "12px",
                   lineHeight: 1.7,
-                  color: "#80b0ff",
+                  color: "#c8e0ff",
                 }}
               >
                 Um manifesto sobre como a arte digital transcende os limites do humano e do codigo.
@@ -135,7 +135,7 @@ export function FeaturedPost() {
                       style={{
                         fontFamily: "'Space Mono', monospace",
                         fontSize: "9px",
-                        color: "#5a8ad0",
+                        color: "#a0c4ff",
                       }}
                     >
                       {stat.label}
@@ -175,7 +175,7 @@ export function FeaturedPost() {
                 className="px-5 py-2.5 cursor-pointer"
                 style={{
                   backgroundColor: "#0458d4",
-                  color: "#80b0ff",
+                  color: "#c8e0ff",
                   border: "3px solid #0560e0",
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700,

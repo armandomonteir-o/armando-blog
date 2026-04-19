@@ -118,7 +118,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                   style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: "9px",
-                    color: "#5a8ad0",
+                    color: "#a0c4ff",
                   }}
                 >
                   {category.subcategories.length} ENTRIES FOUND
@@ -161,7 +161,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                             fontFamily: "'Space Mono', monospace",
                             fontSize: "9px",
                             fontWeight: 700,
-                            color: "#80b0ff",
+                            color: "#c8e0ff",
                           }}
                         >
                           SUBCAT-{String(i + 1).padStart(2, "0")}.EXE
@@ -253,7 +253,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                             fontFamily: "'Space Grotesk', sans-serif",
                             fontSize: "13px",
                             lineHeight: 1.6,
-                            color: "#80b0ff",
+                            color: "#c8e0ff",
                           }}
                         >
                           {sub.description.length > 130
@@ -271,7 +271,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                                 fontFamily: "'Space Mono', monospace",
                                 fontSize: "8px",
                                 fontWeight: 700,
-                                color: "#5a8ad0",
+                                color: "#a0c4ff",
                               }}
                             >
                               {tag.toUpperCase()}

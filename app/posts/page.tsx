@@ -127,7 +127,7 @@ export default function PostsPage() {
                     style={{
                       fontFamily: "'Space Mono', monospace",
                       fontSize: "9px",
-                      color: "#5a8ad0",
+                      color: "#a0c4ff",
                     }}
                   >
                     {filteredPosts.length} ENTRIES FOUND
@@ -142,7 +142,7 @@ export default function PostsPage() {
                       fontFamily: "'Space Mono', monospace",
                       fontSize: "10px",
                       fontWeight: 700,
-                      color: !selectedCategory ? "#022a6e" : "#5a8ad0",
+                      color: !selectedCategory ? "#022a6e" : "#a0c4ff",
                     }}
                     onClick={() => handleCategoryChange(null)}
                   >
@@ -158,7 +158,7 @@ export default function PostsPage() {
                         fontFamily: "'Space Mono', monospace",
                         fontSize: "10px",
                         fontWeight: 700,
-                        color: selectedCategory === cat ? "#022a6e" : "#5a8ad0",
+                        color: selectedCategory === cat ? "#022a6e" : "#a0c4ff",
                       }}
                       onClick={() => handleCategoryChange(cat)}
                     >
@@ -215,7 +215,7 @@ export default function PostsPage() {
                           style={{
                             fontFamily: "'Space Mono', monospace",
                             fontSize: "8px",
-                            color: post.isCorrupted ? "#ff4444" : "#5a8ad0",
+                            color: post.isCorrupted ? "#ff4444" : "#a0c4ff",
                           }}
                         >
                           {post.isCorrupted
@@ -293,7 +293,7 @@ export default function PostsPage() {
                             fontFamily: "'Space Mono', monospace",
                             fontSize: "10px",
                             lineHeight: 1.5,
-                            color: "#80b0ff",
+                            color: "#c8e0ff",
                             marginBottom: "8px",
                           }}
                         >
@@ -303,7 +303,7 @@ export default function PostsPage() {
                           className="flex items-center gap-3 pt-2"
                           style={{ borderTop: "1px solid #0560e0" }}
                         >
-                          <div className="flex items-center gap-1" style={{ color: "#5a8ad0" }}>
+                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
                             <Clock size={10} />
                             <span
                               style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
@@ -311,7 +311,7 @@ export default function PostsPage() {
                               {post.date}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1" style={{ color: "#5a8ad0" }}>
+                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
                             <Eye size={10} />
                             <span
                               style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
@@ -319,7 +319,7 @@ export default function PostsPage() {
                               {post.reads}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1" style={{ color: "#5a8ad0" }}>
+                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
                             <MessageCircle size={10} />
                             <span
                               style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}

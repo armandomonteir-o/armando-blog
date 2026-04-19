@@ -162,7 +162,7 @@ export function MusicConsentBar({
               style={{
                 fontFamily: "'Space Mono', monospace",
                 fontSize: "9px",
-                color: "#80b0ff",
+                color: "#c8e0ff",
               }}
             >
               Toque uma playlist enquanto navega pelo blog
@@ -204,7 +204,7 @@ export function MusicConsentBar({
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 700,
               fontSize: "12px",
-              color: "#80b0ff",
+              color: "#c8e0ff",
               transition: "background 0.15s",
             }}
             onMouseEnter={(e) => {
@@ -333,7 +333,7 @@ export function NowPlayingWidget() {
           style={{
             fontFamily: "'Space Mono', monospace",
             fontSize: "11px",
-            color: "#80b0ff",
+            color: "#c8e0ff",
           }}
         >
           {track.artist} — {track.title}
@@ -402,7 +402,7 @@ export function NowPlayingWidget() {
               fontFamily: "'Space Mono', monospace",
               fontSize: "10px",
               fontWeight: 700,
-              color: "#80b0ff",
+              color: "#c8e0ff",
               letterSpacing: "0.05em",
             }}
           >
@@ -467,7 +467,7 @@ export function NowPlayingWidget() {
             style={{
               fontFamily: "'Space Mono', monospace",
               fontSize: "9px",
-              color: "#5a8ad0",
+              color: "#a0c4ff",
               marginTop: 1,
             }}
           >
@@ -480,7 +480,7 @@ export function NowPlayingWidget() {
               style={{
                 fontFamily: "'Space Mono', monospace",
                 fontSize: "8px",
-                color: "#5a8ad0",
+                color: "#a0c4ff",
                 minWidth: 28,
               }}
             >
@@ -514,7 +514,7 @@ export function NowPlayingWidget() {
               style={{
                 fontFamily: "'Space Mono', monospace",
                 fontSize: "8px",
-                color: "#5a8ad0",
+                color: "#a0c4ff",
                 minWidth: 28,
                 textAlign: "right",
               }}
@@ -532,7 +532,7 @@ export function NowPlayingWidget() {
                 style={{
                   border: "2px solid #0560e0",
                   backgroundColor: "#0458d4",
-                  color: "#80b0ff",
+                  color: "#c8e0ff",
                   transition: "background 0.15s",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0560e0")}
@@ -569,7 +569,7 @@ export function NowPlayingWidget() {
                 style={{
                   border: "2px solid #0560e0",
                   backgroundColor: "#0458d4",
-                  color: "#80b0ff",
+                  color: "#c8e0ff",
                   transition: "background 0.15s",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0560e0")}
@@ -584,7 +584,7 @@ export function NowPlayingWidget() {
               <button
                 onClick={() => setMuted(!muted)}
                 className="cursor-pointer"
-                style={{ color: "#80b0ff", background: "none", border: "none" }}
+                style={{ color: "#c8e0ff", background: "none", border: "none" }}
               >
                 {muted || volume === 0 ? <VolumeX size={13} /> : <Volume2 size={13} />}
               </button>
@@ -635,7 +635,7 @@ export function NowPlayingWidget() {
               style={{
                 fontFamily: "'Space Mono', monospace",
                 fontSize: "9px",
-                color: i === currentTrack ? "#4ade80" : "#5a8ad0",
+                color: i === currentTrack ? "#4ade80" : "#a0c4ff",
                 width: 16,
                 textAlign: "center",
                 flexShrink: 0,
@@ -649,7 +649,7 @@ export function NowPlayingWidget() {
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontSize: "11px",
                 fontWeight: i === currentTrack ? 700 : 400,
-                color: i === currentTrack ? "#fff" : "#80b0ff",
+                color: i === currentTrack ? "#fff" : "#c8e0ff",
               }}
             >
               {t.artist} — {t.title}
@@ -658,7 +658,7 @@ export function NowPlayingWidget() {
               style={{
                 fontFamily: "'Space Mono', monospace",
                 fontSize: "9px",
-                color: "#5a8ad0",
+                color: "#a0c4ff",
                 flexShrink: 0,
               }}
             >

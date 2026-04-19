@@ -60,7 +60,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
               fontFamily: "'Space Grotesk', sans-serif",
               fontSize: "13px",
               lineHeight: 1.6,
-              color: "#80b0ff",
+              color: "#c8e0ff",
             }}
           >
             {author.bio}

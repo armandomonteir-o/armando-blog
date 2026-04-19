@@ -73,7 +73,7 @@ export function AppShell({ children }: AppShellProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <p
-              style={{ fontFamily: "'Space Mono', monospace", fontSize: "12px", color: "#80b0ff" }}
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: "12px", color: "#c8e0ff" }}
             >
               NEWSLETTER.EXE — em breve
             </p>

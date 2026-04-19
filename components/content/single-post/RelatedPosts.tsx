@@ -43,7 +43,7 @@ export function RelatedPosts({ posts, categoryColors }: RelatedPostsProps) {
                   style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: "8px",
-                    color: "#5a8ad0",
+                    color: "#a0c4ff",
                   }}
                 >
                   RELATED-{String(post.id).padStart(2, "0")}.MD
@@ -109,7 +109,7 @@ export function RelatedPosts({ posts, categoryColors }: RelatedPostsProps) {
                     fontFamily: "'Space Mono', monospace",
                     fontSize: "9px",
                     lineHeight: 1.5,
-                    color: "#80b0ff",
+                    color: "#c8e0ff",
                   }}
                 >
                   {post.excerpt}

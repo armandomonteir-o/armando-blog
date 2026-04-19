@@ -71,7 +71,7 @@ function CustomTooltip({
         padding: "8px 12px",
         fontFamily: "'Space Mono', monospace",
         fontSize: "10px",
-        color: "#80b0ff",
+        color: "#c8e0ff",
       }}
     >
       <span style={{ color: "#fff" }}>{label}:</span> {payload[0].value} posts

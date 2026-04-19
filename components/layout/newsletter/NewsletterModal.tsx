@@ -109,7 +109,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                       fontFamily: "'Space Mono', monospace",
                       fontSize: "10px",
                       fontWeight: 700,
-                      color: "#80b0ff",
+                      color: "#c8e0ff",
                       letterSpacing: "0.05em",
                     }}
                   >
@@ -246,7 +246,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             <Mail
                               size={14}
                               className="absolute left-3 top-1/2 -translate-y-1/2"
-                              style={{ color: "#5a8ad0" }}
+                              style={{ color: "#a0c4ff" }}
                             />
                             <input
                               type="email"
@@ -328,7 +328,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           <Lock
                             size={13}
                             className="flex-shrink-0 mt-0.5"
-                            style={{ color: "#5a8ad0" }}
+                            style={{ color: "#a0c4ff" }}
                           />
                           <div>
                             <span
@@ -336,7 +336,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                                 fontFamily: "'Space Mono', monospace",
                                 fontSize: "9px",
                                 fontWeight: 700,
-                                color: "#80b0ff",
+                                color: "#c8e0ff",
                                 letterSpacing: "0.03em",
                                 display: "block",
                                 marginBottom: "3px",
@@ -349,7 +349,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                                 fontFamily: "'Space Mono', monospace",
                                 fontSize: "9px",
                                 lineHeight: 1.6,
-                                color: "#5a8ad0",
+                                color: "#a0c4ff",
                               }}
                             >
                               Nao armazeno nenhuma informacao pessoal dos visitantes deste site. Seu
@@ -443,12 +443,12 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           transition={{ delay: 0.65 }}
                           className="mt-4 flex items-center gap-1.5"
                         >
-                          <ShieldCheck size={12} style={{ color: "#5a8ad0" }} />
+                          <ShieldCheck size={12} style={{ color: "#a0c4ff" }} />
                           <span
                             style={{
                               fontFamily: "'Space Mono', monospace",
                               fontSize: "8px",
-                              color: "#5a8ad0",
+                              color: "#a0c4ff",
                             }}
                           >
                             NENHUMA INFORMACAO PESSOAL ARMAZENADA
@@ -467,7 +467,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             fontFamily: "'Space Mono', monospace",
                             fontSize: "10px",
                             fontWeight: 700,
-                            color: "#80b0ff",
+                            color: "#c8e0ff",
                           }}
                           whileHover={{
                             backgroundColor: "#0560e0",
