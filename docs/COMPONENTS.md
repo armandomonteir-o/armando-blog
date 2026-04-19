@@ -172,8 +172,14 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
 - **Migration**: → `components/ui/ScrollToTop.tsx` ✅ `"use client"`, wired into `AppShell`. References `#main-scroll-container` — see PITFALL-004.
 
 ### `AppImage.tsx` — NEW
-- **Purpose**: Wrapper around `next/image` with `sizes` required and automatic fallback on broken images
-- **Props**: All `next/image` props except `sizes` is now required; `fallbackSrc?: string`
+- **Purpose**: Wrapper around `next/image` with `sizes` required, LCP helpers, and automatic fallback on broken images
+- **Props** (all `next/image` props, with these rules):
+  - `sizes: string` — **required** (forces callers to always think about responsive sizes)
+  - `priority?: boolean` — pass `true` for the first above-the-fold image on each page (LCP); sets `fetchpriority="high"` + `loading="eager"` automatically
+  - `loading?: "lazy" | "eager"` — explicit loading hint; ignored when `priority={true}` (priority always wins)
+  - No `fallbackSrc` prop — broken images silently fall back to a 1×1 transparent PNG data URI internally
+- **Fill mode**: parent needs `position: relative` + a defined height; pass `fill sizes="..."` 
+- **Fixed mode**: pass `width={N} height={N} sizes="Npx"`
 - **Migration**: → `components/ui/AppImage.tsx` ✅ Replaces `ImageWithFallback` from prototype. Use everywhere instead of `next/image` directly.
 
 ---
