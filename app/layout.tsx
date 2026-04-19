@@ -5,6 +5,7 @@ import {
   Rubik_Glitch,
   Bungee_Shade,
 } from "next/font/google";
+import { AppShell } from "@/components/layout/AppShell";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -54,7 +55,9 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${spaceGrotesk.variable} ${spaceMono.variable} ${rubikGlitch.variable} ${bungeeShade.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <AppShell>{children}</AppShell>
+      </body>
     </html>
   );
 }
