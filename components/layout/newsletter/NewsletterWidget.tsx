@@ -10,10 +10,19 @@ export function NewsletterWidget() {
   const [subscribed, setSubscribed] = useState(false);
   const [notifyId] = useState(() => Math.random().toString(36).substring(2, 8).toUpperCase());
   const [btnHover, setBtnHover] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
-    if (email.trim()) setSubscribed(true);
+    if (!email.trim()) {
+      setError("> ERRO: preencha o campo de e-mail.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("> ERRO: e-mail invalido.");
+      return;
+    }
+    setSubscribed(true);
   };
 
   return (
@@ -49,6 +58,7 @@ export function NewsletterWidget() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
                 className="relative z-10"
+                noValidate
               >
                 {/* Header */}
                 <div className="flex items-start gap-3 mb-3">
@@ -106,10 +116,11 @@ export function NewsletterWidget() {
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => { setEmail(e.target.value); if (error) setError(""); }}
                       placeholder="seu@email.com"
-                      required
                       className="w-full pl-8 pr-3 py-2.5"
+                      aria-invalid={!!error}
+                      aria-describedby={error ? "widget-email-error" : undefined}
                       style={{
                         backgroundColor: "#022a6e",
                         border: "2px solid #0560e0",
@@ -167,6 +178,26 @@ export function NewsletterWidget() {
                     INSCREVER
                   </motion.button>
                 </div>
+
+                <AnimatePresence>
+                  {error && (
+                    <motion.p
+                      id="widget-email-error"
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.2 }}
+                      className="mt-1.5"
+                      style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: "9px",
+                        color: "#ff6b6b",
+                      }}
+                    >
+                      {error}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
 
                 <p
                   className="mt-2"

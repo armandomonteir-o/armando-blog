@@ -14,6 +14,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
   const [subscribed, setSubscribed] = useState(false);
   const [btnHover, setBtnHover] = useState(false);
   const [notifyId] = useState(() => Math.random().toString(36).substring(2, 8).toUpperCase());
+  const [error, setError] = useState("");
   const prevOpen = useRef(false);
 
   useEffect(() => {
@@ -36,9 +37,17 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
     if (!open) prevOpen.current = false;
   }, [open]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
-    if (email.trim()) setSubscribed(true);
+    if (!email.trim()) {
+      setError("> ERRO: preencha o campo de e-mail.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("> ERRO: e-mail invalido.");
+      return;
+    }
+    setSubscribed(true);
   };
 
   return (
@@ -240,7 +249,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           exclusivo — tudo esta aqui, aberto, no blog.
                         </p>
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} noValidate>
                           {/* Email input */}
                           <div className="relative mb-3">
                             <Mail
@@ -251,11 +260,12 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             <input
                               type="email"
                               value={email}
-                              onChange={(e) => setEmail(e.target.value)}
+                              onChange={(e) => { setEmail(e.target.value); if (error) setError(""); }}
                               placeholder="seu@email.com"
-                              required
                               autoFocus
                               className="w-full pl-9 pr-4 py-3"
+                              aria-invalid={!!error}
+                              aria-describedby={error ? "modal-email-error" : undefined}
                               style={{
                                 backgroundColor: "#022a6e",
                                 border: "2px solid #0560e0",
@@ -275,6 +285,26 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                               }}
                             />
                           </div>
+
+                          <AnimatePresence>
+                            {error && (
+                              <motion.p
+                                id="modal-email-error"
+                                initial={{ opacity: 0, y: -4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                transition={{ duration: 0.2 }}
+                                className="mb-3 -mt-1"
+                                style={{
+                                  fontFamily: "'Space Mono', monospace",
+                                  fontSize: "9px",
+                                  color: "#ff6b6b",
+                                }}
+                              >
+                                {error}
+                              </motion.p>
+                            )}
+                          </AnimatePresence>
 
                           {/* Submit button */}
                           <motion.button
