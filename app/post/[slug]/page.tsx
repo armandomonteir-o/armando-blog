@@ -52,7 +52,7 @@ export default async function PostPage({
 
   return (
     <div
-      className="flex-1 relative overflow-hidden"
+      className="flex-1 relative"
       style={{ backgroundColor: "var(--arm-bg)", transition: "background-color 0.3s ease" }}
     >
       <ReadingProgress />
@@ -72,7 +72,7 @@ export default async function PostPage({
 
       {/* Post body */}
       <div
-        className="relative"
+        className="relative overflow-hidden"
         style={{ backgroundColor: "var(--arm-bg)", transition: "background-color 0.3s ease" }}
       >
         {/* Pixel grid background */}
