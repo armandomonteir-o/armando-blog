@@ -54,6 +54,7 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       className={`${spaceGrotesk.variable} ${spaceMono.variable} ${rubikGlitch.variable} ${bungeeShade.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
         <AppShell>{children}</AppShell>

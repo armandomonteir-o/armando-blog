@@ -70,9 +70,10 @@ export function WavyText({
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         className={className}
         preserveAspectRatio="xMidYMid meet"
+        suppressHydrationWarning
       >
         <defs>
-          <path id={id} d={pathD} />
+          <path id={id} d={pathD} suppressHydrationWarning />
         </defs>
         <text
           style={{
@@ -83,7 +84,7 @@ export function WavyText({
             letterSpacing: "-0.02em",
           }}
         >
-          <textPath href={`#${id}`} startOffset="0%">
+          <textPath href={`#${id}`} startOffset="0%" suppressHydrationWarning>
             {text}
           </textPath>
         </text>
@@ -110,9 +111,10 @@ export function WavyText({
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
       className={className}
       preserveAspectRatio="xMidYMid meet"
+      suppressHydrationWarning
     >
       <defs>
-        <path id={id} d={pathD} />
+        <path id={id} d={pathD} suppressHydrationWarning />
       </defs>
       {strokeColor && (
         <text

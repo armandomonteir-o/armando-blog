@@ -6,3 +6,4 @@ export { Pagination } from "./Pagination";
 export { RetroWindow } from "./RetroWindow";
 export { ScrollToTop } from "./ScrollToTop";
 export { WavyText } from "./WavyText";
+export { WarningDialog } from "./WarningDialog";
