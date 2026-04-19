@@ -306,6 +306,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               src="https://images.unsplash.com/photo-1563669528538-1f3d1d08791b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMHdvbWFuJTIwY3JlYXRpdmUlMjBjb2xvcmZ1bHxlbnwxfHx8fDE3NzI4MzI1MDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
               alt="Profile"
               fill
+              sizes="36px"
               className="object-cover"
             />
           </div>
@@ -314,6 +315,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               src="https://images.unsplash.com/photo-1753176185106-eba130fdc775?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMG1hbiUyMGFydGlzdGljJTIwc3R1ZGlvfGVufDF8fHx8MTc3MjgzMjUwOHww&ixlib=rb-4.1.0&q=80&w=1080"
               alt="Profile 2"
               fill
+              sizes="36px"
               className="object-cover"
             />
           </div>

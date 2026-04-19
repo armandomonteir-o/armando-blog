@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -78,7 +79,7 @@ export function AppShell({ children }: AppShellProps) {
         </div>
       )}
 
-      {/* ScrollToTop added in issue #7 */}
+      <ScrollToTop />
     </div>
   );
 }
