@@ -1,15 +1,41 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Space_Grotesk,
+  Space_Mono,
+  Rubik_Glitch,
+  Bungee_Shade,
+} from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceMono = Space_Mono({
   subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
+  preload: false,
+});
+
+// Display fonts — preload: false so they don't block initial render
+const rubikGlitch = Rubik_Glitch({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-rubik-glitch",
+  display: "swap",
+  preload: false,
+});
+
+const bungeeShade = Bungee_Shade({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bungee-shade",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -26,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${spaceMono.variable} ${rubikGlitch.variable} ${bungeeShade.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
