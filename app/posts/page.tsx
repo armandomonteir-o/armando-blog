@@ -14,7 +14,9 @@ import { posts, categoryColors } from "@/components/content/PostsGrid";
 // TODO issue #13: replace with generateMetadata() from WPGraphQL
 
 const POSTS_PER_PAGE = 9;
-const allCategories = Array.from(new Set(posts.filter((p) => !p.isCorrupted).map((p) => p.category)));
+const allCategories = Array.from(
+  new Set(posts.filter((p) => !p.isCorrupted).map((p) => p.category))
+);
 
 export default function PostsPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,23 +53,59 @@ export default function PostsPage() {
           <>
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <FileText size={13} />
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "14px" }}>{posts.length}</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>posts</span>
+              <span
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                }}
+              >
+                {posts.length}
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "9px",
+                  color: "rgba(255,255,255,0.5)",
+                }}
+              >
+                posts
+              </span>
             </div>
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <Filter size={13} />
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "14px" }}>{allCategories.length}</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>categorias</span>
+              <span
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                }}
+              >
+                {allCategories.length}
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "9px",
+                  color: "rgba(255,255,255,0.5)",
+                }}
+              >
+                categorias
+              </span>
             </div>
           </>
         }
       />
 
-      <div className="relative" style={{ backgroundColor: "var(--arm-bg)", transition: "background-color 0.3s ease" }}>
+      <div
+        className="relative"
+        style={{ backgroundColor: "var(--arm-bg)", transition: "background-color 0.3s ease" }}
+      >
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{
-            backgroundImage: "linear-gradient(var(--arm-grid) 1px, transparent 1px), linear-gradient(90deg, var(--arm-grid) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(var(--arm-grid) 1px, transparent 1px), linear-gradient(90deg, var(--arm-grid) 1px, transparent 1px)",
             backgroundSize: "16px 16px",
           }}
         />
@@ -79,8 +117,19 @@ export default function PostsPage() {
             <div className="p-5">
               <div className="flex flex-col gap-4 mb-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <WavyText text="ARQUIVO COMPLETO" variant="stacked" fontSize="clamp(18px, 2.5vw, 26px)" color="#fff" />
-                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0" }}>
+                  <WavyText
+                    text="ARQUIVO COMPLETO"
+                    variant="stacked"
+                    fontSize="clamp(18px, 2.5vw, 26px)"
+                    color="#fff"
+                  />
+                  <span
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: "9px",
+                      color: "#5a8ad0",
+                    }}
+                  >
                     {filteredPosts.length} ENTRIES FOUND
                   </span>
                 </div>
@@ -119,7 +168,10 @@ export default function PostsPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" style={{ minHeight: 940 }}>
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
+                style={{ minHeight: 940 }}
+              >
                 {currentPosts.map((post, i) => (
                   <motion.div
                     key={post.id}
@@ -135,11 +187,15 @@ export default function PostsPage() {
                         backgroundColor: post.isCorrupted ? "#1a0000" : "#0458d4",
                         textDecoration: "none",
                         transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                        animation: post.isCorrupted ? "corruptedPulse 2s ease-in-out infinite" : undefined,
+                        animation: post.isCorrupted
+                          ? "corruptedPulse 2s ease-in-out infinite"
+                          : undefined,
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translate(-2px, -2px)";
-                        e.currentTarget.style.boxShadow = post.isCorrupted ? "4px 4px 0 #ff0000" : "4px 4px 0 #022a6e";
+                        e.currentTarget.style.boxShadow = post.isCorrupted
+                          ? "4px 4px 0 #ff0000"
+                          : "4px 4px 0 #022a6e";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "translate(0, 0)";
@@ -150,15 +206,31 @@ export default function PostsPage() {
                         className="flex items-center justify-between px-2 py-1"
                         style={{
                           backgroundColor: post.isCorrupted ? "#330000" : "#0560e0",
-                          borderBottom: post.isCorrupted ? "2px solid #ff0000" : "2px solid #0560e0",
+                          borderBottom: post.isCorrupted
+                            ? "2px solid #ff0000"
+                            : "2px solid #0560e0",
                         }}
                       >
-                        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px", color: post.isCorrupted ? "#ff4444" : "#5a8ad0" }}>
-                          {post.isCorrupted ? "⚠ CORRUPTED.ERR" : `POST-${String(post.id).padStart(3, "0")}.MD`}
+                        <span
+                          style={{
+                            fontFamily: "'Space Mono', monospace",
+                            fontSize: "8px",
+                            color: post.isCorrupted ? "#ff4444" : "#5a8ad0",
+                          }}
+                        >
+                          {post.isCorrupted
+                            ? "⚠ CORRUPTED.ERR"
+                            : `POST-${String(post.id).padStart(3, "0")}.MD`}
                         </span>
                         <div className="flex gap-1">
-                          <div className="w-2 h-2" style={{ backgroundColor: "#0347c1", border: "1px solid #022a6e" }} />
-                          <div className="w-2 h-2" style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }} />
+                          <div
+                            className="w-2 h-2"
+                            style={{ backgroundColor: "#0347c1", border: "1px solid #022a6e" }}
+                          />
+                          <div
+                            className="w-2 h-2"
+                            style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                          />
                         </div>
                       </div>
 
@@ -171,7 +243,13 @@ export default function PostsPage() {
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                           priority={i === 0}
                         />
-                        <div className="absolute inset-0 pointer-events-none opacity-40" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)" }} />
+                        <div
+                          className="absolute inset-0 pointer-events-none opacity-40"
+                          style={{
+                            backgroundImage:
+                              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
+                          }}
+                        />
                         <div
                           className="absolute top-2 left-2 px-2 py-0.5"
                           style={{
@@ -186,28 +264,68 @@ export default function PostsPage() {
                         >
                           {post.category.toUpperCase()}
                         </div>
-                        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(to top, rgba(3,71,193,0.25), transparent 60%)" }} />
+                        <div
+                          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          style={{
+                            background:
+                              "linear-gradient(to top, rgba(3,71,193,0.25), transparent 60%)",
+                          }}
+                        />
                       </div>
 
                       <div className="p-3 flex flex-col flex-1 overflow-hidden">
-                        <h3 className="line-clamp-2" style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "13px", color: "#fff", lineHeight: 1.3, marginBottom: "6px" }}>
+                        <h3
+                          className="line-clamp-2"
+                          style={{
+                            fontFamily: "'Space Grotesk', sans-serif",
+                            fontWeight: 700,
+                            fontSize: "13px",
+                            color: "#fff",
+                            lineHeight: 1.3,
+                            marginBottom: "6px",
+                          }}
+                        >
                           {post.title}
                         </h3>
-                        <p className="flex-1 line-clamp-3" style={{ fontFamily: "'Space Mono', monospace", fontSize: "10px", lineHeight: 1.5, color: "#80b0ff", marginBottom: "8px" }}>
+                        <p
+                          className="flex-1 line-clamp-3"
+                          style={{
+                            fontFamily: "'Space Mono', monospace",
+                            fontSize: "10px",
+                            lineHeight: 1.5,
+                            color: "#80b0ff",
+                            marginBottom: "8px",
+                          }}
+                        >
                           {post.excerpt}
                         </p>
-                        <div className="flex items-center gap-3 pt-2" style={{ borderTop: "1px solid #0560e0" }}>
+                        <div
+                          className="flex items-center gap-3 pt-2"
+                          style={{ borderTop: "1px solid #0560e0" }}
+                        >
                           <div className="flex items-center gap-1" style={{ color: "#5a8ad0" }}>
                             <Clock size={10} />
-                            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>{post.date}</span>
+                            <span
+                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
+                            >
+                              {post.date}
+                            </span>
                           </div>
                           <div className="flex items-center gap-1" style={{ color: "#5a8ad0" }}>
                             <Eye size={10} />
-                            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>{post.reads}</span>
+                            <span
+                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
+                            >
+                              {post.reads}
+                            </span>
                           </div>
                           <div className="flex items-center gap-1" style={{ color: "#5a8ad0" }}>
                             <MessageCircle size={10} />
-                            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>{post.comments}</span>
+                            <span
+                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
+                            >
+                              {post.comments}
+                            </span>
                           </div>
                         </div>
                       </div>

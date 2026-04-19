@@ -30,11 +30,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const matchedPost = posts.find((p) => p.slug === slug);
   if (!matchedPost) notFound();
@@ -119,7 +115,10 @@ export default async function PostPage({
                       >
                         {String(idx + 1).padStart(2, "0")}
                       </span>
-                      <div className="flex-1" style={{ height: "2px", backgroundColor: "#0560e0" }} />
+                      <div
+                        className="flex-1"
+                        style={{ height: "2px", backgroundColor: "#0560e0" }}
+                      />
                     </div>
                     <WavyText
                       text={section.title.toUpperCase()}
@@ -152,7 +151,11 @@ export default async function PostPage({
                         <div style={{ flex: 1, height: "1px", backgroundColor: "#0560e0" }} />
                         <div className="flex gap-1">
                           {[0, 1, 2].map((d) => (
-                            <div key={d} className="w-1.5 h-1.5" style={{ backgroundColor: "#80b0ff" }} />
+                            <div
+                              key={d}
+                              className="w-1.5 h-1.5"
+                              style={{ backgroundColor: "#80b0ff" }}
+                            />
                           ))}
                         </div>
                         <div style={{ flex: 1, height: "1px", backgroundColor: "#0560e0" }} />

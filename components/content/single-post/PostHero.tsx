@@ -137,9 +137,7 @@ export function PostHero({
           <nav className="flex items-center gap-1 flex-wrap">
             {breadcrumbs.map((crumb, i, arr) => (
               <span key={i} className="inline-flex items-center gap-1">
-                {i > 0 && (
-                  <ChevronRight size={10} style={{ color: "rgba(255,255,255,0.4)" }} />
-                )}
+                {i > 0 && <ChevronRight size={10} style={{ color: "rgba(255,255,255,0.4)" }} />}
                 {crumb.href ? (
                   <Link
                     href={crumb.href}

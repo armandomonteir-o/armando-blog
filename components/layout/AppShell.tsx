@@ -50,11 +50,7 @@ export function AppShell({ children }: AppShellProps) {
 
       <div id="main-content-area" className="flex-1 flex flex-col min-w-0 min-h-0">
         <Header onMobileMenuToggle={() => setMobileOpen((v) => !v)} />
-        <div
-          id="main-scroll-container"
-          ref={scrollRef}
-          className="flex-1 overflow-auto min-h-0"
-        >
+        <div id="main-scroll-container" ref={scrollRef} className="flex-1 overflow-auto min-h-0">
           {children}
           <Footer />
         </div>
@@ -69,10 +65,16 @@ export function AppShell({ children }: AppShellProps) {
         >
           <div
             className="px-6 py-4"
-            style={{ backgroundColor: "#0347c1", border: "3px solid #022a6e", boxShadow: "4px 4px 0 #022a6e" }}
+            style={{
+              backgroundColor: "#0347c1",
+              border: "3px solid #022a6e",
+              boxShadow: "4px 4px 0 #022a6e",
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "12px", color: "#80b0ff" }}>
+            <p
+              style={{ fontFamily: "'Space Mono', monospace", fontSize: "12px", color: "#80b0ff" }}
+            >
               NEWSLETTER.EXE — em breve
             </p>
           </div>

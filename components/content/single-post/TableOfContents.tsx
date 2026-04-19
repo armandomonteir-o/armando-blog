@@ -45,7 +45,10 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
     >
       <div
         className="px-3 py-1.5 flex items-center justify-between"
-        style={{ backgroundColor: "var(--arm-bg-glass-title)", borderBottom: "2px solid var(--arm-border)" }}
+        style={{
+          backgroundColor: "var(--arm-bg-glass-title)",
+          borderBottom: "2px solid var(--arm-border)",
+        }}
       >
         <span
           style={{
@@ -59,8 +62,17 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
           SUMARIO.EXE
         </span>
         <div className="flex gap-1">
-          <div className="w-2.5 h-2.5" style={{ border: "1.5px solid var(--arm-border)", backgroundColor: "var(--arm-bg-card-title)" }} />
-          <div className="w-2.5 h-2.5" style={{ backgroundColor: "#e05050", border: "1.5px solid var(--arm-border)" }} />
+          <div
+            className="w-2.5 h-2.5"
+            style={{
+              border: "1.5px solid var(--arm-border)",
+              backgroundColor: "var(--arm-bg-card-title)",
+            }}
+          />
+          <div
+            className="w-2.5 h-2.5"
+            style={{ backgroundColor: "#e05050", border: "1.5px solid var(--arm-border)" }}
+          />
         </div>
       </div>
       <div className="p-4">
@@ -120,10 +132,15 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
           })}
         </nav>
 
-        <div className="mt-4 pt-3 flex items-center gap-3" style={{ borderTop: "1px solid rgba(2,42,110,0.15)" }}>
+        <div
+          className="mt-4 pt-3 flex items-center gap-3"
+          style={{ borderTop: "1px solid rgba(2,42,110,0.15)" }}
+        >
           <div className="flex items-center gap-1" style={{ color: "#5a6a8e" }}>
             <Clock size={11} />
-            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px" }}>{readTime}</span>
+            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px" }}>
+              {readTime}
+            </span>
           </div>
           <div className="flex items-center gap-1" style={{ color: "#5a6a8e" }}>
             <Eye size={11} />

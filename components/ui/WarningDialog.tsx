@@ -46,7 +46,10 @@ export function WarningDialog() {
         >
           WARNING: REALITY!
         </span>
-        <div className="w-3 h-3" style={{ backgroundColor: "#e05050", border: "1.5px solid var(--arm-border)" }} />
+        <div
+          className="w-3 h-3"
+          style={{ backgroundColor: "#e05050", border: "1.5px solid var(--arm-border)" }}
+        />
       </div>
       <div className="p-3 text-center">
         <div
@@ -58,7 +61,9 @@ export function WarningDialog() {
             lineHeight: 1.2,
           }}
         >
-          DO YOU WISH<br />TO GO BACK?
+          DO YOU WISH
+          <br />
+          TO GO BACK?
         </div>
         <div className="flex gap-2 mt-2 justify-center">
           <button

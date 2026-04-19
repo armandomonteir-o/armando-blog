@@ -71,7 +71,11 @@ export function CategoryHero({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          style={{ background: backgroundGradient, backgroundSize: "400% 400%", animation: "gradientShift 12s ease infinite" }}
+          style={{
+            background: backgroundGradient,
+            backgroundSize: "400% 400%",
+            animation: "gradientShift 12s ease infinite",
+          }}
         />
       )}
 
@@ -134,7 +138,10 @@ export function CategoryHero({
               {breadcrumbs.map((crumb, i) => (
                 <Fragment key={i}>
                   {i > 0 && (
-                    <ArrowRight size={12} style={{ color: "rgba(255,255,255,0.4)", flexShrink: 0 }} />
+                    <ArrowRight
+                      size={12}
+                      style={{ color: "rgba(255,255,255,0.4)", flexShrink: 0 }}
+                    />
                   )}
                   {crumb.to ? (
                     <Link
@@ -160,9 +167,7 @@ export function CategoryHero({
                     <span
                       className="px-3 py-1.5"
                       style={{
-                        background: crumb.active
-                          ? `${accentColor}22`
-                          : "rgba(255,255,255,0.1)",
+                        background: crumb.active ? `${accentColor}22` : "rgba(255,255,255,0.1)",
                         backdropFilter: "blur(12px)",
                         border: crumb.active
                           ? `2px solid ${accentColor}66`

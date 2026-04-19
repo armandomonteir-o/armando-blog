@@ -36,8 +36,7 @@ export function NewsletterWidget() {
               top: "-50px",
               right: "-30px",
               borderRadius: "50%",
-              background:
-                "radial-gradient(circle, rgba(74,222,128,0.35), transparent 70%)",
+              background: "radial-gradient(circle, rgba(74,222,128,0.35), transparent 70%)",
               filter: "blur(40px)",
             }}
           />
@@ -91,8 +90,7 @@ export function NewsletterWidget() {
                         color: "#5a8ad0",
                       }}
                     >
-                      Sem spam, sem conteudo premium — so um aviso quando sair
-                      post novo.
+                      Sem spam, sem conteudo premium — so um aviso quando sair post novo.
                     </p>
                   </div>
                 </div>
@@ -123,8 +121,7 @@ export function NewsletterWidget() {
                       }}
                       onFocus={(e) => {
                         e.currentTarget.style.borderColor = "#4ade80";
-                        e.currentTarget.style.boxShadow =
-                          "0 0 10px rgba(74,222,128,0.15)";
+                        e.currentTarget.style.boxShadow = "0 0 10px rgba(74,222,128,0.15)";
                       }}
                       onBlur={(e) => {
                         e.currentTarget.style.borderColor = "#0560e0";
@@ -179,8 +176,7 @@ export function NewsletterWidget() {
                     color: "#3a6aaa",
                   }}
                 >
-                  * Cancele quando quiser. Nada de conteudo exclusivo — tudo
-                  esta aqui no blog.
+                  * Cancele quando quiser. Nada de conteudo exclusivo — tudo esta aqui no blog.
                 </p>
               </motion.form>
             ) : (
@@ -223,8 +219,7 @@ export function NewsletterWidget() {
                       color: "#5a8ad0",
                     }}
                   >
-                    ID: #{notifyId}{" "}
-                    — confira sua caixa de entrada.
+                    ID: #{notifyId} — confira sua caixa de entrada.
                   </p>
                 </div>
               </motion.div>

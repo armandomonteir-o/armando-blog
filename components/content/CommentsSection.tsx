@@ -15,7 +15,15 @@ const engagementData = [
   { day: "Dom", value: 60 },
 ];
 
-const barColors = ["var(--arm-panel-bg-darker)", "#4ade80", "#e05050", "#c084fc", "var(--arm-panel-bg-darker)", "#4ade80", "#e05050"];
+const barColors = [
+  "var(--arm-panel-bg-darker)",
+  "#4ade80",
+  "#e05050",
+  "#c084fc",
+  "var(--arm-panel-bg-darker)",
+  "#4ade80",
+  "#e05050",
+];
 
 const comments = [
   {
@@ -116,7 +124,9 @@ export function CommentsSection() {
                 color: "var(--arm-panel-text-muted)",
               }}
             >
-              comentarios<br />da comunidade
+              comentarios
+              <br />
+              da comunidade
             </div>
 
             {/* Engagement chart */}
@@ -131,15 +141,21 @@ export function CommentsSection() {
               />
               <div
                 className="mt-2 p-2"
-                style={{ border: "2px solid var(--arm-panel-border)", backgroundColor: "var(--arm-panel-bg)" }}
+                style={{
+                  border: "2px solid var(--arm-panel-border)",
+                  backgroundColor: "var(--arm-panel-bg)",
+                }}
               >
                 {/* Custom CSS bar chart */}
                 <div className="flex items-end justify-between gap-[3px]" style={{ height: 64 }}>
                   {engagementData.map((entry, i) => {
-                    const maxVal = Math.max(...engagementData.map(d => d.value));
+                    const maxVal = Math.max(...engagementData.map((d) => d.value));
                     const heightPct = (entry.value / maxVal) * 100;
                     return (
-                      <div key={entry.day} className="flex flex-col items-center flex-1 h-full justify-end">
+                      <div
+                        key={entry.day}
+                        className="flex flex-col items-center flex-1 h-full justify-end"
+                      >
                         <div
                           style={{
                             width: "100%",
@@ -188,7 +204,10 @@ export function CommentsSection() {
                 </div>
                 <div
                   className="h-2.5 w-full"
-                  style={{ border: "2px solid var(--arm-panel-border)", backgroundColor: "var(--arm-panel-bg-deep)" }}
+                  style={{
+                    border: "2px solid var(--arm-panel-border)",
+                    backgroundColor: "var(--arm-panel-bg-deep)",
+                  }}
                 >
                   <div
                     className="h-full"
@@ -220,7 +239,8 @@ export function CommentsSection() {
                     border: `2px solid ${accent}44`,
                     background: `linear-gradient(135deg, var(--arm-panel-bg-darker) 0%, var(--arm-panel-bg) 40%, ${accent}18 100%)`,
                     backdropFilter: "blur(8px)",
-                    transition: "transform 0.25s ease, box-shadow 0.25s ease, border-color 0.3s ease",
+                    transition:
+                      "transform 0.25s ease, box-shadow 0.25s ease, border-color 0.3s ease",
                     cursor: "default",
                   }}
                   onMouseEnter={(e) => {
@@ -295,8 +315,20 @@ export function CommentsSection() {
                       </span>
                     </div>
                     <div className="flex gap-1">
-                      <div className="w-2 h-2" style={{ backgroundColor: "var(--arm-panel-border)", border: "1px solid var(--arm-panel-bg-deep)" }} />
-                      <div className="w-2 h-2" style={{ backgroundColor: "#e05050", border: "1px solid var(--arm-panel-bg-deep)" }} />
+                      <div
+                        className="w-2 h-2"
+                        style={{
+                          backgroundColor: "var(--arm-panel-border)",
+                          border: "1px solid var(--arm-panel-bg-deep)",
+                        }}
+                      />
+                      <div
+                        className="w-2 h-2"
+                        style={{
+                          backgroundColor: "#e05050",
+                          border: "1px solid var(--arm-panel-bg-deep)",
+                        }}
+                      />
                     </div>
                   </div>
 
@@ -342,10 +374,7 @@ export function CommentsSection() {
                             frequency={0.3}
                             color="var(--arm-panel-text)"
                           />
-                          <div
-                            className="flex items-center gap-1.5"
-                            style={{ marginTop: "1px" }}
-                          >
+                          <div className="flex items-center gap-1.5" style={{ marginTop: "1px" }}>
                             <span
                               className="px-1.5 py-0.5"
                               style={{
@@ -370,7 +399,13 @@ export function CommentsSection() {
                             <svg key={s} width="11" height="11" viewBox="0 0 20 20">
                               <polygon
                                 points="10,1 13,7 19,7.5 14.5,12 16,18 10,15 4,18 5.5,12 1,7.5 7,7"
-                                fill={s < fullStars ? accent : (s === fullStars && hasHalf) ? `${accent}55` : "var(--arm-panel-border)"}
+                                fill={
+                                  s < fullStars
+                                    ? accent
+                                    : s === fullStars && hasHalf
+                                      ? `${accent}55`
+                                      : "var(--arm-panel-border)"
+                                }
                                 stroke="var(--arm-panel-bg-deep)"
                                 strokeWidth="1"
                               />

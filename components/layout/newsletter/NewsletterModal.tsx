@@ -1,15 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import {
-  Mail,
-  Bell,
-  CheckCircle,
-  Send,
-  X,
-  ShieldCheck,
-  Lock,
-} from "lucide-react";
+import { Mail, Bell, CheckCircle, Send, X, ShieldCheck, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 interface NewsletterModalProps {
@@ -150,10 +142,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
               </div>
 
               {/* Body */}
-              <div
-                className="relative overflow-hidden"
-                style={{ backgroundColor: "#0347c1" }}
-              >
+              <div className="relative overflow-hidden" style={{ backgroundColor: "#0347c1" }}>
                 {/* Pulsing glow */}
                 <motion.div
                   className="absolute pointer-events-none"
@@ -172,8 +161,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                     top: "-60px",
                     right: "-40px",
                     borderRadius: "50%",
-                    background:
-                      "radial-gradient(circle, rgba(74,222,128,0.4), transparent 70%)",
+                    background: "radial-gradient(circle, rgba(74,222,128,0.4), transparent 70%)",
                     filter: "blur(50px)",
                   }}
                 />
@@ -248,9 +236,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             color: "#a0c4ff",
                           }}
                         >
-                          Receba um aviso no e-mail sempre que sair post novo.
-                          Nada de conteudo exclusivo — tudo esta aqui, aberto,
-                          no blog.
+                          Receba um aviso no e-mail sempre que sair post novo. Nada de conteudo
+                          exclusivo — tudo esta aqui, aberto, no blog.
                         </p>
 
                         <form onSubmit={handleSubmit}>
@@ -276,13 +263,11 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                                 fontFamily: "'Space Mono', monospace",
                                 fontSize: "12px",
                                 outline: "none",
-                                transition:
-                                  "border-color 0.2s, box-shadow 0.2s",
+                                transition: "border-color 0.2s, box-shadow 0.2s",
                               }}
                               onFocus={(e) => {
                                 e.currentTarget.style.borderColor = "#4ade80";
-                                e.currentTarget.style.boxShadow =
-                                  "0 0 12px rgba(74,222,128,0.15)";
+                                e.currentTarget.style.boxShadow = "0 0 12px rgba(74,222,128,0.15)";
                               }}
                               onBlur={(e) => {
                                 e.currentTarget.style.borderColor = "#0560e0";
@@ -367,9 +352,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                                 color: "#5a8ad0",
                               }}
                             >
-                              Nao armazeno nenhuma informacao pessoal dos
-                              visitantes deste site. Seu e-mail sera usado
-                              apenas para enviar notificacoes de novos posts e
+                              Nao armazeno nenhuma informacao pessoal dos visitantes deste site. Seu
+                              e-mail sera usado apenas para enviar notificacoes de novos posts e
                               voce pode cancelar a qualquer momento.
                             </p>
                           </div>
@@ -431,8 +415,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             color: "#a0c4ff",
                           }}
                         >
-                          Voce vai receber um aviso sempre que eu publicar algo
-                          novo. Fique de olho na caixa de entrada!
+                          Voce vai receber um aviso sempre que eu publicar algo novo. Fique de olho
+                          na caixa de entrada!
                         </motion.p>
 
                         {/* ID badge */}

@@ -23,9 +23,21 @@ interface PostCommentsSectionProps {
 const COMMENTS_PER_PAGE = 3;
 const COMMENT_ACCENTS = ["#c084fc", "#4ade80", "#f59e0b"];
 const REACTION_SETS = [
-  [{ emoji: "❤️", count: 12 }, { emoji: "🔥", count: 7 }, { emoji: "👏", count: 3 }],
-  [{ emoji: "❤️", count: 8 }, { emoji: "🔥", count: 14 }, { emoji: "👏", count: 6 }],
-  [{ emoji: "❤️", count: 19 }, { emoji: "🔥", count: 5 }, { emoji: "👏", count: 11 }],
+  [
+    { emoji: "❤️", count: 12 },
+    { emoji: "🔥", count: 7 },
+    { emoji: "👏", count: 3 },
+  ],
+  [
+    { emoji: "❤️", count: 8 },
+    { emoji: "🔥", count: 14 },
+    { emoji: "👏", count: 6 },
+  ],
+  [
+    { emoji: "❤️", count: 19 },
+    { emoji: "🔥", count: 5 },
+    { emoji: "👏", count: 11 },
+  ],
 ];
 
 export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
@@ -40,7 +52,12 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
     <RetroWindow title="POST-COMMENTS.EXE" variant="dark">
       <div className="p-5">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-5">
-          <WavyText text="DISCUSSAO" variant="stacked" fontSize="clamp(16px, 2vw, 26px)" color="#fff" />
+          <WavyText
+            text="DISCUSSAO"
+            variant="stacked"
+            fontSize="clamp(16px, 2vw, 26px)"
+            color="#fff"
+          />
           <span
             className="flex-shrink-0"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0" }}
@@ -50,7 +67,10 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
         </div>
 
         {/* Comment input */}
-        <div className="mb-5 p-3" style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4" }}>
+        <div
+          className="mb-5 p-3"
+          style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4" }}
+        >
           <div
             className="mb-2"
             style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0" }}
@@ -61,7 +81,12 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
             placeholder="O que voce achou deste manifesto?..."
             className="w-full bg-transparent outline-none resize-none"
             rows={3}
-            style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "13px", color: "#c0d8ff", border: "none" }}
+            style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: "13px",
+              color: "#c0d8ff",
+              border: "none",
+            }}
           />
           <div className="flex justify-end mt-2">
             <button
@@ -113,13 +138,17 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                 }}
               >
                 {/* Left accent stripe */}
-                <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ backgroundColor: accent }} />
+                <div
+                  className="absolute left-0 top-0 bottom-0 w-[3px]"
+                  style={{ backgroundColor: accent }}
+                />
 
                 {/* Glass sheen overlay */}
                 <div
                   className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
                   style={{
-                    background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%)",
+                    background:
+                      "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%)",
                     transition: "opacity 0.3s ease",
                   }}
                 />
@@ -170,8 +199,14 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                     </span>
                   </div>
                   <div className="flex gap-1">
-                    <div className="w-2 h-2" style={{ backgroundColor: "#0560e0", border: "1px solid #022a6e" }} />
-                    <div className="w-2 h-2" style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }} />
+                    <div
+                      className="w-2 h-2"
+                      style={{ backgroundColor: "#0560e0", border: "1px solid #022a6e" }}
+                    />
+                    <div
+                      className="w-2 h-2"
+                      style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                    />
                   </div>
                 </div>
 
@@ -266,7 +301,10 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                   </div>
 
                   {/* Quote body */}
-                  <div className="flex-1 relative pl-3 mb-3" style={{ borderLeft: `2px solid ${accent}40` }}>
+                  <div
+                    className="flex-1 relative pl-3 mb-3"
+                    style={{ borderLeft: `2px solid ${accent}40` }}
+                  >
                     <span
                       style={{
                         fontFamily: "'Space Mono', monospace",

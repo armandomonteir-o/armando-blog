@@ -104,10 +104,9 @@ export function FeaturedPost() {
                   color: "#80b0ff",
                 }}
               >
-                Um manifesto sobre como a arte digital transcende
-                os limites do humano e do codigo. Explorando as
-                fronteiras entre criatividade artificial e
-                expressao autentica na era pos-digital.
+                Um manifesto sobre como a arte digital transcende os limites do humano e do codigo.
+                Explorando as fronteiras entre criatividade artificial e expressao autentica na era
+                pos-digital.
               </p>
 
               <div className="flex flex-wrap gap-2 sm:gap-3 mt-2">

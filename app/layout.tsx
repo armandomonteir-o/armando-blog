@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Space_Grotesk,
-  Space_Mono,
-  Rubik_Glitch,
-  Bungee_Shade,
-} from "next/font/google";
+import { Space_Grotesk, Space_Mono, Rubik_Glitch, Bungee_Shade } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
 import "./globals.css";
 
@@ -41,8 +36,7 @@ const bungeeShade = Bungee_Shade({
 
 export const metadata: Metadata = {
   title: "Armando — art & digital technology",
-  description:
-    "Personal blog by Armando Monteiro on art and digital technology.",
+  description: "Personal blog by Armando Monteiro on art and digital technology.",
 };
 
 export default function RootLayout({

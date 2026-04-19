@@ -39,7 +39,13 @@ const handleBtnHoverLeave = (e: React.MouseEvent<HTMLButtonElement>, isActive: b
   e.currentTarget.style.boxShadow = isActive ? "2px 2px 0 #022a6e" : "none";
 };
 
-export function Pagination({ currentPage, totalPages, totalItems, itemsPerPage, onPageChange }: PaginationProps) {
+export function Pagination({
+  currentPage,
+  totalPages,
+  totalItems,
+  itemsPerPage,
+  onPageChange,
+}: PaginationProps) {
   if (totalPages <= 1) return null;
 
   const startIdx = (currentPage - 1) * itemsPerPage;
@@ -50,10 +56,17 @@ export function Pagination({ currentPage, totalPages, totalItems, itemsPerPage, 
         <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0" }}>
           SHOWING {startIdx + 1}-{Math.min(startIdx + itemsPerPage, totalItems)} OF {totalItems}
         </span>
-        <div className="h-2 overflow-hidden" style={{ width: "80px", border: "1.5px solid #0560e0", backgroundColor: "#022a6e" }}>
+        <div
+          className="h-2 overflow-hidden"
+          style={{ width: "80px", border: "1.5px solid #0560e0", backgroundColor: "#022a6e" }}
+        >
           <div
             className="h-full"
-            style={{ width: `${(currentPage / totalPages) * 100}%`, backgroundColor: "#4ade80", transition: "width 0.3s ease" }}
+            style={{
+              width: `${(currentPage / totalPages) * 100}%`,
+              backgroundColor: "#4ade80",
+              transition: "width 0.3s ease",
+            }}
           />
         </div>
       </div>
@@ -61,10 +74,16 @@ export function Pagination({ currentPage, totalPages, totalItems, itemsPerPage, 
       <div className="flex items-center gap-1.5">
         <button
           className="w-8 h-8 flex items-center justify-center"
-          style={{ ...paginationButtonStyle, opacity: currentPage === 1 ? 0.4 : 1, cursor: currentPage === 1 ? "not-allowed" : "pointer" }}
+          style={{
+            ...paginationButtonStyle,
+            opacity: currentPage === 1 ? 0.4 : 1,
+            cursor: currentPage === 1 ? "not-allowed" : "pointer",
+          }}
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          onMouseEnter={(e) => { if (currentPage !== 1) handleBtnHoverEnter(e); }}
+          onMouseEnter={(e) => {
+            if (currentPage !== 1) handleBtnHoverEnter(e);
+          }}
           onMouseLeave={(e) => handleBtnHoverLeave(e, false)}
         >
           <ChevronLeft size={14} />
@@ -78,7 +97,9 @@ export function Pagination({ currentPage, totalPages, totalItems, itemsPerPage, 
               className="w-8 h-8 flex items-center justify-center"
               style={isActive ? activePageStyle : paginationButtonStyle}
               onClick={() => onPageChange(page)}
-              onMouseEnter={(e) => { if (!isActive) handleBtnHoverEnter(e); }}
+              onMouseEnter={(e) => {
+                if (!isActive) handleBtnHoverEnter(e);
+              }}
               onMouseLeave={(e) => handleBtnHoverLeave(e, isActive)}
             >
               {String(page).padStart(2, "0")}
@@ -88,10 +109,16 @@ export function Pagination({ currentPage, totalPages, totalItems, itemsPerPage, 
 
         <button
           className="w-8 h-8 flex items-center justify-center"
-          style={{ ...paginationButtonStyle, opacity: currentPage === totalPages ? 0.4 : 1, cursor: currentPage === totalPages ? "not-allowed" : "pointer" }}
+          style={{
+            ...paginationButtonStyle,
+            opacity: currentPage === totalPages ? 0.4 : 1,
+            cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+          }}
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          onMouseEnter={(e) => { if (currentPage !== totalPages) handleBtnHoverEnter(e); }}
+          onMouseEnter={(e) => {
+            if (currentPage !== totalPages) handleBtnHoverEnter(e);
+          }}
           onMouseLeave={(e) => handleBtnHoverLeave(e, false)}
         >
           <ChevronRight size={14} />

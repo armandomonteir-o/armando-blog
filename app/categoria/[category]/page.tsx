@@ -46,23 +46,59 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
           <>
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <Hash size={13} />
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "14px" }}>{category.subcategories.length}</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>subcategorias</span>
+              <span
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                }}
+              >
+                {category.subcategories.length}
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "9px",
+                  color: "rgba(255,255,255,0.5)",
+                }}
+              >
+                subcategorias
+              </span>
             </div>
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <FileText size={13} />
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "14px" }}>{totalPosts}</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>posts</span>
+              <span
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "14px",
+                }}
+              >
+                {totalPosts}
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "9px",
+                  color: "rgba(255,255,255,0.5)",
+                }}
+              >
+                posts
+              </span>
             </div>
           </>
         }
       />
 
-      <div className="relative" style={{ backgroundColor: "var(--arm-bg)", transition: "background-color 0.3s ease" }}>
+      <div
+        className="relative"
+        style={{ backgroundColor: "var(--arm-bg)", transition: "background-color 0.3s ease" }}
+      >
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{
-            backgroundImage: "linear-gradient(var(--arm-grid) 1px, transparent 1px), linear-gradient(90deg, var(--arm-grid) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(var(--arm-grid) 1px, transparent 1px), linear-gradient(90deg, var(--arm-grid) 1px, transparent 1px)",
             backgroundSize: "16px 16px",
           }}
         />
@@ -72,8 +108,19 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
           <RetroWindow title={`${category.slug.toUpperCase()}-SUBCATEGORIES.EXE`} variant="dark">
             <div className="p-5">
               <div className="flex items-center justify-between mb-5">
-                <WavyText text="EXPLORAR SUBCATEGORIAS" variant="stacked" fontSize="clamp(16px, 2.5vw, 26px)" color="#fff" />
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0" }}>
+                <WavyText
+                  text="EXPLORAR SUBCATEGORIAS"
+                  variant="stacked"
+                  fontSize="clamp(16px, 2.5vw, 26px)"
+                  color="#fff"
+                />
+                <span
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "9px",
+                    color: "#5a8ad0",
+                  }}
+                >
                   {category.subcategories.length} ENTRIES FOUND
                 </span>
               </div>
@@ -109,12 +156,25 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                         className="flex items-center justify-between px-3 py-1.5"
                         style={{ backgroundColor: "#0560e0", borderBottom: "2px solid #022a6e" }}
                       >
-                        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", fontWeight: 700, color: "#80b0ff" }}>
+                        <span
+                          style={{
+                            fontFamily: "'Space Mono', monospace",
+                            fontSize: "9px",
+                            fontWeight: 700,
+                            color: "#80b0ff",
+                          }}
+                        >
                           SUBCAT-{String(i + 1).padStart(2, "0")}.EXE
                         </span>
                         <div className="flex gap-1">
-                          <div className="w-2.5 h-2.5" style={{ border: "1.5px solid #022a6e", backgroundColor: "#0347c1" }} />
-                          <div className="w-2.5 h-2.5" style={{ backgroundColor: "#e05050", border: "1.5px solid #022a6e" }} />
+                          <div
+                            className="w-2.5 h-2.5"
+                            style={{ border: "1.5px solid #022a6e", backgroundColor: "#0347c1" }}
+                          />
+                          <div
+                            className="w-2.5 h-2.5"
+                            style={{ backgroundColor: "#e05050", border: "1.5px solid #022a6e" }}
+                          />
                         </div>
                       </div>
 
@@ -126,10 +186,35 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                           sizes="(max-width: 640px) 100vw, 50vw"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)" }} />
-                        <div className="absolute inset-0 pointer-events-none opacity-10" style={{ backgroundImage: "linear-gradient(#80b0ff 1px, transparent 1px), linear-gradient(90deg, #80b0ff 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
-                        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(to top, rgba(2,42,110,0.6), transparent 60%)" }} />
-                        <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: "35%", background: `linear-gradient(to top, ${category.gradientTo}, transparent)` }} />
+                        <div
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            backgroundImage:
+                              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+                          }}
+                        />
+                        <div
+                          className="absolute inset-0 pointer-events-none opacity-10"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(#80b0ff 1px, transparent 1px), linear-gradient(90deg, #80b0ff 1px, transparent 1px)",
+                            backgroundSize: "20px 20px",
+                          }}
+                        />
+                        <div
+                          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          style={{
+                            background:
+                              "linear-gradient(to top, rgba(2,42,110,0.6), transparent 60%)",
+                          }}
+                        />
+                        <div
+                          className="absolute bottom-0 left-0 right-0 pointer-events-none"
+                          style={{
+                            height: "35%",
+                            background: `linear-gradient(to top, ${category.gradientTo}, transparent)`,
+                          }}
+                        />
                         <div
                           className="absolute top-3 right-3 px-2.5 py-1"
                           style={{
@@ -148,11 +233,32 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
 
                       <div className="p-4">
                         <div className="flex items-center justify-between mb-2">
-                          <WavyText text={sub.name.toUpperCase()} variant="linear-wave" fontSize={20} amplitude={3} frequency={0.25} color="#fff" />
-                          <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: category.accentColor }} />
+                          <WavyText
+                            text={sub.name.toUpperCase()}
+                            variant="linear-wave"
+                            fontSize={20}
+                            amplitude={3}
+                            frequency={0.25}
+                            color="#fff"
+                          />
+                          <ArrowRight
+                            size={16}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            style={{ color: category.accentColor }}
+                          />
                         </div>
-                        <p className="mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "13px", lineHeight: 1.6, color: "#80b0ff" }}>
-                          {sub.description.length > 130 ? sub.description.slice(0, 130) + "..." : sub.description}
+                        <p
+                          className="mb-3"
+                          style={{
+                            fontFamily: "'Space Grotesk', sans-serif",
+                            fontSize: "13px",
+                            lineHeight: 1.6,
+                            color: "#80b0ff",
+                          }}
+                        >
+                          {sub.description.length > 130
+                            ? sub.description.slice(0, 130) + "..."
+                            : sub.description}
                         </p>
                         <div className="flex flex-wrap gap-1.5">
                           {sub.tags.map((tag) => (

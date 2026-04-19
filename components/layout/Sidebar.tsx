@@ -6,20 +6,29 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import {
-  Home, Music, Film, BookOpen, Brain,
-  GraduationCap, User, ListMusic, Bell, Sun, Moon,
+  Home,
+  Music,
+  Film,
+  BookOpen,
+  Brain,
+  GraduationCap,
+  User,
+  ListMusic,
+  Bell,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useThemeStore } from "@/store/useThemeStore";
 
 const navItems = [
-  { icon: Home,          label: "Home",      path: "/" },
-  { icon: Music,         label: "Músicas",   path: "/categoria/musicas" },
-  { icon: Film,          label: "Filmes",    path: "/categoria/filmes" },
-  { icon: BookOpen,      label: "Livros",    path: "/categoria/livros" },
-  { icon: Brain,         label: "Filosofia", path: "/categoria/filosofia" },
-  { icon: GraduationCap, label: "Estudos",   path: "/categoria/estudos" },
-  { icon: ListMusic,     label: "Playlists", path: "/playlists" },
-  { icon: User,          label: "Sobre Mim", path: "/sobre" },
+  { icon: Home, label: "Home", path: "/" },
+  { icon: Music, label: "Músicas", path: "/categoria/musicas" },
+  { icon: Film, label: "Filmes", path: "/categoria/filmes" },
+  { icon: BookOpen, label: "Livros", path: "/categoria/livros" },
+  { icon: Brain, label: "Filosofia", path: "/categoria/filosofia" },
+  { icon: GraduationCap, label: "Estudos", path: "/categoria/estudos" },
+  { icon: ListMusic, label: "Playlists", path: "/playlists" },
+  { icon: User, label: "Sobre Mim", path: "/sobre" },
 ];
 
 interface SidebarProps {
@@ -29,12 +38,17 @@ interface SidebarProps {
   onNotifyClick?: () => void;
 }
 
-export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, onNotifyClick }: SidebarProps) {
+export function Sidebar({
+  collapsed = false,
+  mobileOpen = false,
+  onMobileClose,
+  onNotifyClick,
+}: SidebarProps) {
   const [hovered, setHovered] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useThemeStore();
   const isDark = theme === "dark";
-  const isExpanded = mobileOpen ? true : (collapsed ? hovered : true);
+  const isExpanded = mobileOpen ? true : collapsed ? hovered : true;
   const width = isExpanded ? 220 : 64;
 
   return (
@@ -60,7 +74,8 @@ export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, 
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 30%, rgba(255,255,255,0.03) 80%, rgba(0,0,0,0.1) 100%)",
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 30%, rgba(255,255,255,0.03) 80%, rgba(0,0,0,0.1) 100%)",
         }}
       />
 
@@ -68,9 +83,13 @@ export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, 
       <div
         className="absolute pointer-events-none"
         style={{
-          width: 120, height: 120, bottom: "15%", left: "-30px",
+          width: 120,
+          height: 120,
+          bottom: "15%",
+          left: "-30px",
           borderRadius: "50%",
-          background: "radial-gradient(circle at 40% 40%, rgba(128,176,255,0.25), rgba(128,176,255,0.05), transparent 70%)",
+          background:
+            "radial-gradient(circle at 40% 40%, rgba(128,176,255,0.25), rgba(128,176,255,0.05), transparent 70%)",
           filter: "blur(20px)",
         }}
       />
@@ -84,35 +103,76 @@ export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, 
         style={{ backgroundColor: "#0458d4", borderBottom: "2px solid #022a6e", minHeight: "28px" }}
       >
         {isExpanded ? (
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "10px", fontWeight: 700, color: "#80b0ff", letterSpacing: "0.05em", whiteSpace: "nowrap" }}>
+          <span
+            style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: "10px",
+              fontWeight: 700,
+              color: "#80b0ff",
+              letterSpacing: "0.05em",
+              whiteSpace: "nowrap",
+            }}
+          >
             NAVIGATION.EXE
           </span>
         ) : (
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "10px", fontWeight: 700, color: "#80b0ff" }}>NAV</span>
+          <span
+            style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: "10px",
+              fontWeight: 700,
+              color: "#80b0ff",
+            }}
+          >
+            NAV
+          </span>
         )}
         <div className="flex items-center gap-1 flex-shrink-0">
-          <div className="w-3 h-3" style={{ border: "1.5px solid #0560e0", backgroundColor: "#0347c1" }} />
-          <div className="w-3 h-3" style={{ border: "1.5px solid #0560e0", backgroundColor: "#e05050" }} />
+          <div
+            className="w-3 h-3"
+            style={{ border: "1.5px solid #0560e0", backgroundColor: "#0347c1" }}
+          />
+          <div
+            className="w-3 h-3"
+            style={{ border: "1.5px solid #0560e0", backgroundColor: "#e05050" }}
+          />
         </div>
       </div>
 
-      <div className="flex flex-col justify-between flex-1" style={{ padding: isExpanded ? 20 : 8 }}>
+      <div
+        className="flex flex-col justify-between flex-1"
+        style={{ padding: isExpanded ? 20 : 8 }}
+      >
         <div>
           {/* Logo */}
-          <div className="flex items-center gap-2 mb-10 overflow-hidden" style={{ justifyContent: isExpanded ? "flex-start" : "center" }}>
+          <div
+            className="flex items-center gap-2 mb-10 overflow-hidden"
+            style={{ justifyContent: isExpanded ? "flex-start" : "center" }}
+          >
             <div
               className="w-10 h-10 flex items-center justify-center flex-shrink-0 overflow-hidden"
               style={{ border: "3px solid #80b0ff", backgroundColor: "#0458d4" }}
             >
               {/* Replace /avatar-pixel-art.png with the extracted Figma asset */}
-              <Image src="/avatar-pixel-art.png" alt="Armando" width={40} height={40} className="w-full h-full object-cover" />
+              <Image
+                src="/avatar-pixel-art.png"
+                alt="Armando"
+                width={40}
+                height={40}
+                className="w-full h-full object-cover"
+              />
             </div>
             {isExpanded && (
               <span
                 style={{
-                  fontFamily: "'Rubik Glitch', sans-serif", fontWeight: 700, fontSize: "22px",
-                  letterSpacing: "-0.02em", color: "#fff", whiteSpace: "nowrap",
-                  opacity: isExpanded ? 1 : 0, transition: "opacity 0.2s ease",
+                  fontFamily: "'Rubik Glitch', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "22px",
+                  letterSpacing: "-0.02em",
+                  color: "#fff",
+                  whiteSpace: "nowrap",
+                  opacity: isExpanded ? 1 : 0,
+                  transition: "opacity 0.2s ease",
                 }}
               >
                 Armando
@@ -123,7 +183,8 @@ export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, 
           {/* Nav */}
           <nav className="flex flex-col gap-1">
             {navItems.map((item) => {
-              const isActive = pathname === item.path || (item.path !== "/" && pathname.startsWith(item.path));
+              const isActive =
+                pathname === item.path || (item.path !== "/" && pathname.startsWith(item.path));
               return (
                 <Link
                   key={item.label}
@@ -166,17 +227,26 @@ export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, 
               overflow: "hidden",
               width: "100%",
             }}
-            whileHover={{ backgroundColor: "#4ade80", color: "#022a6e", boxShadow: "0 0 16px rgba(74,222,128,0.25)" }}
+            whileHover={{
+              backgroundColor: "#4ade80",
+              color: "#022a6e",
+              boxShadow: "0 0 16px rgba(74,222,128,0.25)",
+            }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => { onMobileClose?.(); onNotifyClick?.(); }}
+            onClick={() => {
+              onMobileClose?.();
+              onNotifyClick?.();
+            }}
           >
             <motion.div
               className="absolute pointer-events-none"
               animate={{ opacity: [0.15, 0.35, 0.15] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               style={{
-                width: 30, height: 30,
-                left: isExpanded ? 8 : "50%", top: "50%",
+                width: 30,
+                height: 30,
+                left: isExpanded ? 8 : "50%",
+                top: "50%",
                 transform: isExpanded ? "translateY(-50%)" : "translate(-50%, -50%)",
                 borderRadius: "50%",
                 background: "radial-gradient(circle, rgba(74,222,128,0.4), transparent 70%)",
@@ -199,18 +269,52 @@ export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, 
           {isExpanded && (
             <>
               <svg width="60" height="60" viewBox="0 0 60 60" className="opacity-25 mb-4">
-                <ellipse cx="30" cy="30" rx="28" ry="28" fill="none" stroke="#80b0ff" strokeWidth="1.5" />
-                <ellipse cx="30" cy="30" rx="18" ry="28" fill="none" stroke="#80b0ff" strokeWidth="1" />
-                <ellipse cx="30" cy="30" rx="8" ry="28" fill="none" stroke="#80b0ff" strokeWidth="1" />
+                <ellipse
+                  cx="30"
+                  cy="30"
+                  rx="28"
+                  ry="28"
+                  fill="none"
+                  stroke="#80b0ff"
+                  strokeWidth="1.5"
+                />
+                <ellipse
+                  cx="30"
+                  cy="30"
+                  rx="18"
+                  ry="28"
+                  fill="none"
+                  stroke="#80b0ff"
+                  strokeWidth="1"
+                />
+                <ellipse
+                  cx="30"
+                  cy="30"
+                  rx="8"
+                  ry="28"
+                  fill="none"
+                  stroke="#80b0ff"
+                  strokeWidth="1"
+                />
                 <line x1="2" y1="20" x2="58" y2="20" stroke="#80b0ff" strokeWidth="1" />
                 <line x1="2" y1="30" x2="58" y2="30" stroke="#80b0ff" strokeWidth="1" />
                 <line x1="2" y1="40" x2="58" y2="40" stroke="#80b0ff" strokeWidth="1" />
               </svg>
               <div className="mb-4 px-1">
-                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#4ade80", marginBottom: "2px" }}>
+                <div
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "9px",
+                    color: "#4ade80",
+                    marginBottom: "2px",
+                  }}
+                >
                   LOADING...
                 </div>
-                <div className="h-3 w-full" style={{ border: "2px solid #0560e0", backgroundColor: "#022a6e" }}>
+                <div
+                  className="h-3 w-full"
+                  style={{ border: "2px solid #0560e0", backgroundColor: "#022a6e" }}
+                >
                   <div className="h-full" style={{ width: "72%", backgroundColor: "#4ade80" }} />
                 </div>
               </div>
@@ -231,15 +335,19 @@ export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, 
               justifyContent: isExpanded ? "flex-start" : "center",
             }}
             onClick={toggleTheme}
-            onMouseEnter={(e) => { e.currentTarget.style.color = "#fff"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = "#80b0ff"; }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#fff";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#80b0ff";
+            }}
           >
-            {isDark ? <Sun size={15} className="flex-shrink-0" /> : <Moon size={15} className="flex-shrink-0" />}
-            {isExpanded && (
-              <span style={{ fontSize: "11px" }}>
-                {isDark ? "Light" : "Dark"}
-              </span>
+            {isDark ? (
+              <Sun size={15} className="flex-shrink-0" />
+            ) : (
+              <Moon size={15} className="flex-shrink-0" />
             )}
+            {isExpanded && <span style={{ fontSize: "11px" }}>{isDark ? "Light" : "Dark"}</span>}
           </button>
         </div>
       </div>

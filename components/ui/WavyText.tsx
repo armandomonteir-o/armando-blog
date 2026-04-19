@@ -29,7 +29,10 @@ export function WavyText({
   if (variant === "stacked") {
     const cssSize = typeof fontSize === "number" ? `${fontSize}px` : fontSize;
     return (
-      <div className={`relative overflow-hidden ${className}`} style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+      <div
+        className={`relative overflow-hidden ${className}`}
+        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+      >
         {[0, 1, 2].map((i) => (
           <div
             key={i}

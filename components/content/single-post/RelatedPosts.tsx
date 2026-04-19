@@ -28,17 +28,30 @@ export function RelatedPosts({ posts, categoryColors }: RelatedPostsProps) {
               key={post.id}
               href={`/post/${post.slug}`}
               className="flex flex-col group"
-              style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4", textDecoration: "none" }}
+              style={{
+                border: "2px solid #0560e0",
+                backgroundColor: "#0458d4",
+                textDecoration: "none",
+              }}
             >
               {/* Mini title bar */}
               <div
                 className="flex items-center justify-between px-2 py-1"
                 style={{ backgroundColor: "#0560e0", borderBottom: "2px solid #0560e0" }}
               >
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px", color: "#5a8ad0" }}>
+                <span
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "8px",
+                    color: "#5a8ad0",
+                  }}
+                >
                   RELATED-{String(post.id).padStart(2, "0")}.MD
                 </span>
-                <div className="w-2 h-2" style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }} />
+                <div
+                  className="w-2 h-2"
+                  style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                />
               </div>
 
               {/* Image */}

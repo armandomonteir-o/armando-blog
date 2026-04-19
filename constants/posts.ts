@@ -180,7 +180,8 @@ export const posts: Post[] = [
     comments: 0,
     image:
       "https://images.unsplash.com/photo-1765445665844-5d317051b664?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnbGl0Y2glMjBlcnJvciUyMGJyb2tlbiUyMHNjcmVlbiUyMGRpZ2l0YWx8ZW58MXx8fHwxNzcyODM3OTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-    excerpt: "FATAL: Este arquivo foi corrompido. Os dados nao puderam ser recuperados do servidor.",
+    excerpt:
+      "FATAL: Este arquivo foi corrompido. Os dados nao puderam ser recuperados do servidor.",
     isCorrupted: true,
   },
 ];

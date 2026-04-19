@@ -4,20 +4,20 @@ import Link from "next/link";
 import { Code2, Share2, Camera, Mail, Rss } from "lucide-react";
 
 const navLinks = [
-  { label: "Home",      path: "/" },
-  { label: "Sobre",     path: "/sobre" },
+  { label: "Home", path: "/" },
+  { label: "Sobre", path: "/sobre" },
   { label: "Playlists", path: "/playlists" },
-  { label: "Músicas",   path: "/categoria/musicas" },
-  { label: "Filmes",    path: "/categoria/filmes" },
-  { label: "Livros",    path: "/categoria/livros" },
+  { label: "Músicas", path: "/categoria/musicas" },
+  { label: "Filmes", path: "/categoria/filmes" },
+  { label: "Livros", path: "/categoria/livros" },
 ];
 
 const socialLinks = [
-  { icon: Code2,  label: "GitHub",    href: "#" },
+  { icon: Code2, label: "GitHub", href: "#" },
   { icon: Share2, label: "Twitter/X", href: "#" },
   { icon: Camera, label: "Instagram", href: "#" },
-  { icon: Mail,      label: "Email",     href: "mailto:oi@armando.blog" },
-  { icon: Rss,       label: "RSS",       href: "#" },
+  { icon: Mail, label: "Email", href: "mailto:oi@armando.blog" },
+  { icon: Rss, label: "RSS", href: "#" },
 ];
 
 interface FooterProps {
@@ -46,7 +46,13 @@ export function Footer({ contextLabel }: FooterProps) {
             >
               ARMANDO
             </div>
-            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "var(--arm-text-secondary)" }}>
+            <span
+              style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: "9px",
+                color: "var(--arm-text-secondary)",
+              }}
+            >
               · ARTE & TECNOLOGIA DIGITAL ·
             </span>
           </div>
@@ -96,8 +102,12 @@ export function Footer({ contextLabel }: FooterProps) {
                 letterSpacing: "0.04em",
                 transition: "color 0.15s",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = "var(--arm-blue)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = "var(--arm-text-secondary)"; }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--arm-blue)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--arm-text-secondary)";
+              }}
             >
               {link.label.toUpperCase()}
             </Link>
@@ -106,7 +116,14 @@ export function Footer({ contextLabel }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "var(--arm-text-muted)", letterSpacing: "0.05em" }}>
+          <span
+            style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: "9px",
+              color: "var(--arm-text-muted)",
+              letterSpacing: "0.05em",
+            }}
+          >
             © 2026 ARMANDO. FEITO COM PIXELS E CAFE.
             {contextLabel && (
               <span style={{ marginLeft: "8px", color: "var(--arm-text-secondary)" }}>
@@ -116,9 +133,33 @@ export function Footer({ contextLabel }: FooterProps) {
           </span>
           <div className="flex items-center gap-3 opacity-30">
             <svg width="30" height="30" viewBox="0 0 60 60">
-              <ellipse cx="30" cy="30" rx="28" ry="28" fill="none" stroke="var(--arm-text)" strokeWidth="1.5" />
-              <ellipse cx="30" cy="30" rx="18" ry="28" fill="none" stroke="var(--arm-text)" strokeWidth="1" />
-              <ellipse cx="30" cy="30" rx="8" ry="28" fill="none" stroke="var(--arm-text)" strokeWidth="1" />
+              <ellipse
+                cx="30"
+                cy="30"
+                rx="28"
+                ry="28"
+                fill="none"
+                stroke="var(--arm-text)"
+                strokeWidth="1.5"
+              />
+              <ellipse
+                cx="30"
+                cy="30"
+                rx="18"
+                ry="28"
+                fill="none"
+                stroke="var(--arm-text)"
+                strokeWidth="1"
+              />
+              <ellipse
+                cx="30"
+                cy="30"
+                rx="8"
+                ry="28"
+                fill="none"
+                stroke="var(--arm-text)"
+                strokeWidth="1"
+              />
               <line x1="2" y1="20" x2="58" y2="20" stroke="var(--arm-text)" strokeWidth="1" />
               <line x1="2" y1="30" x2="58" y2="30" stroke="var(--arm-text)" strokeWidth="1" />
               <line x1="2" y1="40" x2="58" y2="40" stroke="var(--arm-text)" strokeWidth="1" />

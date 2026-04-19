@@ -80,8 +80,13 @@ export default function NotFound() {
       <div
         className="absolute pointer-events-none"
         style={{
-          width: 300, height: 300, top: "10%", left: "5%", borderRadius: "50%",
-          background: "radial-gradient(circle at 35% 35%, rgba(3,71,193,0.25), rgba(3,71,193,0.08), transparent 70%)",
+          width: 300,
+          height: 300,
+          top: "10%",
+          left: "5%",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle at 35% 35%, rgba(3,71,193,0.25), rgba(3,71,193,0.08), transparent 70%)",
           filter: "blur(60px)",
           animation: "aeroFloat 7s ease-in-out infinite alternate",
         }}
@@ -89,8 +94,13 @@ export default function NotFound() {
       <div
         className="absolute pointer-events-none"
         style={{
-          width: 200, height: 200, bottom: "15%", right: "8%", borderRadius: "50%",
-          background: "radial-gradient(circle at 35% 35%, rgba(224,80,80,0.2), rgba(224,80,80,0.06), transparent 70%)",
+          width: 200,
+          height: 200,
+          bottom: "15%",
+          right: "8%",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle at 35% 35%, rgba(224,80,80,0.2), rgba(224,80,80,0.06), transparent 70%)",
           filter: "blur(50px)",
           animation: "aeroFloat 9s ease-in-out infinite alternate",
           animationDelay: "2s",
@@ -99,8 +109,13 @@ export default function NotFound() {
       <div
         className="absolute pointer-events-none"
         style={{
-          width: 150, height: 150, top: "50%", right: "20%", borderRadius: "50%",
-          background: "radial-gradient(circle at 35% 35%, rgba(192,132,252,0.2), rgba(192,132,252,0.05), transparent 70%)",
+          width: 150,
+          height: 150,
+          top: "50%",
+          right: "20%",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle at 35% 35%, rgba(192,132,252,0.2), rgba(192,132,252,0.05), transparent 70%)",
           filter: "blur(40px)",
           animation: "aeroFloat 6s ease-in-out infinite alternate",
           animationDelay: "1s",
@@ -115,15 +130,25 @@ export default function NotFound() {
           { size: 28, bottom: "20%", left: "8%", delay: 0.6 },
           { size: 16, top: "60%", right: "25%", delay: 2 },
           { size: 22, bottom: "35%", right: "5%", delay: 1.5 },
-        ] as { size: number; delay: number; top?: string; left?: string; right?: string; bottom?: string }[]
+        ] as {
+          size: number;
+          delay: number;
+          top?: string;
+          left?: string;
+          right?: string;
+          bottom?: string;
+        }[]
       ).map((b, i) => (
         <div
           key={i}
           className="absolute pointer-events-none"
           style={{
-            width: b.size, height: b.size,
-            top: b.top, left: b.left,
-            right: b.right, bottom: b.bottom,
+            width: b.size,
+            height: b.size,
+            top: b.top,
+            left: b.left,
+            right: b.right,
+            bottom: b.bottom,
             borderRadius: "50%",
             background: `
               radial-gradient(circle at 30% 25%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 20%, transparent 50%),
@@ -140,7 +165,8 @@ export default function NotFound() {
       <div
         className="absolute inset-0 pointer-events-none z-10 opacity-[0.03]"
         style={{
-          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)",
+          backgroundImage:
+            "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.3) 2px, rgba(0,0,0,0.3) 4px)",
         }}
       />
 
@@ -174,7 +200,12 @@ export default function NotFound() {
             </div>
 
             <div className="flex justify-center mb-2">
-              <WavyText text="PAGINA NAO ENCONTRADA" variant="stacked" fontSize={22} color="#022a6e" />
+              <WavyText
+                text="PAGINA NAO ENCONTRADA"
+                variant="stacked"
+                fontSize={22}
+                color="#022a6e"
+              />
             </div>
 
             <div
@@ -186,27 +217,89 @@ export default function NotFound() {
               }}
             >
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-2.5 h-2.5" style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }} />
-                <div className="w-2.5 h-2.5" style={{ backgroundColor: "#4ade80", border: "1px solid #022a6e" }} />
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px", color: "#e8f4ff" }}>
+                <div
+                  className="w-2.5 h-2.5"
+                  style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                />
+                <div
+                  className="w-2.5 h-2.5"
+                  style={{ backgroundColor: "#4ade80", border: "1px solid #022a6e" }}
+                />
+                <span
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "8px",
+                    color: "#e8f4ff",
+                  }}
+                >
                   TERMINAL_OUTPUT.LOG
                 </span>
               </div>
-              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "11px", color: "#e8f4ff", lineHeight: 1.6, minHeight: "20px" }}>
+              <div
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "11px",
+                  color: "#e8f4ff",
+                  lineHeight: 1.6,
+                  minHeight: "20px",
+                }}
+              >
                 <span style={{ color: "#4ade80" }}>{">"}</span> {typedText}
-                <span style={{ color: "#4ade80", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }}>█</span>
+                <span
+                  style={{
+                    color: "#4ade80",
+                    opacity: showCursor ? 1 : 0,
+                    transition: "opacity 0.1s",
+                  }}
+                >
+                  █
+                </span>
               </div>
             </div>
 
-            <p className="text-center mb-5" style={{ fontFamily: "'Space Mono', monospace", fontSize: "11px", lineHeight: 1.6, color: "#5a7a9a" }}>
+            <p
+              className="text-center mb-5"
+              style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: "11px",
+                lineHeight: 1.6,
+                color: "#5a7a9a",
+              }}
+            >
               O arquivo que voce procura foi movido, deletado,
               <br />
               ou talvez nunca tenha existido neste plano digital.
             </p>
 
-            <div className="mb-5 p-3 text-center" style={{ background: "rgba(3, 71, 193, 0.06)", backdropFilter: "blur(12px)", border: "2px solid rgba(3, 71, 193, 0.15)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 16px rgba(3,71,193,0.06)" }}>
-              <span style={{ fontFamily: "'Bungee Shade', sans-serif", fontSize: "11px", color: "#0347c1", letterSpacing: "0.05em" }}>ARMANDO</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0", marginLeft: "8px" }}>{"// arte & tecnologia digital"}</span>
+            <div
+              className="mb-5 p-3 text-center"
+              style={{
+                background: "rgba(3, 71, 193, 0.06)",
+                backdropFilter: "blur(12px)",
+                border: "2px solid rgba(3, 71, 193, 0.15)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 16px rgba(3,71,193,0.06)",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Bungee Shade', sans-serif",
+                  fontSize: "11px",
+                  color: "#0347c1",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                ARMANDO
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "9px",
+                  color: "#5a8ad0",
+                  marginLeft: "8px",
+                }}
+              >
+                {"// arte & tecnologia digital"}
+              </span>
             </div>
 
             <div className="flex items-center justify-center gap-3">
@@ -252,10 +345,29 @@ export default function NotFound() {
 
             <div className="mt-5">
               <div className="flex items-center justify-between mb-1">
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px", color: "#5a8ad0" }}>SEARCHING_REALITY.EXE...</span>
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px", color: "#e05050" }}>FAILED</span>
+                <span
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "8px",
+                    color: "#5a8ad0",
+                  }}
+                >
+                  SEARCHING_REALITY.EXE...
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: "8px",
+                    color: "#e05050",
+                  }}
+                >
+                  FAILED
+                </span>
               </div>
-              <div className="h-2.5 w-full overflow-hidden" style={{ border: "2px solid #022a6e", backgroundColor: "#e8e4dc" }}>
+              <div
+                className="h-2.5 w-full overflow-hidden"
+                style={{ border: "2px solid #022a6e", backgroundColor: "#e8e4dc" }}
+              >
                 <motion.div
                   className="h-full"
                   style={{ backgroundColor: "#e05050" }}

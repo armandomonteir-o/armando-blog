@@ -21,7 +21,11 @@ export function RetroWindow({
   const isGlass = variant === "glass";
 
   const borderColor = isDark ? "#022a6e" : "var(--arm-border)";
-  const titleBg = isGlass ? "var(--arm-bg-glass-title)" : isDark ? "#0458d4" : "var(--arm-bg-card-title)";
+  const titleBg = isGlass
+    ? "var(--arm-bg-glass-title)"
+    : isDark
+      ? "#0458d4"
+      : "var(--arm-bg-card-title)";
   const titleText = isGlass ? "#fff" : isDark ? "#fff" : "var(--arm-text)";
   const bodyBg = isGlass ? "var(--arm-glass-body)" : isDark ? "#0347c1" : "var(--arm-bg-card)";
 
@@ -72,7 +76,9 @@ export function RetroWindow({
               style={{
                 border: `2px solid ${borderColor}`,
                 backgroundColor: isDark ? "#0560e0" : "var(--arm-bg-card-title)",
-                fontSize: "10px", fontWeight: 700, lineHeight: 1,
+                fontSize: "10px",
+                fontWeight: 700,
+                lineHeight: 1,
                 color: titleText,
               }}
             >
@@ -85,7 +91,9 @@ export function RetroWindow({
               style={{
                 border: `2px solid ${borderColor}`,
                 backgroundColor: "#e05050",
-                fontSize: "10px", fontWeight: 700, lineHeight: 1,
+                fontSize: "10px",
+                fontWeight: 700,
+                lineHeight: 1,
                 color: "#fff",
               }}
             >
@@ -100,7 +108,10 @@ export function RetroWindow({
         {isGlass && (
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(135deg, var(--arm-glass-sheen) 0%, rgba(255,255,255,0.02) 40%, transparent 70%)" }}
+            style={{
+              background:
+                "linear-gradient(135deg, var(--arm-glass-sheen) 0%, rgba(255,255,255,0.02) 40%, transparent 70%)",
+            }}
           />
         )}
         <div className="relative z-10">{children}</div>

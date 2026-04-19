@@ -80,7 +80,9 @@ export function PostsGrid() {
               href={post.isCorrupted ? "/void/corrupted/0x404" : `/post/${post.slug}`}
               className="flex flex-col cursor-pointer group h-[300px]"
               style={{
-                border: post.isCorrupted ? "2px solid #ff0000" : "2px solid var(--arm-panel-border)",
+                border: post.isCorrupted
+                  ? "2px solid #ff0000"
+                  : "2px solid var(--arm-panel-border)",
                 backgroundColor: post.isCorrupted ? "#1a0000" : "var(--arm-panel-bg)",
                 textDecoration: "none",
                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
@@ -114,7 +116,9 @@ export function PostsGrid() {
                     color: post.isCorrupted ? "#ff4444" : "var(--arm-panel-text-muted)",
                   }}
                 >
-                  {post.isCorrupted ? "⚠ CORRUPTED.ERR" : `POST-${String(post.id).padStart(3, "0")}.MD`}
+                  {post.isCorrupted
+                    ? "⚠ CORRUPTED.ERR"
+                    : `POST-${String(post.id).padStart(3, "0")}.MD`}
                 </span>
                 <div className="flex gap-1">
                   <div
@@ -126,7 +130,10 @@ export function PostsGrid() {
                   />
                   <div
                     className="w-2 h-2"
-                    style={{ backgroundColor: "#e05050", border: "1px solid var(--arm-panel-bg-deep)" }}
+                    style={{
+                      backgroundColor: "#e05050",
+                      border: "1px solid var(--arm-panel-bg-deep)",
+                    }}
                   />
                 </div>
               </div>
@@ -202,19 +209,28 @@ export function PostsGrid() {
                   className="flex items-center gap-3 pt-2"
                   style={{ borderTop: "1px solid var(--arm-panel-border)" }}
                 >
-                  <div className="flex items-center gap-1" style={{ color: "var(--arm-panel-text-muted)" }}>
+                  <div
+                    className="flex items-center gap-1"
+                    style={{ color: "var(--arm-panel-text-muted)" }}
+                  >
                     <Clock size={10} />
                     <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>
                       {post.date}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1" style={{ color: "var(--arm-panel-text-muted)" }}>
+                  <div
+                    className="flex items-center gap-1"
+                    style={{ color: "var(--arm-panel-text-muted)" }}
+                  >
                     <Eye size={10} />
                     <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>
                       {post.reads}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1" style={{ color: "var(--arm-panel-text-muted)" }}>
+                  <div
+                    className="flex items-center gap-1"
+                    style={{ color: "var(--arm-panel-text-muted)" }}
+                  >
                     <MessageCircle size={10} />
                     <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>
                       {post.comments}

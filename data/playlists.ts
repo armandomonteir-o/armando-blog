@@ -275,7 +275,5 @@ export const playlists: Playlist[] = [
 
 export function getPlaylistsByGenre(selectedGenres: string[]): Playlist[] {
   if (selectedGenres.length === 0) return playlists;
-  return playlists.filter((pl) =>
-    pl.genres.some((g) => selectedGenres.includes(g))
-  );
+  return playlists.filter((pl) => pl.genres.some((g) => selectedGenres.includes(g)));
 }

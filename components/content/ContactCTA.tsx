@@ -79,7 +79,12 @@ export function ContactCTA({ accentColor = "#0347c1" }: ContactCTAProps) {
               textDecoration: "none",
               flexShrink: 0,
             }}
-            whileHover={{ x: -2, y: -2, boxShadow: "6px 6px 0 var(--arm-shadow)", backgroundColor: "#0560e0" }}
+            whileHover={{
+              x: -2,
+              y: -2,
+              boxShadow: "6px 6px 0 var(--arm-shadow)",
+              backgroundColor: "#0560e0",
+            }}
             whileTap={{ x: 1, y: 1, boxShadow: "2px 2px 0 var(--arm-shadow)" }}
             transition={{ duration: 0.15 }}
           >

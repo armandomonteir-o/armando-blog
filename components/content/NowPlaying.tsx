@@ -250,7 +250,10 @@ export function NowPlayingWidget() {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = volume;
-    audio.play().then(() => setPlaying(true)).catch(() => {});
+    audio
+      .play()
+      .then(() => setPlaying(true))
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -429,10 +432,7 @@ export function NowPlayingWidget() {
       </div>
 
       {/* Player body */}
-      <div
-        className="flex items-center gap-3 px-4 py-3"
-        style={{ backgroundColor: "#0347c1" }}
-      >
+      <div className="flex items-center gap-3 px-4 py-3" style={{ backgroundColor: "#0347c1" }}>
         {/* Vinyl / Album art placeholder */}
         <div
           className="w-11 h-11 flex-shrink-0 flex items-center justify-center relative"
@@ -506,8 +506,7 @@ export function NowPlayingWidget() {
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 60%)",
+                  background: "linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 60%)",
                 }}
               />
             </div>
@@ -536,12 +535,8 @@ export function NowPlayingWidget() {
                   color: "#80b0ff",
                   transition: "background 0.15s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#0560e0")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#0458d4")
-                }
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0560e0")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#0458d4")}
               >
                 <SkipBack size={12} fill="currentColor" />
               </button>
@@ -577,12 +572,8 @@ export function NowPlayingWidget() {
                   color: "#80b0ff",
                   transition: "background 0.15s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#0560e0")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#0458d4")
-                }
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0560e0")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#0458d4")}
               >
                 <SkipForward size={12} fill="currentColor" />
               </button>
@@ -685,10 +676,7 @@ export function NowPlaying() {
 
   if (consented === null) {
     return (
-      <MusicConsentBar
-        onAccept={() => setConsented(true)}
-        onDecline={() => setConsented(false)}
-      />
+      <MusicConsentBar onAccept={() => setConsented(true)} onDecline={() => setConsented(false)} />
     );
   }
 
