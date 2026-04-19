@@ -15,10 +15,12 @@ import {
   User,
   ListMusic,
   Bell,
-  Sun,
-  Moon,
+  // TODO: restore dark mode — uncomment Sun and Moon
+  // Sun,
+  // Moon,
 } from "lucide-react";
-import { useThemeStore } from "@/store/useThemeStore";
+// TODO: restore dark mode — uncomment the import below
+// import { useThemeStore } from "@/store/useThemeStore";
 
 const navItems = [
   { icon: Home, label: "Home", path: "/" },
@@ -46,8 +48,9 @@ export function Sidebar({
 }: SidebarProps) {
   const [hovered, setHovered] = useState(false);
   const pathname = usePathname();
-  const { theme, toggleTheme } = useThemeStore();
-  const isDark = theme === "dark";
+  // TODO: restore dark mode — uncomment the two lines below
+  // const { theme, toggleTheme } = useThemeStore();
+  // const isDark = theme === "dark";
   const isExpanded = mobileOpen ? true : collapsed ? hovered : true;
   const width = isExpanded ? 220 : 64;
 
@@ -321,7 +324,8 @@ export function Sidebar({
             </>
           )}
 
-          {/* Dark mode toggle */}
+          {/* TODO: restore dark mode — uncomment the button below */}
+          {/*
           <button
             className="flex items-center gap-2 px-3 py-2 cursor-pointer transition-colors w-full"
             title={isDark ? "Modo claro" : "Modo escuro"}
@@ -349,6 +353,7 @@ export function Sidebar({
             )}
             {isExpanded && <span style={{ fontSize: "11px" }}>{isDark ? "Light" : "Dark"}</span>}
           </button>
+          */}
         </div>
       </div>
     </aside>

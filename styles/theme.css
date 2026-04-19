@@ -1,5 +1,6 @@
 /* Uses [data-theme="dark"] on <html>, NOT .dark class — see docs/pitfalls/README.md PITFALL-003 */
-@custom-variant dark (&:is([data-theme="dark"] *));
+/* TODO: restore dark mode — uncomment the line below */
+/* @custom-variant dark (&:is([data-theme="dark"] *)); */
 
 :root {
   /* ── Armando Blog Palette (Light) ── */
@@ -75,75 +76,76 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-[data-theme="dark"] {
-  /* ── Armando Blog Palette (Dark) ── */
-  --arm-bg: #0c0b14;
-  --arm-bg-card: #1a1830;
-  --arm-bg-card-title: #282545;
-  --arm-bg-glass: rgba(22, 20, 40, 0.8);
-  --arm-bg-glass-title: rgba(35, 32, 60, 0.85);
-  --arm-bg-glass-highlight: rgba(255, 255, 255, 0.1);
-  --arm-border: #3050a0;
-  --arm-text: #e4ecf8;
-  --arm-text-secondary: #a0b0d0;
-  --arm-text-muted: #7888b0;
-  --arm-grid: #1a2850;
-  --arm-blue: #4a8aff;
-  --arm-blue-mid: #3a7af0;
-  --arm-blue-dark: #1a3a70;
-  --arm-brand-opacity: 1;
-  --arm-shadow: #080810;
-  --arm-glass-body: rgba(14, 12, 26, 0.7);
-  --arm-glass-sheen: rgba(255, 255, 255, 0.05);
-
-  /* ── Dark Panel (inside RetroWindow dark) ── */
-  --arm-panel-bg: #1a1830;
-  --arm-panel-bg-darker: #12102a;
-  --arm-panel-border: #2a3a70;
-  --arm-panel-bg-deep: #0c0b14;
-  --arm-panel-text: #e4ecf8;
-  --arm-panel-text-soft: #8090c0;
-  --arm-panel-text-muted: #607098;
-  --arm-panel-text-dim: #4a5a80;
-  --arm-panel-text-body: #90a8d0;
-  --arm-panel-text-content: #b0c8e8;
-
-  /* ── shadcn/ui tokens (dark overrides) ── */
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
-}
+/* TODO: restore dark mode — uncomment the block below (lines starting with DARK:) */
+/* DARK: [data-theme="dark"] { */
+/* DARK:   -- Armando Blog Palette (Dark) -- */
+/* DARK:   --arm-bg: #0c0b14; */
+/* DARK:   --arm-bg-card: #1a1830; */
+/* DARK:   --arm-bg-card-title: #282545; */
+/* DARK:   --arm-bg-glass: rgba(22, 20, 40, 0.8); */
+/* DARK:   --arm-bg-glass-title: rgba(35, 32, 60, 0.85); */
+/* DARK:   --arm-bg-glass-highlight: rgba(255, 255, 255, 0.1); */
+/* DARK:   --arm-border: #3050a0; */
+/* DARK:   --arm-text: #e4ecf8; */
+/* DARK:   --arm-text-secondary: #a0b0d0; */
+/* DARK:   --arm-text-muted: #7888b0; */
+/* DARK:   --arm-grid: #1a2850; */
+/* DARK:   --arm-blue: #4a8aff; */
+/* DARK:   --arm-blue-mid: #3a7af0; */
+/* DARK:   --arm-blue-dark: #1a3a70; */
+/* DARK:   --arm-brand-opacity: 1; */
+/* DARK:   --arm-shadow: #080810; */
+/* DARK:   --arm-glass-body: rgba(14, 12, 26, 0.7); */
+/* DARK:   --arm-glass-sheen: rgba(255, 255, 255, 0.05); */
+/* DARK: */
+/* DARK:   -- Dark Panel (inside RetroWindow dark) -- */
+/* DARK:   --arm-panel-bg: #1a1830; */
+/* DARK:   --arm-panel-bg-darker: #12102a; */
+/* DARK:   --arm-panel-border: #2a3a70; */
+/* DARK:   --arm-panel-bg-deep: #0c0b14; */
+/* DARK:   --arm-panel-text: #e4ecf8; */
+/* DARK:   --arm-panel-text-soft: #8090c0; */
+/* DARK:   --arm-panel-text-muted: #607098; */
+/* DARK:   --arm-panel-text-dim: #4a5a80; */
+/* DARK:   --arm-panel-text-body: #90a8d0; */
+/* DARK:   --arm-panel-text-content: #b0c8e8; */
+/* DARK: */
+/* DARK:   -- shadcn/ui tokens (dark overrides) -- */
+/* DARK:   --background: oklch(0.145 0 0); */
+/* DARK:   --foreground: oklch(0.985 0 0); */
+/* DARK:   --card: oklch(0.145 0 0); */
+/* DARK:   --card-foreground: oklch(0.985 0 0); */
+/* DARK:   --popover: oklch(0.145 0 0); */
+/* DARK:   --popover-foreground: oklch(0.985 0 0); */
+/* DARK:   --primary: oklch(0.985 0 0); */
+/* DARK:   --primary-foreground: oklch(0.205 0 0); */
+/* DARK:   --secondary: oklch(0.269 0 0); */
+/* DARK:   --secondary-foreground: oklch(0.985 0 0); */
+/* DARK:   --muted: oklch(0.269 0 0); */
+/* DARK:   --muted-foreground: oklch(0.708 0 0); */
+/* DARK:   --accent: oklch(0.269 0 0); */
+/* DARK:   --accent-foreground: oklch(0.985 0 0); */
+/* DARK:   --destructive: oklch(0.396 0.141 25.723); */
+/* DARK:   --destructive-foreground: oklch(0.637 0.237 25.331); */
+/* DARK:   --border: oklch(0.269 0 0); */
+/* DARK:   --input: oklch(0.269 0 0); */
+/* DARK:   --ring: oklch(0.439 0 0); */
+/* DARK:   --font-weight-medium: 500; */
+/* DARK:   --font-weight-normal: 400; */
+/* DARK:   --chart-1: oklch(0.488 0.243 264.376); */
+/* DARK:   --chart-2: oklch(0.696 0.17 162.48); */
+/* DARK:   --chart-3: oklch(0.769 0.188 70.08); */
+/* DARK:   --chart-4: oklch(0.627 0.265 303.9); */
+/* DARK:   --chart-5: oklch(0.645 0.246 16.439); */
+/* DARK:   --sidebar: oklch(0.205 0 0); */
+/* DARK:   --sidebar-foreground: oklch(0.985 0 0); */
+/* DARK:   --sidebar-primary: oklch(0.488 0.243 264.376); */
+/* DARK:   --sidebar-primary-foreground: oklch(0.985 0 0); */
+/* DARK:   --sidebar-accent: oklch(0.269 0 0); */
+/* DARK:   --sidebar-accent-foreground: oklch(0.985 0 0); */
+/* DARK:   --sidebar-border: oklch(0.269 0 0); */
+/* DARK:   --sidebar-ring: oklch(0.439 0 0); */
+/* DARK: } */
 
 @theme inline {
   --color-background: var(--background);
