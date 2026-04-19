@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { AeroElements } from "@/components/ui/AeroElements";
 import { RetroWindow } from "@/components/ui/RetroWindow";
 import { WavyText } from "@/components/ui/WavyText";
@@ -36,19 +37,18 @@ export default async function PostPage({
 }) {
   const { slug } = await params;
   const matchedPost = posts.find((p) => p.slug === slug);
+  if (!matchedPost) notFound();
 
-  const currentPost = matchedPost
-    ? {
-        ...postData,
-        title: matchedPost.title,
-        category: matchedPost.category,
-        date: matchedPost.date,
-        heroImage: matchedPost.image,
-        reads: matchedPost.reads,
-        comments: matchedPost.comments,
-        subtitle: matchedPost.excerpt,
-      }
-    : postData;
+  const currentPost = {
+    ...postData,
+    title: matchedPost.title,
+    category: matchedPost.category,
+    date: matchedPost.date,
+    heroImage: matchedPost.image,
+    reads: matchedPost.reads,
+    comments: matchedPost.comments,
+    subtitle: matchedPost.excerpt,
+  };
 
   return (
     <div

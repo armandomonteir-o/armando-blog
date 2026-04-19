@@ -2,19 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { WavyText } from "@/components/ui/WavyText";
 import { RetroWindow } from "@/components/ui/RetroWindow";
 import { Home, ArrowLeft } from "lucide-react";
-
-const glitchMessages = [
-  "SEGMENTATION FAULT: REALITY NOT FOUND",
-  "ERROR 404: THIS PAGE HAS BEEN CONSUMED BY THE VOID",
-  "FATAL: UNIVERSE.EXE HAS STOPPED RESPONDING",
-  "WARNING: YOU HAVE ENTERED THE DIGITAL LIMBO",
-  "PANIC: KERNEL OF CREATIVITY NOT LOADED",
-  "EXCEPTION: DREAMS_OVERFLOW AT 0x00000404",
-];
 
 const asciiArt = `
   ██╗  ██╗ ██████╗ ██╗  ██╗
@@ -26,6 +18,18 @@ const asciiArt = `
 `;
 
 export default function NotFound() {
+  const pathname = usePathname();
+  const slug = pathname?.split("/").filter(Boolean).pop() ?? "???";
+
+  const glitchMessages = [
+    `ta endoidando? a pagina '${slug}' nao existe aqui nao`,
+    `ERRO: tentou acessar '${slug}' e foi parar no vazio`,
+    `FATAL: ${slug}.exe foi pro espaco sideral`,
+    `AVISO: nao achamos '${slug}' nem com lanterna`,
+    `PANICO: como voce chegou aqui tentando acessar '${slug}'?`,
+    `EXCECAO: SONHOS_OVERFLOW em 0x00000404`,
+  ];
+
   const [msgIndex, setMsgIndex] = useState(0);
   const [typedText, setTypedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
@@ -183,11 +187,11 @@ export default function NotFound() {
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-2.5 h-2.5" style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }} />
                 <div className="w-2.5 h-2.5" style={{ backgroundColor: "#4ade80", border: "1px solid #022a6e" }} />
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px", color: "#5a8ad0" }}>
+                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px", color: "#e8f4ff" }}>
                   TERMINAL_OUTPUT.LOG
                 </span>
               </div>
-              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "11px", color: "#80b0ff", lineHeight: 1.6, minHeight: "20px" }}>
+              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "11px", color: "#e8f4ff", lineHeight: 1.6, minHeight: "20px" }}>
                 <span style={{ color: "#4ade80" }}>{">"}</span> {typedText}
                 <span style={{ color: "#4ade80", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }}>█</span>
               </div>
@@ -229,7 +233,7 @@ export default function NotFound() {
                 className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2"
                 style={{
                   backgroundColor: "#0458d4",
-                  color: "#80b0ff",
+                  color: "#e8f4ff",
                   border: "3px solid #022a6e",
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700,
