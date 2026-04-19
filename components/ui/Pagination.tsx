@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "motion/react";
 
 interface PaginationProps {
   currentPage: number;
@@ -18,7 +19,6 @@ const paginationButtonStyle: React.CSSProperties = {
   backgroundColor: "#0458d4",
   color: "#c8e0ff",
   cursor: "pointer",
-  transition: "transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease",
 };
 
 const activePageStyle: React.CSSProperties = {
@@ -29,15 +29,8 @@ const activePageStyle: React.CSSProperties = {
   boxShadow: "2px 2px 0 #022a6e",
 };
 
-const handleBtnHoverEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-  e.currentTarget.style.transform = "translate(-1px, -1px)";
-  e.currentTarget.style.boxShadow = "3px 3px 0 #022a6e";
-};
-
-const handleBtnHoverLeave = (e: React.MouseEvent<HTMLButtonElement>, isActive: boolean) => {
-  e.currentTarget.style.transform = "translate(0, 0)";
-  e.currentTarget.style.boxShadow = isActive ? "2px 2px 0 #022a6e" : "none";
-};
+const hoverAnim = { x: -1, y: -1, boxShadow: "3px 3px 0 #022a6e" };
+const tapAnim = { x: 0, y: 0 };
 
 export function Pagination({
   currentPage,
@@ -71,59 +64,59 @@ export function Pagination({
         </div>
       </div>
 
-      <div className="flex items-center gap-1.5">
-        <button
-          className="w-8 h-8 flex items-center justify-center"
-          style={{
-            ...paginationButtonStyle,
-            opacity: currentPage === 1 ? 0.4 : 1,
-            cursor: currentPage === 1 ? "not-allowed" : "pointer",
-          }}
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          onMouseEnter={(e) => {
-            if (currentPage !== 1) handleBtnHoverEnter(e);
-          }}
-          onMouseLeave={(e) => handleBtnHoverLeave(e, false)}
-        >
-          <ChevronLeft size={14} />
-        </button>
+      <nav aria-label="Paginação">
+        <div className="flex items-center gap-1.5">
+          <motion.button
+            className="w-8 h-8 flex items-center justify-center"
+            style={{
+              ...paginationButtonStyle,
+              opacity: currentPage === 1 ? 0.4 : 1,
+              cursor: currentPage === 1 ? "not-allowed" : "pointer",
+            }}
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            whileHover={currentPage !== 1 ? hoverAnim : {}}
+            whileTap={currentPage !== 1 ? tapAnim : {}}
+            aria-label="Página anterior"
+          >
+            <ChevronLeft size={14} />
+          </motion.button>
 
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-          const isActive = page === currentPage;
-          return (
-            <button
-              key={page}
-              className="w-8 h-8 flex items-center justify-center"
-              style={isActive ? activePageStyle : paginationButtonStyle}
-              onClick={() => onPageChange(page)}
-              onMouseEnter={(e) => {
-                if (!isActive) handleBtnHoverEnter(e);
-              }}
-              onMouseLeave={(e) => handleBtnHoverLeave(e, isActive)}
-            >
-              {String(page).padStart(2, "0")}
-            </button>
-          );
-        })}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+            const isActive = page === currentPage;
+            return (
+              <motion.button
+                key={page}
+                className="w-8 h-8 flex items-center justify-center"
+                style={isActive ? activePageStyle : paginationButtonStyle}
+                onClick={() => onPageChange(page)}
+                whileHover={!isActive ? hoverAnim : {}}
+                whileTap={!isActive ? tapAnim : {}}
+                aria-label={`Página ${page}`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {String(page).padStart(2, "0")}
+              </motion.button>
+            );
+          })}
 
-        <button
-          className="w-8 h-8 flex items-center justify-center"
-          style={{
-            ...paginationButtonStyle,
-            opacity: currentPage === totalPages ? 0.4 : 1,
-            cursor: currentPage === totalPages ? "not-allowed" : "pointer",
-          }}
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          onMouseEnter={(e) => {
-            if (currentPage !== totalPages) handleBtnHoverEnter(e);
-          }}
-          onMouseLeave={(e) => handleBtnHoverLeave(e, false)}
-        >
-          <ChevronRight size={14} />
-        </button>
-      </div>
+          <motion.button
+            className="w-8 h-8 flex items-center justify-center"
+            style={{
+              ...paginationButtonStyle,
+              opacity: currentPage === totalPages ? 0.4 : 1,
+              cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+            }}
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            whileHover={currentPage !== totalPages ? hoverAnim : {}}
+            whileTap={currentPage !== totalPages ? tapAnim : {}}
+            aria-label="Próxima página"
+          >
+            <ChevronRight size={14} />
+          </motion.button>
+        </div>
+      </nav>
     </div>
   );
 }
