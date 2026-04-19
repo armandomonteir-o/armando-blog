@@ -239,6 +239,34 @@ CSS variables are wired into Tailwind via `@theme inline` in `app/globals.css`:
 }
 ```
 
+## Component Folder Convention
+
+Components are organized by responsibility under `components/`:
+
+| Folder | Purpose | Examples |
+|---|---|---|
+| `components/ui/` | Primitive, reusable UI building blocks | `RetroWindow`, `WavyText`, `AppImage`, `Pagination` |
+| `components/layout/` | App chrome — persistent shell elements | `AppShell`, `Header`, `Sidebar`, `Footer` |
+| `components/layout/newsletter/` | Newsletter feature — grouped under layout because triggered from Header | `NewsletterWidget`, `NewsletterModal` |
+| `components/content/` | Page-level content blocks — assembled into pages | `FeaturedPost`, `PostsGrid`, `CommentsSection`, `NowPlaying` |
+
+### Barrel index.ts rule
+
+**Every subfolder inside `components/` must have an `index.ts`** that re-exports its public components. Consumers always import from the folder path, never from individual files:
+
+```ts
+// ✅ correct
+import { NewsletterWidget } from "@/components/layout/newsletter";
+import { PostsGrid } from "@/components/content";
+
+// ❌ wrong — leaks internal file structure
+import { NewsletterWidget } from "@/components/layout/newsletter/NewsletterWidget";
+```
+
+The folder path is the stable public API. If a file is renamed or split internally, only `index.ts` changes — all consumers stay untouched.
+
+See [`docs/learnings/barrel-index-pattern.md`](learnings/barrel-index-pattern.md) for the full rationale.
+
 ## Known Data Coupling Issues
 
 - `PostsGrid.tsx` exports `posts` array and `categoryColors` map. `AllPostsPage.tsx` and `Header.tsx` (for search) import both. In the migration, all should fetch from WP independently.
