@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Music } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface Track {
   title: string;
@@ -112,12 +113,16 @@ export function MusicConsentBar({
     return () => clearTimeout(t);
   }, []);
 
-  if (!visible) return null;
-
   return (
-    <div
+    <AnimatePresence>
+      {visible && (
+    <motion.div
       className="fixed bottom-0 left-0 right-0 z-50 flex justify-center p-3"
       style={{ pointerEvents: "none" }}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 40 }}
+      transition={{ type: "spring", stiffness: 280, damping: 26 }}
     >
       <div
         className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 px-4 py-3 max-w-xl w-full"
@@ -218,7 +223,9 @@ export function MusicConsentBar({
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

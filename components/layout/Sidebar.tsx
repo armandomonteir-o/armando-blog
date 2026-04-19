@@ -243,8 +243,9 @@ export function Sidebar({
           >
             <motion.div
               className="absolute pointer-events-none"
-              animate={{ opacity: [0.15, 0.35, 0.15] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 0.15, 0.35, 0.15] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
               style={{
                 width: 30,
                 height: 30,
