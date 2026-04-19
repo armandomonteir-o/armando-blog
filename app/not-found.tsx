@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
@@ -21,14 +21,17 @@ export default function NotFound() {
   const pathname = usePathname();
   const slug = pathname?.split("/").filter(Boolean).pop() ?? "???";
 
-  const glitchMessages = [
-    `ta endoidando? a pagina '${slug}' nao existe aqui nao`,
-    `ERRO: tentou acessar '${slug}' e foi parar no vazio`,
-    `FATAL: ${slug}.exe foi pro espaco sideral`,
-    `AVISO: nao achamos '${slug}' nem com lanterna`,
-    `PANICO: como voce chegou aqui tentando acessar '${slug}'?`,
-    `EXCECAO: SONHOS_OVERFLOW em 0x00000404`,
-  ];
+  const glitchMessages = useMemo(
+    () => [
+      `ta endoidando? a pagina '${slug}' nao existe aqui nao`,
+      `ERRO: tentou acessar '${slug}' e foi parar no vazio`,
+      `FATAL: ${slug}.exe foi pro espaco sideral`,
+      `AVISO: nao achamos '${slug}' nem com lanterna`,
+      `PANICO: como voce chegou aqui tentando acessar '${slug}'?`,
+      `EXCECAO: SONHOS_OVERFLOW em 0x00000404`,
+    ],
+    [slug]
+  );
 
   const [msgIndex, setMsgIndex] = useState(0);
   const [typedText, setTypedText] = useState("");
@@ -39,22 +42,18 @@ export default function NotFound() {
       setMsgIndex((prev) => (prev + 1) % glitchMessages.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [glitchMessages.length]);
 
   useEffect(() => {
     const target = glitchMessages[msgIndex];
-    setTypedText("");
-    let i = 0;
+    let i = -1;
     const typeInterval = setInterval(() => {
-      if (i < target.length) {
-        setTypedText(target.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typeInterval);
-      }
+      i++;
+      setTypedText(target.slice(0, i));
+      if (i >= target.length) clearInterval(typeInterval);
     }, 35);
     return () => clearInterval(typeInterval);
-  }, [msgIndex]);
+  }, [msgIndex, glitchMessages]);
 
   useEffect(() => {
     const interval = setInterval(() => setShowCursor((c) => !c), 530);
@@ -109,20 +108,22 @@ export default function NotFound() {
       />
 
       {/* Glossy bubbles */}
-      {[
-        { size: 20, top: "12%", left: "15%", delay: 0 },
-        { size: 14, top: "30%", right: "10%", delay: 1.2 },
-        { size: 28, bottom: "20%", left: "8%", delay: 0.6 },
-        { size: 16, top: "60%", right: "25%", delay: 2 },
-        { size: 22, bottom: "35%", right: "5%", delay: 1.5 },
-      ].map((b, i) => (
+      {(
+        [
+          { size: 20, top: "12%", left: "15%", delay: 0 },
+          { size: 14, top: "30%", right: "10%", delay: 1.2 },
+          { size: 28, bottom: "20%", left: "8%", delay: 0.6 },
+          { size: 16, top: "60%", right: "25%", delay: 2 },
+          { size: 22, bottom: "35%", right: "5%", delay: 1.5 },
+        ] as { size: number; delay: number; top?: string; left?: string; right?: string; bottom?: string }[]
+      ).map((b, i) => (
         <div
           key={i}
           className="absolute pointer-events-none"
           style={{
             width: b.size, height: b.size,
-            top: (b as any).top, left: (b as any).left,
-            right: (b as any).right, bottom: (b as any).bottom,
+            top: b.top, left: b.left,
+            right: b.right, bottom: b.bottom,
             borderRadius: "50%",
             background: `
               radial-gradient(circle at 30% 25%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 20%, transparent 50%),
@@ -205,7 +206,7 @@ export default function NotFound() {
 
             <div className="mb-5 p-3 text-center" style={{ background: "rgba(3, 71, 193, 0.06)", backdropFilter: "blur(12px)", border: "2px solid rgba(3, 71, 193, 0.15)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 16px rgba(3,71,193,0.06)" }}>
               <span style={{ fontFamily: "'Bungee Shade', sans-serif", fontSize: "11px", color: "#0347c1", letterSpacing: "0.05em" }}>ARMANDO</span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0", marginLeft: "8px" }}>// arte & tecnologia digital</span>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#5a8ad0", marginLeft: "8px" }}>{"// arte & tecnologia digital"}</span>
             </div>
 
             <div className="flex items-center justify-center gap-3">

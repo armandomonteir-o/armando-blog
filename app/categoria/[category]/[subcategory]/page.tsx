@@ -3,7 +3,7 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowRight, Clock, Eye, MessageCircle, Hash, ChevronDown } from "lucide-react";
+import { Clock, Eye, MessageCircle, Hash, ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 import { WavyText } from "@/components/ui/WavyText";
 import { RetroWindow } from "@/components/ui/RetroWindow";

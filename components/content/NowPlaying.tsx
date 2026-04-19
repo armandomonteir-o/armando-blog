@@ -251,6 +251,7 @@ export function NowPlayingWidget() {
     if (!audio) return;
     audio.volume = volume;
     audio.play().then(() => setPlaying(true)).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -261,6 +262,7 @@ export function NowPlayingWidget() {
     if (playing) {
       audio.play().catch(() => {});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrack]);
 
   useEffect(() => {

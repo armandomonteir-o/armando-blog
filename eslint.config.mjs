@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Figma Make prototype — not part of the Next.js app
+    "Neobrutalist Art Blog Homepage/**",
   ]),
 ]);
 

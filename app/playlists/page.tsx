@@ -9,7 +9,7 @@ import { AeroElements } from "@/components/ui/AeroElements";
 import { AppImage } from "@/components/ui/AppImage";
 import { Pagination } from "@/components/ui/Pagination";
 import { CategoryHero } from "@/components/ui/CategoryHero";
-import { playlists, genres, genreColors, getPlaylistsByGenre, type Playlist } from "@/data/playlists";
+import { genres, genreColors, getPlaylistsByGenre, type Playlist } from "@/data/playlists";
 
 // TODO issue #13: replace with generateMetadata() from WPGraphQL
 

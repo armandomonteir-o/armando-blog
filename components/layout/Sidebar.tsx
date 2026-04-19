@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
@@ -104,7 +105,7 @@ export function Sidebar({ collapsed = false, mobileOpen = false, onMobileClose, 
               style={{ border: "3px solid #80b0ff", backgroundColor: "#0458d4" }}
             >
               {/* Replace /avatar-pixel-art.png with the extracted Figma asset */}
-              <img src="/avatar-pixel-art.png" alt="Armando" className="w-full h-full object-cover" />
+              <Image src="/avatar-pixel-art.png" alt="Armando" width={40} height={40} className="w-full h-full object-cover" />
             </div>
             {isExpanded && (
               <span

@@ -8,6 +8,7 @@ import { RetroWindow } from "@/components/ui/RetroWindow";
 export function NewsletterWidget() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [notifyId] = useState(() => Math.random().toString(36).substring(2, 8).toUpperCase());
   const [btnHover, setBtnHover] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -222,11 +223,7 @@ export function NewsletterWidget() {
                       color: "#5a8ad0",
                     }}
                   >
-                    ID: #
-                    {Math.random()
-                      .toString(36)
-                      .substring(2, 8)
-                      .toUpperCase()}{" "}
+                    ID: #{notifyId}{" "}
                     — confira sua caixa de entrada.
                   </p>
                 </div>

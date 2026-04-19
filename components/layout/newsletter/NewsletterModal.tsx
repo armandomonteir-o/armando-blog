@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Mail,
   Bell,
@@ -21,6 +21,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [btnHover, setBtnHover] = useState(false);
+  const [notifyId] = useState(() => Math.random().toString(36).substring(2, 8).toUpperCase());
+  const prevOpen = useRef(false);
 
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
@@ -31,10 +33,15 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
   }, [open]);
 
   useEffect(() => {
-    if (open) {
-      setSubscribed(false);
-      setEmail("");
+    if (open && !prevOpen.current) {
+      const timer = setTimeout(() => {
+        setSubscribed(false);
+        setEmail("");
+      }, 0);
+      prevOpen.current = true;
+      return () => clearTimeout(timer);
     }
+    if (!open) prevOpen.current = false;
   }, [open]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -442,11 +449,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             color: "#4ade80",
                           }}
                         >
-                          {">"} NOTIFY_ID: #
-                          {Math.random()
-                            .toString(36)
-                            .substring(2, 8)
-                            .toUpperCase()}
+                          {">"} NOTIFY_ID: #{notifyId}
                         </motion.div>
 
                         {/* Privacy reminder */}
