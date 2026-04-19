@@ -452,25 +452,25 @@ Enable draft preview from WP admin:
 |---|---|---|---|---|
 | `App.tsx` | `layout.tsx` (merged) | - | - | P0 |
 | `routes.ts` | App Router directory structure | - | - | P0 |
-| `Layout.tsx` | `components/LayoutShell.tsx` | Client | - | P0 |
-| `Header.tsx` | `components/Header.tsx` | Client | WP Search API | P1 |
-| `Sidebar.tsx` | `components/Sidebar.tsx` | Client | - (static nav) | P0 |
-| `Footer.tsx` | `components/Footer.tsx` | Client* | - | P0 |
+| `Layout.tsx` | `components/layout/AppShell.tsx` | Client | - | P0 |
+| `Header.tsx` | `components/layout/Header.tsx` | Client | WP Search API | P1 |
+| `Sidebar.tsx` | `components/layout/Sidebar.tsx` | Client | - (static nav) | P0 |
+| `Footer.tsx` | `components/layout/Footer.tsx` | Client* | - | P0 |
 | `ThemeContext.tsx` | **DELETED** → `store/useThemeStore.ts` ✅ | Client | localStorage (key: `arm-theme`) | P0 |
-| `WavyText.tsx` | `components/WavyText.tsx` | Server | - | P0 |
-| `RetroWindow.tsx` | `components/RetroWindow.tsx` | Server | - | P0 |
-| `AeroElements.tsx` | `components/AeroElements.tsx` | Server | - | P0 |
-| `Pagination.tsx` | `components/Pagination.tsx` | Client | - | P0 |
-| `ScrollToTop.tsx` | `components/ScrollToTop.tsx` | Client | - | P0 |
-| `FeaturedPost.tsx` | `components/FeaturedPost.tsx` | Server | WP featured post | P1 |
-| `PostsGrid.tsx` | `components/PostsGrid.tsx` | Client | WP posts query | P1 |
-| `CommentsSection.tsx` | `components/CommentsSection.tsx` | Client | WP comments | P2 |
-| `NowPlaying.tsx` | `components/NowPlaying.tsx` | Client | - (or Spotify) | P3 |
-| `SideContent.tsx` | `components/SideContent.tsx` | Server | WP or static | P2 |
-| `CategoryHero.tsx` | `components/CategoryHero.tsx` | Server | props from page | P1 |
-| `NewsletterWidget.tsx` | `components/NewsletterWidget.tsx` | Client | API route | P2 |
-| `NewsletterModal.tsx` | `components/NewsletterModal.tsx` | Client | API route | P2 |
-| `ContactCTA.tsx` | `components/ContactCTA.tsx` | Client | - | P2 |
+| `WavyText.tsx` | `components/ui/WavyText.tsx` | Server | - | P0 |
+| `RetroWindow.tsx` | `components/ui/RetroWindow.tsx` | Server | - | P0 |
+| `AeroElements.tsx` | `components/ui/AeroElements.tsx` | Server | - | P0 |
+| `Pagination.tsx` | `components/ui/Pagination.tsx` | Client | - | P0 |
+| `ScrollToTop.tsx` | `components/ui/ScrollToTop.tsx` | Client | - | P0 |
+| `FeaturedPost.tsx` | `components/content/FeaturedPost.tsx` | Server | WP featured post | P1 |
+| `PostsGrid.tsx` | `components/content/PostsGrid.tsx` | Client | WP posts query | P1 |
+| `CommentsSection.tsx` | `components/content/CommentsSection.tsx` | Client | WP comments | P2 |
+| `NowPlaying.tsx` | `components/content/NowPlaying.tsx` | Client | - (or Spotify) | P3 |
+| `SideContent.tsx` | `components/content/SideContent.tsx` | Server | WP or static | P2 |
+| `CategoryHero.tsx` | `components/content/CategoryHero.tsx` | Server | props from page | P1 |
+| `NewsletterWidget.tsx` | `components/content/NewsletterWidget.tsx` | Client | API route | P2 |
+| `NewsletterModal.tsx` | `components/content/NewsletterModal.tsx` | Client | API route | P2 |
+| `ContactCTA.tsx` | `components/content/ContactCTA.tsx` | Client | - | P2 |
 | `HomePage.tsx` | `app/page.tsx` + client wrapper | Mixed | WP multiple | P1 |
 | `PostPage.tsx` | `app/post/[slug]/page.tsx` | Mixed | WP post + comments | P1 |
 | `CategoryPage.tsx` | `app/[categorySlug]/page.tsx` | Mixed | WP categories | P1 |

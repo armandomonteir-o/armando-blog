@@ -2,11 +2,20 @@
 
 Complete reference for every custom component. Each entry documents: purpose, props, data dependencies, behavior notes, and migration considerations.
 
+## Folder Convention
+
+```
+components/
+  layout/     ← chrome that wraps every page (AppShell, Sidebar, Header, Footer)
+  ui/         ← reusable primitives (RetroWindow, WavyText, Pagination, AeroElements...)
+  content/    ← page-specific content blocks (FeaturedPost, PostsGrid, CommentsSection...)
+```
+
 ---
 
-## Layout Components
+## Layout Components (`components/layout/`)
 
-### `Layout.tsx`
+### `Layout.tsx` (prototype)
 - **Purpose**: Root route component. Assembles Sidebar + Header + scrollable content area + Footer
 - **Props**: None (uses React Router Outlet)
 - **State**: `mobileOpen` (sidebar toggle), `notifyOpen` (newsletter modal), `scrollRef` (scroll container)
@@ -17,7 +26,7 @@ Complete reference for every custom component. Each entry documents: purpose, pr
   - `useLayoutEffect` resets `scrollRef.current.scrollTop = 0` on `location.key` change
   - Mobile overlay: dark backdrop when sidebar is open on mobile
 - **Data dependency**: None
-- **Migration**: Replace `<Outlet />` with `{children}`. Replace `useLocation` with `usePathname`. The scroll reset should use `pathname` instead of `location.key`.
+- **Migration**: → `components/layout/AppShell.tsx`. Replace `<Outlet />` with `{children}`. Replace `useLocation` with `usePathname`. Replace `useTheme()` with `useThemeStore()`.
 
 ### `Header.tsx`
 - **Purpose**: Top bar with search, notifications, user avatars
@@ -30,7 +39,7 @@ Complete reference for every custom component. Each entry documents: purpose, pr
   - Back button (desktop): calls `navigate(-1)`
   - Hamburger (mobile): calls `onMobileMenuToggle`
   - Click-outside closes panels (mousedown listener)
-- **Migration**: Replace search with WP search API call (debounced). Replace `useNavigate(-1)` with `router.back()`. Replace `Link` from `react-router` with Next.js `Link`.
+- **Migration**: → `components/layout/Header.tsx`. Replace search with WP search API call (debounced). Replace `useNavigate(-1)` with `router.back()`. Replace `Link` from `react-router` with Next.js `Link`.
 
 ### `Sidebar.tsx`
 - **Purpose**: Left navigation panel
@@ -43,14 +52,14 @@ Complete reference for every custom component. Each entry documents: purpose, pr
   - Contains dark mode toggle via `useTheme()`
   - Mobile: fixed position, slide-in from left, full height
   - Animated bell button with `motion` (rotate + pulse)
-- **Migration**: Replace `Link`/`useLocation` with Next.js equivalents. Replace `figma:asset/` import with `/public/avatar-pixel-art.png`. Add `"use client"`.
+- **Migration**: → `components/layout/Sidebar.tsx`. Replace `Link`/`useLocation` with Next.js equivalents. Replace `figma:asset/` import with `/public/avatar-pixel-art.png`. Replace `useTheme()` with `useThemeStore()`. Add `"use client"`.
 
 ### `Footer.tsx`
 - **Purpose**: Bottom section with branding, nav links, social icons
 - **Props**: `contextLabel?: string` (optional extra text)
 - **Data dependency**: `navLinks` and `socialLinks` (hardcoded)
 - **Behavior**: Hover color changes via inline event handlers
-- **Migration**: Replace `Link` with Next.js `Link`. Could potentially be a server component if hover handlers are moved to CSS.
+- **Migration**: → `components/layout/Footer.tsx`. Replace `Link` with Next.js `Link`. Could potentially be a server component if hover handlers are moved to CSS.
 
 ### `ThemeContext.tsx` — **DELETED** ✅
 
