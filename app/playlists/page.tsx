@@ -146,7 +146,7 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-500 group-hover:scale-110"
-              priority={index === 0}
+              preload={index === 0}
             />
             <div
               className="absolute inset-0 pointer-events-none"

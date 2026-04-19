@@ -11,7 +11,7 @@ interface AppImageProps extends Omit<ImageProps, "sizes"> {
   sizes: string;
 }
 
-export function AppImage({ src, alt, priority, loading, ...props }: AppImageProps) {
+export function AppImage({ src, alt, preload, loading, ...props }: AppImageProps) {
   const [imgSrc, setImgSrc] = useState(src);
 
   return (
@@ -19,9 +19,9 @@ export function AppImage({ src, alt, priority, loading, ...props }: AppImageProp
       {...props}
       src={imgSrc}
       alt={alt}
-      priority={priority}
-      // priority overrides loading: a priority image is always eager
-      loading={priority ? "eager" : loading}
+      preload={preload}
+      // preload overrides loading: a preloaded image is always eager
+      loading={preload ? "eager" : loading}
       onError={() => setImgSrc(FALLBACK_DATA_URI)}
     />
   );

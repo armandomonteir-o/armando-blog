@@ -18,9 +18,10 @@ export function FeaturedPost() {
             {/* Mobile: aspect-ratio box */}
             <div style={{ paddingBottom: "75%", position: "relative" }} className="md:hidden">
               <AppImage
-                src="https://images.unsplash.com/photo-1762279389006-43963a0cee55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjeWJlcnB1bmslMjBkaWdpdGFsJTIwYXJ0JTIwbmVvbiUyMGlsbHVzdHJhdGlvbnxlbnwxfHx8fDE3NzI4MzI1MDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="https://images.unsplash.com/photo-1649877508777-1554357604eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXRybyUyMGNvbXB1dGVyJTIwcGl4ZWwlMjBhZXN0aGV0aWN8ZW58MXx8fHwxNzcyODMzNDYxfDA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Cyberpunk digital art"
                 fill
+                preload
                 sizes="(max-width: 768px) 100vw, 260px"
                 className="object-cover"
               />
@@ -52,9 +53,10 @@ export function FeaturedPost() {
             {/* Desktop: fixed-height */}
             <div className="hidden md:block relative" style={{ height: "100%", minHeight: 260 }}>
               <AppImage
-                src="https://images.unsplash.com/photo-1762279389006-43963a0cee55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjeWJlcnB1bmslMjBkaWdpdGFsJTIwYXJ0JTIwbmVvbiUyMGlsbHVzdHJhdGlvbnxlbnwxfHx8fDE3NzI4MzI1MDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="https://images.unsplash.com/photo-1649877508777-1554357604eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXRybyUyMGNvbXB1dGVyJTIwcGl4ZWwlMjBhZXN0aGV0aWN8ZW58MXx8fHwxNzcyODMzNDYxfDA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Cyberpunk digital art"
                 fill
+                preload
                 sizes="260px"
                 className="object-cover"
               />
