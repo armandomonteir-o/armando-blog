@@ -52,14 +52,14 @@ Complete reference for every custom component. Each entry documents: purpose, pr
 - **Behavior**: Hover color changes via inline event handlers
 - **Migration**: Replace `Link` with Next.js `Link`. Could potentially be a server component if hover handlers are moved to CSS.
 
-### `ThemeContext.tsx`
-- **Purpose**: React Context for dark/light mode
-- **Exports**: `ThemeProvider`, `useTheme()`
-- **Behavior**:
-  - Reads initial state from `localStorage.getItem("armando-theme")`
-  - Sets `data-theme="dark"` on `document.documentElement`
-  - Provides `{ isDark: boolean, toggle: () => void }`
-- **Migration**: **Replace with Zustand store** (`/src/stores/theme-store.ts`). Use Zustand's `persist` middleware for localStorage. The `useThemeStore()` hook replaces `useTheme()`. No provider wrapper needed — components just import the hook directly. See `ARCHITECTURE.md` for the Zustand store example. Add SSR hydration guard to prevent flash of wrong theme (set `data-theme` in a `<script>` tag in `<head>` before React hydrates).
+### `ThemeContext.tsx` — **DELETED** ✅
+
+Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook replaces `useTheme()`. No provider wrapper needed — components import the hook directly.
+
+- `theme: 'light' | 'dark'` replaces `isDark: boolean`
+- `toggleTheme()` replaces `toggle()`
+- localStorage key: `arm-theme` (was `armando-theme`)
+- `onRehydrateStorage` callback applies theme to `<html>` on load (prevents flash of wrong theme)
 
 ---
 

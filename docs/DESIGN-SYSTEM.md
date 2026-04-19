@@ -10,7 +10,7 @@ The blog's visual identity is a deliberate mix of three movements:
 
 ## Typography
 
-### Fonts (currently loaded via Google Fonts in `/src/styles/fonts.css` — will be replaced by `next/font` in migration)
+### Fonts (loaded via `next/font/google` in `app/layout.tsx` ✅ Done — self-hosted, zero CLS, replaces `fonts.css`)
 
 | Font | Usage | CSS Reference |
 |---|---|---|
@@ -229,7 +229,7 @@ filter: blur(8px);
 The project uses **Tailwind CSS v4** (not v3). Key differences:
 - No `tailwind.config.js` file
 - Theme tokens defined via `@theme inline` in `theme.css`
-- Custom variants: `@custom-variant dark (&:is(.dark *))`
+- Custom variants: `@custom-variant dark (&:is([data-theme="dark"] *))` — NOT `.dark` (see PITFALL-003)
 - Uses `@layer base` for element defaults
 
 Most styling is done via **inline `style` props**, not Tailwind classes. Tailwind is used mainly for:

@@ -4,7 +4,7 @@
 
 | Layer | Technology |
 |---|---|
-| **Framework** | Next.js 15+ (App Router) |
+| **Framework** | Next.js 16 (App Router) |
 | **Language** | TypeScript |
 | **Styling** | Tailwind CSS v4 + inline styles (preserve current approach) |
 | **CMS** | WordPress (headless) + ACF PRO + WPGraphQL |
@@ -20,39 +20,22 @@
 | **SEO** | **`next-sitemap`** (auto sitemap.xml + robots.txt) + Next.js Metadata API |
 | **Deployment** | Vercel (frontend) + managed WordPress hosting (WP Engine/Kinsta) |
 
-## Phase 0: Project Setup
+## Phase 0: Project Setup ✅ Done
 
-### 1. Create Next.js project
+### 1. Create Next.js project ✅
 
-```bash
-npx create-next-app@latest armando-blog --typescript --tailwind --app --src-dir
-```
+Scaffolded with `create-next-app@latest` (installed Next.js 16.x). No `--src-dir` flag — project uses root-level `app/`, `store/`, `styles/`, `lib/` directories.
 
-### 2. Install dependencies
+### 2. Install dependencies ✅
 
-```bash
-# Core
-npm install motion lucide-react recharts graphql-request graphql
-npm install date-fns
+Core dependencies installed: `motion`, `zustand`, `graphql-request`, `graphql`, `next-sitemap`, `@vercel/analytics`. See `package.json` for exact versions.
 
-# State management
-npm install zustand
+### 3. Port static assets ✅ (partial)
 
-# Analytics
-npm install @vercel/analytics plausible-tracker
-
-# SEO
-npm install next-sitemap
-
-# Tailwind v4 should come with create-next-app in 2026
-```
-
-### 3. Port static assets
-
-- Copy `/src/styles/theme.css` -> `/src/styles/theme.css` (import in root layout)
-- **DO NOT copy `fonts.css`** — replace with `next/font` setup in `app/layout.tsx` (see ARCHITECTURE.md for font config)
-- Extract `figma:asset/e1a0ffb6389afd248d5a28785bcec40ad03c0e29.png` from the current build -> `/public/avatar-pixel-art.png`
-- Port all Unsplash image URLs as-is (they're stable CDN URLs)
+- `styles/theme.css` ported from prototype (dark mode selector fixed, see PITFALL-003)
+- `fonts.css` **replaced** with `next/font/google` in `app/layout.tsx` ✅
+- `figma:asset/` PNG → still needs extracting to `/public/avatar-pixel-art.png`
+- Unsplash URLs: port as-is when migrating each component
 
 ### 4. Set up environment variables
 
@@ -65,7 +48,7 @@ WP_AUTH_TOKEN=your-application-password-or-jwt  # For previews/drafts
 ### 5. Create GraphQL client
 
 ```typescript
-// /src/lib/graphql-client.ts
+// lib/graphql-client.ts
 import { GraphQLClient } from 'graphql-request';
 
 export const graphqlClient = new GraphQLClient(
@@ -84,24 +67,27 @@ Port the layout components first. These are 100% frontend — no WP data needed.
 
 ### Next.js App Router Structure
 
+No `src/` directory — routes live at the project root:
+
 ```
-/src/app/
-  layout.tsx          # Root layout (ThemeProvider + shell structure)
-  page.tsx            # Home page
-  not-found.tsx       # 404 page
+app/
+  layout.tsx                    # Root layout (fonts + LayoutShell)
+  page.tsx                      # Home page
+  not-found.tsx                 # 404 page
   posts/
-    page.tsx          # AllPostsPage
+    page.tsx                    # AllPostsPage
   post/
     [slug]/
-      page.tsx        # PostPage
+      page.tsx                  # PostPage
   sobre/
-    page.tsx          # AboutPage
+    page.tsx                    # AboutPage
   playlists/
-    page.tsx          # PlaylistsPage
-  [categorySlug]/
-    page.tsx          # CategoryPage
-    [subcategorySlug]/
-      page.tsx        # SubcategoryPage
+    page.tsx                    # PlaylistsPage
+  categoria/
+    [category]/
+      page.tsx                  # CategoryPage
+      [subcategory]/
+        page.tsx                # SubcategoryPage
 ```
 
 ### Components to port as-is (no changes needed)
@@ -157,20 +143,13 @@ Current pattern:
 
 Next.js equivalent:
 ```tsx
-// /src/app/layout.tsx
-// "use client" needed for scroll management, sidebar state, etc.
-// Or split into a client LayoutShell component
-
+// app/layout.tsx  (Server Component — fonts + metadata only)
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
-      <head>
-        {/* Font imports */}
-      </head>
+    <html lang="pt-BR" className={`${spaceGrotesk.variable} ...`}>
       <body>
-        <ThemeProvider>
-          <LayoutShell>{children}</LayoutShell>
-        </ThemeProvider>
+        <LayoutShell>{children}</LayoutShell>
+        {/* No ThemeProvider needed — Zustand replaces Context */}
       </body>
     </html>
   );
@@ -178,12 +157,13 @@ export default function RootLayout({ children }) {
 ```
 
 ```tsx
-// /src/components/LayoutShell.tsx
+// components/LayoutShell.tsx
 "use client";
 // Port current Layout.tsx logic here
 // Replace <Outlet /> with {children}
 // Replace useLocation() with usePathname() from next/navigation
 // Replace location.key scroll reset with useEffect on pathname change
+// Replace useTheme() with useThemeStore()
 ```
 
 ### Scroll Reset in Next.js
@@ -270,7 +250,7 @@ export default async function PostsPage() {
 
 ```tsx
 // "use client" component for filters, pagination, interactions
-// /src/app/posts/all-posts-content.tsx
+// app/posts/all-posts-content.tsx
 "use client";
 export function AllPostsContent({ posts }: { posts: Post[] }) {
   // Port current AllPostsPage logic, but receive posts as props instead of importing
@@ -380,7 +360,7 @@ useEffect(() => {
 ```
 
 ```tsx
-// /src/app/api/search/route.ts
+// app/api/search/route.ts
 import { graphqlClient } from '@/lib/graphql-client';
 import { SEARCH_POSTS } from '@/lib/queries/posts';
 
@@ -476,7 +456,7 @@ Enable draft preview from WP admin:
 | `Header.tsx` | `components/Header.tsx` | Client | WP Search API | P1 |
 | `Sidebar.tsx` | `components/Sidebar.tsx` | Client | - (static nav) | P0 |
 | `Footer.tsx` | `components/Footer.tsx` | Client* | - | P0 |
-| `ThemeContext.tsx` | `components/ThemeContext.tsx` | Client | localStorage | P0 |
+| `ThemeContext.tsx` | **DELETED** → `store/useThemeStore.ts` ✅ | Client | localStorage (key: `arm-theme`) | P0 |
 | `WavyText.tsx` | `components/WavyText.tsx` | Server | - | P0 |
 | `RetroWindow.tsx` | `components/RetroWindow.tsx` | Server | - | P0 |
 | `AeroElements.tsx` | `components/AeroElements.tsx` | Server | - | P0 |
@@ -501,9 +481,9 @@ Enable draft preview from WP admin:
 | `NotFoundPage.tsx` | `app/not-found.tsx` | Client | - | P0 |
 | `categories.ts` | `lib/queries/categories.ts` | - | WPGraphQL | P1 |
 | `playlists.ts` | `lib/queries/playlists.ts` | - | WPGraphQL | P2 |
-| `theme.css` | `styles/theme.css` | - | - | P0 |
-| `fonts.css` | **Replaced by `next/font`** in `layout.tsx` | - | - | P0 |
-| *(new)* | `stores/theme-store.ts` (Zustand) | Client | localStorage | P0 |
+| `theme.css` | `styles/theme.css` ✅ | - | - | P0 |
+| `fonts.css` | **Replaced by `next/font`** in `app/layout.tsx` ✅ | - | - | P0 |
+| *(new)* | `store/useThemeStore.ts` (Zustand) ✅ | Client | localStorage | P0 |
 | *(new)* | `next-sitemap.config.js` | - | - | P1 |
 
 Priority: P0 = layout shell, P1 = core content, P2 = secondary features, P3 = nice-to-have
@@ -518,7 +498,7 @@ Body: { secret: "xxx", path: "/post/the-slug" }
 ```
 
 ```tsx
-// /src/app/api/revalidate/route.ts
+// app/api/revalidate/route.ts
 import { revalidatePath } from 'next/cache';
 
 export async function POST(request: Request) {

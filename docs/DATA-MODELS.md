@@ -2,7 +2,7 @@
 
 ## Current TypeScript Interfaces
 
-### Category (`/src/app/data/categories.ts`)
+### Category (prototype: `/src/app/data/categories.ts` → migration target: `lib/queries/categories.ts`)
 
 ```typescript
 interface Subcategory {
@@ -106,7 +106,7 @@ interface RelatedPost {
 }
 ```
 
-### Playlist (`/src/app/data/playlists.ts`)
+### Playlist (prototype: `/src/app/data/playlists.ts` → migration target: `lib/queries/playlists.ts`)
 
 ```typescript
 interface PlaylistTrack {

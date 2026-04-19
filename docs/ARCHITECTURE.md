@@ -81,35 +81,42 @@ The app does NOT use native window scroll. The scrollable element is `#main-scro
 3. **Component-local state** - pagination, filters, search, notifications, modals
 4. **URL params** - category/subcategory slugs via React Router
 
-**Target (Next.js)**: Migrate to **Zustand** for global state management:
+**Done (Next.js)**: Migrated to **Zustand** for global state management ✅
 
-1. **Zustand store** (`/src/stores/theme-store.ts`) - replaces `ThemeContext.tsx`. Manages `isDark` boolean + `toggle()` action. Persists to localStorage via Zustand's `persist` middleware. Simpler than Context (no provider wrapper needed), better performance (selective re-renders).
-2. **localStorage** - same keys, now managed by Zustand persist middleware
+1. **Zustand store** (`store/useThemeStore.ts`) - replaces `ThemeContext.tsx`. Manages `theme: 'light' | 'dark'` + `setTheme()` / `toggleTheme()` actions. Persists to localStorage via Zustand's `persist` middleware. Simpler than Context (no provider wrapper needed), better performance (selective re-renders).
+2. **localStorage** - key `arm-theme`, managed by Zustand persist middleware
 3. **Component-local state** - stays the same (useState/useReducer for local UI)
 4. **URL params** - Next.js App Router params prop + `usePathname()`/`useSearchParams()`
 
-**Zustand migration example**:
+**Actual store** (`store/useThemeStore.ts`):
 ```typescript
-// /src/stores/theme-store.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+type Theme = 'light' | 'dark';
+
 interface ThemeStore {
-  isDark: boolean;
-  toggle: () => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
+}
+
+function applyTheme(theme: Theme) {
+  document.documentElement.setAttribute('data-theme', theme);
 }
 
 export const useThemeStore = create<ThemeStore>()(
   persist(
     (set) => ({
-      isDark: false,
-      toggle: () => set((state) => {
-        const newDark = !state.isDark;
-        document.documentElement.setAttribute('data-theme', newDark ? 'dark' : 'light');
-        return { isDark: newDark };
+      theme: 'light',
+      setTheme: (theme) => { applyTheme(theme); set({ theme }); },
+      toggleTheme: () => set((s) => {
+        const next: Theme = s.theme === 'light' ? 'dark' : 'light';
+        applyTheme(next);
+        return { theme: next };
       }),
     }),
-    { name: 'armando-theme' }
+    { name: 'arm-theme', onRehydrateStorage: () => (state) => { if (state) applyTheme(state.theme); } }
   )
 );
 ```
@@ -166,29 +173,23 @@ The `package.json` includes many more packages (shadcn/ui deps, MUI, etc.) but m
 - `PostsGrid.tsx` exports its `posts` array, which is imported by `AllPostsPage.tsx` for reuse - this coupling should be broken in the migration (both should fetch from WP)
 - `SubcategoryPage.tsx` generates mock posts via `generateMockPosts()` function - replace entirely with WP queries
 
-## CSS Import Chain (Critical for Next.js Setup)
+## CSS Import Chain ✅ Done
 
-The entry point is `/src/styles/index.css`, which imports in this order:
+The entry point for the **prototype** was `/src/styles/index.css`. The **Next.js project** uses:
 
 ```
-index.css
-  ├── fonts.css          → Google Fonts import (Space Grotesk, Space Mono, Rubik Glitch, Bungee Shade)
-  ├── tailwind.css       → Tailwind v4 setup
-  │     ├── @import 'tailwindcss' source(none)
-  │     ├── @source '../**/*.{js,ts,jsx,tsx}'
-  │     └── @import 'tw-animate-css'     ← animation utility classes
-  └── theme.css          → CSS custom properties (--arm-*) + dark mode + @theme inline tokens
+app/globals.css
+  ├── @import "tailwindcss"          → Tailwind v4 (via @tailwindcss/postcss in postcss.config.mjs)
+  ├── @import "tw-animate-css"       → animation utility classes
+  ├── @import "../styles/theme.css"  → CSS custom properties (--arm-*) + dark mode + @theme inline tokens
+  └── @theme inline { ... }          → wires font CSS variables into Tailwind (--font-sans, --font-mono, etc.)
 ```
 
-**For Next.js migration**:
-- **Replace `fonts.css` with `next/font`** for optimized, self-hosted font loading (see font setup below)
-- Configure Tailwind v4 via `@tailwindcss/postcss` in `postcss.config.js`
-- Import `theme.css` in `app/layout.tsx` or a global CSS file
-- Install `tw-animate-css` package if using animation utility classes from it
+Tailwind v4 is configured via `@tailwindcss/postcss` in `postcss.config.mjs` — no `tailwind.config.js` file.
 
-### Font Setup with `next/font`
+### Font Setup with `next/font` ✅ Done
 
-Replace the Google Fonts CSS import (`fonts.css`) with `next/font` in `app/layout.tsx`:
+All 4 fonts are configured in `app/layout.tsx` via `next/font/google` (self-hosted, zero CLS):
 
 ```typescript
 // app/layout.tsx
@@ -196,7 +197,6 @@ import { Space_Grotesk, Space_Mono, Rubik_Glitch, Bungee_Shade } from 'next/font
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-space-grotesk',
   display: 'swap',
 });
@@ -206,29 +206,38 @@ const spaceMono = Space_Mono({
   weight: ['400', '700'],
   variable: '--font-space-mono',
   display: 'swap',
+  preload: false,
 });
 
 const rubikGlitch = Rubik_Glitch({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: '400',
   variable: '--font-rubik-glitch',
   display: 'swap',
+  preload: false,  // display font — don't block initial render
 });
 
 const bungeeShade = Bungee_Shade({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: '400',
   variable: '--font-bungee-shade',
   display: 'swap',
+  preload: false,  // display font — don't block initial render
 });
 
-// Apply to <html> or <body>:
-// className={`${spaceGrotesk.variable} ${spaceMono.variable} ${rubikGlitch.variable} ${bungeeShade.variable}`}
+// Applied to <html>:
+// className={`${spaceGrotesk.variable} ${spaceMono.variable} ${rubikGlitch.variable} ${bungeeShade.variable} h-full antialiased`}
 ```
 
-Then update inline `fontFamily` references across components to use the CSS variables, or keep using the font-family strings since `next/font` with `display: 'swap'` will still match by name.
-
-**Important**: The `@source` directive tells Tailwind where to scan for classes. In Next.js, this path may need adjustment depending on your project structure.
+CSS variables are wired into Tailwind via `@theme inline` in `app/globals.css`:
+```css
+@theme inline {
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
+  --font-display-glitch: var(--font-rubik-glitch);
+  --font-display-retro: var(--font-bungee-shade);
+}
+```
 
 ## Known Data Coupling Issues
 
