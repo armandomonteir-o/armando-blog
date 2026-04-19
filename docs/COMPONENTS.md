@@ -82,7 +82,7 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
   - Three visual variants with different color schemes
   - Title bar with decorative minimize/close buttons (non-functional)
   - Glass variant adds backdrop-filter and gradient sheen
-- **Migration**: Copy as-is. Pure presentational, could be a server component.
+- **Migration**: → `components/ui/RetroWindow.tsx` ✅ Server Component (no `"use client"` needed)
 
 ### `WavyText.tsx`
 - **Purpose**: SVG text rendered along wavy paths
@@ -93,7 +93,7 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
   - `"wavy"`: SVG textPath on a sine wave
   - `"linear-wave"`: SVG textPath on a gentler sine wave
   - Generates unique IDs with `Math.random()`
-- **Migration**: Copy as-is. Server component compatible. Note: `Math.random()` in ID generation could cause hydration mismatches in SSR. Consider using `useId()` or a deterministic hash.
+- **Migration**: → `components/ui/WavyText.tsx` ✅ `"use client"` — `Math.random()` IDs replaced with `useId()` for SSR safety
 
 ### `FeaturedPost.tsx`
 - **Purpose**: Hero section for featured post on home page
@@ -132,7 +132,7 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
 - **Props**: `currentPage`, `totalPages`, `totalItems`, `itemsPerPage`, `onPageChange: (page: number) => void`
 - **Data dependency**: None
 - **Behavior**: Previous/next buttons, numbered page buttons, "SHOWING X-Y OF Z" text, green progress bar
-- **Migration**: Copy as-is. Works with any data source. Add `"use client"` for click handlers.
+- **Migration**: → `components/ui/Pagination.tsx` ✅ `"use client"` added
 
 ### `SideContent.tsx`
 - **Purpose**: Recommendations sidebar (right side of home page)
@@ -153,7 +153,7 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
 - **Migration**: Port as-is with `"use client"`. Independent of WP. Future enhancement: integrate with Spotify API for real track data.
 
 ### `AeroElements.tsx`
-- **Exports**: `AeroElements` (decorative overlay), `GlassCard` (wrapper component)
+- **Exports**: `AeroElements` (decorative overlay) — `GlassCard` split into its own file (see below)
 - **Internal sub-components** (not exported): `PixelCursor`, `PixelHeart`, `PixelFolder`, `PixelHourglass`, `GlassOrb`, `GlossyBubble`, `GlassSheen`, `AquaWave`
 - **Purpose**: Decorative Frutiger Aero elements — glossy bubbles, floating orbs, pixel art icons, glass sheen effects
 - **Props**: `GlassCard` accepts `children`, `className?`, `style?`, `onMouseEnter?`, `onMouseLeave?`
@@ -163,7 +163,20 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
   - `GlassCard` is a glassmorphism wrapper with `backdrop-filter: blur(16px)` and an internal glass shine gradient
   - CSS keyframe animations defined via `<style>` tag: `aeroFloat`, `aeroBubble`, `aeroSpin`, `pixelBounce`
 - **Overflow handling**: The `AeroElements` container itself has `overflow-hidden`. Additionally, all 7 page wrappers that use `AeroElements` (HomePage, PostPage, CategoryPage, SubcategoryPage, AboutPage, PlaylistsPage, AllPostsPage) have `overflow-hidden` on their root div to prevent any decorative elements from causing horizontal scroll on narrow viewports.
-- **Migration**: Copy as-is. Server component compatible (no state/hooks). The `<style>` tag with keyframes should work in Next.js SSR.
+- **Migration**: → `components/ui/AeroElements.tsx` ✅ Server Component. `GlassCard` split into `components/ui/GlassCard.tsx` (`"use client"`) because it needs hover event handlers.
+
+### `ScrollToTop.tsx`
+- **Purpose**: Fixed button (bottom-right) that scrolls `#main-scroll-container` to top
+- **Data dependency**: None
+- **Behavior**: Appears after scrolling 400px, `motion` enter/exit animation, smooth scroll on click
+- **Migration**: → `components/ui/ScrollToTop.tsx` ✅ `"use client"`, wired into `AppShell`. References `#main-scroll-container` — see PITFALL-004.
+
+### `AppImage.tsx` — NEW
+- **Purpose**: Wrapper around `next/image` with `sizes` required and automatic fallback on broken images
+- **Props**: All `next/image` props except `sizes` is now required; `fallbackSrc?: string`
+- **Migration**: → `components/ui/AppImage.tsx` ✅ Replaces `ImageWithFallback` from prototype. Use everywhere instead of `next/image` directly.
+
+---
 
 ### `PostPage.tsx` (~900 lines)
 - **Data dependencies**: `postData` object (hardcoded inline), `relatedPosts` array, `postComments` array. Also imports `posts` and `categoryColors` from `PostsGrid.tsx` to dynamically match the current post by URL slug.
