@@ -182,6 +182,19 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
 - **Fixed mode**: pass `width={N} height={N} sizes="Npx"`
 - **Migration**: → `components/ui/AppImage.tsx` ✅ Replaces `ImageWithFallback` from prototype. Use everywhere instead of `next/image` directly.
 
+### `SobreCharts.tsx` — NEW
+- **Purpose**: Two recharts chart components for the `/sobre` page — activity area chart and skill radar
+- **Exports**: `ActivityChart`, `SkillRadar`
+- **Props**: None (data is hardcoded; will come from WP in a future issue)
+- **Data dependency**: `activityData` (9-month post activity), `radarData` (6-subject expertise radar) — both hardcoded
+- **Behavior**:
+  - Each chart uses a `useWidth` hook (internal) that measures the container via `ResizeObserver` and passes explicit pixel `width` to the chart
+  - Guards with `{width > 0 && ...}` — charts never render with invalid dimensions, eliminating the recharts `width(-1)/height(-1)` warning
+  - Charts reflow automatically on container resize (sidebar collapse, window resize)
+- **Why NOT `ResponsiveContainer`**: `ResponsiveContainer` fires a console warning on first render before its internal `ResizeObserver` measures. See PITFALL-010 and `docs/learnings/recharts-responsive-container.md`.
+- **Usage**: Must be imported via `next/dynamic({ ssr: false })` at the page level — recharts is client-only and the dynamic import ensures the browser has laid out the DOM before the hook runs.
+- **Location**: `components/content/SobreCharts.tsx` ✅
+
 ---
 
 ### `PostPage.tsx` (~900 lines)

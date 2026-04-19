@@ -86,3 +86,18 @@ Always check here before debugging something new — the answer may already be h
 **Symptom**: `npx tsc --noEmit` reports ~100 errors from `Neobrutalist Art Blog Homepage/` — missing modules (`react-router`, `lucide-react`, etc.) that belong to the prototype, not this project
 **Root cause**: `tsconfig.json` includes `**/*.ts` and `**/*.tsx` by default, which picks up every TypeScript file in the directory — including the gitignored prototype subfolder
 **Fix**: Add `"Neobrutalist Art Blog Homepage"` to the `exclude` array in `tsconfig.json`
+
+---
+
+## PITFALL-010: recharts `ResponsiveContainer` always warns `width(-1) height(-1)` on first render
+
+**Date discovered**: 2026-04-19 (issue #6 — `/sobre` page)
+**Symptom**: Browser console logs 4× "The width(-1) and height(-1) of chart should be greater than 0" on every page load, even with `next/dynamic({ ssr: false })`.
+**Root cause**: `ResponsiveContainer` initialises with `containerWidth = -1, containerHeight = -1` as internal defaults. It fires the warning on the very first render frame, before its internal `ResizeObserver` has measured the DOM. This is a client-side timing issue — it happens regardless of SSR.
+**What does NOT fix it**:
+- `minWidth: 0` on the wrapper div — fixes a CSS flexbox shrink issue, not this
+- `useSyncExternalStore(() => true)` — returns `true` immediately on the first client render; charts still render before measurement
+- `useState(false) + useEffect setMounted` — correct in theory but blocked by the react-compiler lint rule ("avoid calling setState synchronously within an effect")
+- `next/dynamic({ ssr: false })` alone — defers the JS bundle load, not the timing issue inside `ResponsiveContainer`
+**Fix**: Remove `ResponsiveContainer` entirely. Use a `useWidth` hook that measures the container with a native `ResizeObserver`, then pass explicit `width={width} height={CHART_HEIGHT}` directly to the chart component. Guard with `{width > 0 && ...}` so the chart never renders with invalid dimensions. The `setWidth` call lives inside the `ResizeObserver` callback — not synchronously in the effect body — so the linter is satisfied.
+**Location**: `components/content/SobreCharts.tsx`
