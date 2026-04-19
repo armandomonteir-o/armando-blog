@@ -77,3 +77,12 @@ Always check here before debugging something new — the answer may already be h
 **Symptom**: `package.json` shows `"next": "16.x.x"` after scaffolding; migration guides written for v15 may not apply
 **Root cause**: `create-next-app@latest` now ships Next 16. This version has breaking changes. See `AGENTS.md` at the project root.
 **Fix**: Read `node_modules/next/dist/docs/` for the authoritative API reference for this exact version. The ADR-001 documents the decision to stay on 16.
+
+---
+
+## PITFALL-009: TypeScript scans the gitignored prototype folder
+
+**Date discovered**: 2026-04-18 (Next.js migration)
+**Symptom**: `npx tsc --noEmit` reports ~100 errors from `Neobrutalist Art Blog Homepage/` — missing modules (`react-router`, `lucide-react`, etc.) that belong to the prototype, not this project
+**Root cause**: `tsconfig.json` includes `**/*.ts` and `**/*.tsx` by default, which picks up every TypeScript file in the directory — including the gitignored prototype subfolder
+**Fix**: Add `"Neobrutalist Art Blog Homepage"` to the `exclude` array in `tsconfig.json`
