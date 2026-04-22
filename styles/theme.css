@@ -3,6 +3,22 @@
 /* @custom-variant dark (&:is([data-theme="dark"] *)); */
 
 :root {
+  /* ── Chrome (structural — never changes with theme) ── */
+  --chrome-blue: #0347c1;
+  --chrome-blue-mid: #0458d4;
+  --chrome-blue-accent: #0560e0;
+  --chrome-blue-dark: #022a6e;
+  --chrome-blue-soft: #80b0ff;
+  --chrome-blue-muted: #5a8ad0;
+  --chrome-blue-dim: #3a6aaa;
+  --chrome-blue-body: #a0c4ff;
+  --chrome-blue-content: #c0d8ff;
+  --chrome-blue-text-on-dark: #c8e0ff;
+  --chrome-green: #4ade80;
+  --chrome-red: #e05050;
+  --chrome-purple: #c084fc;
+  --chrome-amber: #f59e0b;
+
   /* ── Armando Blog Palette (Light) ── */
   --arm-bg: #f5f0e3;
   --arm-bg-card: #e8e4dc;
@@ -148,6 +164,56 @@
 /* DARK: } */
 
 @theme inline {
+  /* ── Armando font families ── */
+  --font-mono: 'Space Mono', monospace;
+  --font-grotesk: 'Space Grotesk', sans-serif;
+  --font-glitch: 'Rubik Glitch', sans-serif;
+  --font-bungee: 'Bungee Shade', sans-serif;
+
+  /* ── ARM theme-responsive colors ── */
+  --color-arm-bg: var(--arm-bg);
+  --color-arm-bg-card: var(--arm-bg-card);
+  --color-arm-bg-card-title: var(--arm-bg-card-title);
+  --color-arm-bg-glass: var(--arm-bg-glass);
+  --color-arm-border: var(--arm-border);
+  --color-arm-text: var(--arm-text);
+  --color-arm-text-secondary: var(--arm-text-secondary);
+  --color-arm-text-muted: var(--arm-text-muted);
+  --color-arm-blue: var(--arm-blue);
+  --color-arm-blue-mid: var(--arm-blue-mid);
+  --color-arm-blue-dark: var(--arm-blue-dark);
+  --color-arm-shadow: var(--arm-shadow);
+  --color-arm-grid: var(--arm-grid);
+
+  /* ── ARM panel colors (theme-responsive) ── */
+  --color-arm-panel-bg: var(--arm-panel-bg);
+  --color-arm-panel-bg-darker: var(--arm-panel-bg-darker);
+  --color-arm-panel-border: var(--arm-panel-border);
+  --color-arm-panel-bg-deep: var(--arm-panel-bg-deep);
+  --color-arm-panel-text: var(--arm-panel-text);
+  --color-arm-panel-text-soft: var(--arm-panel-text-soft);
+  --color-arm-panel-text-muted: var(--arm-panel-text-muted);
+  --color-arm-panel-text-dim: var(--arm-panel-text-dim);
+  --color-arm-panel-text-body: var(--arm-panel-text-body);
+  --color-arm-panel-text-content: var(--arm-panel-text-content);
+
+  /* ── Chrome static colors ── */
+  --color-chrome-blue: var(--chrome-blue);
+  --color-chrome-blue-mid: var(--chrome-blue-mid);
+  --color-chrome-blue-accent: var(--chrome-blue-accent);
+  --color-chrome-blue-dark: var(--chrome-blue-dark);
+  --color-chrome-blue-soft: var(--chrome-blue-soft);
+  --color-chrome-blue-muted: var(--chrome-blue-muted);
+  --color-chrome-blue-dim: var(--chrome-blue-dim);
+  --color-chrome-blue-body: var(--chrome-blue-body);
+  --color-chrome-blue-content: var(--chrome-blue-content);
+  --color-chrome-blue-text-on-dark: var(--chrome-blue-text-on-dark);
+  --color-chrome-green: var(--chrome-green);
+  --color-chrome-red: var(--chrome-red);
+  --color-chrome-purple: var(--chrome-purple);
+  --color-chrome-amber: var(--chrome-amber);
+
+  /* ── shadcn/ui tokens ── */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

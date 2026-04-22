@@ -224,19 +224,76 @@ background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.2), rgba(128,1
 filter: blur(8px);
 ```
 
+## Token Architecture (Single Source of Truth)
+
+All color values live in **one file only**: `styles/theme.css`. Components never contain raw hex strings.
+
+### Three-Layer System
+
+| Layer | File | Purpose |
+|---|---|---|
+| CSS custom properties | `styles/theme.css` `:root` | Raw values — the only place hex is written |
+| Tailwind utility classes | `styles/theme.css` `@theme inline` | Maps vars to `bg-*`, `text-*`, `border-*`, `font-*` |
+| TypeScript constants | `lib/design-tokens.ts` / `constants/posts.ts` | Dynamic values CSS can't handle (font strings, `categoryColors`) |
+
+### Two Color Namespaces
+
+**`arm-*` — Theme-responsive** (changes in dark mode):
+- `bg-arm-bg` — page background
+- `text-arm-text` — primary text
+- `border-arm-border` — general borders
+- `bg-arm-panel-bg` — dark panel interiors (inside RetroWindow dark)
+- `text-arm-panel-text-body` — body text inside dark panels
+
+**`chrome-*` — Static chrome** (never changes — sidebar/header are always the same blue):
+- `bg-chrome-blue` → `#0347c1` sidebar bg
+- `bg-chrome-blue-mid` → `#0458d4` panel interior
+- `border-chrome-blue-accent` → `#0560e0` panel borders
+- `text-chrome-blue-body` → `#a0c4ff` secondary text on dark
+- `text-chrome-blue-text-on-dark` → `#c8e0ff` content text on dark
+- `text-chrome-green` → `#4ade80` active indicators, NowPlaying
+- `text-chrome-red` → `#e05050` close buttons, errors
+- `text-chrome-purple` → `#c084fc` Filosofia accent
+- `text-chrome-amber` → `#f59e0b` Músicas accent
+
+### Font Utility Classes
+
+Registered in `@theme inline`:
+
+| Class | Font | Usage |
+|---|---|---|
+| `font-mono` | Space Mono | Labels, metadata, terminal text, timestamps |
+| `font-grotesk` | Space Grotesk | Headings, titles, body text |
+| `font-glitch` | Rubik Glitch | Sidebar logo only |
+| `font-bungee` | Bungee Shade | Footer "ARMANDO" branding only |
+
+### Decision Rule
+
+| Situation | Use |
+|---|---|
+| Static color → matches a token | Tailwind class: `className="bg-chrome-blue"` |
+| Static font family | Tailwind class: `className="font-mono"` |
+| Dynamic color (e.g. `categoryColors[post.category]`) | `style={{ color: categoryColors[x] }}` |
+| Complex box-shadow / gradient | `style={{}}` with `var(--chrome-*)` refs inside |
+| Conditional color ternary | `style={{ color: isActive ? "var(--chrome-green)" : "var(--chrome-blue-body)" }}` |
+
+See `docs/learnings/design-system-tokens.md` for the full rationale.
+
+---
+
 ## Tailwind Usage
 
 The project uses **Tailwind CSS v4** (not v3). Key differences:
 - No `tailwind.config.js` file
-- Theme tokens defined via `@theme inline` in `theme.css`
+- All design tokens (colors, fonts) defined via `@theme inline` in `styles/theme.css`
 - Custom variants: `@custom-variant dark (&:is([data-theme="dark"] *))` — NOT `.dark` (see PITFALL-003)
 - Uses `@layer base` for element defaults
 
-Most styling is done via **inline `style` props**, not Tailwind classes. Tailwind is used mainly for:
-- Layout: `flex`, `grid`, `items-center`, `gap-*`, `px-*`, `py-*`
-- Responsive: `sm:`, `md:`, `lg:`, `xl:` breakpoints
-- Sizing: `w-full`, `h-screen`, `flex-1`, `min-w-0`
-- Utilities: `overflow-hidden`, `truncate`, `line-clamp-*`, `pointer-events-none`
-- Transitions: `transition-all`, `duration-*`
+Tailwind is used for:
+- **Design tokens**: `bg-arm-bg`, `text-chrome-blue-body`, `border-arm-border`, `font-mono`, etc.
+- **Layout**: `flex`, `grid`, `items-center`, `gap-*`, `px-*`, `py-*`
+- **Responsive**: `sm:`, `md:`, `lg:`, `xl:` breakpoints
+- **Sizing**: `w-full`, `h-screen`, `flex-1`, `min-w-0`
+- **Utilities**: `overflow-hidden`, `truncate`, `line-clamp-*`, `pointer-events-none`
 
-Font sizes, font weights, colors, borders, and shadows are almost always inline `style` props — NOT Tailwind classes. This is intentional for the custom design system.
+`style={{}}` is reserved for: complex box-shadows, multi-value gradients, `clamp()` font sizes, and computed dynamic values.
