@@ -46,42 +46,24 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
           <>
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <Hash size={13} />
-              <span
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "14px",
-                }}
-              >
+              <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
                 {category.subcategories.length}
               </span>
               <span
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "9px",
-                  color: "rgba(255,255,255,0.5)",
-                }}
+                className="font-mono"
+                style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
               >
                 subcategorias
               </span>
             </div>
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <FileText size={13} />
-              <span
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "14px",
-                }}
-              >
+              <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
                 {totalPosts}
               </span>
               <span
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "9px",
-                  color: "rgba(255,255,255,0.5)",
-                }}
+                className="font-mono"
+                style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
               >
                 posts
               </span>
@@ -115,11 +97,8 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                   color="#fff"
                 />
                 <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "9px",
-                    color: "#a0c4ff",
-                  }}
+                  className="font-mono text-chrome-blue-body"
+                  style={{ fontSize: "9px" }}
                 >
                   {category.subcategories.length} ENTRIES FOUND
                 </span>
@@ -135,10 +114,9 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                   >
                     <Link
                       href={`/categoria/${category.slug}/${sub.slug}`}
-                      className="flex flex-col group"
+                      className="flex flex-col group bg-chrome-blue-mid"
                       style={{
                         border: "3px solid #0560e0",
-                        backgroundColor: "#0458d4",
                         textDecoration: "none",
                         boxShadow: "4px 4px 0 #022a6e",
                         transition: "transform 0.2s ease, box-shadow 0.2s ease",
@@ -153,27 +131,23 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                       }}
                     >
                       <div
-                        className="flex items-center justify-between px-3 py-1.5"
-                        style={{ backgroundColor: "#0560e0", borderBottom: "2px solid #022a6e" }}
+                        className="flex items-center justify-between px-3 py-1.5 bg-chrome-blue-accent"
+                        style={{ borderBottom: "2px solid #022a6e" }}
                       >
                         <span
-                          style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: "9px",
-                            fontWeight: 700,
-                            color: "#c8e0ff",
-                          }}
+                          className="font-mono font-bold text-chrome-blue-text-on-dark"
+                          style={{ fontSize: "9px" }}
                         >
                           SUBCAT-{String(i + 1).padStart(2, "0")}.EXE
                         </span>
                         <div className="flex gap-1">
                           <div
-                            className="w-2.5 h-2.5"
-                            style={{ border: "1.5px solid #022a6e", backgroundColor: "#0347c1" }}
+                            className="w-2.5 h-2.5 bg-chrome-blue"
+                            style={{ border: "1.5px solid #022a6e" }}
                           />
                           <div
-                            className="w-2.5 h-2.5"
-                            style={{ backgroundColor: "#e05050", border: "1.5px solid #022a6e" }}
+                            className="w-2.5 h-2.5 bg-chrome-red"
+                            style={{ border: "1.5px solid #022a6e" }}
                           />
                         </div>
                       </div>
@@ -216,14 +190,12 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                           }}
                         />
                         <div
-                          className="absolute top-3 right-3 px-2.5 py-1"
+                          className="absolute top-3 right-3 px-2.5 py-1 font-mono font-bold"
                           style={{
                             background: "rgba(0,0,0,0.5)",
                             backdropFilter: "blur(8px)",
                             border: `1.5px solid ${category.accentColor}`,
-                            fontFamily: "'Space Mono', monospace",
                             fontSize: "9px",
-                            fontWeight: 700,
                             color: category.accentColor,
                           }}
                         >
@@ -248,13 +220,8 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                           />
                         </div>
                         <p
-                          className="mb-3"
-                          style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontSize: "13px",
-                            lineHeight: 1.6,
-                            color: "#c8e0ff",
-                          }}
+                          className="mb-3 font-grotesk text-chrome-blue-text-on-dark"
+                          style={{ fontSize: "13px", lineHeight: 1.6 }}
                         >
                           {sub.description.length > 130
                             ? sub.description.slice(0, 130) + "..."
@@ -264,14 +231,11 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                           {sub.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-0.5"
+                              className="px-2 py-0.5 font-mono font-bold text-chrome-blue-body"
                               style={{
                                 border: "1.5px solid #0560e0",
                                 backgroundColor: "rgba(5,96,224,0.3)",
-                                fontFamily: "'Space Mono', monospace",
                                 fontSize: "8px",
-                                fontWeight: 700,
-                                color: "#a0c4ff",
                               }}
                             >
                               {tag.toUpperCase()}

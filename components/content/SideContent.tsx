@@ -58,9 +58,8 @@ export function SideContent() {
               </div>
               <div className="min-w-0">
                 <div
+                  className="font-grotesk font-bold"
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 700,
                     fontSize: "12px",
                     lineHeight: 1.3,
                     color: "var(--arm-text)",
@@ -69,8 +68,8 @@ export function SideContent() {
                   {item.title}
                 </div>
                 <div
+                  className="font-mono"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "9px",
                     color: "var(--arm-text-secondary)",
                   }}
@@ -87,11 +86,8 @@ export function SideContent() {
             <polygon points="0,0 0,16 4,12 8,20 10,19 6,11 12,11" fill="var(--arm-text)" />
           </svg>
           <div
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "9px",
-              color: "var(--arm-text)",
-            }}
+            className="font-mono"
+            style={{ fontSize: "9px", color: "var(--arm-text)" }}
           >
             CLICK TO EXPLORE...
           </div>

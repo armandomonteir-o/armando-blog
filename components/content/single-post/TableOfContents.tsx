@@ -51,10 +51,9 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
         }}
       >
         <span
+          className="font-mono font-bold"
           style={{
-            fontFamily: "'Space Mono', monospace",
             fontSize: "9px",
-            fontWeight: 700,
             color: "var(--arm-text)",
             letterSpacing: "0.05em",
           }}
@@ -70,16 +69,15 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
             }}
           />
           <div
-            className="w-2.5 h-2.5"
-            style={{ backgroundColor: "#e05050", border: "1.5px solid var(--arm-border)" }}
+            className="w-2.5 h-2.5 bg-chrome-red"
+            style={{ border: "1.5px solid var(--arm-border)" }}
           />
         </div>
       </div>
       <div className="p-4">
         <div
+          className="font-grotesk font-bold"
           style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontWeight: 700,
             fontSize: "13px",
             color: "var(--arm-text)",
             marginBottom: "12px",
@@ -106,10 +104,9 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
                 }}
               >
                 <span
+                  className="font-mono font-bold"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "9px",
-                    fontWeight: 700,
                     color: isActive ? "var(--arm-blue)" : "var(--arm-text-secondary)",
                     minWidth: "16px",
                   }}
@@ -117,8 +114,8 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span
+                  className="font-grotesk"
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
                     fontSize: "12px",
                     fontWeight: isActive ? 700 : 500,
                     color: isActive ? "var(--arm-text)" : "var(--arm-text-secondary)",
@@ -138,13 +135,13 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
         >
           <div className="flex items-center gap-1" style={{ color: "#5a6a8e" }}>
             <Clock size={11} />
-            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px" }}>
+            <span className="font-mono" style={{ fontSize: "9px" }}>
               {readTime}
             </span>
           </div>
           <div className="flex items-center gap-1" style={{ color: "#5a6a8e" }}>
             <Eye size={11} />
-            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px" }}>{reads}</span>
+            <span className="font-mono" style={{ fontSize: "9px" }}>{reads}</span>
           </div>
         </div>
       </div>

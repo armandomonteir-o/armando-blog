@@ -42,23 +42,18 @@ export function PostsGrid() {
           />
           <div className="flex items-center gap-2 flex-shrink-0">
             <span
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "9px",
-                color: "var(--arm-panel-text-muted)",
-              }}
+              className="font-mono"
+              style={{ fontSize: "9px", color: "var(--arm-panel-text-muted)" }}
             >
               {posts.length} ENTRIES FOUND
             </span>
             <Link
               href="/posts"
-              className="px-4 py-1.5 cursor-pointer transition-all duration-150 hover:brightness-125 hover:-translate-y-px"
+              className="px-4 py-1.5 cursor-pointer transition-all duration-150 hover:brightness-125 hover:-translate-y-px font-mono font-bold"
               style={{
                 border: "2px solid var(--arm-panel-border)",
                 backgroundColor: "var(--arm-panel-bg)",
-                fontFamily: "'Space Mono', monospace",
                 fontSize: "11px",
-                fontWeight: 700,
                 color: "var(--arm-panel-text-soft)",
                 textDecoration: "none",
                 display: "inline-block",
@@ -110,8 +105,8 @@ export function PostsGrid() {
                 }}
               >
                 <span
+                  className="font-mono"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "8px",
                     color: post.isCorrupted ? "#ff4444" : "var(--arm-panel-text-muted)",
                   }}
@@ -129,11 +124,8 @@ export function PostsGrid() {
                     }}
                   />
                   <div
-                    className="w-2 h-2"
-                    style={{
-                      backgroundColor: "#e05050",
-                      border: "1px solid var(--arm-panel-bg-deep)",
-                    }}
+                    className="w-2 h-2 bg-chrome-red"
+                    style={{ border: "1px solid var(--arm-panel-bg-deep)" }}
                   />
                 </div>
               </div>
@@ -155,13 +147,11 @@ export function PostsGrid() {
                   }}
                 />
                 <div
-                  className="absolute top-2 left-2 px-2 py-0.5"
+                  className="absolute top-2 left-2 px-2 py-0.5 font-mono font-bold"
                   style={{
                     backgroundColor: categoryColors[post.category] || "var(--arm-panel-bg-darker)",
                     border: "2px solid var(--arm-panel-bg-deep)",
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "8px",
-                    fontWeight: 700,
                     color: "var(--arm-panel-bg-deep)",
                     boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                   }}
@@ -179,10 +169,8 @@ export function PostsGrid() {
               {/* Content */}
               <div className="p-3 flex flex-col flex-1 overflow-hidden">
                 <h3
-                  className="line-clamp-2"
+                  className="line-clamp-2 font-grotesk font-bold"
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 700,
                     fontSize: "13px",
                     color: "var(--arm-panel-text)",
                     lineHeight: 1.3,
@@ -192,9 +180,8 @@ export function PostsGrid() {
                   {post.title}
                 </h3>
                 <p
-                  className="flex-1 line-clamp-3"
+                  className="flex-1 line-clamp-3 font-mono"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "10px",
                     lineHeight: 1.5,
                     color: "var(--arm-panel-text-soft)",
@@ -214,7 +201,7 @@ export function PostsGrid() {
                     style={{ color: "var(--arm-panel-text-muted)" }}
                   >
                     <Clock size={10} />
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>
+                    <span className="font-mono" style={{ fontSize: "8px" }}>
                       {post.date}
                     </span>
                   </div>
@@ -223,7 +210,7 @@ export function PostsGrid() {
                     style={{ color: "var(--arm-panel-text-muted)" }}
                   >
                     <Eye size={10} />
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>
+                    <span className="font-mono" style={{ fontSize: "8px" }}>
                       {post.reads}
                     </span>
                   </div>
@@ -232,7 +219,7 @@ export function PostsGrid() {
                     style={{ color: "var(--arm-panel-text-muted)" }}
                   >
                     <MessageCircle size={10} />
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}>
+                    <span className="font-mono" style={{ fontSize: "8px" }}>
                       {post.comments}
                     </span>
                   </div>

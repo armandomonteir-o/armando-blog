@@ -151,10 +151,9 @@ function StatCard({
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay }}
       whileHover={{ y: -3, boxShadow: `6px 6px 0 #022a6e, 0 0 16px ${color}30` }}
-      className="flex flex-col items-center justify-center p-4 cursor-default"
+      className="flex flex-col items-center justify-center p-4 cursor-default bg-chrome-blue-mid"
       style={{
         border: "3px solid #022a6e",
-        backgroundColor: "#0458d4",
         boxShadow: "4px 4px 0 #022a6e",
         minWidth: 0,
         transition: "background-color 0.2s ease",
@@ -166,26 +165,12 @@ function StatCard({
       >
         <Icon size={20} style={{ color, marginBottom: "6px" }} />
       </motion.div>
-      <span
-        style={{
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontWeight: 700,
-          fontSize: "26px",
-          color: "#fff",
-          lineHeight: 1,
-        }}
-      >
+      <span className="font-grotesk font-bold text-white" style={{ fontSize: "26px", lineHeight: 1 }}>
         {value}
       </span>
       <span
-        style={{
-          fontFamily: "'Space Mono', monospace",
-          fontSize: "8px",
-          fontWeight: 700,
-          color: "#a0c4ff",
-          marginTop: "4px",
-          letterSpacing: "0.1em",
-        }}
+        className="font-mono font-bold text-chrome-blue-body"
+        style={{ fontSize: "8px", marginTop: "4px", letterSpacing: "0.1em" }}
       >
         {label}
       </span>
@@ -376,16 +361,12 @@ export default function SobrePage() {
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-3 py-1.5 mb-6"
+              className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 font-mono font-bold text-white no-underline"
               style={{
                 background: "rgba(255,255,255,0.1)",
                 backdropFilter: "blur(12px)",
                 border: "2px solid rgba(255,255,255,0.2)",
-                color: "#fff",
-                fontFamily: "'Space Mono', monospace",
                 fontSize: "10px",
-                fontWeight: 700,
-                textDecoration: "none",
               }}
             >
               <ArrowLeft size={14} />
@@ -426,13 +407,8 @@ export default function SobrePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "11px",
-                  color: "#c084fc",
-                  marginBottom: "6px",
-                  letterSpacing: "0.12em",
-                }}
+                className="font-mono text-chrome-purple"
+                style={{ fontSize: "11px", marginBottom: "6px", letterSpacing: "0.12em" }}
               >
                 {">"} USER/ABOUT_ME_
               </motion.div>
@@ -454,12 +430,8 @@ export default function SobrePage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: "clamp(12px, 2vw, 16px)",
-                  color: "rgba(255,255,255,0.7)",
-                  marginTop: "4px",
-                }}
+                className="font-grotesk mt-1"
+                style={{ fontSize: "clamp(12px, 2vw, 16px)", color: "rgba(255,255,255,0.7)" }}
               >
                 {AUTHOR.role}
               </motion.p>
@@ -470,29 +442,24 @@ export default function SobrePage() {
                 transition={{ duration: 0.5, delay: 0.9 }}
               >
                 <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 font-mono font-bold"
                   style={{
                     background: "rgba(255,255,255,0.1)",
                     backdropFilter: "blur(8px)",
                     border: "1.5px solid rgba(255,255,255,0.2)",
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "9px",
-                    fontWeight: 700,
                     color: "rgba(255,255,255,0.7)",
                   }}
                 >
                   <MapPin size={11} /> {AUTHOR.location}
                 </span>
                 <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 font-mono font-bold text-chrome-purple"
                   style={{
                     background: "rgba(192,132,252,0.15)",
                     backdropFilter: "blur(8px)",
                     border: "1.5px solid rgba(192,132,252,0.35)",
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "9px",
-                    fontWeight: 700,
-                    color: "#c084fc",
                   }}
                 >
                   <Calendar size={11} /> DESDE {AUTHOR.since}
@@ -508,13 +475,8 @@ export default function SobrePage() {
             transition={{ duration: 0.5, delay: 1.5 }}
           >
             <span
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "8px",
-                color: "rgba(255,255,255,0.5)",
-                letterSpacing: "0.15em",
-                marginBottom: "4px",
-              }}
+              className="font-mono"
+              style={{ fontSize: "8px", color: "rgba(255,255,255,0.5)", letterSpacing: "0.15em", marginBottom: "4px" }}
             >
               CONHEÇA MINHA HISTÓRIA
             </span>
@@ -554,12 +516,8 @@ export default function SobrePage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: 0.1 * i }}
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: "14px",
-                        lineHeight: 1.75,
-                        color: "#c8e0ff",
-                      }}
+                      className="font-grotesk text-chrome-blue-text-on-dark"
+                      style={{ fontSize: "14px", lineHeight: 1.75 }}
                     >
                       {p}
                     </motion.p>
@@ -574,13 +532,8 @@ export default function SobrePage() {
                   style={{ borderLeft: "4px solid #c084fc", background: "rgba(192,132,252,0.08)" }}
                 >
                   <p
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: "12px",
-                      lineHeight: 1.7,
-                      color: "#c084fc",
-                      fontStyle: "italic",
-                    }}
+                    className="font-mono text-chrome-purple"
+                    style={{ fontSize: "12px", lineHeight: 1.7, fontStyle: "italic" }}
                   >
                     {AUTHOR.manifesto}
                   </p>
@@ -599,11 +552,9 @@ export default function SobrePage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: 0.1 * i }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 group"
+                      className="flex items-center gap-1.5 px-3 py-1.5 group border-2 border-chrome-blue-accent no-underline"
                       style={{
-                        border: "2px solid #0560e0",
                         backgroundColor: "rgba(5,96,224,0.3)",
-                        textDecoration: "none",
                         transition: "background-color 0.2s ease",
                       }}
                       onMouseEnter={(e) => {
@@ -614,15 +565,8 @@ export default function SobrePage() {
                           "rgba(5,96,224,0.3)";
                       }}
                     >
-                      <s.icon size={13} style={{ color: "#c8e0ff" }} />
-                      <span
-                        style={{
-                          fontFamily: "'Space Mono', monospace",
-                          fontSize: "8px",
-                          fontWeight: 700,
-                          color: "#c8e0ff",
-                        }}
-                      >
+                      <s.icon size={13} className="text-chrome-blue-text-on-dark" />
+                      <span className="font-mono font-bold text-chrome-blue-text-on-dark" style={{ fontSize: "8px" }}>
                         {s.label}
                       </span>
                     </motion.a>
@@ -634,68 +578,31 @@ export default function SobrePage() {
             <div className="space-y-5">
               <RetroWindow title="STATS.EXE" variant="dark">
                 <div className="p-4 grid grid-cols-2 gap-3">
-                  <StatCard
-                    icon={FileText}
-                    label="POSTS"
-                    value={AUTHOR.stats.posts}
-                    color="#f59e0b"
-                    delay={0}
-                  />
-                  <StatCard
-                    icon={Eye}
-                    label="VIEWS"
-                    value={AUTHOR.stats.views}
-                    color="#c8e0ff"
-                    delay={0.1}
-                  />
-                  <StatCard
-                    icon={MessageCircle}
-                    label="COMENTÁRIOS"
-                    value={AUTHOR.stats.comments}
-                    color="#4ade80"
-                    delay={0.2}
-                  />
-                  <StatCard
-                    icon={Palette}
-                    label="CATEGORIAS"
-                    value={AUTHOR.stats.categories}
-                    color="#c084fc"
-                    delay={0.3}
-                  />
+                  <StatCard icon={FileText} label="POSTS" value={AUTHOR.stats.posts} color="#f59e0b" delay={0} />
+                  <StatCard icon={Eye} label="VIEWS" value={AUTHOR.stats.views} color="#c8e0ff" delay={0.1} />
+                  <StatCard icon={MessageCircle} label="COMENTÁRIOS" value={AUTHOR.stats.comments} color="#4ade80" delay={0.2} />
+                  <StatCard icon={Palette} label="CATEGORIAS" value={AUTHOR.stats.categories} color="#c084fc" delay={0.3} />
                 </div>
               </RetroWindow>
               <RetroWindow title="NOW-PLAYING.EXE" variant="glass">
                 <div className="p-4">
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-12 h-12 flex items-center justify-center"
-                      style={{ border: "2px solid #022a6e", backgroundColor: "rgba(3,71,193,0.2)" }}
+                      className="w-12 h-12 flex items-center justify-center border-2 border-chrome-blue-dark"
+                      style={{ backgroundColor: "rgba(3,71,193,0.2)" }}
                     >
                       <motion.div
                         animate={{ rotate: 360 }}
                         transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                       >
-                        <Headphones size={20} style={{ color: "#0347c1" }} />
+                        <Headphones size={20} className="text-chrome-blue" />
                       </motion.div>
                     </div>
                     <div>
-                      <p
-                        style={{
-                          fontFamily: "'Space Grotesk', sans-serif",
-                          fontWeight: 700,
-                          fontSize: "13px",
-                          color: "var(--arm-text)",
-                        }}
-                      >
+                      <p className="font-grotesk font-bold text-arm-text" style={{ fontSize: "13px" }}>
                         Midnight City
                       </p>
-                      <p
-                        style={{
-                          fontFamily: "'Space Mono', monospace",
-                          fontSize: "9px",
-                          color: "var(--arm-text-secondary)",
-                        }}
-                      >
+                      <p className="font-mono text-arm-text-secondary" style={{ fontSize: "9px" }}>
                         M83 · Hurry Up, We&apos;re Dreaming
                       </p>
                     </div>
@@ -736,25 +643,12 @@ export default function SobrePage() {
               <div className="p-5">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <TrendingUp size={16} style={{ color: "#4ade80" }} />
-                    <span
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 700,
-                        fontSize: "14px",
-                        color: "#fff",
-                      }}
-                    >
+                    <TrendingUp size={16} className="text-chrome-green" />
+                    <span className="font-grotesk font-bold text-white" style={{ fontSize: "14px" }}>
                       Atividade de Posts
                     </span>
                   </div>
-                  <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: "9px",
-                      color: "#a0c4ff",
-                    }}
-                  >
+                  <span className="font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
                     ÚLTIMOS 9 MESES
                   </span>
                 </div>
@@ -767,25 +661,12 @@ export default function SobrePage() {
               <div className="p-5">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <Sparkles size={16} style={{ color: "#c084fc" }} />
-                    <span
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 700,
-                        fontSize: "14px",
-                        color: "#fff",
-                      }}
-                    >
+                    <Sparkles size={16} className="text-chrome-purple" />
+                    <span className="font-grotesk font-bold text-white" style={{ fontSize: "14px" }}>
                       Áreas de Expertise
                     </span>
                   </div>
-                  <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: "9px",
-                      color: "#a0c4ff",
-                    }}
-                  >
+                  <span className="font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
                     PROFICIENCY %
                   </span>
                 </div>
@@ -822,12 +703,11 @@ export default function SobrePage() {
                       transition={{ duration: 0.4, delay: 0.1 * i }}
                     >
                       <div
-                        className="flex items-center justify-center flex-shrink-0 z-10"
+                        className="flex items-center justify-center flex-shrink-0 z-10 bg-chrome-blue"
                         style={{
                           width: 38,
                           height: 38,
                           border: `3px solid ${item.color}`,
-                          backgroundColor: "#0347c1",
                           boxShadow: `0 0 12px ${item.color}44`,
                         }}
                       >
@@ -839,36 +719,18 @@ export default function SobrePage() {
                       >
                         <div className="flex items-center gap-3 mb-1">
                           <span
-                            className="px-2 py-0.5"
-                            style={{
-                              backgroundColor: item.color,
-                              border: "2px solid #022a6e",
-                              fontFamily: "'Space Mono', monospace",
-                              fontSize: "10px",
-                              fontWeight: 700,
-                              color: "#022a6e",
-                            }}
+                            className="px-2 py-0.5 font-mono font-bold text-chrome-blue-dark border-2 border-chrome-blue-dark"
+                            style={{ backgroundColor: item.color, fontSize: "10px" }}
                           >
                             {item.year}
                           </span>
-                          <span
-                            style={{
-                              fontFamily: "'Space Grotesk', sans-serif",
-                              fontWeight: 700,
-                              fontSize: "15px",
-                              color: "#fff",
-                            }}
-                          >
+                          <span className="font-grotesk font-bold text-white" style={{ fontSize: "15px" }}>
                             {item.title}
                           </span>
                         </div>
                         <p
-                          style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontSize: "13px",
-                            lineHeight: 1.65,
-                            color: "#c8e0ff",
-                          }}
+                          className="font-grotesk text-chrome-blue-text-on-dark"
+                          style={{ fontSize: "13px", lineHeight: 1.65 }}
                         >
                           {item.description}
                         </p>
@@ -884,23 +746,10 @@ export default function SobrePage() {
           <RetroWindow title="INTERESTS.JSON" variant="glass">
             <div className="p-5">
               <div className="flex items-center justify-between mb-4">
-                <span
-                  style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 700,
-                    fontSize: "14px",
-                    color: "var(--arm-text)",
-                  }}
-                >
+                <span className="font-grotesk font-bold text-arm-text" style={{ fontSize: "14px" }}>
                   Coisas que me movem
                 </span>
-                <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "9px",
-                    color: "var(--arm-text-secondary)",
-                  }}
-                >
+                <span className="font-mono text-arm-text-secondary" style={{ fontSize: "9px" }}>
                   {interests.length} ITEMS
                 </span>
               </div>
@@ -937,14 +786,7 @@ export default function SobrePage() {
                     >
                       <item.icon size={16} style={{ color: item.color }} />
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 700,
-                        fontSize: "12px",
-                        color: "var(--arm-text)",
-                      }}
-                    >
+                    <span className="font-grotesk font-bold text-arm-text" style={{ fontSize: "12px" }}>
                       {item.label}
                     </span>
                   </motion.div>
@@ -957,14 +799,7 @@ export default function SobrePage() {
           <RetroWindow title="GALLERY.EXE" variant="dark">
             <div className="p-5">
               <WavyText text="FRAGMENTOS VISUAIS" variant="stacked" fontSize={24} color="#fff" />
-              <p
-                className="mt-1 mb-4"
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "10px",
-                  color: "#a0c4ff",
-                }}
-              >
+              <p className="font-mono text-chrome-blue-body mt-1 mb-4" style={{ fontSize: "10px" }}>
                 SNAPSHOTS DO MEU UNIVERSO CRIATIVO
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -975,8 +810,8 @@ export default function SobrePage() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.1 * i }}
-                    className="group relative overflow-hidden"
-                    style={{ border: "2px solid #0560e0", height: "clamp(120px, 20vw, 160px)" }}
+                    className="group relative overflow-hidden border-2 border-chrome-blue-accent"
+                    style={{ height: "clamp(120px, 20vw, 160px)" }}
                   >
                     <AppImage
                       src={img.src}
@@ -999,13 +834,8 @@ export default function SobrePage() {
                       }}
                     >
                       <span
-                        style={{
-                          fontFamily: "'Space Mono', monospace",
-                          fontSize: "8px",
-                          fontWeight: 700,
-                          color: "#c8e0ff",
-                          letterSpacing: "0.1em",
-                        }}
+                        className="font-mono font-bold text-chrome-blue-text-on-dark"
+                        style={{ fontSize: "8px", letterSpacing: "0.1em" }}
                       >
                         {img.caption}
                       </span>

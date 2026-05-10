@@ -161,7 +161,7 @@ export default function SubcategoryPage({
             {subcategory.tags.map((tag) => (
               <button
                 key={tag}
-                className="px-2.5 py-1 cursor-pointer"
+                className="px-2.5 py-1 cursor-pointer font-mono font-bold"
                 onClick={() => {
                   setSelectedTag(selectedTag === tag ? null : tag);
                   setCurrentPage(1);
@@ -171,9 +171,7 @@ export default function SubcategoryPage({
                     selectedTag === tag ? `${category.accentColor}55` : `${category.accentColor}22`,
                   backdropFilter: "blur(8px)",
                   border: `1.5px solid ${selectedTag === tag ? category.accentColor : `${category.accentColor}55`}`,
-                  fontFamily: "'Space Mono', monospace",
                   fontSize: "9px",
-                  fontWeight: 700,
                   color: selectedTag === tag ? "#fff" : category.accentColor,
                   transition: "all 0.2s ease",
                 }}
@@ -191,22 +189,12 @@ export default function SubcategoryPage({
             }}
           >
             <Hash size={12} style={{ color: "rgba(255,255,255,0.7)" }} />
-            <span
-              style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontWeight: 700,
-                fontSize: "14px",
-                color: "#fff",
-              }}
-            >
+            <span className="font-grotesk font-bold text-white" style={{ fontSize: "14px" }}>
               {subcategory.postCount}
             </span>
             <span
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "9px",
-                color: "rgba(255,255,255,0.5)",
-              }}
+              className="font-mono"
+              style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
             >
               posts
             </span>
@@ -219,8 +207,8 @@ export default function SubcategoryPage({
           transition={{ duration: 0.5, delay: 1.5 }}
         >
           <span
+            className="font-mono"
             style={{
-              fontFamily: "'Space Mono', monospace",
               fontSize: "8px",
               color: "rgba(255,255,255,0.5)",
               letterSpacing: "0.15em",
@@ -263,11 +251,8 @@ export default function SubcategoryPage({
                   color="#fff"
                 />
                 <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "9px",
-                    color: "#a0c4ff",
-                  }}
+                  className="font-mono text-chrome-blue-body"
+                  style={{ fontSize: "9px" }}
                 >
                   {filteredPosts.length} ENTRIES FOUND
                 </span>
@@ -284,34 +269,24 @@ export default function SubcategoryPage({
                   >
                     <Link
                       href="/post/a-revolucao-do-algoritmo"
-                      className="flex flex-col cursor-pointer group"
-                      style={{
-                        border: "2px solid #0560e0",
-                        backgroundColor: "#0458d4",
-                        textDecoration: "none",
-                      }}
+                      className="flex flex-col cursor-pointer group border-2 border-chrome-blue-accent bg-chrome-blue-mid"
+                      style={{ textDecoration: "none" }}
                     >
                       <div
-                        className="flex items-center justify-between px-2 py-1"
-                        style={{ backgroundColor: "#0560e0", borderBottom: "2px solid #0560e0" }}
+                        className="flex items-center justify-between px-2 py-1 bg-chrome-blue-accent border-b-2 border-chrome-blue-accent"
                       >
                         <span
-                          style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: "8px",
-                            color: "#a0c4ff",
-                          }}
+                          className="font-mono text-chrome-blue-body"
+                          style={{ fontSize: "8px" }}
                         >
                           POST-{String(post.id).padStart(3, "0")}.MD
                         </span>
                         <div className="flex gap-1">
                           <div
-                            className="w-2 h-2"
-                            style={{ backgroundColor: "#0347c1", border: "1px solid #022a6e" }}
+                            className="w-2 h-2 bg-chrome-blue border border-chrome-blue-dark"
                           />
                           <div
-                            className="w-2 h-2"
-                            style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                            className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark"
                           />
                         </div>
                       </div>
@@ -331,14 +306,10 @@ export default function SubcategoryPage({
                           }}
                         />
                         <div
-                          className="absolute top-2 left-2 px-2 py-0.5"
+                          className="absolute top-2 left-2 px-2 py-0.5 font-mono font-bold text-chrome-blue-dark border-2 border-chrome-blue-dark"
                           style={{
                             backgroundColor: category.accentColor,
-                            border: "2px solid #022a6e",
-                            fontFamily: "'Space Mono', monospace",
                             fontSize: "8px",
-                            fontWeight: 700,
-                            color: "#022a6e",
                             boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                           }}
                         >
@@ -354,54 +325,35 @@ export default function SubcategoryPage({
                       </div>
                       <div className="p-3 flex flex-col flex-1">
                         <h3
-                          style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontWeight: 700,
-                            fontSize: "13px",
-                            color: "#fff",
-                            lineHeight: 1.3,
-                            marginBottom: "6px",
-                          }}
+                          className="font-grotesk font-bold text-white"
+                          style={{ fontSize: "13px", lineHeight: 1.3, marginBottom: "6px" }}
                         >
                           {post.title}
                         </h3>
                         <p
-                          className="flex-1"
-                          style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: "10px",
-                            lineHeight: 1.5,
-                            color: "#c8e0ff",
-                            marginBottom: "8px",
-                          }}
+                          className="flex-1 font-mono text-chrome-blue-text-on-dark"
+                          style={{ fontSize: "10px", lineHeight: 1.5, marginBottom: "8px" }}
                         >
                           {post.excerpt}
                         </p>
                         <div
-                          className="flex items-center gap-3 pt-2"
-                          style={{ borderTop: "1px solid #0560e0" }}
+                          className="flex items-center gap-3 pt-2 border-t border-chrome-blue-accent"
                         >
-                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
+                          <div className="flex items-center gap-1 text-chrome-blue-body">
                             <Clock size={10} />
-                            <span
-                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
-                            >
+                            <span className="font-mono" style={{ fontSize: "8px" }}>
                               {post.date}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
+                          <div className="flex items-center gap-1 text-chrome-blue-body">
                             <Eye size={10} />
-                            <span
-                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
-                            >
+                            <span className="font-mono" style={{ fontSize: "8px" }}>
                               {post.reads}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
+                          <div className="flex items-center gap-1 text-chrome-blue-body">
                             <MessageCircle size={10} />
-                            <span
-                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
-                            >
+                            <span className="font-mono" style={{ fontSize: "8px" }}>
                               {post.comments}
                             </span>
                           </div>
@@ -427,24 +379,15 @@ export default function SubcategoryPage({
               <div className="p-5">
                 <div className="flex items-center justify-between mb-4">
                   <span
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontWeight: 700,
-                      fontSize: "14px",
-                      color: "#022a6e",
-                    }}
+                    className="font-grotesk font-bold text-chrome-blue-dark"
+                    style={{ fontSize: "14px" }}
                   >
                     Mais em {category.name}
                   </span>
                   <Link
                     href={`/categoria/${category.slug}`}
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      color: "#0347c1",
-                      textDecoration: "none",
-                    }}
+                    className="font-mono font-bold text-chrome-blue"
+                    style={{ fontSize: "10px", textDecoration: "none" }}
                   >
                     VER TODAS →
                   </Link>
@@ -490,21 +433,14 @@ export default function SubcategoryPage({
                         </div>
                         <div className="p-2.5 flex items-center justify-between">
                           <span
-                            style={{
-                              fontFamily: "'Space Grotesk', sans-serif",
-                              fontWeight: 700,
-                              fontSize: "12px",
-                              color: "#022a6e",
-                            }}
+                            className="font-grotesk font-bold text-chrome-blue-dark"
+                            style={{ fontSize: "12px" }}
                           >
                             {s.name}
                           </span>
                           <span
-                            style={{
-                              fontFamily: "'Space Mono', monospace",
-                              fontSize: "8px",
-                              color: "#5a6a8e",
-                            }}
+                            className="font-mono"
+                            style={{ fontSize: "8px", color: "#5a6a8e" }}
                           >
                             {s.postCount}
                           </span>

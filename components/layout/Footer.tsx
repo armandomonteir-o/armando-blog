@@ -35,10 +35,9 @@ export function Footer({ contextLabel }: FooterProps) {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div
+              className="font-bungee font-bold"
               style={{
-                fontFamily: "'Bungee Shade', sans-serif",
                 fontSize: "14px",
-                fontWeight: 700,
                 color: "var(--arm-blue)",
                 letterSpacing: "0.08em",
                 opacity: "var(--arm-brand-opacity)",
@@ -47,8 +46,8 @@ export function Footer({ contextLabel }: FooterProps) {
               ARMANDO
             </div>
             <span
+              className="font-mono"
               style={{
-                fontFamily: "'Space Mono', monospace",
                 fontSize: "9px",
                 color: "var(--arm-text-secondary)",
               }}
@@ -94,8 +93,8 @@ export function Footer({ contextLabel }: FooterProps) {
             <Link
               key={link.path}
               href={link.path}
+              className="font-mono"
               style={{
-                fontFamily: "'Space Mono', monospace",
                 fontSize: "10px",
                 color: "var(--arm-text-secondary)",
                 textDecoration: "none",
@@ -117,8 +116,8 @@ export function Footer({ contextLabel }: FooterProps) {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <span
+            className="font-mono"
             style={{
-              fontFamily: "'Space Mono', monospace",
               fontSize: "9px",
               color: "var(--arm-text-muted)",
               letterSpacing: "0.05em",

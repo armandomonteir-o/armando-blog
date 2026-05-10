@@ -38,8 +38,8 @@ export default function HomePage() {
         <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
           <div className="flex-1 min-w-0">
             <div
+              className="font-mono"
               style={{
-                fontFamily: "'Space Mono', monospace",
                 fontSize: "10px",
                 color: "var(--arm-blue)",
                 marginBottom: "4px",

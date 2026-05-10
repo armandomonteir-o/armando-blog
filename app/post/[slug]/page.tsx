@@ -105,19 +105,14 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                   <div key={section.id} id={section.id} className="mb-8">
                     <div className="flex items-center gap-3 mb-4">
                       <span
-                        style={{
-                          fontFamily: "'Space Mono', monospace",
-                          fontSize: "11px",
-                          fontWeight: 700,
-                          color: "#4ade80",
-                          minWidth: "28px",
-                        }}
+                        className="font-mono font-bold text-chrome-green"
+                        style={{ fontSize: "11px", minWidth: "28px" }}
                       >
                         {String(idx + 1).padStart(2, "0")}
                       </span>
                       <div
-                        className="flex-1"
-                        style={{ height: "2px", backgroundColor: "#0560e0" }}
+                        className="flex-1 bg-chrome-blue-accent"
+                        style={{ height: "2px" }}
                       />
                     </div>
                     <WavyText
@@ -132,12 +127,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                       {section.content.split("\n\n").map((paragraph, pIdx) => (
                         <p
                           key={pIdx}
-                          className="mb-4"
+                          className="mb-4 font-grotesk text-chrome-blue-content"
                           style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
                             fontSize: "15px",
                             lineHeight: 1.85,
-                            color: "#c0d8ff",
                             letterSpacing: "0.01em",
                           }}
                         >
@@ -148,17 +141,16 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
                     {idx < currentPost.sections.length - 1 && (
                       <div className="flex items-center gap-2 mt-6 opacity-30">
-                        <div style={{ flex: 1, height: "1px", backgroundColor: "#0560e0" }} />
+                        <div className="flex-1 bg-chrome-blue-accent" style={{ height: "1px" }} />
                         <div className="flex gap-1">
                           {[0, 1, 2].map((d) => (
                             <div
                               key={d}
-                              className="w-1.5 h-1.5"
-                              style={{ backgroundColor: "#80b0ff" }}
+                              className="w-1.5 h-1.5 bg-chrome-blue-soft"
                             />
                           ))}
                         </div>
-                        <div style={{ flex: 1, height: "1px", backgroundColor: "#0560e0" }} />
+                        <div className="flex-1 bg-chrome-blue-accent" style={{ height: "1px" }} />
                       </div>
                     )}
                   </div>

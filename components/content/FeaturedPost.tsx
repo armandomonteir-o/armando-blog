@@ -98,13 +98,8 @@ export function FeaturedPost() {
                 strokeColor="#80b0ff"
               />
               <p
-                className="mt-2 mb-4"
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "12px",
-                  lineHeight: 1.7,
-                  color: "#c8e0ff",
-                }}
+                className="mt-2 mb-4 font-mono text-chrome-blue-content"
+                style={{ fontSize: "12px", lineHeight: 1.7 }}
               >
                 Um manifesto sobre como a arte digital transcende os limites do humano e do codigo.
                 Explorando as fronteiras entre criatividade artificial e expressao autentica na era
@@ -120,25 +115,17 @@ export function FeaturedPost() {
                 ].map((stat) => (
                   <div
                     key={stat.label}
-                    className="px-3 py-2 text-center"
-                    style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4" }}
+                    className="px-3 py-2 text-center border-2 border-chrome-blue-accent bg-chrome-blue-mid"
                   >
                     <div
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 700,
-                        fontSize: "18px",
-                        color: "#4ade80",
-                      }}
+                      className="font-grotesk font-bold text-chrome-green"
+                      style={{ fontSize: "18px" }}
                     >
                       {stat.value}
                     </div>
                     <div
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "9px",
-                        color: "#a0c4ff",
-                      }}
+                      className="font-mono text-chrome-blue-body"
+                      style={{ fontSize: "9px" }}
                     >
                       {stat.label}
                     </div>
@@ -150,13 +137,9 @@ export function FeaturedPost() {
             <div className="flex gap-3 mt-5">
               <Link
                 href="/post/a-revolucao-do-algoritmo"
-                className="px-5 py-2.5 cursor-pointer inline-block"
+                className="px-5 py-2.5 cursor-pointer inline-block font-grotesk font-bold bg-white text-chrome-blue"
                 style={{
-                  backgroundColor: "#fff",
-                  color: "#0347c1",
                   border: "3px solid #022a6e",
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
                   fontSize: "13px",
                   boxShadow: "3px 3px 0 #022a6e",
                   textDecoration: "none",
@@ -174,13 +157,9 @@ export function FeaturedPost() {
                 Ler Manifesto
               </Link>
               <button
-                className="px-5 py-2.5 cursor-pointer"
+                className="px-5 py-2.5 cursor-pointer font-grotesk font-bold bg-chrome-blue-mid text-chrome-blue-content"
                 style={{
-                  backgroundColor: "#0458d4",
-                  color: "#c8e0ff",
                   border: "3px solid #0560e0",
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
                   fontSize: "13px",
                   boxShadow: "3px 3px 0 #022a6e",
                   transition: "transform 0.2s ease, box-shadow 0.2s ease",

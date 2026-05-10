@@ -66,13 +66,11 @@ export function CommentsSection() {
           />
           <Link
             href="/posts"
-            className="px-4 py-1.5 flex-shrink-0 cursor-pointer self-start transition-all duration-150 hover:brightness-125 hover:-translate-y-px"
+            className="px-4 py-1.5 flex-shrink-0 cursor-pointer self-start transition-all duration-150 hover:brightness-125 hover:-translate-y-px font-mono font-bold"
             style={{
               border: "2px solid var(--arm-panel-border)",
               backgroundColor: "var(--arm-panel-bg)",
-              fontFamily: "'Space Mono', monospace",
               fontSize: "11px",
-              fontWeight: 700,
               color: "var(--arm-panel-text-soft)",
               textDecoration: "none",
             }}
@@ -95,34 +93,21 @@ export function CommentsSection() {
                 />
               </svg>
               <span
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "26px",
-                  color: "var(--arm-panel-text)",
-                }}
+                className="font-grotesk font-bold"
+                style={{ fontSize: "26px", color: "var(--arm-panel-text)" }}
               >
                 4.4 / 5.0
               </span>
             </div>
             <div
-              className="mt-3"
-              style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontWeight: 700,
-                fontSize: "38px",
-                lineHeight: 1,
-                color: "var(--arm-panel-text-soft)",
-              }}
+              className="mt-3 font-grotesk font-bold"
+              style={{ fontSize: "38px", lineHeight: 1, color: "var(--arm-panel-text-soft)" }}
             >
               127
             </div>
             <div
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "10px",
-                color: "var(--arm-panel-text-muted)",
-              }}
+              className="font-mono"
+              style={{ fontSize: "10px", color: "var(--arm-panel-text-muted)" }}
             >
               comentarios
               <br />
@@ -177,12 +162,8 @@ export function CommentsSection() {
                   {engagementData.map((entry) => (
                     <span
                       key={entry.day}
-                      className="flex-1 text-center"
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "8px",
-                        color: "var(--arm-panel-text-muted)",
-                      }}
+                      className="flex-1 text-center font-mono"
+                      style={{ fontSize: "8px", color: "var(--arm-panel-text-muted)" }}
                     >
                       {entry.day}
                     </span>
@@ -193,8 +174,8 @@ export function CommentsSection() {
               {/* Progress bar decoration */}
               <div className="mt-3">
                 <div
+                  className="font-mono"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "8px",
                     color: "var(--arm-panel-text-muted)",
                     marginBottom: "3px",
@@ -271,13 +252,11 @@ export function CommentsSection() {
 
                   {/* Background decorative quote mark */}
                   <div
-                    className="absolute pointer-events-none select-none"
+                    className="absolute pointer-events-none select-none font-grotesk font-bold"
                     style={{
                       top: "12px",
                       right: "8px",
-                      fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: "64px",
-                      fontWeight: 700,
                       lineHeight: 1,
                       color: accent,
                       opacity: 0.07,
@@ -304,8 +283,8 @@ export function CommentsSection() {
                         }}
                       />
                       <span
+                        className="font-mono"
                         style={{
-                          fontFamily: "'Space Mono', monospace",
                           fontSize: "8px",
                           color: "var(--arm-panel-text-muted)",
                           letterSpacing: "0.05em",
@@ -323,11 +302,8 @@ export function CommentsSection() {
                         }}
                       />
                       <div
-                        className="w-2 h-2"
-                        style={{
-                          backgroundColor: "#e05050",
-                          border: "1px solid var(--arm-panel-bg-deep)",
-                        }}
+                        className="w-2 h-2 bg-chrome-red"
+                        style={{ border: "1px solid var(--arm-panel-bg-deep)" }}
                       />
                     </div>
                   </div>
@@ -357,9 +333,8 @@ export function CommentsSection() {
                           </div>
                           {/* Online indicator */}
                           <div
-                            className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full"
+                            className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-chrome-green"
                             style={{
-                              backgroundColor: "#4ade80",
                               border: "2px solid var(--arm-panel-bg-darker)",
                               boxShadow: "0 0 6px #4ade8060",
                             }}
@@ -376,11 +351,9 @@ export function CommentsSection() {
                           />
                           <div className="flex items-center gap-1.5" style={{ marginTop: "1px" }}>
                             <span
-                              className="px-1.5 py-0.5"
+                              className="px-1.5 py-0.5 font-mono font-bold"
                               style={{
-                                fontFamily: "'Space Mono', monospace",
                                 fontSize: "8px",
-                                fontWeight: 700,
                                 color: accent,
                                 backgroundColor: `${accent}18`,
                                 border: `1px solid ${accent}30`,
@@ -413,12 +386,8 @@ export function CommentsSection() {
                           ))}
                         </div>
                         <span
-                          style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: "9px",
-                            fontWeight: 700,
-                            color: accent,
-                          }}
+                          className="font-mono font-bold"
+                          style={{ fontSize: "9px", color: accent }}
                         >
                           {comment.rating}/5
                         </span>
@@ -431,10 +400,9 @@ export function CommentsSection() {
                       style={{ borderLeft: `2px solid ${accent}40` }}
                     >
                       <span
+                        className="font-mono font-bold"
                         style={{
-                          fontFamily: "'Space Mono', monospace",
                           fontSize: "14px",
-                          fontWeight: 700,
                           color: accent,
                           opacity: 0.6,
                           lineHeight: 1,
@@ -446,8 +414,8 @@ export function CommentsSection() {
                         &gt;
                       </span>
                       <p
+                        className="font-mono"
                         style={{
-                          fontFamily: "'Space Mono', monospace",
                           fontSize: "10px",
                           lineHeight: 1.7,
                           color: "var(--arm-panel-text-body)",
@@ -469,11 +437,10 @@ export function CommentsSection() {
                         {reactions.map((r, ri) => (
                           <button
                             key={ri}
-                            className="flex items-center gap-1 px-1.5 py-0.5 cursor-pointer"
+                            className="flex items-center gap-1 px-1.5 py-0.5 cursor-pointer font-mono"
                             style={{
                               backgroundColor: "transparent",
                               border: `1px solid ${accent}25`,
-                              fontFamily: "'Space Mono', monospace",
                               fontSize: "9px",
                               color: "var(--arm-panel-text-muted)",
                               transition: "all 0.15s ease",
@@ -497,8 +464,8 @@ export function CommentsSection() {
 
                       {/* Timestamp */}
                       <span
+                        className="font-mono"
                         style={{
-                          fontFamily: "'Space Mono', monospace",
                           fontSize: "8px",
                           color: "var(--arm-panel-text-dim)",
                           letterSpacing: "0.03em",

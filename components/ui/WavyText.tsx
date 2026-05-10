@@ -30,8 +30,7 @@ export function WavyText({
     const cssSize = typeof fontSize === "number" ? `${fontSize}px` : fontSize;
     return (
       <div
-        className={`relative overflow-hidden ${className}`}
-        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        className={`relative overflow-hidden font-grotesk ${className}`}
       >
         {[0, 1, 2].map((i) => (
           <div

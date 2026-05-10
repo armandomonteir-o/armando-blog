@@ -27,30 +27,22 @@ export function RelatedPosts({ posts, categoryColors }: RelatedPostsProps) {
             <Link
               key={post.id}
               href={`/post/${post.slug}`}
-              className="flex flex-col group"
-              style={{
-                border: "2px solid #0560e0",
-                backgroundColor: "#0458d4",
-                textDecoration: "none",
-              }}
+              className="flex flex-col group border-2 border-chrome-blue-accent bg-chrome-blue-mid"
+              style={{ textDecoration: "none" }}
             >
               {/* Mini title bar */}
               <div
-                className="flex items-center justify-between px-2 py-1"
-                style={{ backgroundColor: "#0560e0", borderBottom: "2px solid #0560e0" }}
+                className="flex items-center justify-between px-2 py-1 bg-chrome-blue-accent"
+                style={{ borderBottom: "2px solid #0560e0" }}
               >
                 <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "8px",
-                    color: "#a0c4ff",
-                  }}
+                  className="font-mono text-chrome-blue-body"
+                  style={{ fontSize: "8px" }}
                 >
                   RELATED-{String(post.id).padStart(2, "0")}.MD
                 </span>
                 <div
-                  className="w-2 h-2"
-                  style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                  className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark"
                 />
               </div>
 
@@ -77,14 +69,11 @@ export function RelatedPosts({ posts, categoryColors }: RelatedPostsProps) {
                   }}
                 />
                 <div
-                  className="absolute top-1.5 left-1.5 px-1.5 py-0.5"
+                  className="absolute top-1.5 left-1.5 px-1.5 py-0.5 font-mono font-bold text-chrome-blue-dark"
                   style={{
                     backgroundColor: categoryColors[post.category] || "#0347c1",
                     border: "1.5px solid #022a6e",
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: "7px",
-                    fontWeight: 700,
-                    color: "#022a6e",
                   }}
                 >
                   {post.category.toUpperCase()}
@@ -93,24 +82,14 @@ export function RelatedPosts({ posts, categoryColors }: RelatedPostsProps) {
 
               <div className="p-3">
                 <h4
-                  style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 700,
-                    fontSize: "12px",
-                    color: "#fff",
-                    lineHeight: 1.3,
-                    marginBottom: "4px",
-                  }}
+                  className="font-grotesk font-bold text-white"
+                  style={{ fontSize: "12px", lineHeight: 1.3, marginBottom: "4px" }}
                 >
                   {post.title}
                 </h4>
                 <p
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "9px",
-                    lineHeight: 1.5,
-                    color: "#c8e0ff",
-                  }}
+                  className="font-mono text-chrome-blue-content"
+                  style={{ fontSize: "9px", lineHeight: 1.5 }}
                 >
                   {post.excerpt}
                 </p>

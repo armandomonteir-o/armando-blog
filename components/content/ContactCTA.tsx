@@ -43,9 +43,8 @@ export function ContactCTA({ accentColor = "#0347c1" }: ContactCTAProps) {
                 <Sparkles size={14} style={{ color: accentColor }} />
               </motion.div>
               <span
+                className="font-grotesk font-bold"
                 style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
                   fontSize: "clamp(14px, 2.5vw, 18px)",
                   color: "var(--arm-text)",
                 }}
@@ -54,12 +53,8 @@ export function ContactCTA({ accentColor = "#0347c1" }: ContactCTAProps) {
               </span>
             </div>
             <p
-              className="mt-1"
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "11px",
-                color: "var(--arm-text-secondary)",
-              }}
+              className="mt-1 font-mono"
+              style={{ fontSize: "11px", color: "var(--arm-text-secondary)" }}
             >
               Estou sempre aberto a colaboracoes, debates e cafes virtuais.
             </p>
@@ -67,15 +62,12 @@ export function ContactCTA({ accentColor = "#0347c1" }: ContactCTAProps) {
 
           <motion.a
             href="mailto:armando@exemplo.com"
-            className="flex items-center justify-center gap-2 px-5 py-3 relative z-10"
+            className="flex items-center justify-center gap-2 px-5 py-3 relative z-10 font-mono font-bold text-white"
             style={{
               border: "3px solid var(--arm-border)",
               backgroundColor: "var(--arm-blue)",
               boxShadow: "4px 4px 0 var(--arm-shadow)",
-              fontFamily: "'Space Mono', monospace",
               fontSize: "11px",
-              fontWeight: 700,
-              color: "#fff",
               textDecoration: "none",
               flexShrink: 0,
             }}

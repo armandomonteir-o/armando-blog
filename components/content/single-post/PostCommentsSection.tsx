@@ -59,8 +59,8 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
             color="#fff"
           />
           <span
-            className="flex-shrink-0"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#a0c4ff" }}
+            className="flex-shrink-0 font-mono text-chrome-blue-body"
+            style={{ fontSize: "9px" }}
           >
             {comments.length} RESPONSES
           </span>
@@ -68,38 +68,24 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
 
         {/* Comment input */}
         <div
-          className="mb-5 p-3"
-          style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4" }}
+          className="mb-5 p-3 border-2 border-chrome-blue-accent bg-chrome-blue-mid"
         >
           <div
-            className="mb-2"
-            style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#a0c4ff" }}
+            className="mb-2 font-mono text-chrome-blue-body"
+            style={{ fontSize: "9px" }}
           >
             {">"} ESCREVA SEU COMENTARIO_
           </div>
           <textarea
             placeholder="O que voce achou deste manifesto?..."
-            className="w-full bg-transparent outline-none resize-none"
+            className="w-full bg-transparent outline-none resize-none font-grotesk text-chrome-blue-content"
             rows={3}
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: "13px",
-              color: "#c0d8ff",
-              border: "none",
-            }}
+            style={{ fontSize: "13px", border: "none" }}
           />
           <div className="flex justify-end mt-2">
             <button
-              className="px-4 py-1.5 cursor-pointer"
-              style={{
-                backgroundColor: "#fff",
-                color: "#0347c1",
-                border: "2px solid #022a6e",
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "10px",
-                fontWeight: 700,
-                boxShadow: "2px 2px 0 #022a6e",
-              }}
+              className="px-4 py-1.5 cursor-pointer font-mono font-bold bg-white text-chrome-blue border-2 border-chrome-blue-dark"
+              style={{ fontSize: "10px", boxShadow: "2px 2px 0 #022a6e" }}
             >
               ENVIAR
             </button>
@@ -188,24 +174,18 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                       }}
                     />
                     <span
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "8px",
-                        color: "#a0c4ff",
-                        letterSpacing: "0.05em",
-                      }}
+                      className="font-mono text-chrome-blue-body"
+                      style={{ fontSize: "8px", letterSpacing: "0.05em" }}
                     >
                       COMMENT-{String(globalIndex + 1).padStart(2, "0")}.TXT
                     </span>
                   </div>
                   <div className="flex gap-1">
                     <div
-                      className="w-2 h-2"
-                      style={{ backgroundColor: "#0560e0", border: "1px solid #022a6e" }}
+                      className="w-2 h-2 bg-chrome-blue-accent border border-chrome-blue-dark"
                     />
                     <div
-                      className="w-2 h-2"
-                      style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                      className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark"
                     />
                   </div>
                 </div>
@@ -232,12 +212,8 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                           />
                         </div>
                         <div
-                          className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full"
-                          style={{
-                            backgroundColor: "#4ade80",
-                            border: "2px solid #0347c1",
-                            boxShadow: "0 0 6px #4ade8060",
-                          }}
+                          className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-chrome-green border-2 border-chrome-blue"
+                          style={{ boxShadow: "0 0 6px #4ade8060" }}
                         />
                       </div>
                       <div className="min-w-0">
@@ -321,14 +297,8 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                       &gt;
                     </span>
                     <p
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "10px",
-                        lineHeight: 1.7,
-                        color: "#a0c4ff",
-                        paddingLeft: "14px",
-                        paddingTop: "1px",
-                      }}
+                      className="font-mono text-chrome-blue-body"
+                      style={{ fontSize: "10px", lineHeight: 1.7, paddingLeft: "14px", paddingTop: "1px" }}
                     >
                       {comment.text}
                     </p>
@@ -343,13 +313,11 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                       {reactions.map((r, ri) => (
                         <button
                           key={ri}
-                          className="flex items-center gap-1 px-1.5 py-0.5 cursor-pointer"
+                          className="flex items-center gap-1 px-1.5 py-0.5 cursor-pointer font-mono text-chrome-blue-body"
                           style={{
                             backgroundColor: "transparent",
                             border: `1px solid ${accent}25`,
-                            fontFamily: "'Space Mono', monospace",
                             fontSize: "9px",
-                            color: "#a0c4ff",
                             transition: "all 0.15s ease",
                           }}
                           onMouseEnter={(e) => {
@@ -369,12 +337,8 @@ export function PostCommentsSection({ comments }: PostCommentsSectionProps) {
                       ))}
                     </div>
                     <span
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "8px",
-                        color: "#3a6aaa",
-                        letterSpacing: "0.03em",
-                      }}
+                      className="font-mono text-chrome-blue-dim"
+                      style={{ fontSize: "8px", letterSpacing: "0.03em" }}
                     >
                       {comment.date}
                     </span>

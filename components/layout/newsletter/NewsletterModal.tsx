@@ -96,11 +96,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
             >
               {/* Title bar */}
               <div
-                className="flex items-center justify-between px-3 py-2"
-                style={{
-                  backgroundColor: "#0458d4",
-                  borderBottom: "2px solid #022a6e",
-                }}
+                className="flex items-center justify-between px-3 py-2 bg-chrome-blue-mid"
+                style={{ borderBottom: "2px solid #022a6e" }}
               >
                 <div className="flex items-center gap-2">
                   <motion.div
@@ -114,32 +111,20 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                     <Bell size={12} style={{ color: "#4ade80" }} />
                   </motion.div>
                   <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: "10px",
-                      fontWeight: 700,
-                      color: "#c8e0ff",
-                      letterSpacing: "0.05em",
-                    }}
+                    className="font-mono font-bold text-chrome-blue-content"
+                    style={{ fontSize: "10px", letterSpacing: "0.05em" }}
                   >
                     NOTIFY.EXE
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <div
-                    className="w-3 h-3"
-                    style={{
-                      border: "1.5px solid #022a6e",
-                      backgroundColor: "#0347c1",
-                    }}
+                    className="w-3 h-3 bg-chrome-blue"
+                    style={{ border: "1.5px solid #022a6e" }}
                   />
                   <motion.button
-                    className="w-3 h-3 flex items-center justify-center cursor-pointer"
-                    style={{
-                      border: "1.5px solid #022a6e",
-                      backgroundColor: "#e05050",
-                      padding: 0,
-                    }}
+                    className="w-3 h-3 flex items-center justify-center cursor-pointer bg-chrome-red"
+                    style={{ border: "1.5px solid #022a6e", padding: 0 }}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={onClose}
@@ -151,7 +136,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
               </div>
 
               {/* Body */}
-              <div className="relative overflow-hidden" style={{ backgroundColor: "#0347c1" }}>
+              <div className="relative overflow-hidden bg-chrome-blue">
                 {/* Pulsing glow */}
                 <motion.div
                   className="absolute pointer-events-none"
@@ -212,24 +197,14 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           </motion.div>
                           <div>
                             <span
-                              style={{
-                                fontFamily: "'Space Grotesk', sans-serif",
-                                fontWeight: 700,
-                                fontSize: "18px",
-                                color: "#fff",
-                                display: "block",
-                                lineHeight: 1.2,
-                              }}
+                              className="font-grotesk font-bold text-white block"
+                              style={{ fontSize: "18px", lineHeight: 1.2 }}
                             >
                               Fique por dentro!
                             </span>
                             <span
-                              style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: "9px",
-                                color: "#4ade80",
-                                letterSpacing: "0.05em",
-                              }}
+                              className="font-mono text-chrome-green"
+                              style={{ fontSize: "9px", letterSpacing: "0.05em" }}
                             >
                               TRANSMISSAO ATIVA
                             </span>
@@ -237,13 +212,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                         </div>
 
                         <p
-                          className="mt-3 mb-5"
-                          style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontSize: "14px",
-                            lineHeight: 1.65,
-                            color: "#a0c4ff",
-                          }}
+                          className="mt-3 mb-5 font-grotesk text-chrome-blue-body"
+                          style={{ fontSize: "14px", lineHeight: 1.65 }}
                         >
                           Receba um aviso no e-mail sempre que sair post novo. Nada de conteudo
                           exclusivo — tudo esta aqui, aberto, no blog.
@@ -263,16 +233,11 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                               onChange={(e) => { setEmail(e.target.value); if (error) setError(""); }}
                               placeholder="seu@email.com"
                               autoFocus
-                              className="w-full pl-9 pr-4 py-3"
+                              className="w-full pl-9 pr-4 py-3 font-mono text-white bg-chrome-blue-dark border-2 border-chrome-blue-accent outline-none"
                               aria-invalid={!!error}
                               aria-describedby={error ? "modal-email-error" : undefined}
                               style={{
-                                backgroundColor: "#022a6e",
-                                border: "2px solid #0560e0",
-                                color: "#fff",
-                                fontFamily: "'Space Mono', monospace",
                                 fontSize: "12px",
-                                outline: "none",
                                 transition: "border-color 0.2s, box-shadow 0.2s",
                               }}
                               onFocus={(e) => {
@@ -294,12 +259,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -4 }}
                                 transition={{ duration: 0.2 }}
-                                className="mb-3 -mt-1"
-                                style={{
-                                  fontFamily: "'Space Mono', monospace",
-                                  fontSize: "9px",
-                                  color: "#ff6b6b",
-                                }}
+                                className="mb-3 -mt-1 font-mono"
+                                style={{ fontSize: "9px", color: "#ff6b6b" }}
                               >
                                 {error}
                               </motion.p>
@@ -309,16 +270,11 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           {/* Submit button */}
                           <motion.button
                             type="submit"
-                            className="w-full flex items-center justify-center gap-2 px-5 py-3"
+                            className="w-full flex items-center justify-center gap-2 px-5 py-3 font-mono font-bold bg-chrome-green text-chrome-blue-dark cursor-pointer"
                             style={{
                               border: "3px solid #022a6e",
-                              backgroundColor: "#4ade80",
                               boxShadow: "4px 4px 0 #022a6e",
-                              fontFamily: "'Space Mono', monospace",
                               fontSize: "11px",
-                              fontWeight: 700,
-                              color: "#022a6e",
-                              cursor: "pointer",
                             }}
                             whileHover={{
                               x: -2,
@@ -349,38 +305,22 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
 
                         {/* Privacy notice */}
                         <div
-                          className="mt-4 p-3 flex gap-2.5"
-                          style={{
-                            backgroundColor: "#022a6e",
-                            border: "1px solid #0560e0",
-                          }}
+                          className="mt-4 p-3 flex gap-2.5 bg-chrome-blue-dark border border-chrome-blue-accent"
                         >
                           <Lock
                             size={13}
-                            className="flex-shrink-0 mt-0.5"
-                            style={{ color: "#a0c4ff" }}
+                            className="flex-shrink-0 mt-0.5 text-chrome-blue-body"
                           />
                           <div>
                             <span
-                              style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: "9px",
-                                fontWeight: 700,
-                                color: "#c8e0ff",
-                                letterSpacing: "0.03em",
-                                display: "block",
-                                marginBottom: "3px",
-                              }}
+                              className="font-mono font-bold text-chrome-blue-content block"
+                              style={{ fontSize: "9px", letterSpacing: "0.03em", marginBottom: "3px" }}
                             >
                               PRIVACIDADE
                             </span>
                             <p
-                              style={{
-                                fontFamily: "'Space Mono', monospace",
-                                fontSize: "9px",
-                                lineHeight: 1.6,
-                                color: "#a0c4ff",
-                              }}
+                              className="font-mono text-chrome-blue-body"
+                              style={{ fontSize: "9px", lineHeight: 1.6 }}
                             >
                               Nao armazeno nenhuma informacao pessoal dos visitantes deste site. Seu
                               e-mail sera usado apenas para enviar notificacoes de novos posts e
@@ -422,13 +362,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.3 }}
-                          style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontWeight: 700,
-                            fontSize: "20px",
-                            color: "#4ade80",
-                            display: "block",
-                          }}
+                          className="font-grotesk font-bold text-chrome-green block"
+                          style={{ fontSize: "20px" }}
                         >
                           Tudo certo!
                         </motion.span>
@@ -437,13 +372,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.4 }}
-                          className="mt-2 max-w-[320px]"
-                          style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontSize: "14px",
-                            lineHeight: 1.6,
-                            color: "#a0c4ff",
-                          }}
+                          className="mt-2 max-w-[320px] font-grotesk text-chrome-blue-body"
+                          style={{ fontSize: "14px", lineHeight: 1.6 }}
                         >
                           Voce vai receber um aviso sempre que eu publicar algo novo. Fique de olho
                           na caixa de entrada!
@@ -454,14 +384,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.55 }}
-                          className="mt-4 px-4 py-2"
-                          style={{
-                            backgroundColor: "#022a6e",
-                            border: "2px solid #0560e0",
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: "10px",
-                            color: "#4ade80",
-                          }}
+                          className="mt-4 px-4 py-2 font-mono text-chrome-green bg-chrome-blue-dark border-2 border-chrome-blue-accent"
+                          style={{ fontSize: "10px" }}
                         >
                           {">"} NOTIFY_ID: #{notifyId}
                         </motion.div>
@@ -473,13 +397,10 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           transition={{ delay: 0.65 }}
                           className="mt-4 flex items-center gap-1.5"
                         >
-                          <ShieldCheck size={12} style={{ color: "#a0c4ff" }} />
+                          <ShieldCheck size={12} className="text-chrome-blue-body" />
                           <span
-                            style={{
-                              fontFamily: "'Space Mono', monospace",
-                              fontSize: "8px",
-                              color: "#a0c4ff",
-                            }}
+                            className="font-mono text-chrome-blue-body"
+                            style={{ fontSize: "8px" }}
                           >
                             NENHUMA INFORMACAO PESSOAL ARMAZENADA
                           </span>
@@ -490,15 +411,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.75 }}
-                          className="mt-5 px-5 py-2 cursor-pointer"
-                          style={{
-                            border: "2px solid #0560e0",
-                            backgroundColor: "#0458d4",
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: "10px",
-                            fontWeight: 700,
-                            color: "#c8e0ff",
-                          }}
+                          className="mt-5 px-5 py-2 cursor-pointer font-mono font-bold bg-chrome-blue-mid text-chrome-blue-content border-2 border-chrome-blue-accent"
+                          style={{ fontSize: "10px" }}
                           whileHover={{
                             backgroundColor: "#0560e0",
                             color: "#fff",

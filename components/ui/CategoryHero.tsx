@@ -146,7 +146,7 @@ export function CategoryHero({
                   {crumb.to ? (
                     <Link
                       href={crumb.to}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 font-mono font-bold"
                       style={{
                         background: "rgba(255,255,255,0.1)",
                         backdropFilter: "blur(12px)",
@@ -154,9 +154,7 @@ export function CategoryHero({
                           ? `2px solid ${accentColor}66`
                           : "2px solid rgba(255,255,255,0.2)",
                         color: crumb.active ? accentColor : "#fff",
-                        fontFamily: "'Space Mono', monospace",
                         fontSize: "10px",
-                        fontWeight: 700,
                         textDecoration: "none",
                       }}
                     >
@@ -165,17 +163,14 @@ export function CategoryHero({
                     </Link>
                   ) : (
                     <span
-                      className="px-3 py-1.5"
+                      className="px-3 py-1.5 font-mono font-bold text-white"
                       style={{
                         background: crumb.active ? `${accentColor}22` : "rgba(255,255,255,0.1)",
                         backdropFilter: "blur(12px)",
                         border: crumb.active
                           ? `2px solid ${accentColor}66`
                           : "2px solid rgba(255,255,255,0.2)",
-                        color: "#fff",
-                        fontFamily: "'Space Mono', monospace",
                         fontSize: "10px",
-                        fontWeight: 700,
                       }}
                     >
                       {crumb.label}
@@ -187,15 +182,12 @@ export function CategoryHero({
           ) : (
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-3 py-1.5 mb-4"
+              className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 font-mono font-bold text-white"
               style={{
                 background: "rgba(255,255,255,0.12)",
                 backdropFilter: "blur(12px)",
                 border: "2px solid rgba(255,255,255,0.25)",
-                color: "#fff",
-                fontFamily: "'Space Mono', monospace",
                 fontSize: "10px",
-                fontWeight: 700,
                 textDecoration: "none",
               }}
             >
@@ -205,8 +197,8 @@ export function CategoryHero({
           )}
 
           <div
+            className="font-mono"
             style={{
-              fontFamily: "'Space Mono', monospace",
               fontSize: "10px",
               color: accentColor,
               marginBottom: "6px",
@@ -226,9 +218,8 @@ export function CategoryHero({
           />
 
           <p
-            className="mt-3 max-w-[600px]"
+            className="mt-3 max-w-[600px] font-grotesk"
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
               fontSize: "15px",
               lineHeight: 1.6,
               color: "rgba(255,255,255,0.75)",
