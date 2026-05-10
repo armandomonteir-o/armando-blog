@@ -186,11 +186,10 @@ export default function NotFound() {
           <div className="p-6">
             <div className="flex justify-center mb-4">
               <pre
+                className="font-mono text-chrome-red"
                 style={{
-                  fontFamily: "'Space Mono', monospace",
                   fontSize: "10px",
                   lineHeight: 1.2,
-                  color: "#e05050",
                   letterSpacing: "0.05em",
                   animation: "glitchShake 0.5s ease-in-out infinite",
                 }}
@@ -209,45 +208,36 @@ export default function NotFound() {
             </div>
 
             <div
-              className="mb-5 p-3"
-              style={{
-                backgroundColor: "#0347c1",
-                border: "3px solid #022a6e",
-                boxShadow: "3px 3px 0 #022a6e",
-              }}
+              className="mb-5 p-3 bg-chrome-blue"
+              style={{ border: "3px solid #022a6e", boxShadow: "3px 3px 0 #022a6e" }}
             >
               <div className="flex items-center gap-2 mb-2">
                 <div
-                  className="w-2.5 h-2.5"
-                  style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                  className="w-2.5 h-2.5 bg-chrome-red border border-chrome-blue-dark"
                 />
                 <div
-                  className="w-2.5 h-2.5"
-                  style={{ backgroundColor: "#4ade80", border: "1px solid #022a6e" }}
+                  className="w-2.5 h-2.5 bg-chrome-green border border-chrome-blue-dark"
                 />
                 <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "8px",
-                    color: "#e8f4ff",
-                  }}
+                  className="font-mono"
+                  style={{ fontSize: "8px", color: "#e8f4ff" }}
                 >
                   TERMINAL_OUTPUT.LOG
                 </span>
               </div>
               <div
+                className="font-mono"
                 style={{
-                  fontFamily: "'Space Mono', monospace",
                   fontSize: "11px",
                   color: "#e8f4ff",
                   lineHeight: 1.6,
                   minHeight: "20px",
                 }}
               >
-                <span style={{ color: "#4ade80" }}>{">"}</span> {typedText}
+                <span className="text-chrome-green">{">"}</span> {typedText}
                 <span
+                  className="text-chrome-green"
                   style={{
-                    color: "#4ade80",
                     opacity: showCursor ? 1 : 0,
                     transition: "opacity 0.1s",
                   }}
@@ -258,9 +248,8 @@ export default function NotFound() {
             </div>
 
             <p
-              className="text-center mb-5"
+              className="text-center mb-5 font-mono"
               style={{
-                fontFamily: "'Space Mono', monospace",
                 fontSize: "11px",
                 lineHeight: 1.6,
                 color: "#5a7a9a",
@@ -281,22 +270,14 @@ export default function NotFound() {
               }}
             >
               <span
-                style={{
-                  fontFamily: "'Bungee Shade', sans-serif",
-                  fontSize: "11px",
-                  color: "#0347c1",
-                  letterSpacing: "0.05em",
-                }}
+                className="font-bungee text-chrome-blue"
+                style={{ fontSize: "11px", letterSpacing: "0.05em" }}
               >
                 ARMANDO
               </span>
               <span
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "9px",
-                  color: "#a0c4ff",
-                  marginLeft: "8px",
-                }}
+                className="font-mono text-chrome-blue-body"
+                style={{ fontSize: "9px", marginLeft: "8px" }}
               >
                 {"// arte & tecnologia digital"}
               </span>
@@ -305,13 +286,9 @@ export default function NotFound() {
             <div className="flex items-center justify-center gap-3">
               <Link
                 href="/"
-                className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2"
+                className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2 font-grotesk font-bold bg-white text-chrome-blue"
                 style={{
-                  backgroundColor: "#fff",
-                  color: "#0347c1",
                   border: "3px solid #022a6e",
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
                   fontSize: "12px",
                   boxShadow: "3px 3px 0 #022a6e",
                   textDecoration: "none",
@@ -324,13 +301,10 @@ export default function NotFound() {
               </Link>
 
               <button
-                className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2"
+                className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2 font-grotesk font-bold bg-chrome-blue-mid"
                 style={{
-                  backgroundColor: "#0458d4",
                   color: "#e8f4ff",
                   border: "3px solid #022a6e",
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
                   fontSize: "12px",
                   boxShadow: "3px 3px 0 #022a6e",
                   transition: "transform 0.2s ease, box-shadow 0.2s ease",
@@ -346,31 +320,24 @@ export default function NotFound() {
             <div className="mt-5">
               <div className="flex items-center justify-between mb-1">
                 <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "8px",
-                    color: "#a0c4ff",
-                  }}
+                  className="font-mono text-chrome-blue-body"
+                  style={{ fontSize: "8px" }}
                 >
                   SEARCHING_REALITY.EXE...
                 </span>
                 <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "8px",
-                    color: "#e05050",
-                  }}
+                  className="font-mono text-chrome-red"
+                  style={{ fontSize: "8px" }}
                 >
                   FAILED
                 </span>
               </div>
               <div
-                className="h-2.5 w-full overflow-hidden"
-                style={{ border: "2px solid #022a6e", backgroundColor: "#e8e4dc" }}
+                className="h-2.5 w-full overflow-hidden border-2 border-chrome-blue-dark"
+                style={{ backgroundColor: "#e8e4dc" }}
               >
                 <motion.div
-                  className="h-full"
-                  style={{ backgroundColor: "#e05050" }}
+                  className="h-full bg-chrome-red"
                   initial={{ width: "0%" }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 2, ease: "easeInOut" }}

@@ -84,13 +84,10 @@ function MarqueeText({ text, playing }: { text: string; playing: boolean }) {
     >
       <span
         ref={textRef}
-        className="inline-block"
+        className="inline-block font-grotesk font-bold text-white"
         style={{
           animation: shouldScroll && playing ? "marqueeScroll 8s linear infinite" : "none",
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontWeight: 700,
           fontSize: "13px",
-          color: "#fff",
         }}
       >
         {text}
@@ -144,32 +141,15 @@ export function MusicConsentBar({
 
         <div className="flex items-center gap-3 relative z-10 flex-1 min-w-0">
           <div
-            className="w-9 h-9 flex items-center justify-center flex-shrink-0"
-            style={{
-              border: "2px solid #80b0ff",
-              backgroundColor: "#0458d4",
-            }}
+            className="w-9 h-9 flex items-center justify-center flex-shrink-0 border-2 border-chrome-blue-soft bg-chrome-blue-mid"
           >
             <Music size={16} color="#4ade80" />
           </div>
           <div className="min-w-0">
-            <div
-              style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontWeight: 700,
-                fontSize: "13px",
-                color: "#fff",
-              }}
-            >
+            <div className="font-grotesk font-bold text-white" style={{ fontSize: "13px" }}>
               Quer ouvir música?
             </div>
-            <div
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "9px",
-                color: "#c8e0ff",
-              }}
-            >
+            <div className="font-mono text-chrome-blue-text-on-dark" style={{ fontSize: "9px" }}>
               Toque uma playlist enquanto navega pelo blog
             </div>
           </div>
@@ -178,14 +158,9 @@ export function MusicConsentBar({
         <div className="flex items-center gap-2 relative z-10 flex-shrink-0">
           <button
             onClick={onAccept}
-            className="px-4 py-1.5 cursor-pointer"
+            className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue bg-white border-2 border-chrome-blue-dark"
             style={{
-              border: "2px solid #022a6e",
-              backgroundColor: "#fff",
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontWeight: 700,
               fontSize: "12px",
-              color: "#0347c1",
               boxShadow: "2px 2px 0 #022a6e",
               transition: "transform 0.15s, box-shadow 0.15s",
             }}
@@ -202,14 +177,10 @@ export function MusicConsentBar({
           </button>
           <button
             onClick={onDecline}
-            className="px-4 py-1.5 cursor-pointer"
+            className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue-text-on-dark border-2 border-chrome-blue-accent"
             style={{
-              border: "2px solid #0560e0",
-              backgroundColor: "transparent",
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontWeight: 700,
               fontSize: "12px",
-              color: "#c8e0ff",
+              backgroundColor: "transparent",
               transition: "background 0.15s",
             }}
             onMouseEnter={(e) => {
@@ -325,10 +296,9 @@ export function NowPlayingWidget() {
   if (minimized) {
     return (
       <div
-        className="flex items-center gap-3 px-4 py-2 cursor-pointer"
+        className="flex items-center gap-3 px-4 py-2 cursor-pointer bg-chrome-blue"
         style={{
           border: "3px solid #022a6e",
-          backgroundColor: "#0347c1",
           boxShadow: "4px 4px 0 #022a6e",
         }}
         onClick={() => setMinimized(false)}
@@ -336,12 +306,8 @@ export function NowPlayingWidget() {
         <audio ref={audioRef} src={track.src} preload="auto" />
         <EqualizerBars playing={playing} barCount={4} />
         <span
-          className="flex-1 truncate"
-          style={{
-            fontFamily: "'Space Mono', monospace",
-            fontSize: "11px",
-            color: "#c8e0ff",
-          }}
+          className="flex-1 truncate font-mono text-chrome-blue-text-on-dark"
+          style={{ fontSize: "11px" }}
         >
           {track.artist} — {track.title}
         </span>
@@ -350,8 +316,8 @@ export function NowPlayingWidget() {
             e.stopPropagation();
             togglePlay();
           }}
-          className="cursor-pointer flex-shrink-0"
-          style={{ color: "#fff", background: "none", border: "none" }}
+          className="cursor-pointer flex-shrink-0 text-white"
+          style={{ background: "none", border: "none" }}
         >
           {playing ? <Pause size={14} /> : <Play size={14} />}
         </button>
@@ -395,9 +361,8 @@ export function NowPlayingWidget() {
 
       {/* Title bar — Winamp style */}
       <div
-        className="flex items-center justify-between px-3 py-1"
+        className="flex items-center justify-between px-3 py-1 bg-chrome-blue-mid"
         style={{
-          backgroundColor: "#0458d4",
           borderBottom: "2px solid #022a6e",
           minHeight: "26px",
         }}
@@ -405,13 +370,8 @@ export function NowPlayingWidget() {
         <div className="flex items-center gap-2">
           <EqualizerBars playing={playing} barCount={3} />
           <span
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "10px",
-              fontWeight: 700,
-              color: "#c8e0ff",
-              letterSpacing: "0.05em",
-            }}
+            className="font-mono font-bold text-chrome-blue-content"
+            style={{ fontSize: "10px", letterSpacing: "0.05em" }}
           >
             PLAYER.EXE
           </span>
@@ -419,35 +379,23 @@ export function NowPlayingWidget() {
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => setMinimized(true)}
-            className="w-4 h-4 flex items-center justify-center cursor-pointer"
-            style={{
-              border: "2px solid #022a6e",
-              backgroundColor: "#0560e0",
-              fontSize: "10px",
-              fontWeight: 700,
-              lineHeight: 1,
-              color: "#fff",
-            }}
+            className="w-4 h-4 flex items-center justify-center cursor-pointer font-bold text-white bg-chrome-blue-accent border-2 border-chrome-blue-dark"
+            style={{ fontSize: "10px", lineHeight: 1 }}
           >
             _
           </button>
           <div
-            className="w-4 h-4"
-            style={{ border: "2px solid #022a6e", backgroundColor: "#e05050" }}
+            className="w-4 h-4 bg-chrome-red border-2 border-chrome-blue-dark"
           />
         </div>
       </div>
 
       {/* Player body */}
-      <div className="flex items-center gap-3 px-4 py-3" style={{ backgroundColor: "#0347c1" }}>
+      <div className="flex items-center gap-3 px-4 py-3 bg-chrome-blue">
         {/* Vinyl / Album art placeholder */}
         <div
-          className="w-11 h-11 flex-shrink-0 flex items-center justify-center relative"
-          style={{
-            border: "2px solid #80b0ff",
-            backgroundColor: "#022a6e",
-            overflow: "hidden",
-          }}
+          className="w-11 h-11 flex-shrink-0 flex items-center justify-center relative border-2 border-chrome-blue-soft bg-chrome-blue-dark"
+          style={{ overflow: "hidden" }}
         >
           <div
             className="absolute inset-0 flex items-center justify-center"
@@ -471,12 +419,8 @@ export function NowPlayingWidget() {
         <div className="flex-1 min-w-0">
           <MarqueeText text={`${track.title} — ${track.artist}`} playing={playing} />
           <div
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "9px",
-              color: "#a0c4ff",
-              marginTop: 1,
-            }}
+            className="font-mono text-chrome-blue-body"
+            style={{ fontSize: "9px", marginTop: 1 }}
           >
             {track.album} · Track {currentTrack + 1}/{TRACKS.length}
           </div>
@@ -484,31 +428,19 @@ export function NowPlayingWidget() {
           {/* Progress bar */}
           <div className="flex items-center gap-2 mt-2">
             <span
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "8px",
-                color: "#a0c4ff",
-                minWidth: 28,
-              }}
+              className="font-mono text-chrome-blue-body"
+              style={{ fontSize: "8px", minWidth: 28 }}
             >
               {formatTime(progress)}
             </span>
             <div
               ref={progressBarRef}
-              className="flex-1 h-2 cursor-pointer relative"
-              style={{
-                border: "2px solid #0560e0",
-                backgroundColor: "#022a6e",
-              }}
+              className="flex-1 h-2 cursor-pointer relative border-2 border-chrome-blue-accent bg-chrome-blue-dark"
               onClick={seekTo}
             >
               <div
-                className="h-full"
-                style={{
-                  width: `${pct}%`,
-                  backgroundColor: "#4ade80",
-                  transition: "width 0.1s linear",
-                }}
+                className="h-full bg-chrome-green"
+                style={{ width: `${pct}%`, transition: "width 0.1s linear" }}
               />
               <div
                 className="absolute inset-0 pointer-events-none"
@@ -518,13 +450,8 @@ export function NowPlayingWidget() {
               />
             </div>
             <span
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "8px",
-                color: "#a0c4ff",
-                minWidth: 28,
-                textAlign: "right",
-              }}
+              className="font-mono text-chrome-blue-body"
+              style={{ fontSize: "8px", minWidth: 28, textAlign: "right" }}
             >
               {formatTime(duration)}
             </span>
@@ -535,13 +462,8 @@ export function NowPlayingWidget() {
             <div className="flex items-center gap-1">
               <button
                 onClick={prevTrack}
-                className="w-7 h-7 flex items-center justify-center cursor-pointer"
-                style={{
-                  border: "2px solid #0560e0",
-                  backgroundColor: "#0458d4",
-                  color: "#c8e0ff",
-                  transition: "background 0.15s",
-                }}
+                className="w-7 h-7 flex items-center justify-center cursor-pointer border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
+                style={{ transition: "background 0.15s" }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0560e0")}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#0458d4")}
               >
@@ -550,11 +472,8 @@ export function NowPlayingWidget() {
 
               <button
                 onClick={togglePlay}
-                className="w-8 h-8 flex items-center justify-center cursor-pointer"
+                className="w-8 h-8 flex items-center justify-center cursor-pointer bg-white text-chrome-blue border-2 border-chrome-blue-dark"
                 style={{
-                  border: "2px solid #022a6e",
-                  backgroundColor: "#fff",
-                  color: "#0347c1",
                   boxShadow: "2px 2px 0 #022a6e",
                   transition: "transform 0.15s, box-shadow 0.15s",
                 }}
@@ -572,13 +491,8 @@ export function NowPlayingWidget() {
 
               <button
                 onClick={nextTrack}
-                className="w-7 h-7 flex items-center justify-center cursor-pointer"
-                style={{
-                  border: "2px solid #0560e0",
-                  backgroundColor: "#0458d4",
-                  color: "#c8e0ff",
-                  transition: "background 0.15s",
-                }}
+                className="w-7 h-7 flex items-center justify-center cursor-pointer border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
+                style={{ transition: "background 0.15s" }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0560e0")}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#0458d4")}
               >
@@ -590,8 +504,8 @@ export function NowPlayingWidget() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setMuted(!muted)}
-                className="cursor-pointer"
-                style={{ color: "#c8e0ff", background: "none", border: "none" }}
+                className="cursor-pointer text-chrome-blue-content"
+                style={{ background: "none", border: "none" }}
               >
                 {muted || volume === 0 ? <VolumeX size={13} /> : <Volume2 size={13} />}
               </button>
@@ -616,7 +530,7 @@ export function NowPlayingWidget() {
       </div>
 
       {/* Track list — foobar2000 style */}
-      <div style={{ borderTop: "2px solid #022a6e", backgroundColor: "#022a6e" }}>
+      <div className="bg-chrome-blue-dark" style={{ borderTop: "2px solid #022a6e" }}>
         {TRACKS.map((t, i) => (
           <div
             key={i}
@@ -639,8 +553,8 @@ export function NowPlayingWidget() {
             }}
           >
             <span
+              className="font-mono"
               style={{
-                fontFamily: "'Space Mono', monospace",
                 fontSize: "9px",
                 color: i === currentTrack ? "#4ade80" : "#a0c4ff",
                 width: 16,
@@ -651,9 +565,8 @@ export function NowPlayingWidget() {
               {i === currentTrack && playing ? "▶" : String(i + 1).padStart(2, "0")}
             </span>
             <span
-              className="flex-1 truncate"
+              className="flex-1 truncate font-grotesk"
               style={{
-                fontFamily: "'Space Grotesk', sans-serif",
                 fontSize: "11px",
                 fontWeight: i === currentTrack ? 700 : 400,
                 color: i === currentTrack ? "#fff" : "#c8e0ff",
@@ -662,12 +575,8 @@ export function NowPlayingWidget() {
               {t.artist} — {t.title}
             </span>
             <span
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "9px",
-                color: "#a0c4ff",
-                flexShrink: 0,
-              }}
+              className="font-mono text-chrome-blue-body"
+              style={{ fontSize: "9px", flexShrink: 0 }}
             >
               {t.duration}
             </span>

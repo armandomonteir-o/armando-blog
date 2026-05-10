@@ -53,42 +53,24 @@ export default function PostsPage() {
           <>
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <FileText size={13} />
-              <span
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "14px",
-                }}
-              >
+              <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
                 {posts.length}
               </span>
               <span
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "9px",
-                  color: "rgba(255,255,255,0.5)",
-                }}
+                className="font-mono"
+                style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
               >
                 posts
               </span>
             </div>
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <Filter size={13} />
-              <span
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "14px",
-                }}
-              >
+              <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
                 {allCategories.length}
               </span>
               <span
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "9px",
-                  color: "rgba(255,255,255,0.5)",
-                }}
+                className="font-mono"
+                style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
               >
                 categorias
               </span>
@@ -124,24 +106,19 @@ export default function PostsPage() {
                     color="#fff"
                   />
                   <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: "9px",
-                      color: "#a0c4ff",
-                    }}
+                    className="font-mono text-chrome-blue-body"
+                    style={{ fontSize: "9px" }}
                   >
                     {filteredPosts.length} ENTRIES FOUND
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <button
-                    className="px-3 py-1 cursor-pointer transition-all duration-150"
+                    className="px-3 py-1 cursor-pointer transition-all duration-150 font-mono font-bold"
                     style={{
                       border: "2px solid #0560e0",
                       backgroundColor: !selectedCategory ? "#80b0ff" : "#0458d4",
-                      fontFamily: "'Space Mono', monospace",
                       fontSize: "10px",
-                      fontWeight: 700,
                       color: !selectedCategory ? "#022a6e" : "#a0c4ff",
                     }}
                     onClick={() => handleCategoryChange(null)}
@@ -151,13 +128,11 @@ export default function PostsPage() {
                   {allCategories.map((cat) => (
                     <button
                       key={cat}
-                      className="px-3 py-1 cursor-pointer transition-all duration-150"
+                      className="px-3 py-1 cursor-pointer transition-all duration-150 font-mono font-bold"
                       style={{
                         border: `2px solid ${selectedCategory === cat ? categoryColors[cat] : "#0560e0"}`,
                         backgroundColor: selectedCategory === cat ? categoryColors[cat] : "#0458d4",
-                        fontFamily: "'Space Mono', monospace",
                         fontSize: "10px",
-                        fontWeight: 700,
                         color: selectedCategory === cat ? "#022a6e" : "#a0c4ff",
                       }}
                       onClick={() => handleCategoryChange(cat)}
@@ -212,8 +187,8 @@ export default function PostsPage() {
                         }}
                       >
                         <span
+                          className="font-mono"
                           style={{
-                            fontFamily: "'Space Mono', monospace",
                             fontSize: "8px",
                             color: post.isCorrupted ? "#ff4444" : "#a0c4ff",
                           }}
@@ -224,12 +199,10 @@ export default function PostsPage() {
                         </span>
                         <div className="flex gap-1">
                           <div
-                            className="w-2 h-2"
-                            style={{ backgroundColor: "#0347c1", border: "1px solid #022a6e" }}
+                            className="w-2 h-2 bg-chrome-blue border border-chrome-blue-dark"
                           />
                           <div
-                            className="w-2 h-2"
-                            style={{ backgroundColor: "#e05050", border: "1px solid #022a6e" }}
+                            className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark"
                           />
                         </div>
                       </div>
@@ -251,14 +224,10 @@ export default function PostsPage() {
                           }}
                         />
                         <div
-                          className="absolute top-2 left-2 px-2 py-0.5"
+                          className="absolute top-2 left-2 px-2 py-0.5 font-mono font-bold text-chrome-blue-dark border-2 border-chrome-blue-dark"
                           style={{
                             backgroundColor: categoryColors[post.category] || "#0347c1",
-                            border: "2px solid #022a6e",
-                            fontFamily: "'Space Mono', monospace",
                             fontSize: "8px",
-                            fontWeight: 700,
-                            color: "#022a6e",
                             boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                           }}
                         >
@@ -275,55 +244,35 @@ export default function PostsPage() {
 
                       <div className="p-3 flex flex-col flex-1 overflow-hidden">
                         <h3
-                          className="line-clamp-2"
-                          style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontWeight: 700,
-                            fontSize: "13px",
-                            color: "#fff",
-                            lineHeight: 1.3,
-                            marginBottom: "6px",
-                          }}
+                          className="line-clamp-2 font-grotesk font-bold text-white"
+                          style={{ fontSize: "13px", lineHeight: 1.3, marginBottom: "6px" }}
                         >
                           {post.title}
                         </h3>
                         <p
-                          className="flex-1 line-clamp-3"
-                          style={{
-                            fontFamily: "'Space Mono', monospace",
-                            fontSize: "10px",
-                            lineHeight: 1.5,
-                            color: "#c8e0ff",
-                            marginBottom: "8px",
-                          }}
+                          className="flex-1 line-clamp-3 font-mono text-chrome-blue-text-on-dark"
+                          style={{ fontSize: "10px", lineHeight: 1.5, marginBottom: "8px" }}
                         >
                           {post.excerpt}
                         </p>
                         <div
-                          className="flex items-center gap-3 pt-2"
-                          style={{ borderTop: "1px solid #0560e0" }}
+                          className="flex items-center gap-3 pt-2 border-t border-chrome-blue-accent"
                         >
-                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
+                          <div className="flex items-center gap-1 text-chrome-blue-body">
                             <Clock size={10} />
-                            <span
-                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
-                            >
+                            <span className="font-mono" style={{ fontSize: "8px" }}>
                               {post.date}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
+                          <div className="flex items-center gap-1 text-chrome-blue-body">
                             <Eye size={10} />
-                            <span
-                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
-                            >
+                            <span className="font-mono" style={{ fontSize: "8px" }}>
                               {post.reads}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1" style={{ color: "#a0c4ff" }}>
+                          <div className="flex items-center gap-1 text-chrome-blue-body">
                             <MessageCircle size={10} />
-                            <span
-                              style={{ fontFamily: "'Space Mono', monospace", fontSize: "8px" }}
-                            >
+                            <span className="font-mono" style={{ fontSize: "8px" }}>
                               {post.comments}
                             </span>
                           </div>

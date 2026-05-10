@@ -93,8 +93,8 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
 
   return (
     <header
-      className="flex items-center justify-between px-3 sm:px-6 py-3 relative flex-shrink-0"
-      style={{ borderBottom: "3px solid #022a6e", backgroundColor: "#0347c1", zIndex: 50 }}
+      className="flex items-center justify-between px-3 sm:px-6 py-3 relative flex-shrink-0 bg-chrome-blue"
+      style={{ borderBottom: "3px solid #022a6e", zIndex: 50 }}
     >
       {/* Glass sheen */}
       <div
@@ -122,8 +122,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
 
       {/* Hamburger — mobile */}
       <button
-        className="lg:hidden flex items-center justify-center w-9 h-9 cursor-pointer flex-shrink-0 mr-2 relative z-10"
-        style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4", color: "#c8e0ff" }}
+        className="lg:hidden flex items-center justify-center w-9 h-9 cursor-pointer flex-shrink-0 mr-2 relative z-10 border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
         onClick={onMobileMenuToggle}
         aria-label="Abrir menu"
       >
@@ -132,8 +131,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
 
       {/* Back button — desktop */}
       <button
-        className="hidden lg:flex items-center justify-center w-9 h-9 cursor-pointer flex-shrink-0 relative z-10"
-        style={{ border: "2px solid #0560e0", backgroundColor: "#0458d4", color: "#c8e0ff" }}
+        className="hidden lg:flex items-center justify-center w-9 h-9 cursor-pointer flex-shrink-0 relative z-10 border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
         onClick={() => router.back()}
         title="Voltar"
       >
@@ -143,11 +141,9 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
       {/* Search bar */}
       <div ref={searchRef} className="relative flex-1 mx-2 sm:mx-5 z-10">
         <div
-          className="flex items-center px-3 py-1.5"
+          className="flex items-center px-3 py-1.5 font-mono bg-chrome-blue-mid"
           style={{
             border: searchFocused ? "2px solid #4ade80" : "2px solid #0560e0",
-            backgroundColor: "#0458d4",
-            fontFamily: "'Space Mono', monospace",
             transition: "border-color 0.2s",
           }}
         >
@@ -159,16 +155,16 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
           <input
             type="text"
             placeholder="pesquise aqui o que voce tem interesse!!"
-            className="flex-1 bg-transparent outline-none min-w-0"
-            style={{ fontSize: "12px", fontFamily: "'Space Mono', monospace", color: "#c0d8ff" }}
+            className="flex-1 bg-transparent outline-none min-w-0 font-mono text-chrome-blue-content"
+            style={{ fontSize: "12px" }}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setSearchFocused(true)}
           />
           {searchQuery && (
             <button
-              className="flex-shrink-0 cursor-pointer"
-              style={{ background: "none", border: "none", color: "#c8e0ff", padding: 0 }}
+              className="flex-shrink-0 cursor-pointer text-chrome-blue-content"
+              style={{ background: "none", border: "none", padding: 0 }}
               onClick={() => {
                 setSearchQuery("");
                 setSearchFocused(false);
@@ -182,30 +178,26 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         {/* Search results dropdown */}
         {showSearchDropdown && (
           <div
-            className="absolute left-0 right-0 mt-1"
+            className="absolute left-0 right-0 mt-1 bg-chrome-blue"
             style={{
               border: "2.5px solid #022a6e",
               boxShadow: "4px 4px 0 #022a6e",
-              backgroundColor: "#0347c1",
               zIndex: 9999,
             }}
           >
             <div
-              className="px-3 py-1 flex items-center gap-2"
-              style={{ borderBottom: "2px solid #0560e0", backgroundColor: "#0458d4" }}
+              className="px-3 py-1 flex items-center gap-2 bg-chrome-blue-mid"
+              style={{ borderBottom: "2px solid #0560e0" }}
             >
               <span
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "9px",
-                  color: "#c8e0ff",
-                  letterSpacing: "0.1em",
-                }}
+                className="font-mono text-chrome-blue-content"
+                style={{ fontSize: "9px", letterSpacing: "0.1em" }}
               >
                 SEARCH.EXE
               </span>
               <span
-                style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#4ade80" }}
+                className="font-mono text-chrome-green"
+                style={{ fontSize: "9px" }}
               >
                 {searchResults.length} resultado{searchResults.length !== 1 ? "s" : ""}
               </span>
@@ -236,21 +228,14 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                   <Search size={11} style={{ color: "#a0c4ff", flexShrink: 0 }} />
                   <div className="flex-1 min-w-0">
                     <div
-                      className="truncate"
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: "12px",
-                        color: "#e0eeff",
-                      }}
+                      className="truncate font-grotesk"
+                      style={{ fontSize: "12px", color: "#e0eeff" }}
                     >
                       {r.title}
                     </div>
                     <span
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "9px",
-                        color: "#a0c4ff",
-                      }}
+                      className="font-mono text-chrome-blue-body"
+                      style={{ fontSize: "9px" }}
                     >
                       {r.category.toUpperCase()}
                     </span>
@@ -260,11 +245,8 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             ) : (
               <div className="px-3 py-3 text-center">
                 <span
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "10px",
-                    color: "#a0c4ff",
-                  }}
+                  className="font-mono text-chrome-blue-body"
+                  style={{ fontSize: "10px" }}
                 >
                   NENHUM RESULTADO ENCONTRADO
                 </span>
@@ -278,12 +260,8 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         {/* Bell + notification panel */}
         <div ref={panelRef} className="relative">
           <button
-            className="flex items-center justify-center w-9 h-9 relative cursor-pointer"
-            style={{
-              border: "2px solid #0560e0",
-              backgroundColor: notifOpen ? "#022a6e" : "#0458d4",
-              color: "#c8e0ff",
-            }}
+            className="flex items-center justify-center w-9 h-9 relative cursor-pointer border-2 border-chrome-blue-accent text-chrome-blue-content"
+            style={{ backgroundColor: notifOpen ? "#022a6e" : "#0458d4" }}
             onClick={() => setNotifOpen((v) => !v)}
             aria-label="Notificações"
           >
@@ -334,27 +312,15 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                     />
                   </div>
                   <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: 10,
-                      color: "#c0d8ff",
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                    }}
+                    className="font-mono text-chrome-blue-content uppercase"
+                    style={{ fontSize: 10, letterSpacing: "0.12em" }}
                   >
                     NOTIFICAÇÕES
                   </span>
                   {unreadCount > 0 && (
                     <span
-                      className="px-1.5 py-0.5"
-                      style={{
-                        background: "#4ade80",
-                        color: "#022a6e",
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: 9,
-                        fontWeight: 700,
-                        border: "1px solid #022a6e",
-                      }}
+                      className="px-1.5 py-0.5 font-mono font-bold bg-chrome-green text-chrome-blue-dark border border-chrome-blue-dark"
+                      style={{ fontSize: 9 }}
                     >
                       {unreadCount} novo{unreadCount > 1 ? "s" : ""}
                     </span>
@@ -362,14 +328,11 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                 </div>
                 <button
                   onClick={markAllRead}
+                  className="font-mono text-chrome-blue-content underline cursor-pointer"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: 9,
-                    color: "#c8e0ff",
                     background: "transparent",
                     border: "none",
-                    cursor: "pointer",
-                    textDecoration: "underline",
                     letterSpacing: "0.05em",
                   }}
                 >
@@ -420,42 +383,31 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <span
+                          className="font-mono uppercase"
                           style={{
-                            fontFamily: "'Space Mono', monospace",
                             fontSize: 10,
                             color: n.unread ? "#e0eeff" : "#c8e0ff",
                             fontWeight: n.unread ? 700 : 400,
                             letterSpacing: "0.04em",
-                            textTransform: "uppercase",
                           }}
                         >
                           {n.title}
                         </span>
                         {n.unread && (
                           <span
-                            className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                            style={{ background: "#4ade80" }}
+                            className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-chrome-green"
                           />
                         )}
                       </div>
                       <p
-                        className="mt-0.5 truncate"
-                        style={{
-                          fontFamily: "'Space Grotesk', sans-serif",
-                          fontSize: 11,
-                          color: "#a0c0f0",
-                          lineHeight: 1.4,
-                        }}
+                        className="mt-0.5 truncate font-grotesk"
+                        style={{ fontSize: 11, color: "#a0c0f0", lineHeight: 1.4 }}
                       >
                         {n.body}
                       </p>
                       <span
-                        style={{
-                          fontFamily: "'Space Mono', monospace",
-                          fontSize: 9,
-                          color: "rgba(128,176,255,0.55)",
-                          letterSpacing: "0.06em",
-                        }}
+                        className="font-mono"
+                        style={{ fontSize: 9, color: "rgba(128,176,255,0.55)", letterSpacing: "0.06em" }}
                       >
                         {n.time}
                       </span>
@@ -474,16 +426,12 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                     markAllRead();
                     setNotifOpen(false);
                   }}
+                  className="font-mono text-chrome-blue-content uppercase underline cursor-pointer"
                   style={{
-                    fontFamily: "'Space Mono', monospace",
                     fontSize: 10,
-                    color: "#c8e0ff",
                     background: "transparent",
                     border: "none",
-                    cursor: "pointer",
                     letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    textDecoration: "underline",
                   }}
                 >
                   marcar lidas e fechar →
@@ -495,7 +443,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
 
         {/* User avatars */}
         <div className="flex items-center gap-1 sm:gap-2">
-          <div className="w-9 h-9 overflow-hidden relative" style={{ border: "2px solid #80b0ff" }}>
+          <div className="w-9 h-9 overflow-hidden relative border-2 border-chrome-blue-soft">
             <Image
               src="https://images.unsplash.com/photo-1563669528538-1f3d1d08791b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMHdvbWFuJTIwY3JlYXRpdmUlMjBjb2xvcmZ1bHxlbnwxfHx8fDE3NzI4MzI1MDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
               alt="Profile"
@@ -505,8 +453,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             />
           </div>
           <div
-            className="hidden sm:block w-9 h-9 overflow-hidden rounded-full relative"
-            style={{ border: "2px solid #4ade80" }}
+            className="hidden sm:block w-9 h-9 overflow-hidden rounded-full relative border-2 border-chrome-green"
           >
             <Image
               src="https://images.unsplash.com/photo-1753176185106-eba130fdc775?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMG1hbiUyMGFydGlzdGljJTIwc3R1ZGlvfGVufDF8fHx8MTc3MjgzMjUwOHww&ixlib=rb-4.1.0&q=80&w=1080"

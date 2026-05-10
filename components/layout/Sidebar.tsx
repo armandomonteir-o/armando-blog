@@ -102,42 +102,32 @@ export function Sidebar({
 
       {/* Title bar */}
       <div
-        className="flex items-center justify-between px-3 py-1.5 flex-shrink-0"
-        style={{ backgroundColor: "#0458d4", borderBottom: "2px solid #022a6e", minHeight: "28px" }}
+        className="flex items-center justify-between px-3 py-1.5 flex-shrink-0 bg-chrome-blue-mid"
+        style={{ borderBottom: "2px solid #022a6e", minHeight: "28px" }}
       >
         {isExpanded ? (
           <span
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "10px",
-              fontWeight: 700,
-              color: "#c8e0ff",
-              letterSpacing: "0.05em",
-              whiteSpace: "nowrap",
-            }}
+            className="font-mono font-bold text-chrome-blue-content whitespace-nowrap"
+            style={{ fontSize: "10px", letterSpacing: "0.05em" }}
           >
             NAVIGATION.EXE
           </span>
         ) : (
           <span
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "10px",
-              fontWeight: 700,
-              color: "#c8e0ff",
-            }}
+            className="font-mono font-bold text-chrome-blue-content"
+            style={{ fontSize: "10px" }}
           >
             NAV
           </span>
         )}
         <div className="flex items-center gap-1 flex-shrink-0">
           <div
-            className="w-3 h-3"
-            style={{ border: "1.5px solid #0560e0", backgroundColor: "#0347c1" }}
+            className="w-3 h-3 bg-chrome-blue"
+            style={{ border: "1.5px solid #0560e0" }}
           />
           <div
-            className="w-3 h-3"
-            style={{ border: "1.5px solid #0560e0", backgroundColor: "#e05050" }}
+            className="w-3 h-3 bg-chrome-red"
+            style={{ border: "1.5px solid #0560e0" }}
           />
         </div>
       </div>
@@ -153,8 +143,8 @@ export function Sidebar({
             style={{ justifyContent: isExpanded ? "flex-start" : "center" }}
           >
             <div
-              className="w-10 h-10 flex items-center justify-center flex-shrink-0 overflow-hidden"
-              style={{ border: "3px solid #80b0ff", backgroundColor: "#0458d4" }}
+              className="w-10 h-10 flex items-center justify-center flex-shrink-0 overflow-hidden bg-chrome-blue-mid"
+              style={{ border: "3px solid #80b0ff" }}
             >
               {/* Replace /avatar-pixel-art.png with the extracted Figma asset */}
               <Image
@@ -167,13 +157,10 @@ export function Sidebar({
             </div>
             {isExpanded && (
               <span
-                style={{
-                  fontFamily: "'Rubik Glitch', sans-serif",
-                  fontWeight: 700,
+                className="font-glitch font-bold text-white whitespace-nowrap"
+              style={{
                   fontSize: "22px",
                   letterSpacing: "-0.02em",
-                  color: "#fff",
-                  whiteSpace: "nowrap",
                   opacity: isExpanded ? 1 : 0,
                   transition: "opacity 0.2s ease",
                 }}
@@ -306,20 +293,15 @@ export function Sidebar({
               </svg>
               <div className="mb-4 px-1">
                 <div
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "9px",
-                    color: "#4ade80",
-                    marginBottom: "2px",
-                  }}
+                  className="font-mono text-chrome-green"
+                  style={{ fontSize: "9px", marginBottom: "2px" }}
                 >
                   LOADING...
                 </div>
                 <div
-                  className="h-3 w-full"
-                  style={{ border: "2px solid #0560e0", backgroundColor: "#022a6e" }}
+                  className="h-3 w-full border-2 border-chrome-blue-accent bg-chrome-blue-dark"
                 >
-                  <div className="h-full" style={{ width: "72%", backgroundColor: "#4ade80" }} />
+                  <div className="h-full bg-chrome-green" style={{ width: "72%" }} />
                 </div>
               </div>
             </>

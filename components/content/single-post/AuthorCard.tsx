@@ -45,23 +45,14 @@ export function AuthorCard({ author }: AuthorCardProps) {
             color="#fff"
           />
           <div
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "10px",
-              color: "#4ade80",
-              marginTop: "2px",
-            }}
+            className="font-mono text-chrome-green"
+            style={{ fontSize: "10px", marginTop: "2px" }}
           >
             {author.role}
           </div>
           <p
-            className="mt-2"
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: "13px",
-              lineHeight: 1.6,
-              color: "#c8e0ff",
-            }}
+            className="mt-2 font-grotesk text-chrome-blue-content"
+            style={{ fontSize: "13px", lineHeight: 1.6 }}
           >
             {author.bio}
           </p>

@@ -63,11 +63,8 @@ export function NewsletterWidget() {
                 {/* Header */}
                 <div className="flex items-start gap-3 mb-3">
                   <motion.div
-                    className="flex-shrink-0 w-9 h-9 flex items-center justify-center mt-0.5"
-                    style={{
-                      border: "2px solid #4ade80",
-                      backgroundColor: "#4ade8015",
-                    }}
+                    className="flex-shrink-0 w-9 h-9 flex items-center justify-center mt-0.5 border-2 border-chrome-green text-chrome-green"
+                    style={{ backgroundColor: "#4ade8015" }}
                     animate={{ rotate: [0, 8, -8, 0] }}
                     transition={{
                       duration: 2.5,
@@ -75,30 +72,19 @@ export function NewsletterWidget() {
                       repeatDelay: 4,
                     }}
                   >
-                    <Bell size={16} style={{ color: "#4ade80" }} />
+                    <Bell size={16} />
                   </motion.div>
 
                   <div>
                     <span
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 700,
-                        fontSize: "clamp(14px, 2.5vw, 17px)",
-                        color: "#fff",
-                        display: "block",
-                        lineHeight: 1.25,
-                      }}
+                      className="font-grotesk font-bold text-white block"
+                      style={{ fontSize: "clamp(14px, 2.5vw, 17px)", lineHeight: 1.25 }}
                     >
                       Quer receber os novos posts no seu e-mail?
                     </span>
                     <p
-                      className="mt-1"
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "10px",
-                        lineHeight: 1.55,
-                        color: "#a0c4ff",
-                      }}
+                      className="mt-1 font-mono text-chrome-blue-body"
+                      style={{ fontSize: "10px", lineHeight: 1.55 }}
                     >
                       Sem spam, sem conteudo premium — so um aviso quando sair post novo.
                     </p>
@@ -118,16 +104,11 @@ export function NewsletterWidget() {
                       value={email}
                       onChange={(e) => { setEmail(e.target.value); if (error) setError(""); }}
                       placeholder="seu@email.com"
-                      className="w-full pl-8 pr-3 py-2.5"
+                      className="w-full pl-8 pr-3 py-2.5 font-mono text-white bg-chrome-blue-dark border-2 border-chrome-blue-accent outline-none"
                       aria-invalid={!!error}
                       aria-describedby={error ? "widget-email-error" : undefined}
                       style={{
-                        backgroundColor: "#022a6e",
-                        border: "2px solid #0560e0",
-                        color: "#fff",
-                        fontFamily: "'Space Mono', monospace",
                         fontSize: "11px",
-                        outline: "none",
                         transition: "border-color 0.2s, box-shadow 0.2s",
                       }}
                       onFocus={(e) => {
@@ -143,16 +124,11 @@ export function NewsletterWidget() {
 
                   <motion.button
                     type="submit"
-                    className="flex items-center justify-center gap-2 px-5 py-2.5"
+                    className="flex items-center justify-center gap-2 px-5 py-2.5 font-mono font-bold bg-chrome-green text-chrome-blue-dark cursor-pointer"
                     style={{
                       border: "3px solid #022a6e",
-                      backgroundColor: "#4ade80",
                       boxShadow: "4px 4px 0 #022a6e",
-                      fontFamily: "'Space Mono', monospace",
                       fontSize: "10px",
-                      fontWeight: 700,
-                      color: "#022a6e",
-                      cursor: "pointer",
                       flexShrink: 0,
                     }}
                     whileHover={{
@@ -187,12 +163,8 @@ export function NewsletterWidget() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -4 }}
                       transition={{ duration: 0.2 }}
-                      className="mt-1.5"
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "9px",
-                        color: "#ff6b6b",
-                      }}
+                      className="mt-1.5 font-mono"
+                      style={{ fontSize: "9px", color: "#ff6b6b" }}
                     >
                       {error}
                     </motion.p>
@@ -200,12 +172,8 @@ export function NewsletterWidget() {
                 </AnimatePresence>
 
                 <p
-                  className="mt-2"
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "8px",
-                    color: "#3a6aaa",
-                  }}
+                  className="mt-2 font-mono text-chrome-blue-dim"
+                  style={{ fontSize: "8px" }}
                 >
                   * Cancele quando quiser. Nada de conteudo exclusivo — tudo esta aqui no blog.
                 </p>
@@ -227,28 +195,19 @@ export function NewsletterWidget() {
                     delay: 0.15,
                   }}
                 >
-                  <CheckCircle size={28} style={{ color: "#4ade80" }} />
+                  <CheckCircle size={28} className="text-chrome-green" />
                 </motion.div>
 
                 <div>
                   <span
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontWeight: 700,
-                      fontSize: "14px",
-                      color: "#4ade80",
-                      display: "block",
-                    }}
+                    className="font-grotesk font-bold text-chrome-green block"
+                    style={{ fontSize: "14px" }}
                   >
                     Pronto! Voce vai saber quando sair post novo.
                   </span>
                   <p
-                    className="mt-0.5"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: "9px",
-                      color: "#a0c4ff",
-                    }}
+                    className="mt-0.5 font-mono text-chrome-blue-body"
+                    style={{ fontSize: "9px" }}
                   >
                     ID: #{notifyId} — confira sua caixa de entrada.
                   </p>

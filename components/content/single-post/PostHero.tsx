@@ -118,15 +118,12 @@ export function PostHero({
         <div className="flex flex-col gap-2 mb-5">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-3 py-1.5 self-start"
+            className="inline-flex items-center gap-2 px-3 py-1.5 self-start font-mono font-bold text-white"
             style={{
               background: "rgba(255,255,255,0.12)",
               backdropFilter: "blur(12px)",
               border: "2px solid rgba(255,255,255,0.25)",
-              color: "#fff",
-              fontFamily: "'Space Mono', monospace",
               fontSize: "10px",
-              fontWeight: 700,
               textDecoration: "none",
               boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
             }}
@@ -141,8 +138,8 @@ export function PostHero({
                 {crumb.href ? (
                   <Link
                     href={crumb.href}
+                    className="font-mono"
                     style={{
-                      fontFamily: "'Space Mono', monospace",
                       fontSize: "9px",
                       color: "rgba(255,255,255,0.6)",
                       textDecoration: "none",
@@ -152,20 +149,16 @@ export function PostHero({
                   </Link>
                 ) : i < arr.length - 1 ? (
                   <span
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: "9px",
-                      color: "rgba(255,255,255,0.6)",
-                    }}
+                    className="font-mono"
+                    style={{ fontSize: "9px", color: "rgba(255,255,255,0.6)" }}
                   >
                     {crumb.label}
                   </span>
                 ) : (
                   <span
+                    className="font-mono text-white"
                     style={{
-                      fontFamily: "'Space Mono', monospace",
                       fontSize: "9px",
-                      color: "#fff",
                       maxWidth: "200px",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
@@ -184,24 +177,17 @@ export function PostHero({
         {/* Category + date */}
         <div className="flex items-center gap-3 mb-3">
           <span
-            className="px-2.5 py-0.5"
+            className="px-2.5 py-0.5 font-mono font-bold text-chrome-blue-dark border-2 border-chrome-blue-dark"
             style={{
               backgroundColor: categoryColors[category] || "#0347c1",
-              border: "2px solid #022a6e",
-              fontFamily: "'Space Mono', monospace",
               fontSize: "9px",
-              fontWeight: 700,
-              color: "#022a6e",
             }}
           >
             {category.toUpperCase()}
           </span>
           <span
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "10px",
-              color: "rgba(255,255,255,0.7)",
-            }}
+            className="font-mono"
+            style={{ fontSize: "10px", color: "rgba(255,255,255,0.7)" }}
           >
             {date} · {readTime} de leitura
           </span>
@@ -219,13 +205,8 @@ export function PostHero({
 
         {/* Subtitle */}
         <p
-          className="mt-3 max-w-[650px]"
-          style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: "16px",
-            lineHeight: 1.5,
-            color: "rgba(255,255,255,0.8)",
-          }}
+          className="mt-3 max-w-[650px] font-grotesk"
+          style={{ fontSize: "16px", lineHeight: 1.5, color: "rgba(255,255,255,0.8)" }}
         >
           {subtitle}
         </p>
@@ -253,21 +234,12 @@ export function PostHero({
               style={{ color: "rgba(255,255,255,0.8)" }}
             >
               <stat.icon size={14} />
-              <span
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "14px",
-                }}
-              >
+              <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
                 {stat.value}
               </span>
               <span
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "9px",
-                  color: "rgba(255,255,255,0.5)",
-                }}
+                className="font-mono"
+                style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
               >
                 {stat.label}
               </span>

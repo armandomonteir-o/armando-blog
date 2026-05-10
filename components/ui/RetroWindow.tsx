@@ -58,13 +58,11 @@ export function RetroWindow({
         }}
       >
         <span
+          className="font-mono font-bold uppercase"
           style={{
-            fontFamily: "'Space Mono', monospace",
             fontSize: "11px",
-            fontWeight: 700,
             color: titleText,
             letterSpacing: "0.05em",
-            textTransform: "uppercase",
           }}
         >
           {title}
@@ -87,14 +85,11 @@ export function RetroWindow({
           )}
           {onClose && (
             <button
-              className="w-4 h-4 flex items-center justify-center"
+              className="w-4 h-4 flex items-center justify-center bg-chrome-red text-white font-bold"
               style={{
                 border: `2px solid ${borderColor}`,
-                backgroundColor: "#e05050",
                 fontSize: "10px",
-                fontWeight: 700,
                 lineHeight: 1,
-                color: "#fff",
               }}
             >
               x
