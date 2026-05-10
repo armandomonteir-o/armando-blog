@@ -45,7 +45,7 @@ export function FeaturedPost() {
                 style={{
                   height: "40%",
                   background: "linear-gradient(to top, rgba(3,71,193,0.3), transparent)",
-                  backdropFilter: "blur(2px)",
+                  backdropFilter: "blur(1px)",
                 }}
               />
             </div>
@@ -80,7 +80,7 @@ export function FeaturedPost() {
                 style={{
                   height: "40%",
                   background: "linear-gradient(to top, rgba(3,71,193,0.3), transparent)",
-                  backdropFilter: "blur(2px)",
+                  backdropFilter: "blur(1px)",
                 }}
               />
             </div>
