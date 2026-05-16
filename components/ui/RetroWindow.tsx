@@ -6,6 +6,8 @@ interface RetroWindowProps {
   onClose?: boolean;
   onMinimize?: boolean;
   style?: React.CSSProperties;
+  titleBg?: string;
+  borderColor?: string;
 }
 
 export function RetroWindow({
@@ -16,16 +18,18 @@ export function RetroWindow({
   onClose = true,
   onMinimize = true,
   style,
+  titleBg: titleBgOverride,
+  borderColor: borderColorOverride,
 }: RetroWindowProps) {
   const isDark = variant === "dark";
   const isGlass = variant === "glass";
 
-  const borderColor = isDark ? "#022a6e" : "var(--arm-border)";
-  const titleBg = isGlass
+  const borderColor = borderColorOverride ?? (isDark ? "#022a6e" : "var(--arm-border)");
+  const titleBg = titleBgOverride ?? (isGlass
     ? "var(--arm-bg-glass-title)"
     : isDark
       ? "#0458d4"
-      : "var(--arm-bg-card-title)";
+      : "var(--arm-bg-card-title)");
   const titleText = isGlass ? "#fff" : isDark ? "#fff" : "var(--arm-text)";
   const bodyBg = isGlass ? "var(--arm-glass-body)" : isDark ? "#0347c1" : "var(--arm-bg-card)";
 

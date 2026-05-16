@@ -14,6 +14,7 @@ interface AppShellProps {
 export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isLoginPage = pathname === "/login";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [notifyOpen, setNotifyOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -22,6 +23,10 @@ export function AppShell({ children }: AppShellProps) {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
 
   return (
     <div
