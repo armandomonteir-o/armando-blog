@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono, Rubik_Glitch, Bungee_Shade } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -52,6 +53,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <AppShell>{children}</AppShell>
+        <Analytics />
       </body>
     </html>
   );
