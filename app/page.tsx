@@ -7,6 +7,9 @@ import { PostsGrid } from "@/components/content/PostsGrid";
 import { CommentsSection } from "@/components/content/CommentsSection";
 import { NowPlaying } from "@/components/content/NowPlaying";
 import { NewsletterWidget } from "@/components/layout/newsletter";
+import { getPosts } from "@/lib/graphql";
+import { adaptWPPost } from "@/lib/graphql/adapters";
+import type { Post } from "@/constants/posts";
 import type { Metadata } from "next";
 
 // TODO issue #13: replace with generateMetadata() from WPGraphQL
@@ -15,7 +18,15 @@ export const metadata: Metadata = {
   description: "Blog pessoal sobre arte, tecnologia e filosofia digital.",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  let realPosts: Post[] = [];
+  try {
+    const { nodes } = await getPosts(12);
+    realPosts = nodes.map(adaptWPPost);
+  } catch {
+    // Fallback silencioso — PostsGrid usa mock
+  }
+
   return (
     <div
       className="flex-1 p-6 relative overflow-hidden"
@@ -76,7 +87,7 @@ export default function HomePage() {
 
         {/* Latest Posts Grid */}
         <div className="mb-5">
-          <PostsGrid />
+          <PostsGrid posts={realPosts.length ? realPosts : undefined} />
         </div>
 
         {/* Comments */}

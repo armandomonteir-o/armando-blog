@@ -15,6 +15,8 @@ import {
   PostCommentsSection,
 } from "@/components/content/single-post";
 import { postData, relatedPosts, postComments } from "./_data";
+import { getPost } from "@/lib/graphql";
+import { adaptWPPostDetail } from "@/lib/graphql/adapters";
 
 // TODO issue #13: replace with generateMetadata() from WPGraphQL
 export async function generateMetadata({
@@ -32,19 +34,29 @@ export async function generateMetadata({
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const matchedPost = posts.find((p) => p.slug === slug);
-  if (!matchedPost) notFound();
 
-  const currentPost = {
-    ...postData,
-    title: matchedPost.title,
-    category: matchedPost.category,
-    date: matchedPost.date,
-    heroImage: matchedPost.image,
-    reads: matchedPost.reads,
-    comments: matchedPost.comments,
-    subtitle: matchedPost.excerpt,
-  };
+  // Try WordPress first
+  const wpPost = await getPost(slug).catch(() => null);
+
+  let currentPost: typeof postData;
+
+  if (wpPost) {
+    currentPost = { ...postData, ...adaptWPPostDetail(wpPost) };
+  } else {
+    // Fallback to mock data
+    const matchedPost = posts.find((p) => p.slug === slug);
+    if (!matchedPost) notFound();
+    currentPost = {
+      ...postData,
+      title: matchedPost.title,
+      category: matchedPost.category,
+      date: matchedPost.date,
+      heroImage: matchedPost.image,
+      reads: matchedPost.reads,
+      comments: matchedPost.comments,
+      subtitle: matchedPost.excerpt,
+    };
+  }
 
   return (
     <div

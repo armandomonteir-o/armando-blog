@@ -16,12 +16,13 @@ export type { Post };
 
 const POSTS_PER_PAGE = 6;
 
-export function PostsGrid() {
+export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
+  const data = propPosts ?? posts;
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+  const totalPages = Math.ceil(data.length / POSTS_PER_PAGE);
 
   const startIdx = (currentPage - 1) * POSTS_PER_PAGE;
-  const currentPosts = posts.slice(startIdx, startIdx + POSTS_PER_PAGE);
+  const currentPosts = data.slice(startIdx, startIdx + POSTS_PER_PAGE);
 
   return (
     <RetroWindow title="LATEST-POSTS.EXE" variant="dark">
@@ -45,7 +46,7 @@ export function PostsGrid() {
               className="font-mono"
               style={{ fontSize: "9px", color: "var(--arm-panel-text-muted)" }}
             >
-              {posts.length} ENTRIES FOUND
+              {data.length} ENTRIES FOUND
             </span>
             <Link
               href="/posts"
