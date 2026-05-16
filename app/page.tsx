@@ -12,7 +12,6 @@ import { adaptWPPost } from "@/lib/graphql/adapters";
 import type { Post } from "@/constants/posts";
 import type { Metadata } from "next";
 
-// TODO issue #13: replace with generateMetadata() from WPGraphQL
 export const metadata: Metadata = {
   title: "Armando — Arte & Tecnologia Digital",
   description: "Blog pessoal sobre arte, tecnologia e filosofia digital.",

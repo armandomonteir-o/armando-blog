@@ -16,15 +16,30 @@ import {
 } from "@/components/content/single-post";
 import { postData, relatedPosts, postComments } from "./_data";
 import { getPost } from "@/lib/graphql";
-import { adaptWPPostDetail } from "@/lib/graphql/adapters";
+import { adaptWPPostDetail, stripHtml } from "@/lib/graphql/adapters";
 
-// TODO issue #13: replace with generateMetadata() from WPGraphQL
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const wpPost = await getPost(slug).catch(() => null);
+  if (wpPost) {
+    return {
+      title: `${wpPost.title} — Armando`,
+      description: wpPost.acfPostFields?.subtitle ?? stripHtml(wpPost.excerpt),
+      openGraph: {
+        title: wpPost.title,
+        description: wpPost.acfPostFields?.subtitle ?? stripHtml(wpPost.excerpt),
+        images: wpPost.acfPostFields?.heroImage?.node.sourceUrl
+          ? [wpPost.acfPostFields.heroImage.node.sourceUrl]
+          : wpPost.featuredImage?.node.sourceUrl
+          ? [wpPost.featuredImage.node.sourceUrl]
+          : [],
+      },
+    };
+  }
   const matched = posts.find((p) => p.slug === slug);
   return {
     title: matched ? `${matched.title} — Armando` : "Post — Armando",
