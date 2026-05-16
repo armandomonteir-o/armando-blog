@@ -22,7 +22,7 @@ export interface WPPostSection {
 }
 
 export interface WPAcfPostFields {
-  heroImage: WPImage | null;
+  heroImage: { node: WPImage } | null;
   readingTime: string | null;
   isFeatured: boolean | null;
   subtitle: string | null;
@@ -31,6 +31,7 @@ export interface WPAcfPostFields {
 
 export interface WPPost {
   id: string;
+  databaseId: number;
   slug: string;
   title: string;
   excerpt: string;

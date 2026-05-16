@@ -36,7 +36,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
 
   // Try WordPress first
-  const wpPost = await getPost(slug).catch(() => null);
+  const wpPost = await getPost(slug).catch((e) => { console.error("[PostPage] WP fetch failed:", e); return null; });
 
   let currentPost: typeof postData;
 

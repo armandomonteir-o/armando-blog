@@ -23,8 +23,8 @@ export default async function HomePage() {
   try {
     const { nodes } = await getPosts(12);
     realPosts = nodes.map(adaptWPPost);
-  } catch {
-    // Fallback silencioso — PostsGrid usa mock
+  } catch (e) {
+    console.error("[HomePage] WP fetch failed:", e);
   }
 
   return (

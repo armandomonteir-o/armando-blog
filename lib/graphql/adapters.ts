@@ -22,7 +22,7 @@ export function formatWPDate(iso: string): string {
 
 export function adaptWPPost(wp: WPPost): Post {
   return {
-    id: parseInt(wp.id, 10),
+    id: wp.databaseId,
     title: wp.title,
     slug: wp.slug,
     category: wp.categories.nodes[0]?.name ?? "Blog",
@@ -30,7 +30,7 @@ export function adaptWPPost(wp: WPPost): Post {
     reads: 0,
     comments: wp.commentCount ?? 0,
     image:
-      wp.acfPostFields?.heroImage?.sourceUrl ??
+      wp.acfPostFields?.heroImage?.node.sourceUrl ??
       wp.featuredImage?.node.sourceUrl ??
       FALLBACK_IMAGE,
     excerpt: stripHtml(wp.excerpt),
@@ -59,7 +59,7 @@ export function adaptWPPostDetail(wp: WPPostDetail) {
     comments: wp.commentCount ?? 0,
     likes: 0,
     heroImage:
-      acf?.heroImage?.sourceUrl ??
+      acf?.heroImage?.node.sourceUrl ??
       wp.featuredImage?.node.sourceUrl ??
       FALLBACK_IMAGE,
     author: {

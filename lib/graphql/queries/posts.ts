@@ -9,6 +9,7 @@ import type {
 const POST_FIELDS = /* GraphQL */ `
   fragment PostFields on Post {
     id
+    databaseId
     slug
     title
     excerpt
@@ -17,7 +18,7 @@ const POST_FIELDS = /* GraphQL */ `
     categories { nodes { name slug } }
     featuredImage { node { sourceUrl } }
     acfPostFields {
-      heroImage { sourceUrl }
+      heroImage { node { sourceUrl } }
       readingTime
       isFeatured
       subtitle
@@ -52,6 +53,7 @@ const GET_POST = /* GraphQL */ `
   query GetPost($slug: ID!) {
     post(id: $slug, idType: SLUG) {
       id
+      databaseId
       slug
       title
       content
@@ -62,7 +64,7 @@ const GET_POST = /* GraphQL */ `
       featuredImage { node { sourceUrl } }
       author { node { name description avatar { url } } }
       acfPostFields {
-        heroImage { sourceUrl }
+        heroImage { node { sourceUrl } }
         readingTime
         isFeatured
         subtitle
@@ -72,13 +74,12 @@ const GET_POST = /* GraphQL */ `
           sectionContent
         }
       }
-      comments(first: 50, where: { status: APPROVE }) {
+      comments(first: 50, where: { status: "approve" }) {
         nodes {
           id
           content
           date
           author { node { name avatar { url } } }
-          acfCommentFields { role rating }
         }
       }
     }
