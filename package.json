@@ -16,6 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/armandomonteir-o/armando-blog.git"
   },
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
