@@ -202,85 +202,46 @@ export function CommentsSection() {
           {/* Comment cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 lg:flex-1 min-w-0">
             {comments.map((comment, i) => {
-              const accents = ["#c084fc", "#4ade80", "#f59e0b"];
-              const accent = accents[i % accents.length];
               const fullStars = Math.floor(comment.rating);
               const hasHalf = comment.rating - fullStars >= 0.3;
-              const reactions = [
-                { emoji: "❤️", count: [12, 8, 19][i] },
-                { emoji: "🔥", count: [7, 14, 5][i] },
-                { emoji: "👏", count: [3, 6, 11][i] },
-              ];
 
               return (
                 <div
                   key={i}
-                  className="flex flex-col relative overflow-hidden group"
+                  className="flex flex-col relative overflow-hidden"
                   style={{
-                    border: `2px solid ${accent}44`,
-                    background: `linear-gradient(135deg, var(--arm-panel-bg-darker) 0%, var(--arm-panel-bg) 40%, ${accent}18 100%)`,
-                    backdropFilter: "blur(8px)",
-                    transition:
-                      "transform 0.25s ease, box-shadow 0.25s ease, border-color 0.3s ease",
+                    border: "2px solid var(--arm-panel-border)",
+                    background: "var(--arm-panel-bg)",
+                    transition: "transform 0.2s ease, box-shadow 0.2s ease",
                     cursor: "default",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translate(-3px, -3px)";
-                    e.currentTarget.style.boxShadow = `6px 6px 0 var(--arm-panel-bg-deep), 0 0 20px ${accent}20`;
-                    e.currentTarget.style.borderColor = `${accent}88`;
+                    e.currentTarget.style.transform = "translate(-2px, -2px)";
+                    e.currentTarget.style.boxShadow = "4px 4px 0 var(--arm-panel-bg-deep)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translate(0, 0)";
                     e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.borderColor = `${accent}44`;
                   }}
                 >
-                  {/* Left accent stripe */}
+                  {/* Left stripe */}
                   <div
                     className="absolute left-0 top-0 bottom-0 w-[3px]"
-                    style={{ backgroundColor: accent }}
+                    style={{ backgroundColor: "var(--arm-panel-text-soft)" }}
                   />
 
-                  {/* Glass sheen overlay */}
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
-                    style={{
-                      background: `linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%)`,
-                      transition: "opacity 0.3s ease",
-                    }}
-                  />
-
-                  {/* Background decorative quote mark */}
-                  <div
-                    className="absolute pointer-events-none select-none font-grotesk font-bold"
-                    style={{
-                      top: "12px",
-                      right: "8px",
-                      fontSize: "64px",
-                      lineHeight: 1,
-                      color: accent,
-                      opacity: 0.07,
-                    }}
-                  >
-                    &ldquo;
-                  </div>
-
-                  {/* Title bar with accent */}
+                  {/* Title bar */}
                   <div
                     className="flex items-center justify-between px-3 py-1.5"
                     style={{
-                      background: `linear-gradient(90deg, ${accent}30, transparent)`,
-                      borderBottom: `1px solid ${accent}33`,
+                      background: "var(--arm-panel-bg-deep)",
+                      borderBottom: "1px solid var(--arm-panel-border)",
                     }}
                   >
                     <div className="flex items-center gap-1.5">
                       <div
-                        className="w-2 h-2"
-                        style={{
-                          backgroundColor: accent,
-                          border: "1px solid var(--arm-panel-bg-deep)",
-                          boxShadow: `0 0 6px ${accent}60`,
-                        }}
+                        className="w-2 h-2 bg-chrome-blue-accent"
+                        style={{ border: "1px solid var(--arm-panel-bg-deep)" }}
                       />
                       <span
                         className="font-mono"
@@ -309,63 +270,39 @@ export function CommentsSection() {
                   </div>
 
                   {/* Card body */}
-                  <div className="p-4 flex flex-col flex-1 relative z-10">
-                    {/* Header row: avatar + info + rating */}
-                    <div className="flex items-start justify-between mb-3">
+                  <div className="p-4 pl-5 flex flex-col flex-1 gap-3">
+                    {/* Header: avatar + info + rating */}
+                    <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3 min-w-0">
-                        {/* Glowing avatar */}
-                        <div className="relative flex-shrink-0">
-                          <div
-                            className="w-10 h-10 rounded-full overflow-hidden"
-                            style={{
-                              border: `2.5px solid ${accent}`,
-                              boxShadow: `0 0 10px ${accent}40, inset 0 0 6px ${accent}20`,
-                            }}
-                          >
-                            <AppImage
-                              src={comment.avatar}
-                              alt={comment.name}
-                              width={40}
-                              height={40}
-                              sizes="40px"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          {/* Online indicator */}
-                          <div
-                            className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-chrome-green"
-                            style={{
-                              border: "2px solid var(--arm-panel-bg-darker)",
-                              boxShadow: "0 0 6px #4ade8060",
-                            }}
+                        <div
+                          className="w-10 h-10 overflow-hidden relative flex-shrink-0"
+                          style={{ border: "2px solid var(--arm-panel-border)" }}
+                        >
+                          <AppImage
+                            src={comment.avatar}
+                            alt={comment.name}
+                            fill
+                            sizes="40px"
+                            className="object-cover"
                           />
                         </div>
                         <div className="min-w-0">
-                          <WavyText
-                            text={comment.name}
-                            variant="linear-wave"
-                            fontSize={14}
-                            amplitude={2}
-                            frequency={0.3}
-                            color="var(--arm-panel-text)"
-                          />
-                          <div className="flex items-center gap-1.5" style={{ marginTop: "1px" }}>
-                            <span
-                              className="px-1.5 py-0.5 font-mono font-bold"
-                              style={{
-                                fontSize: "8px",
-                                color: accent,
-                                backgroundColor: `${accent}18`,
-                                border: `1px solid ${accent}30`,
-                              }}
-                            >
-                              {comment.role.toUpperCase()}
-                            </span>
-                          </div>
+                          <p
+                            className="font-grotesk font-bold text-sm leading-tight"
+                            style={{ color: "var(--arm-panel-text)" }}
+                          >
+                            {comment.name}
+                          </p>
+                          <p
+                            className="font-mono mt-0.5"
+                            style={{ fontSize: "8px", color: "var(--arm-panel-text-body)" }}
+                          >
+                            {comment.role.toUpperCase()}
+                          </p>
                         </div>
                       </div>
 
-                      {/* Star rating visual */}
+                      {/* Star rating */}
                       <div className="flex flex-col items-end gap-0.5 flex-shrink-0">
                         <div className="flex items-center gap-[2px]">
                           {Array.from({ length: 5 }).map((_, s) => (
@@ -374,9 +311,9 @@ export function CommentsSection() {
                                 points="10,1 13,7 19,7.5 14.5,12 16,18 10,15 4,18 5.5,12 1,7.5 7,7"
                                 fill={
                                   s < fullStars
-                                    ? accent
+                                    ? "#ffffff"
                                     : s === fullStars && hasHalf
-                                      ? `${accent}55`
+                                      ? "#ffffff66"
                                       : "var(--arm-panel-border)"
                                 }
                                 stroke="var(--arm-panel-bg-deep)"
@@ -387,82 +324,30 @@ export function CommentsSection() {
                         </div>
                         <span
                           className="font-mono font-bold"
-                          style={{ fontSize: "9px", color: accent }}
+                          style={{ fontSize: "9px", color: "var(--arm-panel-text)" }}
                         >
                           {comment.rating}/5
                         </span>
                       </div>
                     </div>
 
-                    {/* Quote body with terminal feel */}
-                    <div
-                      className="flex-1 relative pl-3 mb-3"
-                      style={{ borderLeft: `2px solid ${accent}40` }}
+                    {/* Comment text */}
+                    <p
+                      className="font-mono flex-1"
+                      style={{
+                        fontSize: "10px",
+                        lineHeight: 1.7,
+                        color: "var(--arm-panel-text-body)",
+                      }}
                     >
-                      <span
-                        className="font-mono font-bold"
-                        style={{
-                          fontSize: "14px",
-                          color: accent,
-                          opacity: 0.6,
-                          lineHeight: 1,
-                          position: "absolute",
-                          top: "-2px",
-                          left: "8px",
-                        }}
-                      >
-                        &gt;
-                      </span>
-                      <p
-                        className="font-mono"
-                        style={{
-                          fontSize: "10px",
-                          lineHeight: 1.7,
-                          color: "var(--arm-panel-text-body)",
-                          paddingLeft: "14px",
-                          paddingTop: "1px",
-                        }}
-                      >
-                        {comment.text}
-                      </p>
-                    </div>
+                      {comment.text}
+                    </p>
 
-                    {/* Bottom bar: reactions + timestamp */}
+                    {/* Footer */}
                     <div
-                      className="flex items-center justify-between pt-2.5 mt-auto"
-                      style={{ borderTop: `1px solid ${accent}22` }}
+                      className="flex items-center pt-2 mt-auto"
+                      style={{ borderTop: "1px solid var(--arm-panel-border)" }}
                     >
-                      {/* Reaction buttons */}
-                      <div className="flex items-center gap-1.5">
-                        {reactions.map((r, ri) => (
-                          <button
-                            key={ri}
-                            className="flex items-center gap-1 px-1.5 py-0.5 cursor-pointer font-mono"
-                            style={{
-                              backgroundColor: "transparent",
-                              border: `1px solid ${accent}25`,
-                              fontSize: "9px",
-                              color: "var(--arm-panel-text-muted)",
-                              transition: "all 0.15s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = `${accent}15`;
-                              e.currentTarget.style.borderColor = `${accent}50`;
-                              e.currentTarget.style.color = "var(--arm-panel-text)";
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = "transparent";
-                              e.currentTarget.style.borderColor = `${accent}25`;
-                              e.currentTarget.style.color = "var(--arm-panel-text-muted)";
-                            }}
-                          >
-                            <span style={{ fontSize: "10px" }}>{r.emoji}</span>
-                            <span>{r.count}</span>
-                          </button>
-                        ))}
-                      </div>
-
-                      {/* Timestamp */}
                       <span
                         className="font-mono"
                         style={{
