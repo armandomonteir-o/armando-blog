@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Search, ArrowLeft, Bell, Menu, X } from "lucide-react";
+import { Search, ArrowLeft, Bell, Menu, X, LogOut, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -66,6 +67,7 @@ const NOTIFICATIONS = [
 
 export function Header({ onMobileMenuToggle }: HeaderProps) {
   const router = useRouter();
+  const { data: session } = useSession();
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState(NOTIFICATIONS);
   const [searchQuery, setSearchQuery] = useState("");
@@ -441,29 +443,71 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
           )}
         </div>
 
-        {/* User avatars */}
-        <div className="flex items-center gap-1 sm:gap-2">
-          <div className="w-9 h-9 overflow-hidden relative border-2 border-chrome-blue-soft">
-            <Image
-              src="https://images.unsplash.com/photo-1563669528538-1f3d1d08791b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMHdvbWFuJTIwY3JlYXRpdmUlMjBjb2xvcmZ1bHxlbnwxfHx8fDE3NzI4MzI1MDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="Profile"
-              fill
-              sizes="36px"
-              className="object-cover"
-            />
+        {/* User area */}
+        {session?.user ? (
+          <div className="flex items-center gap-2">
+            {/* Avatar + name — links to profile settings */}
+            <Link
+              href="/minha-conta"
+              className="flex items-center gap-2"
+              style={{ textDecoration: "none" }}
+              title="Minha conta"
+            >
+              <div className="w-9 h-9 overflow-hidden relative flex-shrink-0 border-2 border-chrome-blue-accent">
+                {session.user.image ? (
+                  <Image
+                    src={session.user.image}
+                    alt={session.user.name ?? "avatar"}
+                    fill
+                    sizes="36px"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-chrome-blue-mid flex items-center justify-center font-mono text-chrome-blue-content" style={{ fontSize: 14 }}>
+                    {session.user.name?.[0]?.toUpperCase() ?? "?"}
+                  </div>
+                )}
+              </div>
+              <span
+                className="hidden sm:block font-mono font-bold text-chrome-blue-content truncate max-w-[90px]"
+                style={{ fontSize: "11px" }}
+              >
+                {session.user.name?.split(" ")[0].toUpperCase()}
+              </span>
+            </Link>
+
+            {/* Sign out */}
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="flex items-center justify-center w-9 h-9 cursor-pointer border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
+              title="Sair"
+              style={{ transition: "background-color 0.15s, color 0.15s, transform 0.15s" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--chrome-red)";
+                e.currentTarget.style.borderColor = "var(--chrome-red)";
+                e.currentTarget.style.color = "#fff";
+                e.currentTarget.style.transform = "scale(1.08)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--chrome-blue-mid)";
+                e.currentTarget.style.borderColor = "var(--chrome-blue-accent)";
+                e.currentTarget.style.color = "var(--chrome-blue-content)";
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              <LogOut size={14} />
+            </button>
           </div>
-          <div
-            className="hidden sm:block w-9 h-9 overflow-hidden rounded-full relative border-2 border-chrome-green"
+        ) : (
+          <Link
+            href="/login"
+            className="flex items-center gap-1.5 px-3 h-9 font-mono font-bold border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
+            style={{ fontSize: "11px", textDecoration: "none" }}
           >
-            <Image
-              src="https://images.unsplash.com/photo-1753176185106-eba130fdc775?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMG1hbiUyMGFydGlzdGljJTIwc3R1ZGlvfGVufDF8fHx8MTc3MjgzMjUwOHww&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="Profile 2"
-              fill
-              sizes="36px"
-              className="object-cover"
-            />
-          </div>
-        </div>
+            <LogIn size={13} />
+            <span className="hidden sm:block">ENTRAR</span>
+          </Link>
+        )}
       </div>
     </header>
   );

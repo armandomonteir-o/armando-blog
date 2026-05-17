@@ -148,6 +148,20 @@ export interface WPPlaylistsResponse {
   };
 }
 
+// ── User Profile ─────────────────────────────────────────────────────────────
+
+export interface WPUserProfile {
+  id: string;
+  databaseId: number;
+  slug: string;
+  displayName: string | null;
+  avatarUrl: string | null;
+}
+
+export interface WPUserProfileResponse {
+  userProfile: WPUserProfile | null;
+}
+
 // ── Search ────────────────────────────────────────────────────────────────────
 
 export interface WPSearchResult {
