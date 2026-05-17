@@ -45,6 +45,18 @@ JWT salvo no cookie (assinado, httpOnly)
 
 O `displayName` fica dentro do token. Não precisa ser rebuscado enquanto o token for válido.
 
+#### Auto-seed de avatar no login
+
+Durante o login, o `jwt` callback também garante que o perfil WP tenha um avatar:
+
+```
+profile não existe → seedWPProfileAvatar(hash, googlePhoto)    → cria perfil com avatar
+profile existe, avatarUrl null → seedWPProfileAvatar(hash, googlePhoto, id) → atualiza perfil com avatar
+profile existe, avatarUrl preenchido → nada
+```
+
+O `seedWPProfileAvatar` faz POST para `WP REST /wp-json/wp/v2/user-profile` com `Application Password`. Erros são logados mas não bloqueiam o login — o avatar é não-crítico. O filtro PHP `pre_get_avatar_data` intercepta as chamadas de `get_avatar_data()` do WPGraphQL e retorna o avatar customizado automaticamente para todos os comentários do usuário.
+
 ### 2. Ao enviar um comentário
 
 ```
@@ -105,6 +117,8 @@ O JWT é o lugar certo: já existe, é assinado (não pode ser forjado), é envi
 
 | Arquivo | Mudança |
 |---|---|
-| `auth.ts` | Adicionados `jwt` e `session` callbacks; `Session` type estendido com `displayName` |
+| `auth.ts` | Adicionados `jwt` e `session` callbacks; `Session` type estendido com `displayName`; `seedWPProfileAvatar` para auto-seed de avatar no login |
 | `app/api/comments/route.ts` | Removida busca de perfil — usa `session.user.displayName` |
 | `app/minha-conta/ProfileForm.tsx` | Chama `update()` após salvar para invalidar o cache do JWT |
+| `components/content/single-post/PostCommentsSection.tsx` | Formulário exibe `displayName ?? name` — não o nome do Google diretamente |
+| `blog-cms/.../avatar-override.php` | Filtro `pre_get_avatar_data` retorna avatar customizado do CPT para todos os comentários |

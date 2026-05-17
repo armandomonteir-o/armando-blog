@@ -86,7 +86,7 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
                   <div className="w-6 h-6 overflow-hidden border border-chrome-blue-accent flex-shrink-0">
                     <AppImage
                       src={session.user.image}
-                      alt={session.user.name ?? ""}
+                      alt={session.user.displayName ?? session.user.name ?? ""}
                       width={24}
                       height={24}
                       sizes="24px"
@@ -95,7 +95,7 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
                   </div>
                 )}
                 <span className="font-mono text-chrome-blue-soft" style={{ fontSize: "9px" }}>
-                  {session.user?.name?.toUpperCase()}
+                  {(session.user?.displayName ?? session.user?.name)?.toUpperCase()}
                 </span>
               </div>
 

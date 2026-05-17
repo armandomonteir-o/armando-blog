@@ -16,9 +16,14 @@ interface AppToken {
   [key: string]: unknown;
 }
 
-// On first login, auto-create a WP user-profile with the Google photo as default avatar.
+// On login, ensure the WP user-profile has an avatar.
+// Creates the profile if it doesn't exist; updates the avatar if the profile has none.
 // This makes comment avatars work immediately without the user visiting /minha-conta.
-async function ensureWPProfile(emailHash: string, googlePhotoUrl: string): Promise<void> {
+async function seedWPProfileAvatar(
+  emailHash: string,
+  googlePhotoUrl: string,
+  existingId?: number
+): Promise<void> {
   const wpBase = process.env.WORDPRESS_API_URL
     ?.replace(/\/graphql\/?$/, "")
     .replace(/\/$/, "");
@@ -28,16 +33,26 @@ async function ensureWPProfile(emailHash: string, googlePhotoUrl: string): Promi
 
   const authHeader = `Basic ${Buffer.from(`${user}:${pass}`).toString("base64")}`;
 
-  await fetch(`${wpBase}/wp-json/wp/v2/user-profile`, {
+  const url = existingId
+    ? `${wpBase}/wp-json/wp/v2/user-profile/${existingId}`
+    : `${wpBase}/wp-json/wp/v2/user-profile`;
+
+  const body = existingId
+    ? JSON.stringify({ meta: { avatar_url: googlePhotoUrl } })
+    : JSON.stringify({ title: emailHash, slug: emailHash, status: "publish", meta: { avatar_url: googlePhotoUrl } });
+
+  const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: authHeader },
-    body: JSON.stringify({
-      title: emailHash,
-      slug: emailHash,
-      status: "publish",
-      meta: { avatar_url: googlePhotoUrl },
-    }),
-  }).catch(() => null); // fire-and-forget — failure is non-critical
+    body,
+  }).catch((err) => {
+    console.error("[seedWPProfileAvatar] fetch failed:", err);
+    return null;
+  });
+
+  if (res && !res.ok) {
+    console.error("[seedWPProfileAvatar] WP REST error:", res.status, await res.text().catch(() => ""));
+  }
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -54,9 +69,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const profile = await getUserProfile(hash).catch(() => null);
 
-        // First login and no profile yet → auto-seed with Google photo
-        if (!profile && (trigger === "signIn" || trigger === "signUp") && t.picture) {
-          await ensureWPProfile(hash, t.picture);
+        // On login: seed Google photo as avatar if profile has none
+        if ((trigger === "signIn" || trigger === "signUp") && t.picture) {
+          if (!profile) {
+            await seedWPProfileAvatar(hash, t.picture);
+          } else if (!profile.avatarUrl) {
+            await seedWPProfileAvatar(hash, t.picture, profile.databaseId);
+          }
         }
 
         t.displayName = profile?.displayName ?? null;
