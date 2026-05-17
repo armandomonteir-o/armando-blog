@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { RetroWindow } from "@/components/ui/RetroWindow";
+import { AppImage } from "@/components/ui/AppImage";
 
 type UploadState = "idle" | "uploading" | "done" | "error";
 
@@ -131,11 +132,12 @@ export function ProfileForm() {
             }}
           >
             {displayAvatar ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <AppImage
                 src={displayAvatar}
                 alt="avatar preview"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                fill
+                sizes="80px"
+                className="object-cover"
               />
             ) : (
               <span className="font-grotesk font-bold" style={{ fontSize: 28, color: "var(--arm-text)" }}>
