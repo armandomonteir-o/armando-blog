@@ -15,7 +15,10 @@
   --chrome-blue-content: #c0d8ff;
   --chrome-blue-text-on-dark: #c8e0ff;
   --chrome-green: #4ade80;
+  --chrome-green-soft: #6ee7a0;
+  --chrome-green-tint: rgba(74, 222, 128, 0.08);
   --chrome-red: #e05050;
+  --chrome-red-soft: #ff6b6b;
   --chrome-purple: #c084fc;
   --chrome-amber: #f59e0b;
 

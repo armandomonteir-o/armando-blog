@@ -50,8 +50,8 @@ export function SideContent() {
                 className="w-8 h-8 flex items-center justify-center flex-shrink-0"
                 style={{
                   border: "2px solid var(--arm-border)",
-                  backgroundColor: i % 2 === 0 ? "var(--arm-blue)" : "#4ade80",
-                  color: i % 2 === 0 ? "#fff" : "var(--arm-text)",
+                  backgroundColor: i % 2 === 0 ? "var(--arm-blue)" : "var(--chrome-green)",
+                  color: i % 2 === 0 ? "var(--arm-panel-text)" : "var(--arm-text)",
                 }}
               >
                 <item.icon size={14} strokeWidth={2.5} />

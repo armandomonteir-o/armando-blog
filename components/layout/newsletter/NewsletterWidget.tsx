@@ -64,7 +64,7 @@ export function NewsletterWidget() {
                 <div className="flex items-start gap-3 mb-3">
                   <motion.div
                     className="flex-shrink-0 w-9 h-9 flex items-center justify-center mt-0.5 border-2 border-chrome-green text-chrome-green"
-                    style={{ backgroundColor: "#4ade8015" }}
+                    style={{ backgroundColor: "var(--chrome-green-tint)" }}
                     animate={{ rotate: [0, 8, -8, 0] }}
                     transition={{
                       duration: 2.5,
@@ -97,7 +97,7 @@ export function NewsletterWidget() {
                     <Mail
                       size={13}
                       className="absolute left-2.5 top-1/2 -translate-y-1/2"
-                      style={{ color: "#a0c4ff" }}
+                      style={{ color: "var(--arm-panel-text-body)" }}
                     />
                     <input
                       type="email"
@@ -112,11 +112,11 @@ export function NewsletterWidget() {
                         transition: "border-color 0.2s, box-shadow 0.2s",
                       }}
                       onFocus={(e) => {
-                        e.currentTarget.style.borderColor = "#4ade80";
+                        e.currentTarget.style.borderColor = "var(--chrome-green)";
                         e.currentTarget.style.boxShadow = "0 0 10px rgba(74,222,128,0.15)";
                       }}
                       onBlur={(e) => {
-                        e.currentTarget.style.borderColor = "#0560e0";
+                        e.currentTarget.style.borderColor = "var(--arm-panel-border)";
                         e.currentTarget.style.boxShadow = "none";
                       }}
                     />
@@ -126,21 +126,21 @@ export function NewsletterWidget() {
                     type="submit"
                     className="flex items-center justify-center gap-2 px-5 py-2.5 font-mono font-bold bg-chrome-green text-chrome-blue-dark cursor-pointer"
                     style={{
-                      border: "3px solid #022a6e",
-                      boxShadow: "4px 4px 0 #022a6e",
+                      border: "3px solid var(--arm-panel-bg-deep)",
+                      boxShadow: "4px 4px 0 var(--arm-panel-bg-deep)",
                       fontSize: "10px",
                       flexShrink: 0,
                     }}
                     whileHover={{
                       x: -2,
                       y: -2,
-                      boxShadow: "6px 6px 0 #022a6e",
-                      backgroundColor: "#6ee7a0",
+                      boxShadow: "6px 6px 0 var(--arm-panel-bg-deep)",
+                      backgroundColor: "var(--chrome-green-soft)",
                     }}
                     whileTap={{
                       x: 1,
                       y: 1,
-                      boxShadow: "2px 2px 0 #022a6e",
+                      boxShadow: "2px 2px 0 var(--arm-panel-bg-deep)",
                     }}
                     onMouseEnter={() => setBtnHover(true)}
                     onMouseLeave={() => setBtnHover(false)}
@@ -164,7 +164,7 @@ export function NewsletterWidget() {
                       exit={{ opacity: 0, y: -4 }}
                       transition={{ duration: 0.2 }}
                       className="mt-1.5 font-mono"
-                      style={{ fontSize: "9px", color: "#ff6b6b" }}
+                      style={{ fontSize: "9px", color: "var(--chrome-red-soft)" }}
                     >
                       {error}
                     </motion.p>

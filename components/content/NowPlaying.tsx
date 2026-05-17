@@ -51,7 +51,7 @@ function EqualizerBars({ playing, barCount = 5 }: { playing: boolean; barCount?:
           key={i}
           style={{
             width: 3,
-            backgroundColor: i % 2 === 0 ? "#4ade80" : "#80b0ff",
+            backgroundColor: i % 2 === 0 ? "var(--chrome-green)" : "var(--arm-panel-text-soft)",
             borderRadius: 1,
             height: playing ? undefined : 3,
             animation: playing
@@ -125,11 +125,11 @@ export function MusicConsentBar({
         className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 px-4 py-3 max-w-xl w-full"
         style={{
           pointerEvents: "auto",
-          border: "3px solid #022a6e",
+          border: "3px solid var(--arm-panel-bg-deep)",
           backgroundColor: "rgba(3,71,193,0.92)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
-          boxShadow: "4px 4px 0 #022a6e, 0 -4px 24px rgba(3,71,193,0.3)",
+          boxShadow: "4px 4px 0 var(--arm-panel-bg-deep), 0 -4px 24px rgba(3,71,193,0.3)",
         }}
       >
         <div
@@ -143,7 +143,7 @@ export function MusicConsentBar({
           <div
             className="w-9 h-9 flex items-center justify-center flex-shrink-0 border-2 border-chrome-blue-soft bg-chrome-blue-mid"
           >
-            <Music size={16} color="#4ade80" />
+            <Music size={16} color="var(--chrome-green)" />
           </div>
           <div className="min-w-0">
             <div className="font-grotesk font-bold text-white" style={{ fontSize: "13px" }}>
@@ -161,16 +161,16 @@ export function MusicConsentBar({
             className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue bg-white border-2 border-chrome-blue-dark"
             style={{
               fontSize: "12px",
-              boxShadow: "2px 2px 0 #022a6e",
+              boxShadow: "2px 2px 0 var(--arm-panel-bg-deep)",
               transition: "transform 0.15s, box-shadow 0.15s",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translate(-1px, -1px)";
-              e.currentTarget.style.boxShadow = "3px 3px 0 #022a6e";
+              e.currentTarget.style.boxShadow = "3px 3px 0 var(--arm-panel-bg-deep)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translate(0,0)";
-              e.currentTarget.style.boxShadow = "2px 2px 0 #022a6e";
+              e.currentTarget.style.boxShadow = "2px 2px 0 var(--arm-panel-bg-deep)";
             }}
           >
             Sim!
@@ -298,8 +298,8 @@ export function NowPlayingWidget() {
       <div
         className="flex items-center gap-3 px-4 py-2 cursor-pointer bg-chrome-blue"
         style={{
-          border: "3px solid #022a6e",
-          boxShadow: "4px 4px 0 #022a6e",
+          border: "3px solid var(--arm-panel-bg-deep)",
+          boxShadow: "4px 4px 0 var(--arm-panel-bg-deep)",
         }}
         onClick={() => setMinimized(false)}
       >
@@ -329,8 +329,8 @@ export function NowPlayingWidget() {
     <div
       className="flex flex-col"
       style={{
-        border: "3px solid #022a6e",
-        boxShadow: "4px 4px 0 #022a6e",
+        border: "3px solid var(--arm-panel-bg-deep)",
+        boxShadow: "4px 4px 0 var(--arm-panel-bg-deep)",
         overflow: "hidden",
       }}
     >
@@ -363,7 +363,7 @@ export function NowPlayingWidget() {
       <div
         className="flex items-center justify-between px-3 py-1 bg-chrome-blue-mid"
         style={{
-          borderBottom: "2px solid #022a6e",
+          borderBottom: "2px solid var(--arm-panel-bg-deep)",
           minHeight: "26px",
         }}
       >
@@ -464,8 +464,8 @@ export function NowPlayingWidget() {
                 onClick={prevTrack}
                 className="w-7 h-7 flex items-center justify-center cursor-pointer border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
                 style={{ transition: "background 0.15s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0560e0")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#0458d4")}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--arm-panel-border)")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--arm-panel-bg)")}
               >
                 <SkipBack size={12} fill="currentColor" />
               </button>
@@ -474,16 +474,16 @@ export function NowPlayingWidget() {
                 onClick={togglePlay}
                 className="w-8 h-8 flex items-center justify-center cursor-pointer bg-white text-chrome-blue border-2 border-chrome-blue-dark"
                 style={{
-                  boxShadow: "2px 2px 0 #022a6e",
+                  boxShadow: "2px 2px 0 var(--arm-panel-bg-deep)",
                   transition: "transform 0.15s, box-shadow 0.15s",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translate(-1px,-1px)";
-                  e.currentTarget.style.boxShadow = "3px 3px 0 #022a6e";
+                  e.currentTarget.style.boxShadow = "3px 3px 0 var(--arm-panel-bg-deep)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translate(0,0)";
-                  e.currentTarget.style.boxShadow = "2px 2px 0 #022a6e";
+                  e.currentTarget.style.boxShadow = "2px 2px 0 var(--arm-panel-bg-deep)";
                 }}
               >
                 {playing ? <Pause size={14} /> : <Play size={14} />}
@@ -493,8 +493,8 @@ export function NowPlayingWidget() {
                 onClick={nextTrack}
                 className="w-7 h-7 flex items-center justify-center cursor-pointer border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
                 style={{ transition: "background 0.15s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0560e0")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#0458d4")}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--arm-panel-border)")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--arm-panel-bg)")}
               >
                 <SkipForward size={12} fill="currentColor" />
               </button>
@@ -520,7 +520,7 @@ export function NowPlayingWidget() {
                   setMuted(false);
                 }}
                 className="w-14 h-1 cursor-pointer"
-                style={{ accentColor: "#4ade80" }}
+                style={{ accentColor: "var(--chrome-green)" }}
               />
             </div>
 
@@ -530,14 +530,14 @@ export function NowPlayingWidget() {
       </div>
 
       {/* Track list — foobar2000 style */}
-      <div className="bg-chrome-blue-dark" style={{ borderTop: "2px solid #022a6e" }}>
+      <div className="bg-chrome-blue-dark" style={{ borderTop: "2px solid var(--arm-panel-bg-deep)" }}>
         {TRACKS.map((t, i) => (
           <div
             key={i}
             className="flex items-center gap-2 px-3 py-1.5 cursor-pointer"
             style={{
-              backgroundColor: i === currentTrack ? "#0458d4" : "transparent",
-              borderBottom: i < TRACKS.length - 1 ? "1px solid #0a3a7a" : "none",
+              backgroundColor: i === currentTrack ? "var(--arm-panel-bg)" : "transparent",
+              borderBottom: i < TRACKS.length - 1 ? "1px solid var(--arm-panel-bg-deep)" : "none",
               transition: "background 0.15s",
             }}
             onClick={() => {
@@ -546,7 +546,7 @@ export function NowPlayingWidget() {
               setTimeout(() => audioRef.current?.play().catch(() => {}), 100);
             }}
             onMouseEnter={(e) => {
-              if (i !== currentTrack) e.currentTarget.style.backgroundColor = "#0a3a7a";
+              if (i !== currentTrack) e.currentTarget.style.backgroundColor = "var(--arm-panel-bg-deep)";
             }}
             onMouseLeave={(e) => {
               if (i !== currentTrack) e.currentTarget.style.backgroundColor = "transparent";
@@ -556,7 +556,7 @@ export function NowPlayingWidget() {
               className="font-mono"
               style={{
                 fontSize: "9px",
-                color: i === currentTrack ? "#4ade80" : "#a0c4ff",
+                color: i === currentTrack ? "var(--chrome-green)" : "var(--arm-panel-text-body)",
                 width: 16,
                 textAlign: "center",
                 flexShrink: 0,
@@ -569,7 +569,7 @@ export function NowPlayingWidget() {
               style={{
                 fontSize: "11px",
                 fontWeight: i === currentTrack ? 700 : 400,
-                color: i === currentTrack ? "#fff" : "#c8e0ff",
+                color: i === currentTrack ? "var(--arm-panel-text)" : "var(--arm-panel-text-content)",
               }}
             >
               {t.artist} — {t.title}

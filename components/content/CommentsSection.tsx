@@ -87,7 +87,7 @@ export function CommentsSection() {
               <svg width="18" height="18" viewBox="0 0 20 20">
                 <polygon
                   points="10,1 13,7 19,7.5 14.5,12 16,18 10,15 4,18 5.5,12 1,7.5 7,7"
-                  fill="#4ade80"
+                  fill="var(--chrome-green)"
                   stroke="var(--arm-panel-bg-deep)"
                   strokeWidth="1.5"
                 />
@@ -122,7 +122,7 @@ export function CommentsSection() {
                 fontSize={12}
                 amplitude={2}
                 frequency={0.25}
-                color="#4ade80"
+                color="var(--chrome-green)"
               />
               <div
                 className="mt-2 p-2"
