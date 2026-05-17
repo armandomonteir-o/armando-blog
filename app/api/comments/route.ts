@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-import { createHash } from "crypto";
 import { auth } from "@/auth";
 import { createWPComment } from "@/lib/graphql/mutations/comments";
-import { getUserProfile } from "@/lib/graphql/queries/profile";
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -20,12 +18,8 @@ export async function POST(req: Request) {
     );
   }
 
-  // Use custom display name from user profile if set, otherwise fall back to Google name
-  const emailHash = createHash("sha256")
-    .update(session.user.email.toLowerCase().trim())
-    .digest("hex");
-  const profile = await getUserProfile(emailHash).catch(() => null);
-  const authorName = profile?.displayName ?? session.user.name ?? "Anônimo";
+  // displayName is cached in the JWT session (set on login / after session.update())
+  const authorName = session.user.displayName ?? session.user.name ?? "Anônimo";
 
   try {
     const comment = await createWPComment({

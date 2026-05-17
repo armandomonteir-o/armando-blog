@@ -6,7 +6,7 @@ import Image from "next/image";
 import { RetroWindow } from "@/components/ui/RetroWindow";
 
 export function ProfileForm() {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [displayName, setDisplayName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [loading, setLoading] = useState(true);
@@ -38,6 +38,8 @@ export function ProfileForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Erro desconhecido");
+      // Trigger JWT refresh so session.user.displayName updates immediately
+      await update();
       setFeedback({ ok: true, msg: "PERFIL SALVO COM SUCESSO." });
     } catch (err) {
       setFeedback({ ok: false, msg: err instanceof Error ? err.message : "Erro ao salvar." });
