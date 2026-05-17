@@ -446,8 +446,13 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         {/* User area */}
         {session?.user ? (
           <div className="flex items-center gap-2">
-            {/* Avatar + name */}
-            <div className="flex items-center gap-2">
+            {/* Avatar + name — links to profile settings */}
+            <Link
+              href="/minha-conta"
+              className="flex items-center gap-2"
+              style={{ textDecoration: "none" }}
+              title="Minha conta"
+            >
               <div className="w-9 h-9 overflow-hidden relative flex-shrink-0 border-2 border-chrome-blue-accent">
                 {session.user.image ? (
                   <Image
@@ -469,13 +474,26 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               >
                 {session.user.name?.split(" ")[0].toUpperCase()}
               </span>
-            </div>
+            </Link>
 
             {/* Sign out */}
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
               className="flex items-center justify-center w-9 h-9 cursor-pointer border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
               title="Sair"
+              style={{ transition: "background-color 0.15s, color 0.15s, transform 0.15s" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--chrome-red)";
+                e.currentTarget.style.borderColor = "var(--chrome-red)";
+                e.currentTarget.style.color = "#fff";
+                e.currentTarget.style.transform = "scale(1.08)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--chrome-blue-mid)";
+                e.currentTarget.style.borderColor = "var(--chrome-blue-accent)";
+                e.currentTarget.style.color = "var(--chrome-blue-content)";
+                e.currentTarget.style.transform = "scale(1)";
+              }}
             >
               <LogOut size={14} />
             </button>
