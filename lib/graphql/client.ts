@@ -39,3 +39,11 @@ export async function wpMutation<T>(
 ): Promise<T> {
   return getWpAuthClient().request<T>(mutation, variables ?? {});
 }
+
+// Authenticated query — for private post types that WPGraphQL restricts to admin users
+export async function wpAuthQuery<T>(
+  query: string,
+  variables?: Record<string, unknown>
+): Promise<T> {
+  return getWpAuthClient().request<T>(query, variables ?? {});
+}

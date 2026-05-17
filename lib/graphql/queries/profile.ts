@@ -1,4 +1,4 @@
-import { wpQuery } from "../client";
+import { wpAuthQuery } from "../client";
 import type { WPUserProfile, WPUserProfileResponse } from "../types";
 
 const GET_USER_PROFILE = /* GraphQL */ `
@@ -13,7 +13,9 @@ const GET_USER_PROFILE = /* GraphQL */ `
   }
 `;
 
+// Uses authenticated client — user-profile CPT is public:false,
+// WPGraphQL only returns it to authenticated (admin) users.
 export async function getUserProfile(emailHash: string): Promise<WPUserProfile | null> {
-  const data = await wpQuery<WPUserProfileResponse>(GET_USER_PROFILE, { slug: emailHash });
+  const data = await wpAuthQuery<WPUserProfileResponse>(GET_USER_PROFILE, { slug: emailHash });
   return data.userProfile;
 }
