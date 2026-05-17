@@ -6,7 +6,7 @@ import { logProfileEvent } from "@/lib/wp";
 
 declare module "next-auth" {
   interface Session {
-    user: { displayName: string | null } & DefaultSession["user"];
+    user: { displayName: string | null; avatarUrl: string | null } & DefaultSession["user"];
   }
 }
 
@@ -14,6 +14,7 @@ interface AppToken {
   email?: string | null;
   picture?: string | null;
   displayName?: string | null;
+  avatarUrl?: string | null;
   [key: string]: unknown;
 }
 
@@ -44,6 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         t.displayName = profile?.displayName ?? null;
+        t.avatarUrl = profile?.avatarUrl ?? null;
       }
 
       return t;
@@ -52,6 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const t = token as AppToken;
       if (session.user) {
         session.user.displayName = t.displayName ?? null;
+        session.user.avatarUrl = t.avatarUrl ?? null;
       }
       return session;
     },

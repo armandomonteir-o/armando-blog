@@ -82,10 +82,10 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
           {session ? (
             <>
               <div className="mb-2 flex items-center gap-2">
-                {session.user?.image && (
+                {(session.user?.avatarUrl ?? session.user?.image) && (
                   <div className="w-6 h-6 overflow-hidden border border-chrome-blue-accent flex-shrink-0">
                     <AppImage
-                      src={session.user.image}
+                      src={session.user.avatarUrl ?? session.user.image!}
                       alt={session.user.displayName ?? session.user.name ?? ""}
                       width={24}
                       height={24}
