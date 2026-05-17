@@ -90,14 +90,14 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
               className="relative w-full max-w-[460px]"
               onClick={(e) => e.stopPropagation()}
               style={{
-                border: "3px solid #022a6e",
-                boxShadow: "8px 8px 0 #022a6e, 0 0 60px rgba(3,71,193,0.3)",
+                border: "3px solid var(--arm-panel-bg-deep)",
+                boxShadow: "8px 8px 0 var(--arm-panel-bg-deep), 0 0 60px rgba(3,71,193,0.3)",
               }}
             >
               {/* Title bar */}
               <div
                 className="flex items-center justify-between px-3 py-2 bg-chrome-blue-mid"
-                style={{ borderBottom: "2px solid #022a6e" }}
+                style={{ borderBottom: "2px solid var(--arm-panel-bg-deep)" }}
               >
                 <div className="flex items-center gap-2">
                   <motion.div
@@ -108,7 +108,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                       repeatDelay: 3,
                     }}
                   >
-                    <Bell size={12} style={{ color: "#4ade80" }} />
+                    <Bell size={12} style={{ color: "var(--chrome-green)" }} />
                   </motion.div>
                   <span
                     className="font-mono font-bold text-chrome-blue-content"
@@ -120,17 +120,17 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                 <div className="flex items-center gap-1.5">
                   <div
                     className="w-3 h-3 bg-chrome-blue"
-                    style={{ border: "1.5px solid #022a6e" }}
+                    style={{ border: "1.5px solid var(--arm-panel-bg-deep)" }}
                   />
                   <motion.button
                     className="w-3 h-3 flex items-center justify-center cursor-pointer bg-chrome-red"
-                    style={{ border: "1.5px solid #022a6e", padding: 0 }}
+                    style={{ border: "1.5px solid var(--arm-panel-bg-deep)", padding: 0 }}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={onClose}
                     aria-label="Fechar"
                   >
-                    <X size={7} style={{ color: "#022a6e" }} />
+                    <X size={7} style={{ color: "var(--arm-panel-bg-deep)" }} />
                   </motion.button>
                 </div>
               </div>
@@ -182,8 +182,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           <motion.div
                             className="w-11 h-11 flex items-center justify-center flex-shrink-0"
                             style={{
-                              border: "2px solid #4ade80",
-                              backgroundColor: "#4ade8012",
+                              border: "2px solid var(--chrome-green)",
+                              backgroundColor: "var(--chrome-green-tint)",
                               boxShadow: "0 0 16px rgba(74,222,128,0.15)",
                             }}
                             animate={{ rotate: [0, 6, -6, 0] }}
@@ -193,7 +193,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                               repeatDelay: 4,
                             }}
                           >
-                            <Bell size={20} style={{ color: "#4ade80" }} />
+                            <Bell size={20} style={{ color: "var(--chrome-green)" }} />
                           </motion.div>
                           <div>
                             <span
@@ -241,11 +241,11 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                                 transition: "border-color 0.2s, box-shadow 0.2s",
                               }}
                               onFocus={(e) => {
-                                e.currentTarget.style.borderColor = "#4ade80";
+                                e.currentTarget.style.borderColor = "var(--chrome-green)";
                                 e.currentTarget.style.boxShadow = "0 0 12px rgba(74,222,128,0.15)";
                               }}
                               onBlur={(e) => {
-                                e.currentTarget.style.borderColor = "#0560e0";
+                                e.currentTarget.style.borderColor = "var(--arm-panel-border)";
                                 e.currentTarget.style.boxShadow = "none";
                               }}
                             />
@@ -260,7 +260,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                                 exit={{ opacity: 0, y: -4 }}
                                 transition={{ duration: 0.2 }}
                                 className="mb-3 -mt-1 font-mono"
-                                style={{ fontSize: "9px", color: "#ff6b6b" }}
+                                style={{ fontSize: "9px", color: "var(--chrome-red-soft)" }}
                               >
                                 {error}
                               </motion.p>
@@ -272,20 +272,20 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             type="submit"
                             className="w-full flex items-center justify-center gap-2 px-5 py-3 font-mono font-bold bg-chrome-green text-chrome-blue-dark cursor-pointer"
                             style={{
-                              border: "3px solid #022a6e",
-                              boxShadow: "4px 4px 0 #022a6e",
+                              border: "3px solid var(--arm-panel-bg-deep)",
+                              boxShadow: "4px 4px 0 var(--arm-panel-bg-deep)",
                               fontSize: "11px",
                             }}
                             whileHover={{
                               x: -2,
                               y: -2,
-                              boxShadow: "6px 6px 0 #022a6e",
-                              backgroundColor: "#6ee7a0",
+                              boxShadow: "6px 6px 0 var(--arm-panel-bg-deep)",
+                              backgroundColor: "var(--chrome-green-soft)",
                             }}
                             whileTap={{
                               x: 1,
                               y: 1,
-                              boxShadow: "2px 2px 0 #022a6e",
+                              boxShadow: "2px 2px 0 var(--arm-panel-bg-deep)",
                             }}
                             onMouseEnter={() => setBtnHover(true)}
                             onMouseLeave={() => setBtnHover(false)}
@@ -350,12 +350,12 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           }}
                           className="mb-4 w-16 h-16 flex items-center justify-center"
                           style={{
-                            border: "3px solid #4ade80",
-                            backgroundColor: "#4ade8015",
+                            border: "3px solid var(--chrome-green)",
+                            backgroundColor: "var(--chrome-green-tint)",
                             boxShadow: "0 0 30px rgba(74,222,128,0.2)",
                           }}
                         >
-                          <CheckCircle size={36} style={{ color: "#4ade80" }} />
+                          <CheckCircle size={36} style={{ color: "var(--chrome-green)" }} />
                         </motion.div>
 
                         <motion.span
@@ -414,7 +414,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           className="mt-5 px-5 py-2 cursor-pointer font-mono font-bold bg-chrome-blue-mid text-chrome-blue-content border-2 border-chrome-blue-accent"
                           style={{ fontSize: "10px" }}
                           whileHover={{
-                            backgroundColor: "#0560e0",
+                            backgroundColor: "var(--arm-panel-border)",
                             color: "#fff",
                           }}
                           onClick={onClose}

@@ -24,14 +24,14 @@ export function RetroWindow({
   const isDark = variant === "dark";
   const isGlass = variant === "glass";
 
-  const borderColor = borderColorOverride ?? (isDark ? "#022a6e" : "var(--arm-border)");
+  const borderColor = borderColorOverride ?? (isDark ? "var(--arm-panel-bg-deep)" : "var(--arm-border)");
   const titleBg = titleBgOverride ?? (isGlass
     ? "var(--arm-bg-glass-title)"
     : isDark
-      ? "#0458d4"
+      ? "var(--arm-panel-bg)"
       : "var(--arm-bg-card-title)");
-  const titleText = isGlass ? "#fff" : isDark ? "#fff" : "var(--arm-text)";
-  const bodyBg = isGlass ? "var(--arm-glass-body)" : isDark ? "#0347c1" : "var(--arm-bg-card)";
+  const titleText = isGlass ? "var(--arm-panel-text)" : isDark ? "var(--arm-panel-text)" : "var(--arm-text)";
+  const bodyBg = isGlass ? "var(--arm-glass-body)" : isDark ? "var(--arm-panel-bg-darker)" : "var(--arm-bg-card)";
 
   const glassStyles: React.CSSProperties = isGlass
     ? {
@@ -46,7 +46,7 @@ export function RetroWindow({
       className={`flex flex-col ${className}`}
       style={{
         border: `3px solid ${borderColor}`,
-        boxShadow: `4px 4px 0px ${isDark ? "#022a6e" : "var(--arm-shadow)"}`,
+        boxShadow: `4px 4px 0px ${isDark ? "var(--arm-panel-bg-deep)" : "var(--arm-shadow)"}`,
         ...glassStyles,
         ...style,
       }}
@@ -77,7 +77,7 @@ export function RetroWindow({
               className="w-4 h-4 flex items-center justify-center"
               style={{
                 border: `2px solid ${borderColor}`,
-                backgroundColor: isDark ? "#0560e0" : "var(--arm-bg-card-title)",
+                backgroundColor: isDark ? "var(--arm-panel-border)" : "var(--arm-bg-card-title)",
                 fontSize: "10px",
                 fontWeight: 700,
                 lineHeight: 1,

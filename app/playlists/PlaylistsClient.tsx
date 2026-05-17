@@ -26,7 +26,7 @@ import { genres, genreColors, getPlaylistsByGenre, type Playlist } from "@/data/
 
 const PLAYLISTS_PER_PAGE = 6;
 
-function EqualizerBars({ color = "#4ade80" }: { color?: string }) {
+function EqualizerBars({ color = "var(--chrome-green)" }: { color?: string }) {
   return (
     <div className="flex items-end gap-[2px]" style={{ height: 14 }}>
       {[0, 0.2, 0.1, 0.3, 0.15].map((delay, i) => (

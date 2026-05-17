@@ -15,21 +15,21 @@ const paginationButtonStyle: React.CSSProperties = {
   fontFamily: "'Space Mono', monospace",
   fontSize: "11px",
   fontWeight: 700,
-  border: "2px solid #0560e0",
-  backgroundColor: "#0458d4",
-  color: "#c8e0ff",
+  border: "2px solid var(--arm-panel-border)",
+  backgroundColor: "var(--arm-panel-bg)",
+  color: "var(--arm-panel-text-content)",
   cursor: "pointer",
 };
 
 const activePageStyle: React.CSSProperties = {
   ...paginationButtonStyle,
-  backgroundColor: "#fff",
-  color: "#0347c1",
-  border: "2px solid #022a6e",
-  boxShadow: "2px 2px 0 #022a6e",
+  backgroundColor: "var(--arm-panel-text)",
+  color: "var(--arm-blue)",
+  border: "2px solid var(--arm-panel-bg-deep)",
+  boxShadow: "2px 2px 0 var(--arm-panel-bg-deep)",
 };
 
-const hoverAnim = { x: -1, y: -1, boxShadow: "3px 3px 0 #022a6e" };
+const hoverAnim = { x: -1, y: -1, boxShadow: "3px 3px 0 var(--arm-panel-bg-deep)" };
 const tapAnim = { x: 0, y: 0 };
 
 export function Pagination({
@@ -46,18 +46,18 @@ export function Pagination({
   return (
     <div className="mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       <div className="flex items-center gap-2">
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "#a0c4ff" }}>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "var(--arm-panel-text-body)" }}>
           SHOWING {startIdx + 1}-{Math.min(startIdx + itemsPerPage, totalItems)} OF {totalItems}
         </span>
         <div
           className="h-2 overflow-hidden"
-          style={{ width: "80px", border: "1.5px solid #0560e0", backgroundColor: "#022a6e" }}
+          style={{ width: "80px", border: "1.5px solid var(--arm-panel-border)", backgroundColor: "var(--arm-panel-bg-deep)" }}
         >
           <div
             className="h-full"
             style={{
               width: `${(currentPage / totalPages) * 100}%`,
-              backgroundColor: "#4ade80",
+              backgroundColor: "var(--chrome-green)",
               transition: "width 0.3s ease",
             }}
           />
