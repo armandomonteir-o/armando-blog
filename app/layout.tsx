@@ -52,7 +52,7 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${spaceMono.variable} ${rubikGlitch.variable} ${bungeeShade.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <SessionProvider>
           <AppShell>{children}</AppShell>
         </SessionProvider>
