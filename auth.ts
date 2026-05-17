@@ -2,6 +2,7 @@ import NextAuth, { type DefaultSession } from "next-auth";
 import Google from "next-auth/providers/google";
 import { createHash } from "crypto";
 import { getUserProfile } from "@/lib/graphql/queries/profile";
+import { logProfileEvent } from "@/lib/wp";
 
 declare module "next-auth" {
   interface Session {
@@ -14,45 +15,6 @@ interface AppToken {
   picture?: string | null;
   displayName?: string | null;
   [key: string]: unknown;
-}
-
-// On login, ensure the WP user-profile has an avatar.
-// Creates the profile if it doesn't exist; updates the avatar if the profile has none.
-// This makes comment avatars work immediately without the user visiting /minha-conta.
-async function seedWPProfileAvatar(
-  emailHash: string,
-  googlePhotoUrl: string,
-  existingId?: number
-): Promise<void> {
-  const wpBase = process.env.WORDPRESS_API_URL
-    ?.replace(/\/graphql\/?$/, "")
-    .replace(/\/$/, "");
-  const user = process.env.WP_APP_USER;
-  const pass = process.env.WP_APP_PASSWORD;
-  if (!wpBase || !user || !pass) return;
-
-  const authHeader = `Basic ${Buffer.from(`${user}:${pass}`).toString("base64")}`;
-
-  const url = existingId
-    ? `${wpBase}/wp-json/wp/v2/user-profile/${existingId}`
-    : `${wpBase}/wp-json/wp/v2/user-profile`;
-
-  const body = existingId
-    ? JSON.stringify({ meta: { avatar_url: googlePhotoUrl } })
-    : JSON.stringify({ title: emailHash, slug: emailHash, status: "publish", meta: { avatar_url: googlePhotoUrl } });
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: authHeader },
-    body,
-  }).catch((err) => {
-    console.error("[seedWPProfileAvatar] fetch failed:", err);
-    return null;
-  });
-
-  if (res && !res.ok) {
-    console.error("[seedWPProfileAvatar] WP REST error:", res.status, await res.text().catch(() => ""));
-  }
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -69,13 +31,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const profile = await getUserProfile(hash).catch(() => null);
 
-        // On login: seed Google photo as avatar if profile has none
+        // On login: record event + seed email/avatar via the PHP endpoint.
+        // The endpoint handles profile creation, private email storage, avatar seed
+        // (only if no avatar exists), and audit log — all in one authenticated call.
         if ((trigger === "signIn" || trigger === "signUp") && t.picture) {
-          if (!profile) {
-            await seedWPProfileAvatar(hash, t.picture);
-          } else if (!profile.avatarUrl) {
-            await seedWPProfileAvatar(hash, t.picture, profile.databaseId);
-          }
+          await logProfileEvent({
+            hash,
+            event: "login",
+            email: t.email ?? undefined,
+            avatar_url: t.picture,
+          });
         }
 
         t.displayName = profile?.displayName ?? null;

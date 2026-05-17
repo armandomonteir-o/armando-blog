@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createHash } from "crypto";
 import { auth } from "@/auth";
 import { getUserProfile } from "@/lib/graphql/queries/profile";
+import { logProfileEvent } from "@/lib/wp";
 
 // Derive WP REST base from WORDPRESS_API_URL (strips /graphql suffix)
 const wpRestBase = process.env.WORDPRESS_API_URL
@@ -57,7 +58,6 @@ export async function PUT(req: Request) {
   const existing = await getUserProfile(hash).catch(() => null);
 
   if (existing) {
-    // Update existing profile via WP REST API
     const res = await fetch(`${wpRestBase}/wp-json/wp/v2/user-profile/${existing.databaseId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: authHeader },
@@ -67,9 +67,7 @@ export async function PUT(req: Request) {
       console.error("[PUT /api/profile] WP update failed:", await res.text());
       return NextResponse.json({ error: "Falha ao atualizar perfil" }, { status: 500 });
     }
-    return NextResponse.json({ ok: true });
   } else {
-    // Create new profile via WP REST API
     const res = await fetch(`${wpRestBase}/wp-json/wp/v2/user-profile`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: authHeader },
@@ -79,6 +77,21 @@ export async function PUT(req: Request) {
       console.error("[PUT /api/profile] WP create failed:", await res.text());
       return NextResponse.json({ error: "Falha ao criar perfil" }, { status: 500 });
     }
-    return NextResponse.json({ ok: true });
   }
+
+  // Log events in parallel — non-blocking, failures don't break the save
+  const events: Promise<void>[] = [];
+  if (displayName && displayName !== existing?.displayName) {
+    events.push(logProfileEvent({
+      hash,
+      event: "nick_change",
+      extra: { from: existing?.displayName ?? "", to: displayName },
+    }));
+  }
+  if (avatarUrl) {
+    events.push(logProfileEvent({ hash, event: "avatar_change" }));
+  }
+  await Promise.allSettled(events);
+
+  return NextResponse.json({ ok: true });
 }
