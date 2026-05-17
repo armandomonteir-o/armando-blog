@@ -144,7 +144,7 @@ export function Sidebar({
           >
             <div
               className="w-10 h-10 flex items-center justify-center flex-shrink-0 overflow-hidden bg-chrome-blue-mid"
-              style={{ border: "3px solid var(--arm-panel-text-soft)" }}
+              style={{ border: "3px solid var(--arm-panel-border)" }}
             >
               {/* Replace /avatar-pixel-art.png with the extracted Figma asset */}
               <Image

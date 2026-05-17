@@ -88,7 +88,7 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
                 e.currentTarget.style.transform = "translate(-2px, -2px)";
                 e.currentTarget.style.boxShadow = post.isCorrupted
                   ? "4px 4px 0 #ff0000"
-                  : "4px 4px 0 var(--arm-panel-bg-deep)";
+                  : "4px 4px 0 rgba(0,0,0,0.5)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "translate(0, 0)";
@@ -199,7 +199,7 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
                 >
                   <div
                     className="flex items-center gap-1"
-                    style={{ color: "var(--arm-panel-text-muted)" }}
+                    style={{ color: "var(--arm-panel-text-soft)" }}
                   >
                     <Clock size={10} />
                     <span className="font-mono" style={{ fontSize: "8px" }}>
@@ -208,7 +208,7 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
                   </div>
                   <div
                     className="flex items-center gap-1"
-                    style={{ color: "var(--arm-panel-text-muted)" }}
+                    style={{ color: "var(--arm-panel-text-soft)" }}
                   >
                     <Eye size={10} />
                     <span className="font-mono" style={{ fontSize: "8px" }}>
@@ -217,7 +217,7 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
                   </div>
                   <div
                     className="flex items-center gap-1"
-                    style={{ color: "var(--arm-panel-text-muted)" }}
+                    style={{ color: "var(--arm-panel-text-soft)" }}
                   >
                     <MessageCircle size={10} />
                     <span className="font-mono" style={{ fontSize: "8px" }}>
