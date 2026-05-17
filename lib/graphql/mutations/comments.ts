@@ -44,7 +44,7 @@ export async function createWPComment({
       content,
       author: authorName,
       authorEmail,
-      status: "APPROVE",
+      status: "HOLD",
     },
   });
   return data.createComment.comment;
