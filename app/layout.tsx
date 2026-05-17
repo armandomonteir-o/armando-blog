@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono, Rubik_Glitch, Bungee_Shade } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
+import { SessionProvider } from "@/components/providers/SessionProvider";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
@@ -52,7 +53,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <AppShell>{children}</AppShell>
+        <SessionProvider>
+          <AppShell>{children}</AppShell>
+        </SessionProvider>
         <Analytics />
       </body>
     </html>
