@@ -14,7 +14,7 @@ import {
   RelatedPosts,
   PostCommentsSection,
 } from "@/components/content/single-post";
-import { postData, relatedPosts, postComments } from "./_data";
+import { postData, relatedPosts } from "./_data";
 import { getPost } from "@/lib/graphql";
 import { adaptWPPostDetail, stripHtml } from "@/lib/graphql/adapters";
 
@@ -52,6 +52,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   // Try WordPress first
   const wpPost = await getPost(slug).catch((e) => { console.error("[PostPage] WP fetch failed:", e); return null; });
+
+  const wpComments = wpPost?.comments?.nodes ?? [];
+  const postId = wpPost?.databaseId ?? null;
 
   let currentPost: typeof postData;
 
@@ -194,7 +197,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </div>
 
             <div className="mt-5">
-              <PostCommentsSection comments={postComments} />
+              <PostCommentsSection postId={postId} initialComments={wpComments} />
             </div>
 
             <div className="mt-5">
