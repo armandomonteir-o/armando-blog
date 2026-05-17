@@ -454,17 +454,17 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               title="Minha conta"
             >
               <div className="w-9 h-9 overflow-hidden relative flex-shrink-0 border-2 border-chrome-blue-accent">
-                {session.user.image ? (
+                {(session.user.avatarUrl ?? session.user.image) ? (
                   <Image
-                    src={session.user.image}
-                    alt={session.user.name ?? "avatar"}
+                    src={session.user.avatarUrl ?? session.user.image!}
+                    alt={session.user.displayName ?? session.user.name ?? "avatar"}
                     fill
                     sizes="36px"
                     className="object-cover"
                   />
                 ) : (
                   <div className="w-full h-full bg-chrome-blue-mid flex items-center justify-center font-mono text-chrome-blue-content" style={{ fontSize: 14 }}>
-                    {session.user.name?.[0]?.toUpperCase() ?? "?"}
+                    {(session.user.displayName ?? session.user.name)?.[0]?.toUpperCase() ?? "?"}
                   </div>
                 )}
               </div>
@@ -472,7 +472,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                 className="hidden sm:block font-mono font-bold text-chrome-blue-content truncate max-w-[90px]"
                 style={{ fontSize: "11px" }}
               >
-                {session.user.name?.split(" ")[0].toUpperCase()}
+                {(session.user.displayName ?? session.user.name?.split(" ")[0])?.toUpperCase()}
               </span>
             </Link>
 
