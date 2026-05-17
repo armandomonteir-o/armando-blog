@@ -24,6 +24,7 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitQueued, setSubmitQueued] = useState(false);
 
   const totalPages = Math.ceil(comments.length / COMMENTS_PER_PAGE);
   const paginatedComments = comments.slice(
@@ -35,6 +36,7 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
     if (!text.trim() || !postId || submitting) return;
     setSubmitting(true);
     setSubmitError(null);
+    setSubmitQueued(false);
     try {
       const res = await fetch("/api/comments", {
         method: "POST",
@@ -45,8 +47,11 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
         const { error } = await res.json().catch(() => ({}));
         throw new Error(error ?? "Erro desconhecido");
       }
-      const { comment } = await res.json();
-      if (comment) {
+      const { comment, queued } = await res.json();
+      if (queued) {
+        setText("");
+        setSubmitQueued(true);
+      } else if (comment) {
         setComments((prev) => [comment, ...prev]);
         setText("");
         setCommentPage(1);
@@ -106,7 +111,7 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
                 className="w-full bg-transparent outline-none resize-none font-grotesk text-chrome-blue-content"
                 rows={3}
                 style={{ fontSize: "13px", border: "none" }}
-                disabled={submitting}
+                disabled={submitting || submitQueued}
               />
 
               {submitError && (
@@ -115,17 +120,23 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
                 </p>
               )}
 
+              {submitQueued && (
+                <p className="font-mono mt-1" style={{ fontSize: "9px", color: "var(--chrome-green)" }}>
+                  ✓ Comentário enviado! Aguardando aprovação.
+                </p>
+              )}
+
               <div className="flex justify-end mt-2">
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={submitting || !text.trim()}
+                  disabled={submitting || submitQueued || !text.trim()}
                   className="px-4 py-1.5 font-mono font-bold bg-white text-chrome-blue border-2 border-chrome-blue-dark"
                   style={{
                     fontSize: "10px",
                     boxShadow: "2px 2px 0 var(--chrome-blue-dark)",
-                    opacity: submitting || !text.trim() ? 0.5 : 1,
-                    cursor: submitting || !text.trim() ? "not-allowed" : "pointer",
+                    opacity: submitting || submitQueued || !text.trim() ? 0.5 : 1,
+                    cursor: submitting || submitQueued || !text.trim() ? "not-allowed" : "pointer",
                   }}
                 >
                   {submitting ? "ENVIANDO..." : "ENVIAR"}

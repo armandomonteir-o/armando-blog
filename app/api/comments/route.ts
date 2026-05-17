@@ -28,7 +28,8 @@ export async function POST(req: Request) {
       authorName,
       authorEmail: session.user.email,
     });
-    return NextResponse.json({ comment });
+    // comment is null when WPGraphQL withholds held/pending comments from non-admin viewers
+    return NextResponse.json({ comment, queued: !comment });
   } catch (err) {
     console.error("[POST /api/comments]", err);
     return NextResponse.json({ error: "Failed to create comment" }, { status: 500 });
