@@ -17,11 +17,11 @@ const engagementData = [
 
 const barColors = [
   "var(--arm-panel-bg-darker)",
-  "#4ade80",
+  "var(--chrome-green)",
   "#e05050",
   "#c084fc",
   "var(--arm-panel-bg-darker)",
-  "#4ade80",
+  "var(--chrome-green)",
   "#e05050",
 ];
 

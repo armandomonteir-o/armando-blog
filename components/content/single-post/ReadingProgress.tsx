@@ -22,9 +22,9 @@ export function ReadingProgress() {
         style={{
           height: "100%",
           width: `${progress}%`,
-          background: "linear-gradient(90deg, #4ade80, #80b0ff, #c084fc)",
+          background: "linear-gradient(90deg, var(--chrome-green), #80b0ff, #c084fc)",
           transition: "width 0.15s ease-out",
-          boxShadow: "0 0 8px rgba(74, 222, 128, 0.4)",
+          boxShadow: "0 0 8px rgba(52,211,153,0.4)",
         }}
       />
     </div>

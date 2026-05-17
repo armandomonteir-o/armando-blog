@@ -116,25 +116,29 @@ export default function CategoryClient() {
                   >
                     <Link
                       href={`/categoria/${category.slug}/${sub.slug}`}
-                      className="flex flex-col group bg-chrome-blue-mid"
+                      className="flex flex-col group"
                       style={{
-                        border: "3px solid #0560e0",
+                        backgroundColor: "var(--arm-panel-bg)",
+                        border: "3px solid var(--arm-panel-border)",
                         textDecoration: "none",
-                        boxShadow: "4px 4px 0 #022a6e",
+                        boxShadow: "4px 4px 0 var(--arm-panel-bg-deep)",
                         transition: "transform 0.2s ease, box-shadow 0.2s ease",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translate(-2px, -2px)";
-                        e.currentTarget.style.boxShadow = "6px 6px 0 #022a6e";
+                        e.currentTarget.style.boxShadow = "6px 6px 0 var(--arm-panel-bg-deep)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "translate(0, 0)";
-                        e.currentTarget.style.boxShadow = "4px 4px 0 #022a6e";
+                        e.currentTarget.style.boxShadow = "4px 4px 0 var(--arm-panel-bg-deep)";
                       }}
                     >
                       <div
-                        className="flex items-center justify-between px-3 py-1.5 bg-chrome-blue-accent"
-                        style={{ borderBottom: "2px solid #022a6e" }}
+                        className="flex items-center justify-between px-3 py-1.5"
+                        style={{
+                          backgroundColor: "var(--arm-panel-border)",
+                          borderBottom: "2px solid var(--arm-panel-bg-deep)",
+                        }}
                       >
                         <span
                           className="font-mono font-bold text-chrome-blue-text-on-dark"
@@ -145,11 +149,11 @@ export default function CategoryClient() {
                         <div className="flex gap-1">
                           <div
                             className="w-2.5 h-2.5 bg-chrome-blue"
-                            style={{ border: "1.5px solid #022a6e" }}
+                            style={{ border: "1.5px solid var(--arm-panel-bg-deep)" }}
                           />
                           <div
                             className="w-2.5 h-2.5 bg-chrome-red"
-                            style={{ border: "1.5px solid #022a6e" }}
+                            style={{ border: "1.5px solid var(--arm-panel-bg-deep)" }}
                           />
                         </div>
                       </div>
@@ -235,8 +239,8 @@ export default function CategoryClient() {
                               key={tag}
                               className="px-2 py-0.5 font-mono font-bold text-chrome-blue-body"
                               style={{
-                                border: "1.5px solid #0560e0",
-                                backgroundColor: "rgba(5,96,224,0.3)",
+                                border: "1.5px solid var(--arm-panel-border)",
+                                backgroundColor: "var(--arm-panel-bg-darker)",
                                 fontSize: "8px",
                               }}
                             >

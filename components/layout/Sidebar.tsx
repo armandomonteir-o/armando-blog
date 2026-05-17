@@ -205,7 +205,7 @@ export function Sidebar({
             className="flex items-center gap-3 overflow-hidden cursor-pointer mt-4"
             title={!isExpanded ? "Notificações" : undefined}
             style={{
-              backgroundColor: "rgba(74,222,128,0)",
+              backgroundColor: "rgba(52,211,153,0)",
               border: "2px solid var(--chrome-green)",
               color: "var(--chrome-green)",
               fontWeight: 700,
@@ -220,7 +220,7 @@ export function Sidebar({
             whileHover={{
               backgroundColor: "var(--chrome-green)",
               color: "var(--arm-panel-bg-deep)",
-              boxShadow: "0 0 16px rgba(74,222,128,0.25)",
+              boxShadow: "0 0 16px rgba(52,211,153,0.25)",
             }}
             whileTap={{ scale: 0.97 }}
             onClick={() => {
@@ -240,7 +240,7 @@ export function Sidebar({
                 top: "50%",
                 transform: isExpanded ? "translateY(-50%)" : "translate(-50%, -50%)",
                 borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(74,222,128,0.4), transparent 70%)",
+                background: "radial-gradient(circle, rgba(52,211,153,0.4), transparent 70%)",
                 filter: "blur(6px)",
               }}
             />

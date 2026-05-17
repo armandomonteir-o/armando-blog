@@ -187,7 +187,7 @@ export const posts: Post[] = [
 ];
 
 export const categoryColors: Record<string, string> = {
-  Estudos: "#4ade80",
+  Estudos: "#34d399",
   Filosofia: "#c084fc",
   Músicas: "#f59e0b",
   Filmes: "#e05050",

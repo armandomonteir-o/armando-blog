@@ -244,8 +244,8 @@ export const categories: Category[] = [
       "Aprender fazendo. Tutoriais, análises técnicas e explorações práticas na intersecção entre arte e programação — onde criatividade encontra compilador.",
     heroImage:
       "https://images.unsplash.com/photo-1771942202908-6ce86ef73701?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMGNvZGluZyUyMHNjcmVlbiUyMGNvbG9yZnVsfGVufDF8fHx8MTc3MjgzNTg0OXww&ixlib=rb-4.1.0&q=80&w=1080",
-    accentColor: "#4ade80",
-    gradientFrom: "rgba(74,222,128,0.3)",
+    accentColor: "#34d399",
+    gradientFrom: "rgba(52,211,153,0.3)",
     gradientTo: "rgba(2,42,110,0.9)",
     icon: "GraduationCap",
     subcategories: [

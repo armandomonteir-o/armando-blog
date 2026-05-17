@@ -8,7 +8,7 @@ interface ContactCTAProps {
   accentColor?: string;
 }
 
-export function ContactCTA({ accentColor = "#0347c1" }: ContactCTAProps) {
+export function ContactCTA({ accentColor = "var(--chrome-blue-mid)" }: ContactCTAProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

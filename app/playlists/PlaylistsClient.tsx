@@ -162,7 +162,7 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
                   key={g}
                   className="px-2 py-0.5 font-mono font-bold text-chrome-blue-dark"
                   style={{
-                    backgroundColor: genreColors[g] || "#0347c1",
+                    backgroundColor: genreColors[g] || "var(--chrome-blue-mid)",
                     border: "1.5px solid #022a6e",
                     fontSize: "7px",
                   }}
@@ -351,7 +351,7 @@ export default function PlaylistsPage() {
     >
       <CategoryHero
         minHeight="320px"
-        backgroundGradient="linear-gradient(135deg, #0347c1 0%, #022a6e 30%, #1DB954 60%, #0347c1 100%)"
+        backgroundGradient="linear-gradient(135deg, var(--chrome-blue-mid) 0%, var(--chrome-blue) 30%, #1DB954 60%, var(--chrome-blue-mid) 100%)"
         overlayGradient="transparent"
         accentColor="#1DB954"
         strokeColor="#1DB954"

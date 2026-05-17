@@ -45,7 +45,7 @@ export function NewsletterWidget() {
               top: "-50px",
               right: "-30px",
               borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(74,222,128,0.35), transparent 70%)",
+              background: "radial-gradient(circle, rgba(52,211,153,0.35), transparent 70%)",
               filter: "blur(40px)",
             }}
           />
@@ -113,7 +113,7 @@ export function NewsletterWidget() {
                       }}
                       onFocus={(e) => {
                         e.currentTarget.style.borderColor = "var(--chrome-green)";
-                        e.currentTarget.style.boxShadow = "0 0 10px rgba(74,222,128,0.15)";
+                        e.currentTarget.style.boxShadow = "0 0 10px rgba(52,211,153,0.15)";
                       }}
                       onBlur={(e) => {
                         e.currentTarget.style.borderColor = "var(--arm-panel-border)";

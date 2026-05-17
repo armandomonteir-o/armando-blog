@@ -126,10 +126,10 @@ export function MusicConsentBar({
         style={{
           pointerEvents: "auto",
           border: "3px solid var(--arm-panel-bg-deep)",
-          backgroundColor: "rgba(3,71,193,0.92)",
+          backgroundColor: "rgba(13,58,138,0.92)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
-          boxShadow: "4px 4px 0 var(--arm-panel-bg-deep), 0 -4px 24px rgba(3,71,193,0.3)",
+          boxShadow: "4px 4px 0 var(--arm-panel-bg-deep), 0 -4px 24px rgba(13,58,138,0.3)",
         }}
       >
         <div
@@ -141,7 +141,7 @@ export function MusicConsentBar({
 
         <div className="flex items-center gap-3 relative z-10 flex-1 min-w-0">
           <div
-            className="w-9 h-9 flex items-center justify-center flex-shrink-0 border-2 border-chrome-blue-soft bg-chrome-blue-mid"
+            className="w-9 h-9 flex items-center justify-center flex-shrink-0 border-2 border-chrome-blue-soft bg-chrome-blue"
           >
             <Music size={16} color="var(--chrome-green)" />
           </div>
@@ -177,7 +177,7 @@ export function MusicConsentBar({
           </button>
           <button
             onClick={onDecline}
-            className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue-text-on-dark border-2 border-chrome-blue-accent"
+            className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue-text-on-dark border-2 border-chrome-blue-mid"
             style={{
               fontSize: "12px",
               backgroundColor: "transparent",

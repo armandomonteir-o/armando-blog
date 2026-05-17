@@ -172,7 +172,7 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
                 <h3
                   className="line-clamp-2 font-grotesk font-bold"
                   style={{
-                    fontSize: "13px",
+                    fontSize: "14px",
                     color: "var(--arm-panel-text)",
                     lineHeight: 1.3,
                     marginBottom: "6px",
@@ -183,9 +183,9 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
                 <p
                   className="flex-1 line-clamp-3 font-mono"
                   style={{
-                    fontSize: "10px",
-                    lineHeight: 1.5,
-                    color: "var(--arm-panel-text-soft)",
+                    fontSize: "11px",
+                    lineHeight: 1.55,
+                    color: "var(--arm-panel-text-content)",
                     marginBottom: "8px",
                   }}
                 >

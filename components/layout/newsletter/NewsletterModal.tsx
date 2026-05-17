@@ -155,7 +155,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                     top: "-60px",
                     right: "-40px",
                     borderRadius: "50%",
-                    background: "radial-gradient(circle, rgba(74,222,128,0.4), transparent 70%)",
+                    background: "radial-gradient(circle, rgba(52,211,153,0.4), transparent 70%)",
                     filter: "blur(50px)",
                   }}
                 />
@@ -184,7 +184,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             style={{
                               border: "2px solid var(--chrome-green)",
                               backgroundColor: "var(--chrome-green-tint)",
-                              boxShadow: "0 0 16px rgba(74,222,128,0.15)",
+                              boxShadow: "0 0 16px rgba(52,211,153,0.15)",
                             }}
                             animate={{ rotate: [0, 6, -6, 0] }}
                             transition={{
@@ -242,7 +242,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                               }}
                               onFocus={(e) => {
                                 e.currentTarget.style.borderColor = "var(--chrome-green)";
-                                e.currentTarget.style.boxShadow = "0 0 12px rgba(74,222,128,0.15)";
+                                e.currentTarget.style.boxShadow = "0 0 12px rgba(52,211,153,0.15)";
                               }}
                               onBlur={(e) => {
                                 e.currentTarget.style.borderColor = "var(--arm-panel-border)";
@@ -352,7 +352,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                           style={{
                             border: "3px solid var(--chrome-green)",
                             backgroundColor: "var(--chrome-green-tint)",
-                            boxShadow: "0 0 30px rgba(74,222,128,0.2)",
+                            boxShadow: "0 0 30px rgba(52,211,153,0.2)",
                           }}
                         >
                           <CheckCircle size={36} style={{ color: "var(--chrome-green)" }} />

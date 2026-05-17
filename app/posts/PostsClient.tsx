@@ -226,7 +226,7 @@ export default function PostsPage() {
                         <div
                           className="absolute top-2 left-2 px-2 py-0.5 font-mono font-bold text-chrome-blue-dark border-2 border-chrome-blue-dark"
                           style={{
-                            backgroundColor: categoryColors[post.category] || "#0347c1",
+                            backgroundColor: categoryColors[post.category] || "var(--chrome-blue-mid)",
                             fontSize: "8px",
                             boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                           }}

@@ -81,7 +81,7 @@ const timeline = [
     description:
       "Lancei a seção de Estudos — programação criativa, design generativo e IA & Arte. O blog vira um verdadeiro laboratório multidisciplinar.",
     icon: Code,
-    color: "#4ade80",
+    color: "var(--chrome-green)",
   },
   {
     year: "2024",
@@ -103,7 +103,7 @@ const timeline = [
 
 const interests = [
   { icon: Headphones, label: "Synthwave & Ambient", color: "#f59e0b" },
-  { icon: Gamepad2, label: "Jogos Indie & Pixel Art", color: "#4ade80" },
+  { icon: Gamepad2, label: "Jogos Indie & Pixel Art", color: "var(--chrome-green)" },
   { icon: Coffee, label: "Café & Lo-fi Beats", color: "#e05050" },
   { icon: Code, label: "Creative Coding", color: "#c8e0ff" },
   { icon: Palette, label: "Design Generativo", color: "#c084fc" },
@@ -225,7 +225,7 @@ export default function SobrePage() {
         style={{
           width: `${scrollProgress * 100}%`,
           height: "3px",
-          background: "linear-gradient(90deg, #0347c1, #80b0ff, #c084fc)",
+          background: "linear-gradient(90deg, var(--chrome-blue-mid), var(--chrome-blue-soft), var(--chrome-purple))",
           transition: "width 0.1s ease-out",
         }}
       />
@@ -580,7 +580,7 @@ export default function SobrePage() {
                 <div className="p-4 grid grid-cols-2 gap-3">
                   <StatCard icon={FileText} label="POSTS" value={AUTHOR.stats.posts} color="#f59e0b" delay={0} />
                   <StatCard icon={Eye} label="VIEWS" value={AUTHOR.stats.views} color="#c8e0ff" delay={0.1} />
-                  <StatCard icon={MessageCircle} label="COMENTÁRIOS" value={AUTHOR.stats.comments} color="#4ade80" delay={0.2} />
+                  <StatCard icon={MessageCircle} label="COMENTÁRIOS" value={AUTHOR.stats.comments} color="var(--chrome-green)" delay={0.2} />
                   <StatCard icon={Palette} label="CATEGORIAS" value={AUTHOR.stats.categories} color="#c084fc" delay={0.3} />
                 </div>
               </RetroWindow>
@@ -625,7 +625,7 @@ export default function SobrePage() {
                           delay: i * 0.03,
                         }}
                         style={{
-                          backgroundColor: "#0347c1",
+                          backgroundColor: "var(--chrome-blue-mid)",
                           opacity: 0.4 + Math.sin(i * 0.3) * 0.3,
                           minHeight: "2px",
                         }}

@@ -33,7 +33,7 @@ export function SideContent() {
               className="flex items-center gap-3 p-2.5 cursor-pointer"
               style={{
                 border: "2px solid var(--arm-border)",
-                backgroundColor: i % 2 === 0 ? "var(--arm-bg)" : "var(--arm-bg-card-title)",
+                backgroundColor: i % 2 === 0 ? "var(--arm-bg)" : "var(--arm-bg-card)",
                 boxShadow: "2px 2px 0 var(--arm-shadow)",
                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
               }}

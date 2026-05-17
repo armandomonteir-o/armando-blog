@@ -100,7 +100,7 @@ export function PostHero({
           bottom: "20px",
           left: "5%",
           borderRadius: "50%",
-          background: "radial-gradient(circle at 35% 35%, rgba(74,222,128,0.2), transparent 70%)",
+          background: "radial-gradient(circle at 35% 35%, rgba(52,211,153,0.2), transparent 70%)",
           filter: "blur(30px)",
         }}
       />
@@ -179,7 +179,7 @@ export function PostHero({
           <span
             className="px-2.5 py-0.5 font-mono font-bold text-chrome-blue-dark border-2 border-chrome-blue-dark"
             style={{
-              backgroundColor: categoryColors[category] || "#0347c1",
+              backgroundColor: categoryColors[category] || "var(--chrome-blue-mid)",
               fontSize: "9px",
             }}
           >

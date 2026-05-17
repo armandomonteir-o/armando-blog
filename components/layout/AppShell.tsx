@@ -71,9 +71,9 @@ export function AppShell({ children }: AppShellProps) {
           <div
             className="px-6 py-4"
             style={{
-              backgroundColor: "#0347c1",
-              border: "3px solid #022a6e",
-              boxShadow: "4px 4px 0 #022a6e",
+              backgroundColor: "var(--chrome-blue-mid)",
+              border: "3px solid var(--chrome-blue)",
+              boxShadow: "4px 4px 0 var(--chrome-blue)",
             }}
             onClick={(e) => e.stopPropagation()}
           >

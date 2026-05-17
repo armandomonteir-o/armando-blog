@@ -4,19 +4,19 @@
 
 :root {
   /* ── Chrome (structural — never changes with theme) ── */
-  --chrome-blue: #0347c1;
-  --chrome-blue-mid: #0458d4;
-  --chrome-blue-accent: #0560e0;
-  --chrome-blue-dark: #022a6e;
+  --chrome-blue: #022a6e;
+  --chrome-blue-mid: #0d3a8a;
+  --chrome-blue-accent: #1a4898;
+  --chrome-blue-dark: #011d52;
   --chrome-blue-soft: #80b0ff;
   --chrome-blue-muted: #5a8ad0;
   --chrome-blue-dim: #3a6aaa;
   --chrome-blue-body: #a0c4ff;
   --chrome-blue-content: #c0d8ff;
   --chrome-blue-text-on-dark: #c8e0ff;
-  --chrome-green: #4ade80;
-  --chrome-green-soft: #6ee7a0;
-  --chrome-green-tint: rgba(74, 222, 128, 0.08);
+  --chrome-green: #34d399;
+  --chrome-green-soft: #6ee7b7;
+  --chrome-green-tint: rgba(52, 211, 153, 0.08);
   --chrome-red: #e05050;
   --chrome-red-soft: #ff6b6b;
   --chrome-purple: #c084fc;
@@ -25,17 +25,17 @@
   /* ── Armando Blog Palette (Light) ── */
   --arm-bg: #f5f0e3;
   --arm-bg-card: #e8e4dc;
-  --arm-bg-card-title: #c0c8e0;
+  --arm-bg-card-title: #022a6e;
   --arm-bg-glass: rgba(232, 228, 220, 0.55);
-  --arm-bg-glass-title: rgba(192, 200, 224, 0.6);
+  --arm-bg-glass-title: rgba(2, 42, 110, 0.9);
   --arm-bg-glass-highlight: rgba(255, 255, 255, 0.7);
   --arm-border: #022a6e;
   --arm-text: #022a6e;
   --arm-text-secondary: #5a6a8e;
   --arm-text-muted: #7a8a9e;
   --arm-grid: #022a6e;
-  --arm-blue: #0347c1;
-  --arm-blue-mid: #0560e0;
+  --arm-blue: #022a6e;
+  --arm-blue-mid: #0d3a8a;
   --arm-blue-dark: #022a6e;
   --arm-brand-opacity: 0.6;
   --arm-shadow: #022a6e;
@@ -43,9 +43,9 @@
   --arm-glass-sheen: rgba(255, 255, 255, 0.15);
 
   /* ── Dark Panel (inside RetroWindow dark) ── */
-  --arm-panel-bg: #0458d4;
-  --arm-panel-bg-darker: #0347c1;
-  --arm-panel-border: #0560e0;
+  --arm-panel-bg: #022a6e;
+  --arm-panel-bg-darker: #011d52;
+  --arm-panel-border: #0d3a8a;
   --arm-panel-bg-deep: #022a6e;
   --arm-panel-text: #fff;
   --arm-panel-text-soft: #80b0ff;

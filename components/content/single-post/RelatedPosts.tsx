@@ -71,7 +71,7 @@ export function RelatedPosts({ posts, categoryColors }: RelatedPostsProps) {
                 <div
                   className="absolute top-1.5 left-1.5 px-1.5 py-0.5 font-mono font-bold text-chrome-blue-dark"
                   style={{
-                    backgroundColor: categoryColors[post.category] || "#0347c1",
+                    backgroundColor: categoryColors[post.category] || "var(--chrome-blue-mid)",
                     border: "1.5px solid #022a6e",
                     fontSize: "7px",
                   }}

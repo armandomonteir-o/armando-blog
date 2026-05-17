@@ -94,7 +94,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
   return (
     <header
       className="flex items-center justify-between px-3 sm:px-6 py-3 relative flex-shrink-0 bg-chrome-blue"
-      style={{ borderBottom: "3px solid #022a6e", zIndex: 50 }}
+      style={{ borderBottom: "3px solid var(--chrome-blue)", zIndex: 50 }}
     >
       {/* Glass sheen */}
       <div
@@ -143,14 +143,14 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         <div
           className="flex items-center px-3 py-1.5 font-mono bg-chrome-blue-mid"
           style={{
-            border: searchFocused ? "2px solid #4ade80" : "2px solid #0560e0",
+            border: searchFocused ? "2px solid var(--chrome-green)" : "2px solid var(--chrome-blue-accent)",
             transition: "border-color 0.2s",
           }}
         >
           <Search
             size={14}
             className="mr-2 sm:mr-3 flex-shrink-0"
-            style={{ color: searchFocused ? "#4ade80" : "#c8e0ff" }}
+            style={{ color: searchFocused ? "var(--chrome-green)" : "var(--chrome-blue-text-on-dark)" }}
           />
           <input
             type="text"
@@ -180,14 +180,14 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
           <div
             className="absolute left-0 right-0 mt-1 bg-chrome-blue"
             style={{
-              border: "2.5px solid #022a6e",
-              boxShadow: "4px 4px 0 #022a6e",
+              border: "2.5px solid var(--chrome-blue)",
+              boxShadow: "4px 4px 0 var(--chrome-blue)",
               zIndex: 9999,
             }}
           >
             <div
               className="px-3 py-1 flex items-center gap-2 bg-chrome-blue-mid"
-              style={{ borderBottom: "2px solid #0560e0" }}
+              style={{ borderBottom: "2px solid var(--chrome-blue-accent)" }}
             >
               <span
                 className="font-mono text-chrome-blue-content"
@@ -225,7 +225,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                     e.currentTarget.style.background = "transparent";
                   }}
                 >
-                  <Search size={11} style={{ color: "#a0c4ff", flexShrink: 0 }} />
+                  <Search size={11} style={{ color: "var(--chrome-blue-body)", flexShrink: 0 }} />
                   <div className="flex-1 min-w-0">
                     <div
                       className="truncate font-grotesk"
@@ -261,7 +261,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         <div ref={panelRef} className="relative">
           <button
             className="flex items-center justify-center w-9 h-9 relative cursor-pointer border-2 border-chrome-blue-accent text-chrome-blue-content"
-            style={{ backgroundColor: notifOpen ? "#022a6e" : "#0458d4" }}
+            style={{ backgroundColor: notifOpen ? "var(--chrome-blue)" : "var(--chrome-blue-mid)" }}
             onClick={() => setNotifOpen((v) => !v)}
             aria-label="Notificações"
           >
@@ -269,7 +269,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             {unreadCount > 0 && (
               <div
                 className="absolute -top-1 -right-1 w-3 h-3"
-                style={{ backgroundColor: "#4ade80", border: "1.5px solid #022a6e" }}
+                style={{ backgroundColor: "var(--chrome-green)", border: "1.5px solid var(--chrome-blue)" }}
               />
             )}
           </button>
@@ -280,8 +280,8 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               style={{
                 width: 310,
                 zIndex: 9999,
-                border: "2.5px solid #022a6e",
-                boxShadow: "4px 4px 0px #022a6e",
+                border: "2.5px solid var(--chrome-blue)",
+                boxShadow: "4px 4px 0px var(--chrome-blue)",
                 background:
                   "linear-gradient(160deg, rgba(3,71,193,0.82) 0%, rgba(2,42,110,0.95) 100%)",
                 backdropFilter: "blur(18px)",
@@ -292,8 +292,8 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               <div
                 className="flex items-center justify-between px-3 py-1.5 flex-shrink-0"
                 style={{
-                  borderBottom: "2px solid #0560e0",
-                  background: "linear-gradient(90deg, #0347c1 0%, #0458d4 60%, #0347c1 100%)",
+                  borderBottom: "2px solid var(--chrome-blue-accent)",
+                  background: "linear-gradient(90deg, var(--chrome-blue-mid) 0%, var(--chrome-blue-accent) 60%, var(--chrome-blue-mid) 100%)",
                 }}
               >
                 <div className="flex items-center gap-2">
@@ -372,7 +372,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                       style={{
                         width: 28,
                         height: 28,
-                        border: "1.5px solid #0560e0",
+                        border: "1.5px solid var(--chrome-blue-accent)",
                         background:
                           "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.25), rgba(3,71,193,0.6))",
                         fontSize: 13,
@@ -386,7 +386,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                           className="font-mono uppercase"
                           style={{
                             fontSize: 10,
-                            color: n.unread ? "#e0eeff" : "#c8e0ff",
+                            color: n.unread ? "#e0eeff" : "var(--chrome-blue-text-on-dark)",
                             fontWeight: n.unread ? 700 : 400,
                             letterSpacing: "0.04em",
                           }}
@@ -401,7 +401,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                       </div>
                       <p
                         className="mt-0.5 truncate font-grotesk"
-                        style={{ fontSize: 11, color: "#a0c0f0", lineHeight: 1.4 }}
+                        style={{ fontSize: 11, color: "var(--chrome-blue-body)", lineHeight: 1.4 }}
                       >
                         {n.body}
                       </p>
@@ -419,7 +419,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               {/* Panel footer */}
               <div
                 className="px-3 py-2 flex items-center justify-center"
-                style={{ borderTop: "2px solid #0560e0" }}
+                style={{ borderTop: "2px solid var(--chrome-blue-accent)" }}
               >
                 <button
                   onClick={() => {

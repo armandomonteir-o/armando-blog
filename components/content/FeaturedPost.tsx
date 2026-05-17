@@ -13,7 +13,7 @@ export function FeaturedPost() {
           {/* Image */}
           <div
             className="w-full md:w-[220px] lg:w-[260px] md:flex-shrink-0 overflow-hidden relative"
-            style={{ border: "3px solid #80b0ff" }}
+            style={{ border: "3px solid var(--chrome-blue-soft)" }}
           >
             {/* Mobile: aspect-ratio box */}
             <div style={{ paddingBottom: "75%", position: "relative" }} className="md:hidden">
@@ -36,7 +36,7 @@ export function FeaturedPost() {
                 className="absolute inset-0 pointer-events-none opacity-15"
                 style={{
                   backgroundImage:
-                    "linear-gradient(#80b0ff 1px, transparent 1px), linear-gradient(90deg, #80b0ff 1px, transparent 1px)",
+                    "linear-gradient(var(--chrome-blue-soft) 1px, transparent 1px), linear-gradient(90deg, var(--chrome-blue-soft) 1px, transparent 1px)",
                   backgroundSize: "20px 20px",
                 }}
               />
@@ -44,7 +44,7 @@ export function FeaturedPost() {
                 className="absolute bottom-0 left-0 right-0 pointer-events-none"
                 style={{
                   height: "40%",
-                  background: "linear-gradient(to top, rgba(3,71,193,0.3), transparent)",
+                  background: "linear-gradient(to top, rgba(2,42,110,0.4), transparent)",
                   backdropFilter: "blur(1px)",
                 }}
               />
@@ -71,7 +71,7 @@ export function FeaturedPost() {
                 className="absolute inset-0 pointer-events-none opacity-15"
                 style={{
                   backgroundImage:
-                    "linear-gradient(#80b0ff 1px, transparent 1px), linear-gradient(90deg, #80b0ff 1px, transparent 1px)",
+                    "linear-gradient(var(--chrome-blue-soft) 1px, transparent 1px), linear-gradient(90deg, var(--chrome-blue-soft) 1px, transparent 1px)",
                   backgroundSize: "20px 20px",
                 }}
               />
@@ -79,7 +79,7 @@ export function FeaturedPost() {
                 className="absolute bottom-0 left-0 right-0 pointer-events-none"
                 style={{
                   height: "40%",
-                  background: "linear-gradient(to top, rgba(3,71,193,0.3), transparent)",
+                  background: "linear-gradient(to top, rgba(2,42,110,0.4), transparent)",
                   backdropFilter: "blur(1px)",
                 }}
               />
@@ -91,11 +91,9 @@ export function FeaturedPost() {
             <div>
               <WavyText
                 text="A REVOLUCAO DO ALGORITMO"
+                variant="stacked"
                 fontSize={34}
-                amplitude={10}
-                frequency={0.18}
                 color="#fff"
-                strokeColor="#80b0ff"
               />
               <p
                 className="mt-2 mb-4 font-mono text-chrome-blue-content"
@@ -115,7 +113,7 @@ export function FeaturedPost() {
                 ].map((stat) => (
                   <div
                     key={stat.label}
-                    className="px-3 py-2 text-center border-2 border-chrome-blue-accent bg-chrome-blue-mid"
+                    className="px-3 py-2 text-center border-2 border-chrome-blue-mid bg-chrome-blue"
                   >
                     <div
                       className="font-grotesk font-bold text-chrome-green"
@@ -139,38 +137,38 @@ export function FeaturedPost() {
                 href="/post/a-revolucao-do-algoritmo"
                 className="px-5 py-2.5 cursor-pointer inline-block font-grotesk font-bold bg-white text-chrome-blue"
                 style={{
-                  border: "3px solid #022a6e",
+                  border: "3px solid var(--chrome-blue)",
                   fontSize: "13px",
-                  boxShadow: "3px 3px 0 #022a6e",
+                  boxShadow: "3px 3px 0 var(--chrome-blue)",
                   textDecoration: "none",
                   transition: "transform 0.2s ease, box-shadow 0.2s ease",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translate(-2px, -2px)";
-                  e.currentTarget.style.boxShadow = "5px 5px 0 #022a6e";
+                  e.currentTarget.style.boxShadow = "5px 5px 0 var(--chrome-blue)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translate(0, 0)";
-                  e.currentTarget.style.boxShadow = "3px 3px 0 #022a6e";
+                  e.currentTarget.style.boxShadow = "3px 3px 0 var(--chrome-blue)";
                 }}
               >
                 Ler Manifesto
               </Link>
               <button
-                className="px-5 py-2.5 cursor-pointer font-grotesk font-bold bg-chrome-blue-mid text-chrome-blue-content"
+                className="px-5 py-2.5 cursor-pointer font-grotesk font-bold bg-chrome-blue text-chrome-blue-content"
                 style={{
-                  border: "3px solid #0560e0",
+                  border: "3px solid var(--chrome-blue-mid)",
                   fontSize: "13px",
-                  boxShadow: "3px 3px 0 #022a6e",
+                  boxShadow: "3px 3px 0 var(--chrome-blue)",
                   transition: "transform 0.2s ease, box-shadow 0.2s ease",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translate(-2px, -2px)";
-                  e.currentTarget.style.boxShadow = "5px 5px 0 #022a6e";
+                  e.currentTarget.style.boxShadow = "5px 5px 0 var(--chrome-blue)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translate(0, 0)";
-                  e.currentTarget.style.boxShadow = "3px 3px 0 #022a6e";
+                  e.currentTarget.style.boxShadow = "3px 3px 0 var(--chrome-blue)";
                 }}
               >
                 Ver Galeria

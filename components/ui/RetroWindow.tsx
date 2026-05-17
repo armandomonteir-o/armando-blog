@@ -30,7 +30,7 @@ export function RetroWindow({
     : isDark
       ? "var(--arm-panel-bg)"
       : "var(--arm-bg-card-title)");
-  const titleText = isGlass ? "var(--arm-panel-text)" : isDark ? "var(--arm-panel-text)" : "var(--arm-text)";
+  const titleText = "var(--arm-panel-text)";
   const bodyBg = isGlass ? "var(--arm-glass-body)" : isDark ? "var(--arm-panel-bg-darker)" : "var(--arm-bg-card)";
 
   const glassStyles: React.CSSProperties = isGlass
@@ -77,7 +77,7 @@ export function RetroWindow({
               className="w-4 h-4 flex items-center justify-center"
               style={{
                 border: `2px solid ${borderColor}`,
-                backgroundColor: isDark ? "var(--arm-panel-border)" : "var(--arm-bg-card-title)",
+                backgroundColor: "var(--arm-panel-border)",
                 fontSize: "10px",
                 fontWeight: 700,
                 lineHeight: 1,
