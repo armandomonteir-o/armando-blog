@@ -1,6 +1,8 @@
 import { wpQuery } from "../client";
 import type { WPPlaylistsResponse, WPPlaylist } from "../types";
 
+// No ACF field group is registered for the playlist post type in WordPress yet,
+// so only native fields are queried.
 const GET_PLAYLISTS = /* GraphQL */ `
   query GetPlaylists($first: Int!, $after: String) {
     playlists(first: $first, after: $after) {
@@ -10,20 +12,6 @@ const GET_PLAYLISTS = /* GraphQL */ `
         slug
         title
         content
-        acfPlaylistFields {
-          coverImage { sourceUrl }
-          genres
-          totalDuration
-          followers
-          spotifyUrl
-          lastUpdated
-          accentColor
-          tracks {
-            trackTitle
-            trackArtist
-            trackDuration
-          }
-        }
       }
     }
   }
@@ -36,20 +24,6 @@ const GET_PLAYLIST = /* GraphQL */ `
       slug
       title
       content
-      acfPlaylistFields {
-        coverImage { sourceUrl }
-        genres
-        totalDuration
-        followers
-        spotifyUrl
-        lastUpdated
-        accentColor
-        tracks {
-          trackTitle
-          trackArtist
-          trackDuration
-        }
-      }
     }
   }
 `;

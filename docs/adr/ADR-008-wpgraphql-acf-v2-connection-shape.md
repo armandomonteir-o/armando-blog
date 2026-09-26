@@ -65,3 +65,9 @@ The existing `WPImage` type (`{ sourceUrl: string }`) was reused as the `node` t
 |--------|----------------|
 | Pin WPGraphQL for ACF to 1.x | Discontinued; no longer receives security updates |
 | Register ACF fields via PHP code instead of JSON | More verbose; doesn't leverage ACF's UI for visual editing; JSON is more portable |
+
+## Update (2026-09-26, issue #69)
+
+"All queries" above was not true for the whole codebase: `queries/categories.ts` and `queries/playlists.ts` still used the 1.x shape, and they also selected ACF field groups (`acfCategoryFields`, `acfSubcategoryFields`, `acfPlaylistFields`) that are not registered in WordPress. Nothing broke on screen only because no page called those functions.
+
+Both files now query only fields that exist. `lib/graphql/queries/live.test.ts` runs every public query against a real endpoint (`WP_LIVE_TEST=1`), so a query that no longer matches the schema fails there instead of in production.

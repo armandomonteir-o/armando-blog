@@ -168,6 +168,13 @@ const navItems = [
 
 ## WordPress Mapping
 
+> **Target mapping, not the current WordPress.** Checked against the live endpoint on 2026-09-26 (issue #69):
+> - categories are `arte`, `blog`, `cultura`, `design`, `filosofia` and `tecnologia`, with no subcategories, and no ACF group is registered for categories (issue #73)
+> - the `playlist` post type exists, with no ACF group and no entries
+> - the post ACF group exists; `is_featured` cannot be filtered in a WPGraphQL `where` (`metaKey` is rejected), so `getFeaturedPost()` filters the most recent posts in code
+> - `lib/graphql/queries/live.test.ts` checks the queries against the real schema
+
+
 ### WP Taxonomy: `category` (native, hierarchical)
 
 Maps to both `Category` and `Subcategory` interfaces.

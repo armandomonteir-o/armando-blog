@@ -81,32 +81,14 @@ export interface WPComment {
 
 // ── Categories ────────────────────────────────────────────────────────────────
 
-export interface WPAcfCategoryFields {
-  heroImage: WPImage | null;
-  accentColor: string | null;
-  gradientFrom: string | null;
-  gradientTo: string | null;
-  icon: string | null;
-}
-
-export interface WPAcfSubcategoryFields {
-  heroImage: WPImage | null;
-  subcategoryTags: string[] | null;
-}
-
 export interface WPSubcategory {
   slug: string;
   name: string;
-  description: string;
+  description: string | null;
   count: number | null;
-  acfSubcategoryFields: WPAcfSubcategoryFields | null;
 }
 
-export interface WPCategoryWithChildren {
-  slug: string;
-  name: string;
-  description: string;
-  acfCategoryFields: WPAcfCategoryFields | null;
+export interface WPCategoryWithChildren extends WPSubcategory {
   children: { nodes: WPSubcategory[] };
 }
 
@@ -116,29 +98,11 @@ export interface WPCategoriesResponse {
 
 // ── Playlists ─────────────────────────────────────────────────────────────────
 
-export interface WPPlaylistTrack {
-  trackTitle: string;
-  trackArtist: string;
-  trackDuration: string;
-}
-
-export interface WPAcfPlaylistFields {
-  coverImage: WPImage | null;
-  genres: string[] | null;
-  totalDuration: string | null;
-  followers: number | null;
-  spotifyUrl: string | null;
-  lastUpdated: string | null;
-  accentColor: string | null;
-  tracks: WPPlaylistTrack[] | null;
-}
-
 export interface WPPlaylist {
   id: string;
   slug: string;
   title: string;
   content: string;
-  acfPlaylistFields: WPAcfPlaylistFields | null;
 }
 
 export interface WPPlaylistsResponse {

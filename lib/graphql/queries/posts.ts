@@ -40,15 +40,6 @@ const GET_POSTS = /* GraphQL */ `
   }
 `;
 
-const GET_FEATURED_POST = /* GraphQL */ `
-  ${POST_FIELDS}
-  query GetFeaturedPost {
-    posts(first: 1, where: { metaKey: "is_featured", metaValue: "1", status: PUBLISH }) {
-      nodes { ...PostFields }
-    }
-  }
-`;
-
 const GET_POST = /* GraphQL */ `
   query GetPost($slug: ID!) {
     post(id: $slug, idType: SLUG) {
@@ -107,9 +98,11 @@ export async function getPosts(
   return data.posts;
 }
 
-export async function getFeaturedPost(): Promise<WPPost | null> {
-  const data = await wpQuery<WPPostsResponse>(GET_FEATURED_POST);
-  return data.posts.nodes[0] ?? null;
+// WPGraphQL does not accept metaKey/metaValue in `where`, so the ACF flag is
+// filtered here, among the most recent posts.
+export async function getFeaturedPost(scan = 20): Promise<WPPost | null> {
+  const { nodes } = await getPosts(scan);
+  return nodes.find((post) => post.acfPostFields?.isFeatured) ?? null;
 }
 
 export async function getPost(slug: string): Promise<WPPostDetail | null> {
