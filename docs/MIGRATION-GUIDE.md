@@ -1,5 +1,7 @@
 # Migration Guide: React SPA -> Next.js + Headless WordPress
 
+> **This is the plan, not a description of the code.** Where the two differ, the code wins. Known gap: the ISR and on-demand revalidation sections below are not implemented yet.
+
 ## Target Stack (2026 Best Practices)
 
 | Layer | Technology |
@@ -9,7 +11,7 @@
 | **Styling** | Tailwind CSS v4 + inline styles (preserve current approach) |
 | **CMS** | WordPress (headless) + ACF PRO + WPGraphQL |
 | **Data Fetching** | `graphql-request` + React Server Components |
-| **Caching** | Next.js ISR (Incremental Static Regeneration) + on-demand revalidation |
+| **Caching** | Next.js ISR (Incremental Static Regeneration) + on-demand revalidation. **Planned, not implemented:** there is no `revalidate` or `generateStaticParams` in the code yet (issue #62) |
 | **State Management** | **Zustand** (replaces React Context for global state) |
 | **Animation** | `motion` package (import from `motion/react`) |
 | **Icons** | `lucide-react` |
