@@ -17,6 +17,8 @@ export function formatWPDate(iso: string): string {
     .format(new Date(iso))
     .replace(".", "")
     .replace(/\bde\b/g, "")
+    // "10 de abr de 2026" minus the "de"s leaves double spaces
+    .replace(/\s+/g, " ")
     .trim();
 }
 
