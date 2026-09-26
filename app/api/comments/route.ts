@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
   const { postId, content } = body ?? {};
 
-  if (!postId || typeof postId !== "number" || !content?.trim()) {
+  if (!postId || typeof postId !== "number" || typeof content !== "string" || !content.trim()) {
     return NextResponse.json(
       { error: "Missing fields: postId (number) and content (string) required" },
       { status: 400 }
