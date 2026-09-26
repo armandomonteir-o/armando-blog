@@ -101,3 +101,13 @@ Always check here before debugging something new — the answer may already be h
 - `next/dynamic({ ssr: false })` alone — defers the JS bundle load, not the timing issue inside `ResponsiveContainer`
 **Fix**: Remove `ResponsiveContainer` entirely. Use a `useWidth` hook that measures the container with a native `ResizeObserver`, then pass explicit `width={width} height={CHART_HEIGHT}` directly to the chart component. Guard with `{width > 0 && ...}` so the chart never renders with invalid dimensions. The `setWidth` call lives inside the `ResizeObserver` callback — not synchronously in the effect body — so the linter is satisfied.
 **Location**: `components/content/SobreCharts.tsx`
+
+---
+
+## PITFALL-011: `unstable_doesProxyMatch` is in the docs but not in the package
+
+**Date discovered**: 2026-09-26 (issue #76)
+**Symptom**: `TypeError: unstable_doesProxyMatch is not a function` when testing the `proxy.ts` matcher, following `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md`.
+**Root cause**: on Next 16.3.6 the docs shipped inside the package already use the new "proxy" name, but `next/experimental/testing/server` still exports the old one, `unstable_doesMiddlewareMatch`.
+**Fix**: import `unstable_doesMiddlewareMatch`. When in doubt, the `.d.ts` files under `node_modules/next/dist/experimental/testing/server/` are the source of truth, not the docs.
+**Location**: `lib/auth/route-guard.test.ts`

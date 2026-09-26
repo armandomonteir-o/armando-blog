@@ -1,22 +1,10 @@
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
-
-const PROTECTED = ["/minha-conta"];
-const GUEST_ONLY = ["/login"];
+import { guardRedirect } from "@/lib/auth/route-guard";
 
 export default auth((req) => {
-  const { nextUrl, auth: session } = req;
-  const isLoggedIn = !!session;
-
-  if (PROTECTED.some((path) => nextUrl.pathname.startsWith(path)) && !isLoggedIn) {
-    const loginUrl = new URL("/login", nextUrl);
-    loginUrl.searchParams.set("callbackUrl", nextUrl.pathname);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  if (GUEST_ONLY.some((path) => nextUrl.pathname.startsWith(path)) && isLoggedIn) {
-    return NextResponse.redirect(new URL("/", nextUrl));
-  }
+  const target = guardRedirect(req.nextUrl.pathname, !!req.auth);
+  if (target) return NextResponse.redirect(new URL(target, req.nextUrl));
 });
 
 export const config = {
