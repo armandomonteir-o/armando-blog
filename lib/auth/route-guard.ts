@@ -4,13 +4,17 @@
 const PROTECTED = ["/minha-conta"];
 const GUEST_ONLY = ["/login"];
 
+// The route itself or anything under it: "/minha-conta/x" matches, "/minha-contas" does not.
+const isUnder = (pathname: string, route: string) =>
+  pathname === route || pathname.startsWith(`${route}/`);
+
 // Returns where to redirect the request, or null to let it through.
 export function guardRedirect(pathname: string, isLoggedIn: boolean): string | null {
-  if (PROTECTED.some((path) => pathname.startsWith(path)) && !isLoggedIn) {
+  if (PROTECTED.some((route) => isUnder(pathname, route)) && !isLoggedIn) {
     return `/login?callbackUrl=${encodeURIComponent(pathname)}`;
   }
 
-  if (GUEST_ONLY.some((path) => pathname.startsWith(path)) && isLoggedIn) {
+  if (GUEST_ONLY.some((route) => isUnder(pathname, route)) && isLoggedIn) {
     return "/";
   }
 
