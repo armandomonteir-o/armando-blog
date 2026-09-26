@@ -19,11 +19,13 @@ export const callbacks = {
     const t = token as AppToken;
 
     if (t.email && (trigger === "signIn" || trigger === "signUp" || trigger === "update")) {
-      const hash = createHash("sha256")
-        .update(t.email.toLowerCase().trim())
-        .digest("hex");
+      const hash = createHash("sha256").update(t.email.toLowerCase().trim()).digest("hex");
 
-      const profile = await getUserProfile(hash).catch(() => null);
+      // undefined = WordPress failed; null = WordPress answered that there is no profile.
+      const profile = await getUserProfile(hash).catch((err) => {
+        console.error("[auth] getUserProfile failed, keeping cached profile:", err);
+        return undefined;
+      });
 
       // On login: record event + seed email/avatar via the PHP endpoint.
       // The endpoint handles profile creation, private email storage, avatar seed
@@ -37,8 +39,10 @@ export const callbacks = {
         });
       }
 
-      t.displayName = profile?.displayName ?? null;
-      t.avatarUrl = profile?.avatarUrl ?? null;
+      if (profile !== undefined) {
+        t.displayName = profile?.displayName ?? null;
+        t.avatarUrl = profile?.avatarUrl ?? null;
+      }
     }
 
     return t;
