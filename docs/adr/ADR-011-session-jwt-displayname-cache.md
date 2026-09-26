@@ -111,6 +111,8 @@ O JWT é o lugar certo: já existe, é assinado (não pode ser forjado), é envi
 
 **Usuário sem perfil:** `getUserProfile` retorna `null` → `token.displayName = null` → fallback para `session.user.name` (nome do Google). Comportamento correto.
 
+**WordPress fora do ar no login ou no `update()`** (issue #74, 2026-09-26): falha não é "sem perfil". Até a #74, o `.catch(() => null)` tratava as duas coisas igual, e uma falha apagava do JWT o `displayName` e o `avatarUrl` escolhidos; os comentários seguintes saíam com o nome do Google, sem aviso. Agora a falha mantém o que já está no token e só registra o erro no log; `null` limpa os campos apenas quando o WordPress responde que o perfil não existe. Os callbacks ficam em `lib/auth/callbacks.ts`, com teste em `lib/auth/callbacks.test.ts`.
+
 ---
 
 ## Arquivos modificados
