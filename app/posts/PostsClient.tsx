@@ -114,7 +114,7 @@ export default function PostsPage() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <button
-                    className="px-3 py-1 cursor-pointer transition-all duration-150 font-mono font-bold"
+                    className="px-3 py-1 cursor-pointer transition-colors duration-150 font-mono font-bold"
                     style={{
                       border: "2px solid #0560e0",
                       backgroundColor: !selectedCategory ? "#80b0ff" : "#0458d4",
@@ -128,7 +128,7 @@ export default function PostsPage() {
                   {allCategories.map((cat) => (
                     <button
                       key={cat}
-                      className="px-3 py-1 cursor-pointer transition-all duration-150 font-mono font-bold"
+                      className="px-3 py-1 cursor-pointer transition-colors duration-150 font-mono font-bold"
                       style={{
                         border: `2px solid ${selectedCategory === cat ? categoryColors[cat] : "#0560e0"}`,
                         backgroundColor: selectedCategory === cat ? categoryColors[cat] : "#0458d4",
