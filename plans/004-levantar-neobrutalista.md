@@ -1,6 +1,6 @@
 # 004: O "levantar" neobrutalista numa classe só, com clique que afunda
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: 2993ef8
 - **Severity**: MEDIUM
 - **Category**: Cohesion & tokens, Physicality

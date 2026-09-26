@@ -330,3 +330,31 @@
     animation: none !important;
   }
 }
+
+/* Neobrutalist lift: hover raises the block and grows its hard shadow; press sinks it
+   and collapses the shadow, like a physical key. Hover only on devices that really hover,
+   so a tap on a phone never leaves the block stuck up. Configure per element with
+   --lift-color, --lift-rest and --lift-hover. */
+.brutal-lift {
+  --lift-color: var(--arm-shadow);
+  --lift-rest: 2px;
+  --lift-hover: 4px;
+  box-shadow: var(--lift-rest) var(--lift-rest) 0 var(--lift-color);
+  transition:
+    transform var(--duration-hover) var(--ease-out),
+    box-shadow var(--duration-hover) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brutal-lift:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--lift-hover) var(--lift-hover) 0 var(--lift-color);
+  }
+}
+
+.brutal-lift:active {
+  transform: translate(1px, 1px);
+  box-shadow: max(0px, calc(var(--lift-rest) - 1px)) max(0px, calc(var(--lift-rest) - 1px)) 0
+    var(--lift-color);
+  transition-duration: var(--duration-press);
+}

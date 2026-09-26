@@ -30,20 +30,10 @@ export function SideContent() {
           {recommendations.map((item, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 p-2.5 cursor-pointer"
+              className="flex items-center gap-3 p-2.5 cursor-pointer brutal-lift"
               style={{
                 border: "2px solid var(--arm-border)",
                 backgroundColor: i % 2 === 0 ? "var(--arm-bg)" : "var(--arm-bg-card)",
-                boxShadow: "2px 2px 0 var(--arm-shadow)",
-                transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translate(-2px, -2px)";
-                e.currentTarget.style.boxShadow = "4px 4px 0 var(--arm-shadow)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translate(0, 0)";
-                e.currentTarget.style.boxShadow = "2px 2px 0 var(--arm-shadow)";
               }}
             >
               <div
