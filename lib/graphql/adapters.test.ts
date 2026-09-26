@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { adaptWPPost, adaptWPPostDetail, formatWPDate, stripHtml } from "./adapters";
 import type { WPPost, WPPostDetail } from "./types";
 
-// Midday dates: the formatted day is the same in any timezone from UTC-11 to UTC+11.
 const post: WPPost = {
   id: "cG9zdDo0Mg==",
   databaseId: 42,
@@ -21,6 +20,53 @@ describe("formatWPDate", () => {
     expect(formatWPDate("2026-04-10T12:00:00")).toBe("10 abr 2026");
     expect(formatWPDate("2026-09-01T12:00:00")).toBe("01 set 2026");
   });
+
+  it("names every month the way the site writes them", () => {
+    const months = Array.from(
+      { length: 12 },
+      (_, i) => formatWPDate(`2026-${String(i + 1).padStart(2, "0")}-15T12:00:00`).split(" ")[1]
+    );
+    expect(months).toEqual([
+      "jan",
+      "fev",
+      "mar",
+      "abr",
+      "mai",
+      "jun",
+      "jul",
+      "ago",
+      "set",
+      "out",
+      "nov",
+      "dez",
+    ]);
+  });
+
+  it("reads the comment format, which uses a space instead of T", () => {
+    // WPGraphQL sends Comment.date like this; parsing it with new Date() is engine-defined.
+    expect(formatWPDate("2026-05-17 17:04:54")).toBe("17 mai 2026");
+  });
+
+  it.each(["UTC", "Pacific/Kiritimati", "Pacific/Pago_Pago", "America/Sao_Paulo"])(
+    "keeps the WordPress day near midnight when the runtime is in %s",
+    (tz) => {
+      const original = process.env.TZ;
+      process.env.TZ = tz;
+      try {
+        expect(formatWPDate("2026-04-10T23:59:59")).toBe("10 abr 2026");
+        expect(formatWPDate("2026-04-10 00:00:01")).toBe("10 abr 2026");
+      } finally {
+        process.env.TZ = original;
+      }
+    }
+  );
+
+  it.each([[""], ["não é data"], [null], [undefined]])(
+    "returns an empty string for %j instead of throwing or inventing a date",
+    (input) => {
+      expect(formatWPDate(input as unknown as string)).toBe("");
+    }
+  );
 });
 
 describe("stripHtml", () => {

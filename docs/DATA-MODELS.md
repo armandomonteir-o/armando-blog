@@ -212,7 +212,7 @@ ACF fields:
 Standard WP fields used:
 - `title` -> `Post.title`
 - `excerpt` -> `Post.excerpt`
-- `date` -> `Post.date` (format with `date-fns` to "28 Fev 2026")
+- `date` -> `Post.date` (`formatWPDate` in `lib/graphql/adapters.ts` turns it into "28 fev 2026", reading the day straight from the string: no `Date` parsing, no timezone)
 - `slug` -> URL routing
 - `categories` -> `Post.category`
 - `comment_count` -> `Post.comments`

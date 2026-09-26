@@ -8,18 +8,16 @@ export function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, "").trim();
 }
 
-export function formatWPDate(iso: string): string {
-  return new Intl.DateTimeFormat("pt-BR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  })
-    .format(new Date(iso))
-    .replace(".", "")
-    .replace(/\bde\b/g, "")
-    // "10 de abr de 2026" minus the "de"s leaves double spaces
-    .replace(/\s+/g, " ")
-    .trim();
+const MONTHS = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+// WPGraphQL sends the site's wall-clock time with no offset: "2026-04-10T23:30:00" for posts,
+// "2026-04-10 23:30:00" for comments. The day is read straight from the string, so the result
+// is the same on the server and in any browser, whatever its timezone or date parser.
+export function formatWPDate(wpDate: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})(?:[T ]|$)/.exec(wpDate ?? "");
+  const month = match ? MONTHS[Number(match[2]) - 1] : undefined;
+  if (!match || !month) return "";
+  return `${match[3]} ${month} ${match[1]}`;
 }
 
 export function adaptWPPost(wp: WPPost): Post {
