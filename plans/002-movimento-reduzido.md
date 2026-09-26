@@ -1,6 +1,6 @@
 # 002: Respeitar movimento reduzido em todo o site
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: 2993ef8
 - **Severity**: MEDIUM
 - **Category**: Accessibility

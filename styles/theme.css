@@ -312,3 +312,12 @@
     line-height: 1.5;
   }
 }
+
+/* Ambient loops (floating orbs, bubbles, pixel icons, glitch): decorative movement
+   that stops when the OS asks for reduced motion. The element rests at its first frame.
+   !important because the animation comes from an inline style. */
+@media (prefers-reduced-motion: reduce) {
+  .motion-ambient {
+    animation: none !important;
+  }
+}
