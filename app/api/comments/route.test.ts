@@ -39,6 +39,9 @@ describe("POST /api/comments", () => {
     ["no postId", { content: "oi" }],
     ["postId as a string", { postId: "1", content: "oi" }],
     ["blank content", { postId: 1, content: "   " }],
+    ["content as a number", { postId: 1, content: 42 }],
+    ["content as an array", { postId: 1, content: ["oi"] }],
+    ["content as an object", { postId: 1, content: { text: "oi" } }],
     ["a body that is not JSON", "{quebrado"],
   ])("rejects %s with 400", async (_, body) => {
     const res = await POST(request(body));
