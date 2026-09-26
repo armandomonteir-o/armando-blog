@@ -1,29 +1,45 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export function ReadingProgress() {
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = document.getElementById("main-scroll-container");
-    if (!el) return;
-    const handleScroll = () => {
-      const scrollHeight = el.scrollHeight - el.clientHeight;
-      setProgress(scrollHeight > 0 ? Math.min((el.scrollTop / scrollHeight) * 100, 100) : 0);
+    const bar = barRef.current;
+    if (!el || !bar) return;
+
+    // Scroll-linked motion must track the scroll 1:1: no transition, at most one write per frame.
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = el.scrollHeight - el.clientHeight;
+      const progress = max > 0 ? Math.min(el.scrollTop / max, 1) : 0;
+      bar.style.transform = `scaleX(${progress})`;
     };
-    el.addEventListener("scroll", handleScroll);
-    return () => el.removeEventListener("scroll", handleScroll);
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
     <div className="sticky top-0 z-50 w-full" style={{ height: "4px", backgroundColor: "#022a6e" }}>
       <div
+        ref={barRef}
         style={{
           height: "100%",
-          width: `${progress}%`,
+          width: "100%",
+          transform: "scaleX(0)",
+          transformOrigin: "left",
           background: "linear-gradient(90deg, var(--chrome-green), #80b0ff, #c084fc)",
-          transition: "width 0.15s ease-out",
           boxShadow: "0 0 8px rgba(52,211,153,0.4)",
         }}
       />
