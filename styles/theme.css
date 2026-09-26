@@ -93,6 +93,15 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* ── Motion (issue #92). --ease-out and --ease-in-out override Tailwind's defaults on purpose ── */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1); /* enter, exit, press: starts fast */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); /* movement already on screen */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1); /* drawers and sheets */
+  --duration-press: 100ms; /* :active feedback */
+  --duration-hover: 160ms; /* hover lift, color */
+  --duration-small: 200ms; /* tooltips, small popovers, fades */
+  --duration-drawer: 400ms; /* drawers, sheets */
 }
 
 /* TODO: restore dark mode — uncomment the block below (lines starting with DARK:) */

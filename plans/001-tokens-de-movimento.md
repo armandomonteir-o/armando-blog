@@ -1,6 +1,6 @@
 # 001: Tokens de movimento, curvas e durações num lugar só
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: 2993ef8
 - **Severity**: LOW
 - **Category**: Cohesion & tokens

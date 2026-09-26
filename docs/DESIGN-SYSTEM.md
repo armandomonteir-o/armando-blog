@@ -143,6 +143,24 @@ These variables are defined in `theme.css` and are used by `CommentsSection.tsx`
 **Components using panel vars**: `CommentsSection.tsx`, `PostsGrid.tsx`
 **Components still using hardcoded hex** (intentional — structural chrome that doesn't change in dark mode): `Header.tsx`, `Sidebar.tsx`, `RetroWindow.tsx`, `NowPlaying.tsx`, `AllPostsPage.tsx` (card grid)
 
+### Motion (`:root`, issue #92)
+
+Curves and durations for every animation. Values come from Emil Kowalski's animation guidelines: UI motion stays under 300ms, enter and exit use a strong ease-out, and `ease-in` is never used on UI.
+
+| Token | Value | Use |
+|---|---|---|
+| `--ease-out` | `cubic-bezier(0.23, 1, 0.32, 1)` | enter, exit, press |
+| `--ease-in-out` | `cubic-bezier(0.77, 0, 0.175, 1)` | movement on screen |
+| `--ease-drawer` | `cubic-bezier(0.32, 0.72, 0, 1)` | drawers, sheets |
+| `--duration-press` | `100ms` | `:active` feedback |
+| `--duration-hover` | `160ms` | hover lift, color |
+| `--duration-small` | `200ms` | tooltips, fades |
+| `--duration-drawer` | `400ms` | drawers, sheets |
+
+`--ease-out` and `--ease-in-out` share their names with Tailwind v4's theme variables and override them on purpose: the unlayered `:root` wins over Tailwind's theme layer, so a future `ease-out` utility class gets the same curve. On 2026-09-26 no Tailwind `ease-*` class was in use, so nothing changed on screen.
+
+`lib/motion.ts` mirrors the curves as arrays for `motion/react` (`easeOut`, `easeInOut`, `easeDrawer`) plus a default `spring` (`duration: 0.5, bounce: 0.2`).
+
 ## Visual Patterns
 
 ### RetroWindow (Window Chrome)
