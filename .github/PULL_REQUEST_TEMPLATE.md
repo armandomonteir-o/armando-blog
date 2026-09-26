@@ -1,30 +1,42 @@
-## Summary
+Closes #
 
-<!-- What does this PR do? Link the issue: Closes #XX -->
+<!--
+Título igual ao commit: `tipo: descrição (issue #N)`. Branch: `tipo/numero-slug`.
+Se o PR fecha só parte da issue, troque a primeira linha por "Parte da #N".
+-->
 
-## Type of change
+## O que muda
 
-- [ ] New feature
-- [ ] Bug fix
-- [ ] Refactor / chore
-- [ ] Documentation
+<!-- O que o PR faz e por quê. Tabela só com célula curta; explicação longa vira lista. -->
 
-## AI Assistance
+## Testes
 
-- [ ] This PR was implemented without AI assistance
-- [ ] AI assisted with: ___________ (describe what was generated vs. manually written)
+<!-- Bug: o teste que reproduz o bug, vermelho antes da correção e verde depois. Cole a mensagem do vermelho. -->
 
-## Checklist
+## Verificação
 
-- [ ] TypeScript: no new `any` types introduced
-- [ ] No unintended visual changes to existing design
-- [ ] Accessibility: keyboard navigable, ARIA labels present where needed
-- [ ] `prefers-reduced-motion` respected in any new animations
-- [ ] New pitfalls documented in `/docs/pitfalls/README.md` (if applicable)
-- [ ] New architectural decisions documented in `/docs/adr/` (if applicable)
+<!-- Como foi verificado rodando, não só no CI. Tocou dado: rode com WORDPRESS_API_URL real, ou diga que não deu. -->
 
-## Screenshots (if visual change)
+## O que ficou, de propósito
 
-| Before | After |
-|--------|-------|
+<!-- O que não entrou e por quê. -->
+
+## Falta
+
+<!-- O que depende de outra issue ou de uma decisão. Apague a seção se não houver nada. -->
+
+---
+
+- [ ] `tsc`, `lint`, `test` e `build` limpos
+- [ ] Teste novo falhava antes da correção (se for bug)
+- [ ] Rota tocada verificada rodando
+- [ ] README, `docs/` ou ADR atualizados se o comportamento mudou; decisão nova virou ADR
+- [ ] Pitfall novo anotado em `docs/pitfalls/README.md`
+- [ ] Nenhuma mudança visual sem aprovação; se houver, antes e depois abaixo
+- [ ] Nenhuma dependência nova sem justificativa em uma frase
+
+<!-- Mudança visual:
+| Antes | Depois |
+|---|---|
 | | |
+-->
