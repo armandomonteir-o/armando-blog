@@ -1,29 +1,24 @@
 name: Bug
-description: Something isn't working
+description: Algo não funciona como deveria
+title: "fix: "
 labels: ["type: bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Check `/docs/pitfalls/README.md` first — the answer may already be there.
+        Antes, veja `docs/pitfalls/README.md`: a resposta pode já estar lá.
   - type: textarea
-    id: symptom
+    id: problem
     attributes:
-      label: Symptom
-      description: What did you observe?
+      label: Problema
+      description: O que acontece e o que deveria acontecer.
     validations:
       required: true
   - type: textarea
-    id: expected
+    id: evidence
     attributes:
-      label: Expected behavior
-      description: What should happen instead?
-    validations:
-      required: true
-  - type: textarea
-    id: reproduce
-    attributes:
-      label: Steps to reproduce
+      label: Evidência
+      description: Arquivo e linha, saída de comando, rota e passos para reproduzir.
       value: |
         1.
         2.
@@ -31,7 +26,16 @@ body:
     validations:
       required: true
   - type: textarea
-    id: context
+    id: todo
     attributes:
-      label: Context
-      description: Browser, OS, relevant component or route
+      label: O que fazer
+      description: A correção proposta, se já houver uma.
+  - type: textarea
+    id: done
+    attributes:
+      label: Pronto quando
+      value: |
+        - [ ] Teste que reproduz o bug, vermelho antes da correção
+        - [ ] Rota verificada rodando
+    validations:
+      required: true
