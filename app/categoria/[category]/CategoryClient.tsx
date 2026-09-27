@@ -110,9 +110,9 @@ export default function CategoryClient() {
                 {currentSubcats.map((sub, i) => (
                   <motion.div
                     key={sub.slug}
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.15 * i }}
+                    transition={{ duration: 0.35, delay: 0.05 * i }}
                   >
                     <Link
                       href={`/categoria/${category.slug}/${sub.slug}`}
