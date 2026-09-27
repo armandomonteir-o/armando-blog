@@ -110,7 +110,7 @@ function GlassOrb({
 }) {
   return (
     <div
-      className="absolute pointer-events-none"
+      className="absolute pointer-events-none motion-ambient"
       style={{
         width: size,
         height: size,
@@ -146,7 +146,7 @@ function GlossyBubble({
 }) {
   return (
     <div
-      className="absolute pointer-events-none"
+      className="absolute pointer-events-none motion-ambient"
       style={{
         width: size,
         height: size,
@@ -280,7 +280,7 @@ export function AeroElements() {
       <AquaWave className="top-[80px] left-0" />
 
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           top: "8%",
           right: "3%",
@@ -291,7 +291,7 @@ export function AeroElements() {
         <PixelCursor size={28} />
       </div>
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           top: "55%",
           right: "1%",
@@ -302,7 +302,7 @@ export function AeroElements() {
         <PixelHeart size={24} />
       </div>
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           bottom: "25%",
           left: "1%",
@@ -313,7 +313,7 @@ export function AeroElements() {
         <PixelFolder size={28} />
       </div>
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           top: "35%",
           left: "4%",
@@ -324,7 +324,7 @@ export function AeroElements() {
         <PixelHourglass size={22} />
       </div>
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           bottom: "8%",
           right: "6%",
@@ -335,7 +335,7 @@ export function AeroElements() {
         <PixelCursor size={20} className="scale-x-[-1]" />
       </div>
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           top: "75%",
           right: "15%",

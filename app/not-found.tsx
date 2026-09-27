@@ -78,7 +78,7 @@ export default function NotFound() {
     >
       {/* Background orbs */}
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           width: 300,
           height: 300,
@@ -92,7 +92,7 @@ export default function NotFound() {
         }}
       />
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           width: 200,
           height: 200,
@@ -107,7 +107,7 @@ export default function NotFound() {
         }}
       />
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none motion-ambient"
         style={{
           width: 150,
           height: 150,
@@ -141,7 +141,7 @@ export default function NotFound() {
       ).map((b, i) => (
         <div
           key={i}
-          className="absolute pointer-events-none"
+          className="absolute pointer-events-none motion-ambient"
           style={{
             width: b.size,
             height: b.size,
@@ -186,7 +186,7 @@ export default function NotFound() {
           <div className="p-6">
             <div className="flex justify-center mb-4">
               <pre
-                className="font-mono text-chrome-red"
+                className="font-mono text-chrome-red motion-ambient"
                 style={{
                   fontSize: "10px",
                   lineHeight: 1.2,

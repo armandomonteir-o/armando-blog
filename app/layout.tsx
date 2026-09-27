@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Space_Mono, Rubik_Glitch, Bungee_Shade } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
 import { SessionProvider } from "@/components/providers/SessionProvider";
+import { MotionProvider } from "@/components/providers/MotionProvider";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
@@ -54,7 +55,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <SessionProvider>
-          <AppShell>{children}</AppShell>
+          <MotionProvider>
+            <AppShell>{children}</AppShell>
+          </MotionProvider>
         </SessionProvider>
         <Analytics />
       </body>
