@@ -135,41 +135,31 @@ export function FeaturedPost() {
             <div className="flex gap-3 mt-5">
               <Link
                 href="/post/a-revolucao-do-algoritmo"
-                className="px-5 py-2.5 cursor-pointer inline-block font-grotesk font-bold bg-white text-chrome-blue"
-                style={{
-                  border: "3px solid var(--chrome-blue)",
-                  fontSize: "13px",
-                  boxShadow: "3px 3px 0 var(--chrome-blue)",
-                  textDecoration: "none",
-                  transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translate(-2px, -2px)";
-                  e.currentTarget.style.boxShadow = "5px 5px 0 var(--chrome-blue)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translate(0, 0)";
-                  e.currentTarget.style.boxShadow = "3px 3px 0 var(--chrome-blue)";
-                }}
+                className="px-5 py-2.5 cursor-pointer inline-block font-grotesk font-bold bg-white text-chrome-blue brutal-lift"
+                style={
+                  {
+                    border: "3px solid var(--chrome-blue)",
+                    fontSize: "13px",
+                    textDecoration: "none",
+                    "--lift-color": "var(--chrome-blue)",
+                    "--lift-rest": "3px",
+                    "--lift-hover": "5px",
+                  } as React.CSSProperties
+                }
               >
                 Ler Manifesto
               </Link>
               <button
-                className="px-5 py-2.5 cursor-pointer font-grotesk font-bold bg-chrome-blue text-chrome-blue-content"
-                style={{
-                  border: "3px solid var(--chrome-blue-mid)",
-                  fontSize: "13px",
-                  boxShadow: "3px 3px 0 var(--chrome-blue)",
-                  transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translate(-2px, -2px)";
-                  e.currentTarget.style.boxShadow = "5px 5px 0 var(--chrome-blue)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translate(0, 0)";
-                  e.currentTarget.style.boxShadow = "3px 3px 0 var(--chrome-blue)";
-                }}
+                className="px-5 py-2.5 cursor-pointer font-grotesk font-bold bg-chrome-blue text-chrome-blue-content brutal-lift"
+                style={
+                  {
+                    border: "3px solid var(--chrome-blue-mid)",
+                    fontSize: "13px",
+                    "--lift-color": "var(--chrome-blue)",
+                    "--lift-rest": "3px",
+                    "--lift-hover": "5px",
+                  } as React.CSSProperties
+                }
               >
                 Ver Galeria
               </button>

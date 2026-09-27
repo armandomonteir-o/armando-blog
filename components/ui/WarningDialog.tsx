@@ -10,23 +10,19 @@ export function WarningDialog() {
 
   return (
     <GlassCard
-      className="flex-shrink-0 w-full sm:w-auto"
-      style={{
-        border: "3px solid var(--arm-border)",
-        boxShadow: "4px 4px 0 var(--arm-shadow)",
-        width: "180px",
-        background: "var(--arm-bg-glass)",
-        backdropFilter: "blur(12px)",
-        transition: "transform 0.2s ease, box-shadow 0.2s ease",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translate(-2px, -2px)";
-        e.currentTarget.style.boxShadow = "6px 6px 0 var(--arm-shadow)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translate(0, 0)";
-        e.currentTarget.style.boxShadow = "4px 4px 0 var(--arm-shadow)";
-      }}
+      className="flex-shrink-0 w-full sm:w-auto brutal-lift"
+      style={
+        {
+          border: "3px solid var(--arm-border)",
+          // let .brutal-lift own the shadow (GlassCard sets an inline default)
+          boxShadow: undefined,
+          width: "180px",
+          background: "var(--arm-bg-glass)",
+          backdropFilter: "blur(12px)",
+          "--lift-rest": "4px",
+          "--lift-hover": "6px",
+        } as React.CSSProperties
+      }
     >
       <div
         className="px-2 py-1 flex items-center justify-between"
