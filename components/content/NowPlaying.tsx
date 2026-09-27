@@ -158,20 +158,14 @@ export function MusicConsentBar({
         <div className="flex items-center gap-2 relative z-10 flex-shrink-0">
           <button
             onClick={onAccept}
-            className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue bg-white border-2 border-chrome-blue-dark"
+            className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue bg-white border-2 border-chrome-blue-dark brutal-lift"
             style={{
               fontSize: "12px",
-              boxShadow: "2px 2px 0 var(--arm-panel-bg-deep)",
-              transition: "transform 0.15s, box-shadow 0.15s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translate(-1px, -1px)";
-              e.currentTarget.style.boxShadow = "3px 3px 0 var(--arm-panel-bg-deep)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translate(0,0)";
-              e.currentTarget.style.boxShadow = "2px 2px 0 var(--arm-panel-bg-deep)";
-            }}
+              "--lift-color": "var(--arm-panel-bg-deep)",
+              "--lift-rest": "2px",
+              "--lift-hover": "3px",
+              "--lift-distance": "1px",
+            } as React.CSSProperties}
           >
             Sim!
           </button>
@@ -472,19 +466,15 @@ export function NowPlayingWidget() {
 
               <button
                 onClick={togglePlay}
-                className="w-8 h-8 flex items-center justify-center cursor-pointer bg-white text-chrome-blue border-2 border-chrome-blue-dark"
-                style={{
-                  boxShadow: "2px 2px 0 var(--arm-panel-bg-deep)",
-                  transition: "transform 0.15s, box-shadow 0.15s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translate(-1px,-1px)";
-                  e.currentTarget.style.boxShadow = "3px 3px 0 var(--arm-panel-bg-deep)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translate(0,0)";
-                  e.currentTarget.style.boxShadow = "2px 2px 0 var(--arm-panel-bg-deep)";
-                }}
+                className="w-8 h-8 flex items-center justify-center cursor-pointer bg-white text-chrome-blue border-2 border-chrome-blue-dark brutal-lift"
+                style={
+                  {
+                    "--lift-color": "var(--arm-panel-bg-deep)",
+                    "--lift-rest": "2px",
+                    "--lift-hover": "3px",
+                    "--lift-distance": "1px",
+                  } as React.CSSProperties
+                }
               >
                 {playing ? <Pause size={14} /> : <Play size={14} />}
               </button>

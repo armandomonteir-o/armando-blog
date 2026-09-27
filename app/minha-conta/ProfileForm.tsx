@@ -198,7 +198,7 @@ export function ProfileForm() {
               type="button"
               onClick={() => fileRef.current?.click()}
               disabled={uploadState === "uploading"}
-              className="font-mono font-bold"
+              className="font-mono font-bold brutal-lift"
               style={{
                 border: "2px solid var(--arm-border)",
                 backgroundColor: "var(--arm-bg-card)",
@@ -207,18 +207,10 @@ export function ProfileForm() {
                 padding: "6px 14px",
                 cursor: uploadState === "uploading" ? "wait" : "pointer",
                 letterSpacing: "0.06em",
-                transition: "transform 0.1s ease, box-shadow 0.1s ease",
-              }}
-              onMouseEnter={(e) => {
-                if (uploadState !== "uploading") {
-                  e.currentTarget.style.transform = "translate(-2px, -2px)";
-                  e.currentTarget.style.boxShadow = "3px 3px 0 var(--arm-border)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translate(0,0)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
+                "--lift-color": "var(--arm-border)",
+                "--lift-rest": "0px",
+                "--lift-hover": "3px",
+              } as React.CSSProperties}
             >
               {uploadState === "uploading" ? "ENVIANDO..." : "ESCOLHER ARQUIVO"}
             </button>
@@ -278,7 +270,7 @@ export function ProfileForm() {
           type="button"
           onClick={handleSave}
           disabled={!canSave}
-          className="w-full font-mono font-bold"
+          className="w-full font-mono font-bold brutal-lift"
           style={{
             border: "2px solid var(--arm-border)",
             backgroundColor: "var(--arm-bg)",
@@ -288,18 +280,10 @@ export function ProfileForm() {
             padding: "10px 16px",
             cursor: !canSave ? "not-allowed" : "pointer",
             opacity: !canSave ? 0.5 : 1,
-            transition: "transform 0.1s ease, box-shadow 0.1s ease",
-          }}
-          onMouseEnter={(e) => {
-            if (canSave) {
-              e.currentTarget.style.transform = "translate(-2px, -2px)";
-              e.currentTarget.style.boxShadow = "4px 4px 0 var(--arm-border)";
-            }
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translate(0, 0)";
-            e.currentTarget.style.boxShadow = "none";
-          }}
+            "--lift-color": "var(--arm-border)",
+            "--lift-rest": "0px",
+            "--lift-hover": "4px",
+          } as React.CSSProperties}
         >
           {saving ? "SALVANDO..." : "SALVAR PERFIL"}
         </button>

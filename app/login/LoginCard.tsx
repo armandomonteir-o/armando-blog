@@ -79,7 +79,7 @@ export function LoginCard() {
             type="button"
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-3 font-mono font-bold"
+            className="w-full flex items-center justify-center gap-3 font-mono font-bold brutal-lift"
             style={{
               border: "2px solid var(--arm-border)",
               backgroundColor: loading ? "var(--arm-bg-card)" : "var(--arm-bg)",
@@ -89,18 +89,10 @@ export function LoginCard() {
               padding: "10px 16px",
               cursor: loading ? "not-allowed" : "pointer",
               opacity: loading ? 0.7 : 1,
-              transition: "transform 0.1s ease, box-shadow 0.1s ease",
-            }}
-            onMouseEnter={(e) => {
-              if (!loading) {
-                e.currentTarget.style.transform = "translate(-2px, -2px)";
-                e.currentTarget.style.boxShadow = "4px 4px 0 var(--arm-border)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translate(0, 0)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
+              "--lift-color": "var(--arm-border)",
+              "--lift-rest": "0px",
+              "--lift-hover": "4px",
+            } as React.CSSProperties}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>

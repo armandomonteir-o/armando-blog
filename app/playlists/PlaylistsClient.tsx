@@ -295,21 +295,15 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
               href={playlist.spotifyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-2 cursor-pointer font-mono font-bold text-white no-underline border-2 border-chrome-blue-dark"
+              className="flex items-center justify-center gap-2 w-full py-2 cursor-pointer font-mono font-bold text-white no-underline border-2 border-chrome-blue-dark brutal-lift"
               style={{
                 backgroundColor: "#1DB954",
                 fontSize: "10px",
-                boxShadow: "3px 3px 0 #022a6e",
-                transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translate(-1px, -1px)";
-                e.currentTarget.style.boxShadow = "4px 4px 0 #022a6e";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translate(0, 0)";
-                e.currentTarget.style.boxShadow = "3px 3px 0 #022a6e";
-              }}
+                "--lift-color": "#022a6e",
+                "--lift-rest": "3px",
+                "--lift-hover": "4px",
+                "--lift-distance": "1px",
+              } as React.CSSProperties}
             >
               <ExternalLink size={12} />
               ABRIR NO SPOTIFY
