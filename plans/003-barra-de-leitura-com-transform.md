@@ -1,6 +1,6 @@
 # 003: Barra de leitura presa à rolagem, com `transform`
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: 2993ef8
 - **Severity**: HIGH
 - **Category**: Performance
