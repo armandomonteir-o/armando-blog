@@ -172,7 +172,7 @@ export default function SubcategoryClient() {
                   border: `1.5px solid ${selectedTag === tag ? category.accentColor : `${category.accentColor}55`}`,
                   fontSize: "9px",
                   color: selectedTag === tag ? "#fff" : category.accentColor,
-                  transition: "all 0.2s ease",
+                  transition: "background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease",
                 }}
               >
                 #{tag.toUpperCase()}

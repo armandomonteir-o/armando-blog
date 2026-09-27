@@ -54,7 +54,7 @@ function GenreChip({
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-1.5 px-3 py-1.5 cursor-pointer transition-all font-mono font-bold"
+      className="flex items-center gap-1.5 px-3 py-1.5 cursor-pointer transition-[color,background-color,border-color,box-shadow,transform] font-mono font-bold"
       style={{
         border: isActive ? `2px solid ${color}` : "2px solid #0560e0",
         backgroundColor: isActive ? `${color}22` : "#0458d4",

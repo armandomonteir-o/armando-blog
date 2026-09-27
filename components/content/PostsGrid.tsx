@@ -50,7 +50,7 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
             </span>
             <Link
               href="/posts"
-              className="px-4 py-1.5 cursor-pointer transition-all duration-150 hover:brightness-125 hover:-translate-y-px font-mono font-bold"
+              className="px-4 py-1.5 cursor-pointer transition-[filter,translate] duration-150 hover:brightness-125 hover:-translate-y-px font-mono font-bold"
               style={{
                 border: "2px solid var(--arm-panel-border)",
                 backgroundColor: "var(--arm-panel-bg)",

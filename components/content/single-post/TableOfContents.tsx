@@ -92,7 +92,7 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className="flex items-start gap-2 px-2 py-1.5 transition-all"
+                className="flex items-start gap-2 px-2 py-1.5 transition-colors"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth" });
