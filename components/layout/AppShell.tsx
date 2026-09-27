@@ -37,14 +37,18 @@ export function AppShell({ children }: AppShellProps) {
         transition: "background-color 0.3s ease",
       }}
     >
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 lg:hidden"
-          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
+      {/* Mobile overlay: always mounted so it can fade in and out with the drawer */}
+      <div
+        className="fixed inset-0 z-40 lg:hidden"
+        aria-hidden="true"
+        style={{
+          backgroundColor: "rgba(0,0,0,0.5)",
+          opacity: mobileOpen ? 1 : 0,
+          pointerEvents: mobileOpen ? "auto" : "none",
+          transition: "opacity var(--duration-small) var(--ease-out)",
+        }}
+        onClick={() => setMobileOpen(false)}
+      />
 
       <Sidebar
         collapsed={!isHomePage}
