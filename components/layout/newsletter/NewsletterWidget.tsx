@@ -187,8 +187,8 @@ export function NewsletterWidget() {
                 className="flex items-center gap-3 relative z-10 py-1"
               >
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
                   transition={{
                     type: "spring",
                     stiffness: 220,

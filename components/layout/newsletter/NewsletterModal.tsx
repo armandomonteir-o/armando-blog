@@ -340,8 +340,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                       >
                         {/* Animated check */}
                         <motion.div
-                          initial={{ scale: 0, rotate: -30 }}
-                          animate={{ scale: 1, rotate: 0 }}
+                          initial={{ scale: 0.5, opacity: 0, rotate: -30 }}
+                          animate={{ scale: 1, opacity: 1, rotate: 0 }}
                           transition={{
                             type: "spring",
                             stiffness: 200,
