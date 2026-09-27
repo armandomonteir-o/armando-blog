@@ -398,21 +398,17 @@ export default function SubcategoryClient() {
                       <Link
                         key={s.slug}
                         href={`/categoria/${category.slug}/${s.slug}`}
-                        className="flex-1 group"
+                        className="flex-1 group brutal-lift"
                         style={{
                           border: "2px solid #022a6e",
                           backgroundColor: "rgba(255,255,255,0.4)",
                           backdropFilter: "blur(8px)",
                           textDecoration: "none",
-                          boxShadow: "3px 3px 0 #022a6e",
-                          transition: "transform 0.2s ease",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = "translate(-1px, -1px)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = "translate(0, 0)";
-                        }}
+                          "--lift-color": "#022a6e",
+                          "--lift-rest": "3px",
+                          "--lift-hover": "3px",
+                          "--lift-distance": "1px",
+                        } as React.CSSProperties}
                       >
                         <div className="h-[60px] overflow-hidden relative">
                           <AppImage

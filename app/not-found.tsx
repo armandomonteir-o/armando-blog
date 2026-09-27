@@ -60,17 +60,6 @@ export default function NotFound() {
     return () => clearInterval(interval);
   }, []);
 
-  const buttonHover = {
-    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
-      e.currentTarget.style.transform = "translate(-2px, -2px)";
-      e.currentTarget.style.boxShadow = "5px 5px 0 var(--arm-panel-bg-deep)";
-    },
-    onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
-      e.currentTarget.style.transform = "translate(0, 0)";
-      e.currentTarget.style.boxShadow = "3px 3px 0 var(--arm-panel-bg-deep)";
-    },
-  };
-
   return (
     <div
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
@@ -286,31 +275,29 @@ export default function NotFound() {
             <div className="flex items-center justify-center gap-3">
               <Link
                 href="/"
-                className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2 font-grotesk font-bold bg-white text-chrome-blue"
+                className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2 font-grotesk font-bold bg-white text-chrome-blue brutal-lift"
                 style={{
                   border: "3px solid var(--arm-panel-bg-deep)",
                   fontSize: "12px",
-                  boxShadow: "3px 3px 0 var(--arm-shadow)",
                   textDecoration: "none",
-                  transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                }}
-                {...buttonHover}
+                  "--lift-rest": "3px",
+                  "--lift-hover": "5px",
+                } as React.CSSProperties}
               >
                 <Home size={14} />
                 Voltar ao Inicio
               </Link>
 
               <button
-                className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2 font-grotesk font-bold bg-chrome-blue-mid"
+                className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2 font-grotesk font-bold bg-chrome-blue-mid brutal-lift"
                 style={{
                   color: "#e8f4ff",
                   border: "3px solid var(--arm-panel-bg-deep)",
                   fontSize: "12px",
-                  boxShadow: "3px 3px 0 var(--arm-shadow)",
-                  transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                }}
+                  "--lift-rest": "3px",
+                  "--lift-hover": "5px",
+                } as React.CSSProperties}
                 onClick={() => window.history.back()}
-                {...buttonHover}
               >
                 <ArrowLeft size={14} />
                 Pagina Anterior

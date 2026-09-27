@@ -156,26 +156,18 @@ export default function PostsPage() {
                   >
                     <Link
                       href={post.isCorrupted ? "/void/corrupted/0x404" : `/post/${post.slug}`}
-                      className="flex flex-col cursor-pointer group h-[300px]"
+                      className="flex flex-col cursor-pointer group h-[300px] brutal-lift"
                       style={{
                         border: post.isCorrupted ? "2px solid #ff0000" : "2px solid #0560e0",
                         backgroundColor: post.isCorrupted ? "#1a0000" : "#0458d4",
                         textDecoration: "none",
-                        transition: "transform 0.2s ease, box-shadow 0.2s ease",
                         animation: post.isCorrupted
                           ? "corruptedPulse 2s ease-in-out infinite"
                           : undefined,
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "translate(-2px, -2px)";
-                        e.currentTarget.style.boxShadow = post.isCorrupted
-                          ? "4px 4px 0 #ff0000"
-                          : "4px 4px 0 #022a6e";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "translate(0, 0)";
-                        e.currentTarget.style.boxShadow = "none";
-                      }}
+                        "--lift-color": post.isCorrupted ? "#ff0000" : "#022a6e",
+                        "--lift-rest": "0px",
+                        "--lift-hover": "4px",
+                      } as React.CSSProperties}
                     >
                       <div
                         className="flex items-center justify-between px-2 py-1"

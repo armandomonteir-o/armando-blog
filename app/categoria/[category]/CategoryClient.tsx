@@ -116,22 +116,15 @@ export default function CategoryClient() {
                   >
                     <Link
                       href={`/categoria/${category.slug}/${sub.slug}`}
-                      className="flex flex-col group"
+                      className="flex flex-col group brutal-lift"
                       style={{
                         backgroundColor: "var(--arm-panel-bg)",
                         border: "3px solid var(--arm-panel-border)",
                         textDecoration: "none",
-                        boxShadow: "4px 4px 0 var(--arm-panel-bg-deep)",
-                        transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "translate(-2px, -2px)";
-                        e.currentTarget.style.boxShadow = "6px 6px 0 var(--arm-panel-bg-deep)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "translate(0, 0)";
-                        e.currentTarget.style.boxShadow = "4px 4px 0 var(--arm-panel-bg-deep)";
-                      }}
+                        "--lift-color": "var(--arm-panel-bg-deep)",
+                        "--lift-rest": "4px",
+                        "--lift-hover": "6px",
+                      } as React.CSSProperties}
                     >
                       <div
                         className="flex items-center justify-between px-3 py-1.5"
