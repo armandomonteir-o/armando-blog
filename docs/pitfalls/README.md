@@ -111,3 +111,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: on Next 16.3.6 the docs shipped inside the package already use the new "proxy" name, but `next/experimental/testing/server` still exports the old one, `unstable_doesMiddlewareMatch`.
 **Fix**: import `unstable_doesMiddlewareMatch`. When in doubt, the `.d.ts` files under `node_modules/next/dist/experimental/testing/server/` are the source of truth, not the docs.
 **Location**: `lib/auth/route-guard.test.ts`
+
+---
+
+## PITFALL-012: Tailwind v4 `translate-*` and `scale-*` are not `transform`
+
+**Date discovered**: 2026-09-26 (issue #92, plans 006 and 008)
+**Symptom**: the mobile drawer (`Sidebar.tsx`) snapped open and shut with no animation, although its inline style declared `transition: "... transform 0.3s ease-in-out"`. Measured frame by frame: `-100%` to `0` in a single frame.
+**Root cause**: in Tailwind v4, `translate-x-*`, `-translate-y-*`, `scale-*` and `rotate-*` set the individual CSS properties `translate`, `scale` and `rotate`, not `transform` (v3 used `transform`). A transition on `transform` never fires for them, and `getComputedStyle(el).transform` stays `none`. The prototype came from a v3 setup, so every inline `transition: transform` paired with one of these classes silently lost its animation in the port.
+**Fix**: transition the property the class really sets (`translate`, `scale`, `rotate`), or use `transition-transform`, which in v4 covers all four. Read `getComputedStyle(el).translate` when measuring.
+**Location**: `components/layout/Sidebar.tsx` (drawer), `components/content/PostsGrid.tsx` and `CommentsSection.tsx` (`hover:-translate-y-px`)

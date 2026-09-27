@@ -68,7 +68,9 @@ export function Sidebar({
         borderRight: "3px solid var(--arm-panel-bg-deep)",
         fontFamily: "'Space Grotesk', sans-serif",
         boxShadow: "4px 0 0 var(--arm-panel-bg-deep)",
-        transition: "width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease-in-out",
+        // Tailwind v4 translate-x-* sets the `translate` property, not `transform`
+        transition:
+          "width 0.3s cubic-bezier(0.4, 0, 0.2, 1), translate var(--duration-drawer) var(--ease-drawer)",
       }}
       onMouseEnter={() => collapsed && setHovered(true)}
       onMouseLeave={() => collapsed && setHovered(false)}
