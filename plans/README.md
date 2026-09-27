@@ -8,7 +8,12 @@ Planos autocontidos da auditoria de animações (issue #92), no formato da skill
 | 002 | [Movimento reduzido](002-movimento-reduzido.md) | MEDIUM | nada |
 | 003 | [Barra de leitura com transform](003-barra-de-leitura-com-transform.md) | HIGH | nada |
 | 004 | [Levantar neobrutalista](004-levantar-neobrutalista.md) | MEDIUM | 001 |
+| 005 | [Escalonamento da categoria](005-escalonamento-da-categoria.md) | MEDIUM | nada |
+| 006 | [transition-all](006-transition-all.md) | LOW | nada |
+| 007 | [Entradas pequenas demais](007-entradas-pequenas-demais.md) | LOW | nada |
+| 008 | [Gaveta mobile](008-gaveta-mobile.md) | MEDIUM | 001 |
+| 009 | [Levantar, segunda leva](009-levantar-segunda-leva.md) | MEDIUM | 004 |
 
-**Ordem recomendada:** 001, 002, 003 e 004. Um PR por plano.
+**Ordem recomendada:** 001 a 004 (primeira leva), depois 005 a 009. Um PR por plano. Os planos 005 a 009 foram escritos junto com a execução, no mesmo PR.
 
-**Fora desta leva** (ver o comentário da auditoria na #92): a sidebar que redimensiona a página no hover (precisa de aprovação visual), a gaveta mobile, o escalonamento da categoria, os `transition-all`, o `scale: 0` do sucesso, o `ScrollToTop` e a segunda leva do plano 004.
+**Ainda fora** (ver o comentário da auditoria na #92): a sidebar que redimensiona a página no hover (item 3), que precisa de aprovação visual.
