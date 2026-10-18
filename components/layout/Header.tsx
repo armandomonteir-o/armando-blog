@@ -6,15 +6,15 @@ import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  createSearchRunner,
+  fetchSearchResults,
+  type SearchResult,
+  type SearchState,
+} from "@/lib/search";
 
 interface HeaderProps {
   onMobileMenuToggle?: () => void;
-}
-
-interface SearchResult {
-  title: string;
-  slug: string;
-  category: string;
 }
 
 const NOTIFICATIONS = [
@@ -72,14 +72,24 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
   const [notifications, setNotifications] = useState(NOTIFICATIONS);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
+  const [searchState, setSearchState] = useState<SearchState>({ status: "idle" });
+  const searchRunner = useRef<ReturnType<typeof createSearchRunner>>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const unreadCount = notifications.filter((n) => n.unread).length;
 
-  // Search is wired to WP search API in issue #10 — empty until then
-  const searchResults: SearchResult[] = [];
+  const searchResults: SearchResult[] = searchState.status === "done" ? searchState.results : [];
   const showSearchDropdown = searchFocused && searchQuery.trim().length >= 2;
+
+  useEffect(() => {
+    const runner = createSearchRunner({
+      fetchResults: fetchSearchResults,
+      onState: setSearchState,
+    });
+    searchRunner.current = runner;
+    return runner.cancel;
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -164,7 +174,10 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             className="flex-1 bg-transparent outline-none min-w-0 font-mono text-chrome-blue-content"
             style={{ fontSize: "12px" }}
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              searchRunner.current?.update(e.target.value);
+            }}
             onFocus={() => setSearchFocused(true)}
           />
           {searchQuery && (
@@ -174,6 +187,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               onClick={() => {
                 setSearchQuery("");
                 setSearchFocused(false);
+                searchRunner.current?.update("");
               }}
             >
               <X size={12} />
@@ -202,7 +216,11 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                 SEARCH.EXE
               </span>
               <span className="font-mono text-chrome-green" style={{ fontSize: "9px" }}>
-                {searchResults.length} resultado{searchResults.length !== 1 ? "s" : ""}
+                {searchState.status === "done"
+                  ? `${searchResults.length} resultado${searchResults.length !== 1 ? "s" : ""}`
+                  : searchState.status === "error"
+                    ? "erro"
+                    : "buscando..."}
               </span>
             </div>
             {searchResults.length > 0 ? (
@@ -220,6 +238,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                   onClick={() => {
                     setSearchQuery("");
                     setSearchFocused(false);
+                    searchRunner.current?.update("");
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "rgba(255,255,255,0.08)";
@@ -245,7 +264,11 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             ) : (
               <div className="px-3 py-3 text-center">
                 <span className="font-mono text-chrome-blue-body" style={{ fontSize: "10px" }}>
-                  NENHUM RESULTADO ENCONTRADO
+                  {searchState.status === "done"
+                    ? "NENHUM RESULTADO ENCONTRADO"
+                    : searchState.status === "error"
+                      ? "NÃO FOI POSSÍVEL BUSCAR AGORA. TENTE DE NOVO."
+                      : "BUSCANDO..."}
                 </span>
               </div>
             )}
