@@ -358,9 +358,7 @@ export default function SubcategoryClient({
             </RetroWindow>
           </div>
 
-          <div className="mt-5">
-            <NewsletterWidget />
-          </div>
+          <NewsletterWidget />
         </div>
       </div>
     </div>

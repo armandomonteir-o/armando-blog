@@ -103,9 +103,7 @@ export default async function HomePage() {
         {comments.length > 0 && <CommentsSection comments={comments} />}
 
         {/* Newsletter Widget */}
-        <div className="mt-5">
-          <NewsletterWidget />
-        </div>
+        <NewsletterWidget />
       </div>
     </div>
   );
