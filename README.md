@@ -28,6 +28,8 @@ The home never falls back to mock posts. If WordPress answers with no posts, the
 - **at build time**, the build fails. On Vercel a failed build does not replace the deploy that is live, so visitors keep the last good version;
 - **at request time** (for example `/post/[slug]`), the visitor sees the `ERRO.EXE` screen from `app/error.tsx`, with a retry button.
 
+On `/post/[slug]`, "WordPress answered that the post does not exist" is a 404, and "WordPress failed" is the `ERRO.EXE` screen. They are different on purpose: a post never turns into a 404 because of an outage.
+
 For this reason CI builds against the real WordPress, through the `WORDPRESS_API_URL` repository variable (a public URL, not a secret). A red CI with `ENOTFOUND` means WordPress is unreachable, not that the code is broken.
 
 ## Getting started
