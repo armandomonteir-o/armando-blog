@@ -37,3 +37,20 @@ describe("FeaturedPost (#72)", () => {
     expect(renderToStaticMarkup(createElement(FeaturedPost, { post: null }))).toBe("");
   });
 });
+
+// "Ver Galeria" used to be a button that did nothing. It only exists when the home passes the link
+// of a gallery that has at least one image, and today there is no gallery.
+describe("FeaturedPost gallery button", () => {
+  it("does not render the button by default", () => {
+    const html = renderToStaticMarkup(createElement(FeaturedPost, { post }));
+    expect(html).not.toContain("Ver Galeria");
+  });
+
+  it("renders it as a link when the gallery has a link", () => {
+    const html = renderToStaticMarkup(
+      createElement(FeaturedPost, { post, galleryHref: "/galeria" })
+    );
+    expect(html).toContain("Ver Galeria");
+    expect(html).toContain('href="/galeria"');
+  });
+});

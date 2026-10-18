@@ -98,10 +98,9 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
 
 ### `FeaturedPost.tsx`
 - **Purpose**: Hero section for featured post on home page
-- **Props**: None (data hardcoded inside)
-- **Data dependency**: Hardcoded post data (title, image, excerpt, stats)
-- **Behavior**: Displays WavyText title, image with scanline/grid overlays, stats row, CTA buttons
-- **Migration**: Convert to accept props for post data from WP. Keep visual structure identical.
+- **Props**: `post: Post | null` (nothing renders without a post) and an optional `galleryHref`
+- **Data dependency**: the featured post from WordPress (#72)
+- **Behavior**: Displays WavyText title, image with scanline/grid overlays, stats row, CTA buttons. The "Ver Galeria" button only exists when `galleryHref` is given, that is, when there is a gallery with at least one image. The home does not pass it yet because the gallery does not exist (it used to be a button that did nothing)
 
 ### `PostsGrid.tsx`
 - **Purpose**: Grid of post cards with pagination
