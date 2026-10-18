@@ -191,10 +191,7 @@ export default function SubcategoryClient() {
             <span className="font-grotesk font-bold text-white" style={{ fontSize: "14px" }}>
               {subcategory.postCount}
             </span>
-            <span
-              className="font-mono"
-              style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
-            >
+            <span className="font-mono" style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>
               posts
             </span>
           </div>
@@ -249,10 +246,7 @@ export default function SubcategoryClient() {
                   fontSize={26}
                   color="#fff"
                 />
-                <span
-                  className="font-mono text-chrome-blue-body"
-                  style={{ fontSize: "9px" }}
-                >
+                <span className="font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
                   {filteredPosts.length} ENTRIES FOUND
                 </span>
               </div>
@@ -271,9 +265,7 @@ export default function SubcategoryClient() {
                       className="flex flex-col cursor-pointer group border-2 border-chrome-blue-accent bg-chrome-blue-mid"
                       style={{ textDecoration: "none" }}
                     >
-                      <div
-                        className="flex items-center justify-between px-2 py-1 bg-chrome-blue-accent border-b-2 border-chrome-blue-accent"
-                      >
+                      <div className="flex items-center justify-between px-2 py-1 bg-chrome-blue-accent border-b-2 border-chrome-blue-accent">
                         <span
                           className="font-mono text-chrome-blue-body"
                           style={{ fontSize: "8px" }}
@@ -281,12 +273,8 @@ export default function SubcategoryClient() {
                           POST-{String(post.id).padStart(3, "0")}.MD
                         </span>
                         <div className="flex gap-1">
-                          <div
-                            className="w-2 h-2 bg-chrome-blue border border-chrome-blue-dark"
-                          />
-                          <div
-                            className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark"
-                          />
+                          <div className="w-2 h-2 bg-chrome-blue border border-chrome-blue-dark" />
+                          <div className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark" />
                         </div>
                       </div>
                       <div className="h-[140px] overflow-hidden relative">
@@ -335,9 +323,7 @@ export default function SubcategoryClient() {
                         >
                           {post.excerpt}
                         </p>
-                        <div
-                          className="flex items-center gap-3 pt-2 border-t border-chrome-blue-accent"
-                        >
+                        <div className="flex items-center gap-3 pt-2 border-t border-chrome-blue-accent">
                           <div className="flex items-center gap-1 text-chrome-blue-body">
                             <Clock size={10} />
                             <span className="font-mono" style={{ fontSize: "8px" }}>
@@ -399,16 +385,18 @@ export default function SubcategoryClient() {
                         key={s.slug}
                         href={`/categoria/${category.slug}/${s.slug}`}
                         className="flex-1 group brutal-lift"
-                        style={{
-                          border: "2px solid #022a6e",
-                          backgroundColor: "rgba(255,255,255,0.4)",
-                          backdropFilter: "blur(8px)",
-                          textDecoration: "none",
-                          "--lift-color": "#022a6e",
-                          "--lift-rest": "3px",
-                          "--lift-hover": "3px",
-                          "--lift-distance": "1px",
-                        } as React.CSSProperties}
+                        style={
+                          {
+                            border: "2px solid #022a6e",
+                            backgroundColor: "rgba(255,255,255,0.4)",
+                            backdropFilter: "blur(8px)",
+                            textDecoration: "none",
+                            "--lift-color": "#022a6e",
+                            "--lift-rest": "3px",
+                            "--lift-hover": "3px",
+                            "--lift-distance": "1px",
+                          } as React.CSSProperties
+                        }
                       >
                         <div className="h-[60px] overflow-hidden relative">
                           <AppImage
@@ -433,10 +421,7 @@ export default function SubcategoryClient() {
                           >
                             {s.name}
                           </span>
-                          <span
-                            className="font-mono"
-                            style={{ fontSize: "8px", color: "#5a6a8e" }}
-                          >
+                          <span className="font-mono" style={{ fontSize: "8px", color: "#5a6a8e" }}>
                             {s.postCount}
                           </span>
                         </div>

@@ -40,14 +40,13 @@ export function adaptWPPost(wp: WPPost): Post {
 export function adaptWPPostDetail(wp: WPPostDetail) {
   const acf = wp.acfPostFields;
 
-  const sections =
-    acf?.postSections?.length
-      ? acf.postSections.map((s) => ({
-          id: s.sectionId,
-          title: s.sectionTitle,
-          content: stripHtml(s.sectionContent),
-        }))
-      : [{ id: "content", title: "", content: stripHtml(wp.content) }];
+  const sections = acf?.postSections?.length
+    ? acf.postSections.map((s) => ({
+        id: s.sectionId,
+        title: s.sectionTitle,
+        content: stripHtml(s.sectionContent),
+      }))
+    : [{ id: "content", title: "", content: stripHtml(wp.content) }];
 
   return {
     title: wp.title,
@@ -58,10 +57,7 @@ export function adaptWPPostDetail(wp: WPPostDetail) {
     reads: 0,
     comments: wp.commentCount ?? 0,
     likes: 0,
-    heroImage:
-      acf?.heroImage?.node.sourceUrl ??
-      wp.featuredImage?.node.sourceUrl ??
-      FALLBACK_IMAGE,
+    heroImage: acf?.heroImage?.node.sourceUrl ?? wp.featuredImage?.node.sourceUrl ?? FALLBACK_IMAGE,
     author: {
       name: wp.author?.node.name ?? "Armando",
       role: "autor",

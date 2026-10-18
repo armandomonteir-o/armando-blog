@@ -160,7 +160,7 @@ export function Sidebar({
             {isExpanded && (
               <span
                 className="font-glitch font-bold text-white whitespace-nowrap"
-              style={{
+                style={{
                   fontSize: "22px",
                   letterSpacing: "-0.02em",
                   opacity: isExpanded ? 1 : 0,
@@ -300,9 +300,7 @@ export function Sidebar({
                 >
                   LOADING...
                 </div>
-                <div
-                  className="h-3 w-full border-2 border-chrome-blue-accent bg-chrome-blue-dark"
-                >
+                <div className="h-3 w-full border-2 border-chrome-blue-accent bg-chrome-blue-dark">
                   <div className="h-full bg-chrome-green" style={{ width: "72%" }} />
                 </div>
               </div>

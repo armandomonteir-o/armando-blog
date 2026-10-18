@@ -185,10 +185,7 @@ export function PostHero({
           >
             {category.toUpperCase()}
           </span>
-          <span
-            className="font-mono"
-            style={{ fontSize: "10px", color: "rgba(255,255,255,0.7)" }}
-          >
+          <span className="font-mono" style={{ fontSize: "10px", color: "rgba(255,255,255,0.7)" }}>
             {date} · {readTime} de leitura
           </span>
         </div>

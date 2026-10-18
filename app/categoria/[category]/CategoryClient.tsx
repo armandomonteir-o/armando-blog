@@ -98,10 +98,7 @@ export default function CategoryClient() {
                   fontSize="clamp(16px, 2.5vw, 26px)"
                   color="#fff"
                 />
-                <span
-                  className="font-mono text-chrome-blue-body"
-                  style={{ fontSize: "9px" }}
-                >
+                <span className="font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
                   {category.subcategories.length} ENTRIES FOUND
                 </span>
               </div>
@@ -117,14 +114,16 @@ export default function CategoryClient() {
                     <Link
                       href={`/categoria/${category.slug}/${sub.slug}`}
                       className="flex flex-col group brutal-lift"
-                      style={{
-                        backgroundColor: "var(--arm-panel-bg)",
-                        border: "3px solid var(--arm-panel-border)",
-                        textDecoration: "none",
-                        "--lift-color": "var(--arm-panel-bg-deep)",
-                        "--lift-rest": "4px",
-                        "--lift-hover": "6px",
-                      } as React.CSSProperties}
+                      style={
+                        {
+                          backgroundColor: "var(--arm-panel-bg)",
+                          border: "3px solid var(--arm-panel-border)",
+                          textDecoration: "none",
+                          "--lift-color": "var(--arm-panel-bg-deep)",
+                          "--lift-rest": "4px",
+                          "--lift-hover": "6px",
+                        } as React.CSSProperties
+                      }
                     >
                       <div
                         className="flex items-center justify-between px-3 py-1.5"

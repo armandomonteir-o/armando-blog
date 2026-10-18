@@ -12,7 +12,9 @@ const CREATE_COMMENT = /* GraphQL */ `
         author {
           node {
             name
-            avatar { url }
+            avatar {
+              url
+            }
           }
         }
       }

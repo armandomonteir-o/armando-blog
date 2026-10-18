@@ -82,7 +82,9 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
                     : "2px solid var(--arm-panel-border)",
                   backgroundColor: post.isCorrupted ? "#1a0000" : "var(--arm-panel-bg)",
                   textDecoration: "none",
-                  animation: post.isCorrupted ? "corruptedPulse 2s ease-in-out infinite" : undefined,
+                  animation: post.isCorrupted
+                    ? "corruptedPulse 2s ease-in-out infinite"
+                    : undefined,
                   "--lift-color": post.isCorrupted ? "#ff0000" : "rgba(0,0,0,0.5)",
                   "--lift-rest": "0px",
                   "--lift-hover": "4px",

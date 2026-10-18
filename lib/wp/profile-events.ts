@@ -1,7 +1,5 @@
 const wpBase = () =>
-  process.env.WORDPRESS_API_URL
-    ?.replace(/\/graphql\/?$/, "")
-    .replace(/\/$/, "") ?? "";
+  process.env.WORDPRESS_API_URL?.replace(/\/graphql\/?$/, "").replace(/\/$/, "") ?? "";
 
 function authHeader(): string {
   const user = process.env.WP_APP_USER;
@@ -37,10 +35,6 @@ export async function logProfileEvent(params: ProfileEventParams): Promise<void>
   });
 
   if (res && !res.ok) {
-    console.error(
-      "[logProfileEvent] WP error:",
-      res.status,
-      await res.text().catch(() => "")
-    );
+    console.error("[logProfileEvent] WP error:", res.status, await res.text().catch(() => ""));
   }
 }

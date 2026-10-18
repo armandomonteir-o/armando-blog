@@ -73,7 +73,10 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
             fontSize="clamp(16px, 2vw, 26px)"
             color="#fff"
           />
-          <span className="flex-shrink-0 font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
+          <span
+            className="flex-shrink-0 font-mono text-chrome-blue-body"
+            style={{ fontSize: "9px" }}
+          >
             {comments.length} RESPONSES
           </span>
         </div>
@@ -115,13 +118,19 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
               />
 
               {submitError && (
-                <p className="font-mono mt-1" style={{ fontSize: "9px", color: "var(--chrome-red)" }}>
+                <p
+                  className="font-mono mt-1"
+                  style={{ fontSize: "9px", color: "var(--chrome-red)" }}
+                >
                   {submitError}
                 </p>
               )}
 
               {submitQueued && (
-                <p className="font-mono mt-1" style={{ fontSize: "9px", color: "var(--chrome-green)" }}>
+                <p
+                  className="font-mono mt-1"
+                  style={{ fontSize: "9px", color: "var(--chrome-green)" }}
+                >
                   ✓ Comentário enviado! Aguardando aprovação.
                 </p>
               )}

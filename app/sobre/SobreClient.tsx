@@ -165,7 +165,10 @@ function StatCard({
       >
         <Icon size={20} style={{ color, marginBottom: "6px" }} />
       </motion.div>
-      <span className="font-grotesk font-bold text-white" style={{ fontSize: "26px", lineHeight: 1 }}>
+      <span
+        className="font-grotesk font-bold text-white"
+        style={{ fontSize: "26px", lineHeight: 1 }}
+      >
         {value}
       </span>
       <span
@@ -225,7 +228,8 @@ export default function SobrePage() {
         style={{
           width: `${scrollProgress * 100}%`,
           height: "3px",
-          background: "linear-gradient(90deg, var(--chrome-blue-mid), var(--chrome-blue-soft), var(--chrome-purple))",
+          background:
+            "linear-gradient(90deg, var(--chrome-blue-mid), var(--chrome-blue-soft), var(--chrome-purple))",
           transition: "width 0.1s ease-out",
         }}
       />
@@ -476,7 +480,12 @@ export default function SobrePage() {
           >
             <span
               className="font-mono"
-              style={{ fontSize: "8px", color: "rgba(255,255,255,0.5)", letterSpacing: "0.15em", marginBottom: "4px" }}
+              style={{
+                fontSize: "8px",
+                color: "rgba(255,255,255,0.5)",
+                letterSpacing: "0.15em",
+                marginBottom: "4px",
+              }}
             >
               CONHEÇA MINHA HISTÓRIA
             </span>
@@ -566,7 +575,10 @@ export default function SobrePage() {
                       }}
                     >
                       <s.icon size={13} className="text-chrome-blue-text-on-dark" />
-                      <span className="font-mono font-bold text-chrome-blue-text-on-dark" style={{ fontSize: "8px" }}>
+                      <span
+                        className="font-mono font-bold text-chrome-blue-text-on-dark"
+                        style={{ fontSize: "8px" }}
+                      >
                         {s.label}
                       </span>
                     </motion.a>
@@ -578,10 +590,34 @@ export default function SobrePage() {
             <div className="space-y-5">
               <RetroWindow title="STATS.EXE" variant="dark">
                 <div className="p-4 grid grid-cols-2 gap-3">
-                  <StatCard icon={FileText} label="POSTS" value={AUTHOR.stats.posts} color="#f59e0b" delay={0} />
-                  <StatCard icon={Eye} label="VIEWS" value={AUTHOR.stats.views} color="#c8e0ff" delay={0.1} />
-                  <StatCard icon={MessageCircle} label="COMENTÁRIOS" value={AUTHOR.stats.comments} color="var(--chrome-green)" delay={0.2} />
-                  <StatCard icon={Palette} label="CATEGORIAS" value={AUTHOR.stats.categories} color="#c084fc" delay={0.3} />
+                  <StatCard
+                    icon={FileText}
+                    label="POSTS"
+                    value={AUTHOR.stats.posts}
+                    color="#f59e0b"
+                    delay={0}
+                  />
+                  <StatCard
+                    icon={Eye}
+                    label="VIEWS"
+                    value={AUTHOR.stats.views}
+                    color="#c8e0ff"
+                    delay={0.1}
+                  />
+                  <StatCard
+                    icon={MessageCircle}
+                    label="COMENTÁRIOS"
+                    value={AUTHOR.stats.comments}
+                    color="var(--chrome-green)"
+                    delay={0.2}
+                  />
+                  <StatCard
+                    icon={Palette}
+                    label="CATEGORIAS"
+                    value={AUTHOR.stats.categories}
+                    color="#c084fc"
+                    delay={0.3}
+                  />
                 </div>
               </RetroWindow>
               <RetroWindow title="NOW-PLAYING.EXE" variant="glass">
@@ -599,7 +635,10 @@ export default function SobrePage() {
                       </motion.div>
                     </div>
                     <div>
-                      <p className="font-grotesk font-bold text-arm-text" style={{ fontSize: "13px" }}>
+                      <p
+                        className="font-grotesk font-bold text-arm-text"
+                        style={{ fontSize: "13px" }}
+                      >
                         Midnight City
                       </p>
                       <p className="font-mono text-arm-text-secondary" style={{ fontSize: "9px" }}>
@@ -644,7 +683,10 @@ export default function SobrePage() {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <TrendingUp size={16} className="text-chrome-green" />
-                    <span className="font-grotesk font-bold text-white" style={{ fontSize: "14px" }}>
+                    <span
+                      className="font-grotesk font-bold text-white"
+                      style={{ fontSize: "14px" }}
+                    >
                       Atividade de Posts
                     </span>
                   </div>
@@ -662,7 +704,10 @@ export default function SobrePage() {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <Sparkles size={16} className="text-chrome-purple" />
-                    <span className="font-grotesk font-bold text-white" style={{ fontSize: "14px" }}>
+                    <span
+                      className="font-grotesk font-bold text-white"
+                      style={{ fontSize: "14px" }}
+                    >
                       Áreas de Expertise
                     </span>
                   </div>
@@ -724,7 +769,10 @@ export default function SobrePage() {
                           >
                             {item.year}
                           </span>
-                          <span className="font-grotesk font-bold text-white" style={{ fontSize: "15px" }}>
+                          <span
+                            className="font-grotesk font-bold text-white"
+                            style={{ fontSize: "15px" }}
+                          >
                             {item.title}
                           </span>
                         </div>
@@ -786,7 +834,10 @@ export default function SobrePage() {
                     >
                       <item.icon size={16} style={{ color: item.color }} />
                     </div>
-                    <span className="font-grotesk font-bold text-arm-text" style={{ fontSize: "12px" }}>
+                    <span
+                      className="font-grotesk font-bold text-arm-text"
+                      style={{ fontSize: "12px" }}
+                    >
                       {item.label}
                     </span>
                   </motion.div>

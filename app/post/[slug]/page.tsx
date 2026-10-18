@@ -35,8 +35,8 @@ export async function generateMetadata({
         images: wpPost.acfPostFields?.heroImage?.node.sourceUrl
           ? [wpPost.acfPostFields.heroImage.node.sourceUrl]
           : wpPost.featuredImage?.node.sourceUrl
-          ? [wpPost.featuredImage.node.sourceUrl]
-          : [],
+            ? [wpPost.featuredImage.node.sourceUrl]
+            : [],
       },
     };
   }
@@ -51,7 +51,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
 
   // Try WordPress first
-  const wpPost = await getPost(slug).catch((e) => { console.error("[PostPage] WP fetch failed:", e); return null; });
+  const wpPost = await getPost(slug).catch((e) => {
+    console.error("[PostPage] WP fetch failed:", e);
+    return null;
+  });
 
   const wpComments = wpPost?.comments?.nodes ?? [];
   const postId = wpPost?.databaseId ?? null;
@@ -140,10 +143,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                       >
                         {String(idx + 1).padStart(2, "0")}
                       </span>
-                      <div
-                        className="flex-1 bg-chrome-blue-accent"
-                        style={{ height: "2px" }}
-                      />
+                      <div className="flex-1 bg-chrome-blue-accent" style={{ height: "2px" }} />
                     </div>
                     <WavyText
                       text={section.title.toUpperCase()}
@@ -174,10 +174,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                         <div className="flex-1 bg-chrome-blue-accent" style={{ height: "1px" }} />
                         <div className="flex gap-1">
                           {[0, 1, 2].map((d) => (
-                            <div
-                              key={d}
-                              className="w-1.5 h-1.5 bg-chrome-blue-soft"
-                            />
+                            <div key={d} className="w-1.5 h-1.5 bg-chrome-blue-soft" />
                           ))}
                         </div>
                         <div className="flex-1 bg-chrome-blue-accent" style={{ height: "1px" }} />
