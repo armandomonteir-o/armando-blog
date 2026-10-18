@@ -7,9 +7,11 @@ import { posts as mockPosts } from "@/constants/posts";
 // only an explicit "no such post" answer from WordPress is a 404.
 let impl: (slug: string) => Promise<unknown> = async () => null;
 let relatedImpl: () => Promise<unknown> = async () => ({ nodes: [] });
+let blocksImpl: () => Promise<unknown> = async () => [];
 vi.mock("@/lib/graphql", () => ({
   getPost: (slug: string) => impl(slug),
   getPosts: () => relatedImpl(),
+  getPostBlocks: () => blocksImpl(),
 }));
 
 const { default: PostPage, generateMetadata } = await import("./page");
@@ -103,5 +105,59 @@ describe("PostPage related posts", () => {
     };
     const tree = await PostPage(params("atual"));
     expect(findByType(tree, RelatedPosts)).toHaveLength(0);
+  });
+});
+
+// #84: the body used to be the content with every tag stripped, cut at blank lines.
+describe("PostPage body", () => {
+  const heading = (content: string) => ({
+    __typename: "CoreHeading",
+    name: "core/heading",
+    clientId: content,
+    renderedHtml: "",
+    attributes: { content, level: 2, anchor: null },
+  });
+  const para = (content: string) => ({
+    __typename: "CoreParagraph",
+    name: "core/paragraph",
+    clientId: content,
+    renderedHtml: "",
+    attributes: { content },
+  });
+
+  it("renders the Gutenberg blocks, and feeds the index with the titled sections", async () => {
+    const { BlockRenderer, TableOfContents } = await import("@/components/content/single-post");
+    impl = async () => wpPost("atual");
+    blocksImpl = async () => [heading("Um"), para("a"), heading("Dois"), para("b")];
+    const tree = await PostPage(params("atual"));
+    expect(findByType(tree, BlockRenderer)).toHaveLength(2);
+    const [toc] = findByType(tree, TableOfContents) as {
+      props: { sections: { id: string; title: string }[] };
+    }[];
+    expect(toc.props.sections).toEqual([
+      { id: "um", title: "Um" },
+      { id: "dois", title: "Dois" },
+    ]);
+  });
+
+  it("still shows the text, and logs, when the blocks query fails (plugin missing)", async () => {
+    const { BlockRenderer } = await import("@/components/content/single-post");
+    const logged = vi.spyOn(console, "error").mockImplementation(() => {});
+    impl = async () => wpPost("atual");
+    blocksImpl = async () => {
+      throw new Error('Cannot query field "editorBlocks" on type "Post"');
+    };
+    const tree = await PostPage(params("atual"));
+    expect(findByType(tree, BlockRenderer)).toHaveLength(1);
+    expect(logged).toHaveBeenCalled();
+    logged.mockRestore();
+  });
+
+  it("does not hide a WordPress outage behind the fallback: the post query still fails the page", async () => {
+    impl = async () => {
+      throw new Error("ENOTFOUND");
+    };
+    blocksImpl = async () => [];
+    await expect(PostPage(params("atual"))).rejects.toThrow("ENOTFOUND");
   });
 });

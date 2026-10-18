@@ -4,3 +4,4 @@ export { PostHero } from "./PostHero";
 export { AuthorCard } from "./AuthorCard";
 export { RelatedPosts } from "./RelatedPosts";
 export { PostCommentsSection } from "./PostCommentsSection";
+export { BlockRenderer } from "./PostBody";

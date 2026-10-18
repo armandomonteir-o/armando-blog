@@ -12,7 +12,7 @@ vi.mock("graphql-request", () => ({
   }),
 }));
 
-import { getPost, getPosts } from "./posts";
+import { getPost, getPostBlocks, getPosts } from "./posts";
 import { getRecentComments } from "./comments";
 import { getCategoryPosts } from "./categories";
 import { searchPosts } from "./search";
@@ -82,5 +82,31 @@ describe("searchPosts", () => {
   it("does not call WordPress for a blank query", async () => {
     expect(await searchPosts("   ")).toEqual([]);
     expect(request).not.toHaveBeenCalled();
+  });
+});
+
+describe("getPostBlocks", () => {
+  it("asks for the blocks as a tree (flat: false) of the post with that slug", async () => {
+    request.mockResolvedValue({ post: { editorBlocks: [] } });
+    await getPostBlocks("meu-post");
+    const [query, variables] = request.mock.calls[0];
+    expect(query).toContain("editorBlocks(flat: false)");
+    expect(variables).toEqual({ slug: "meu-post" });
+  });
+
+  it("returns the blocks WordPress sent", async () => {
+    const blocks = [{ name: "core/paragraph" }];
+    request.mockResolvedValue({ post: { editorBlocks: blocks } });
+    await expect(getPostBlocks("x")).resolves.toEqual(blocks);
+  });
+
+  it("returns null when the post does not exist", async () => {
+    request.mockResolvedValue({ post: null });
+    await expect(getPostBlocks("nao-existe")).resolves.toBeNull();
+  });
+
+  it("lets a GraphQL error through, so the caller can decide what to do", async () => {
+    request.mockRejectedValue(new Error('Cannot query field "editorBlocks" on type "Post"'));
+    await expect(getPostBlocks("x")).rejects.toThrow("editorBlocks");
   });
 });

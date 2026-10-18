@@ -162,3 +162,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: Auth.js trusts the host by itself on Vercel, and in `next dev`. In production mode anywhere else it refuses unknown hosts unless `AUTH_URL` or `AUTH_TRUST_HOST` is set.
 **Fix**: for a local check only, start with `AUTH_TRUST_HOST=true`. Do not set it in `.env.local` or on Vercel: production already works without it, and the `AUTH_URL` of a real domain will be needed after the move to `blog.armandomonteiro.com` (see `docs/ECOSYSTEM.md`).
 **Location**: `auth.ts`
+
+---
+
+## PITFALL-017: `editorBlocks` comes flat by default, code comes escaped, and the plugin is not on wordpress.org
+
+**Date discovered**: 2026-10-18 (issue #84)
+**Symptom**: (1) a list's items showed up as separate top-level blocks, and a quote's paragraph too. (2) a code block rendered `&lt;` as text, or `&amp;lt;` after one more escape. (3) `wp plugin install wpgraphql-content-blocks` finds nothing.
+**Root cause**: (1) WPGraphQL Content Blocks returns every block in one flat list, each with a `parentClientId`, unless you pass `editorBlocks(flat: false)`. (2) the `content` attribute of `core/code` is already HTML-escaped. (3) the plugin is distributed only as a GitHub release.
+**Fix**: (1) ask for `flat: false` and read `innerBlocks`, three levels deep. (2) `plainText()` decodes it once, and React escapes it as a child. (3) install the pinned zip from the release (see ADR-016); the introspection of the production schema is closed, so validate by running a real query, like `getPostBlocks` in `live.test.ts`.
+**Location**: `lib/graphql/queries/posts.ts`, `components/content/single-post/PostBody/BlockRenderer.tsx`

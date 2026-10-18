@@ -198,6 +198,12 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
 
 ---
 
+### Corpo do post (`components/content/single-post/PostBody/`)
+
+> **Atualizado em 18/10/2026 (#84, ADR-016).** A descrição de `PostPage.tsx` logo abaixo é do protótipo. Hoje `app/post/[slug]/page.tsx` busca o post e os blocos (`getPostBlocks`) e o adaptador devolve uma lista de seções (`lib/blocks`: `sectionsFromBlocks`, cada título de nível 2 abre uma). `BlockRenderer` desenha um bloco; `RichText` é o único lugar que põe HTML de autor na página, depois do `sanitize-html`. Embed vira link, imagem de host desconhecido não é otimizada, e bloco desconhecido usa um fallback sanitizado. Sem o plugin, a página mostra o texto simples.
+
+---
+
 ### `PostPage.tsx` (~900 lines)
 - **Data dependencies**: `postData` object (hardcoded inline), `relatedPosts` array, `postComments` array. Also imports `posts` and `categoryColors` from `PostsGrid.tsx` to dynamically match the current post by URL slug.
 - **Internal components**: `ReadingProgress`, `TableOfContents`, `AuthorCard`, `PostCommentsSection`

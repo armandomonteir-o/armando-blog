@@ -352,6 +352,8 @@ query GetPosts($first: Int!, $after: String, $categorySlug: String) {
 
 ### Fetch single post
 
+> **Atualizado em 18/10/2026 (#84, ADR-016).** O corpo do post não vem mais de `content` nem do repeater `postSections`: vem de uma consulta própria, `getPostBlocks` (`editorBlocks(flat: false)`, do plugin WPGraphQL Content Blocks), em `lib/graphql/queries/posts.ts`. `content` só serve de texto simples quando o plugin falta. O bloco abaixo é o formato do protótipo.
+
 ```graphql
 query GetPost($slug: ID!) {
   post(id: $slug, idType: SLUG) {
