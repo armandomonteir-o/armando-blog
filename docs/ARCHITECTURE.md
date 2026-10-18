@@ -157,7 +157,7 @@ The `package.json` includes many more packages (shadcn/ui deps, MUI, etc.) but m
 | `next/font` | Optimized font loading | Built-in Next.js module. Replaces Google Fonts CSS import. Self-hosts fonts, eliminates FOUT. |
 | `@vercel/analytics` | Privacy-friendly analytics | Native Vercel integration. Add `<Analytics />` in root layout. |
 | `plausible-tracker` | Complementary analytics | Lightweight, cookie-free, GDPR-compliant. Alternative/complement to Vercel Analytics. |
-| `next-sitemap` | SEO: sitemap + robots.txt | Auto-generates at build time. Configure in `next-sitemap.config.js`. |
+| ~~`next-sitemap`~~ | SEO: sitemap + robots.txt | **Removed on 2026-10-18 (#126):** never configured, and its dependencies carried vulnerabilities. The sitemap will be native (`app/sitemap.ts`), #12. |
 | `graphql-request` | GraphQL client for WPGraphQL | Lightweight, works in RSC (React Server Components). |
 | `graphql` | GraphQL peer dependency | Required by `graphql-request`. |
 

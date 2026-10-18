@@ -108,7 +108,7 @@ Always check here before debugging something new — the answer may already be h
 
 **Date discovered**: 2026-09-26 (issue #76)
 **Symptom**: `TypeError: unstable_doesProxyMatch is not a function` when testing the `proxy.ts` matcher, following `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md`.
-**Root cause**: on Next 16.3.6 the docs shipped inside the package already use the new "proxy" name, but `next/experimental/testing/server` still exports the old one, `unstable_doesMiddlewareMatch`.
+**Root cause**: on Next 16.3.6 (still true on 16.4.2) the docs shipped inside the package already use the new "proxy" name, but `next/experimental/testing/server` still exports the old one, `unstable_doesMiddlewareMatch`.
 **Fix**: import `unstable_doesMiddlewareMatch`. When in doubt, the `.d.ts` files under `node_modules/next/dist/experimental/testing/server/` are the source of truth, not the docs.
 **Location**: `lib/auth/route-guard.test.ts`
 
@@ -152,3 +152,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: (1) WordPress counts only the posts assigned directly to a category, and WPGraphQL returns `count: null` for one with none, even though a query filtered by the parent returns the children's posts. (2) With a dynamic segment, Next 16 requires the second argument: the pattern alone is ambiguous.
 **Fix**: (1) `buildCategoryView` in `lib/categories.ts` sums the children and reads `null` as 0. (2) `revalidatePath(pattern, "page")`, as `app/api/revalidate/route.ts` does for both category routes; the docs in `node_modules/next/dist/docs/.../revalidatePath.md` are the reference.
 **Location**: `lib/categories.ts`, `app/api/revalidate/route.ts`
+
+---
+
+## PITFALL-016: `next start` on localhost answers 500 on `/api/auth/*` with `UntrustedHost`
+
+**Date discovered**: 2026-10-18 (issue #126)
+**Symptom**: after `npm run build && npm start` (or the Vercel build run locally), `/api/auth/providers` and `/api/auth/session` return 500. The log says `[auth][error] UntrustedHost: Host must be trusted`. It looks like a regression from a dependency upgrade, but it is not.
+**Root cause**: Auth.js trusts the host by itself on Vercel, and in `next dev`. In production mode anywhere else it refuses unknown hosts unless `AUTH_URL` or `AUTH_TRUST_HOST` is set.
+**Fix**: for a local check only, start with `AUTH_TRUST_HOST=true`. Do not set it in `.env.local` or on Vercel: production already works without it, and the `AUTH_URL` of a real domain will be needed after the move to `blog.armandomonteiro.com` (see `docs/ECOSYSTEM.md`).
+**Location**: `auth.ts`
