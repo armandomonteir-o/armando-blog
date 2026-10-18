@@ -1,4 +1,6 @@
-# Contribuindo
+# Como trabalhar neste repositório
+
+> Este repositório é público para consulta e **não aceita contribuições externas** (ver a licença e o ADR-019). Este guia descreve o fluxo do próprio dono, que também vale para quem trabalha aqui por ele, e mostra como o projeto é mantido.
 
 Leia antes: `CLAUDE.md` (regras do projeto), `docs/pitfalls/README.md` e o README. Uma issue por PR, branch `tipo/numero-slug`, commits `tipo: descrição` em português. Antes de abrir a PR: `npx tsc --noEmit`, `npm run lint`, `npm run format:check`, `npm test` e `npm run build`, e a documentação que a mudança afeta atualizada na mesma PR.
 

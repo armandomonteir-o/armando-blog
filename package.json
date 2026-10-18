@@ -4,7 +4,7 @@
   "private": true,
   "description": "Personal blog about art and digital technology: Next.js 16 + Headless WordPress.",
   "author": "Armando Monteiro",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "keywords": [
     "nextjs",
     "headless-wordpress",

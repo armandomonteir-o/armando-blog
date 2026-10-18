@@ -30,7 +30,7 @@ O WordPress é só o back-end (CMS e API). Quem o visitante vê é o Next.js na 
 | Item | Estado |
 |---|---|
 | URL pública | `https://armando-blog.vercel.app` **[confirmado]**, responde 200 |
-| Código | repositório `armandomonteir-o/armando-blog` (pasta local `blog-armandin`) **[confirmado]** |
+| Código | repositório `armandomonteir-o/armando-blog` (pasta local `blog-armandin`), público para consulta, **todos os direitos reservados** (não é open source, ADR-019) **[confirmado]** |
 | Stack | Next.js 16 (App Router), Tailwind v4, TypeScript, Zustand **[confirmado]** |
 | Deploy | automático a cada push, com preview por PR **[confirmado]**: o status "Vercel" aparece nas PRs |
 | CI | GitHub Actions: `npm audit` (produção falha em high/critical, desenvolvimento só avisa), type-check, lint, test e build **[confirmado]** |
