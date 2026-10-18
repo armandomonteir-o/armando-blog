@@ -50,7 +50,7 @@ The app does NOT use native window scroll. The scrollable element is `#main-scro
 - Always visible, blue background (#0347c1)
 - Contains: back button (desktop) / hamburger (mobile), search bar, notification bell, user avatars
 - Search dropdown appears inline below the search input; its results come from `GET /api/search` (debounced, cancellable), see `docs/COMPONENTS.md`
-- Notification panel drops down from bell icon
+- Notification panel drops down from bell icon. The bell is hidden unless `NEXT_PUBLIC_ENABLE_NOTIFICATIONS=true` (#151): the notifications are sample content
 - z-index: 50
 
 ## Routing Map

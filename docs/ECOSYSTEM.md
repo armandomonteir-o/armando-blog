@@ -51,6 +51,7 @@ Variáveis de ambiente que o front lê (só nomes):
 | `NEXT_PUBLIC_SITE_URL` | endereço público do site, usado nas URLs absolutas de `/sitemap.xml` e `/robots.txt` (#12). É opcional: sem ela vale `https://armando-blog.vercel.app` (`lib/site-url.ts`, o único lugar que a lê). Um valor sem `http://` ou `https://` é ignorado e cai no padrão. Entra no bundle no build, então mudar na Vercel só vale no deploy seguinte | Vercel (Production) quando o domínio mudar **[conferir]** se já existe lá; `.env.local` só se quiser testar outro endereço |
 | `NEXT_PUBLIC_VERCEL_URL`, `NEXT_PUBLIC_ENABLE_COMMENTS` | flag e URL pública | `.env.local`; **[conferir]** na Vercel |
 | `NEXT_PUBLIC_ENABLE_NEWSLETTER` | mostra o widget de newsletter; **só a string exata `true` liga**, e sem a variável ele fica escondido (#112). Entra no bundle no build, então mudar na Vercel só vale no deploy seguinte | `.env.local`; na Vercel **[conferir]**: se estiver `true`, o widget continua aparecendo e descartando o e-mail |
+| `NEXT_PUBLIC_ENABLE_NOTIFICATIONS` | mostra o sino de notificações do cabeçalho; **só a string exata `true` liga**, e sem a variável ele fica escondido (#151). As notificações são texto fixo no código, não existe sistema de notificações. Entra no bundle no build, então mudar na Vercel só vale no deploy seguinte | `.env.local`; na Vercel **[conferir]**: se estiver `true`, o sino continua aparecendo com notificações falsas |
 
 O Auth.js lê as três `AUTH_*` sozinho, sem aparecer no código. Foi por isso que a produção ficou com login quebrado (#91).
 

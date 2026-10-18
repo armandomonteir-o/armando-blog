@@ -13,6 +13,7 @@ import {
   type SearchResult,
   type SearchState,
 } from "@/lib/search";
+import { isNotificationsEnabled } from "@/lib/features";
 import { SearchPanel, SEARCH_LISTBOX_ID, searchOptionId } from "./SearchPanel";
 
 interface HeaderProps {
@@ -80,6 +81,8 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
+  // Hidden by default (#151): the notifications are sample content, see lib/features.ts.
+  const notificationsEnabled = isNotificationsEnabled();
   const unreadCount = notifications.filter((n) => n.unread).length;
 
   const searchResults: SearchResult[] = searchState.status === "done" ? searchState.results : [];
@@ -247,194 +250,202 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
 
       <div className="flex items-center gap-2 sm:gap-3 relative z-10 flex-shrink-0">
         {/* Bell + notification panel */}
-        <div ref={panelRef} className="relative">
-          <button
-            className="flex items-center justify-center w-9 h-9 relative cursor-pointer border-2 border-chrome-blue-accent text-chrome-blue-content"
-            style={{ backgroundColor: notifOpen ? "var(--chrome-blue)" : "var(--chrome-blue-mid)" }}
-            onClick={() => setNotifOpen((v) => !v)}
-            aria-label="Notificações"
-          >
-            <Bell size={15} />
-            {unreadCount > 0 && (
-              <div
-                className="absolute -top-1 -right-1 w-3 h-3"
-                style={{
-                  backgroundColor: "var(--chrome-green)",
-                  border: "1.5px solid var(--chrome-blue)",
-                }}
-              />
-            )}
-          </button>
-
-          {notifOpen && (
-            <div
-              className="absolute right-0 mt-2 flex flex-col"
+        {notificationsEnabled && (
+          <div ref={panelRef} className="relative">
+            <button
+              className="flex items-center justify-center w-9 h-9 relative cursor-pointer border-2 border-chrome-blue-accent text-chrome-blue-content"
               style={{
-                width: 310,
-                zIndex: 9999,
-                border: "2.5px solid var(--chrome-blue)",
-                boxShadow: "4px 4px 0px var(--chrome-blue)",
-                background:
-                  "linear-gradient(160deg, rgba(3,71,193,0.82) 0%, rgba(2,42,110,0.95) 100%)",
-                backdropFilter: "blur(18px)",
-                WebkitBackdropFilter: "blur(18px)",
+                backgroundColor: notifOpen ? "var(--chrome-blue)" : "var(--chrome-blue-mid)",
               }}
+              onClick={() => setNotifOpen((v) => !v)}
+              aria-label="Notificações"
             >
-              {/* Title bar */}
+              <Bell size={15} />
+              {unreadCount > 0 && (
+                <div
+                  className="absolute -top-1 -right-1 w-3 h-3"
+                  style={{
+                    backgroundColor: "var(--chrome-green)",
+                    border: "1.5px solid var(--chrome-blue)",
+                  }}
+                />
+              )}
+            </button>
+
+            {notifOpen && (
               <div
-                className="flex items-center justify-between px-3 py-1.5 flex-shrink-0"
+                className="absolute right-0 mt-2 flex flex-col"
                 style={{
-                  borderBottom: "2px solid var(--chrome-blue-accent)",
+                  width: 310,
+                  zIndex: 9999,
+                  border: "2.5px solid var(--chrome-blue)",
+                  boxShadow: "4px 4px 0px var(--chrome-blue)",
                   background:
-                    "linear-gradient(90deg, var(--chrome-blue-mid) 0%, var(--chrome-blue-accent) 60%, var(--chrome-blue-mid) 100%)",
+                    "linear-gradient(160deg, rgba(3,71,193,0.82) 0%, rgba(2,42,110,0.95) 100%)",
+                  backdropFilter: "blur(18px)",
+                  WebkitBackdropFilter: "blur(18px)",
                 }}
               >
-                <div className="flex items-center gap-2">
-                  <div className="flex gap-1">
-                    <span
-                      className="w-2.5 h-2.5 rounded-full"
-                      style={{ background: "#ff5f57", border: "1px solid #022a6e" }}
-                    />
-                    <span
-                      className="w-2.5 h-2.5 rounded-full"
-                      style={{ background: "#febc2e", border: "1px solid #022a6e" }}
-                    />
-                    <span
-                      className="w-2.5 h-2.5 rounded-full"
-                      style={{ background: "#28c840", border: "1px solid #022a6e" }}
-                    />
-                  </div>
-                  <span
-                    className="font-mono text-chrome-blue-content uppercase"
-                    style={{ fontSize: 10, letterSpacing: "0.12em" }}
-                  >
-                    NOTIFICAÇÕES
-                  </span>
-                  {unreadCount > 0 && (
-                    <span
-                      className="px-1.5 py-0.5 font-mono font-bold bg-chrome-green text-chrome-blue-dark border border-chrome-blue-dark"
-                      style={{ fontSize: 9 }}
-                    >
-                      {unreadCount} novo{unreadCount > 1 ? "s" : ""}
-                    </span>
-                  )}
-                </div>
-                <button
-                  onClick={markAllRead}
-                  className="font-mono text-chrome-blue-content underline cursor-pointer"
+                {/* Title bar */}
+                <div
+                  className="flex items-center justify-between px-3 py-1.5 flex-shrink-0"
                   style={{
-                    fontSize: 9,
-                    background: "transparent",
-                    border: "none",
-                    letterSpacing: "0.05em",
+                    borderBottom: "2px solid var(--chrome-blue-accent)",
+                    background:
+                      "linear-gradient(90deg, var(--chrome-blue-mid) 0%, var(--chrome-blue-accent) 60%, var(--chrome-blue-mid) 100%)",
                   }}
                 >
-                  marcar tudo lido
-                </button>
-              </div>
-
-              {/* Notification list */}
-              <div className="overflow-y-auto" style={{ maxHeight: 280 }}>
-                {notifications.map((n, i) => (
-                  <div
-                    key={n.id}
-                    className="flex items-start gap-3 px-3 py-2.5 cursor-pointer"
-                    style={{
-                      borderBottom:
-                        i < notifications.length - 1 ? "1px solid rgba(5,96,224,0.35)" : "none",
-                      background: n.unread ? "rgba(255,255,255,0.07)" : "transparent",
-                      transition: "background 0.15s",
-                    }}
-                    onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLDivElement).style.background =
-                        "rgba(255,255,255,0.12)")
-                    }
-                    onMouseLeave={(e) =>
-                      ((e.currentTarget as HTMLDivElement).style.background = n.unread
-                        ? "rgba(255,255,255,0.07)"
-                        : "transparent")
-                    }
-                    onClick={() =>
-                      setNotifications((prev) =>
-                        prev.map((x) => (x.id === n.id ? { ...x, unread: false } : x))
-                      )
-                    }
-                  >
-                    <div
-                      className="flex items-center justify-center flex-shrink-0 mt-0.5"
-                      style={{
-                        width: 28,
-                        height: 28,
-                        border: "1.5px solid var(--chrome-blue-accent)",
-                        background:
-                          "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.25), rgba(3,71,193,0.6))",
-                        fontSize: 13,
-                      }}
-                    >
-                      {n.icon}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span
-                          className="font-mono uppercase"
-                          style={{
-                            fontSize: 10,
-                            color: n.unread ? "#e0eeff" : "var(--chrome-blue-text-on-dark)",
-                            fontWeight: n.unread ? 700 : 400,
-                            letterSpacing: "0.04em",
-                          }}
-                        >
-                          {n.title}
-                        </span>
-                        {n.unread && (
-                          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-chrome-green" />
-                        )}
-                      </div>
-                      <p
-                        className="mt-0.5 truncate font-grotesk"
-                        style={{ fontSize: 11, color: "var(--chrome-blue-body)", lineHeight: 1.4 }}
-                      >
-                        {n.body}
-                      </p>
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1">
                       <span
-                        className="font-mono"
+                        className="w-2.5 h-2.5 rounded-full"
+                        style={{ background: "#ff5f57", border: "1px solid #022a6e" }}
+                      />
+                      <span
+                        className="w-2.5 h-2.5 rounded-full"
+                        style={{ background: "#febc2e", border: "1px solid #022a6e" }}
+                      />
+                      <span
+                        className="w-2.5 h-2.5 rounded-full"
+                        style={{ background: "#28c840", border: "1px solid #022a6e" }}
+                      />
+                    </div>
+                    <span
+                      className="font-mono text-chrome-blue-content uppercase"
+                      style={{ fontSize: 10, letterSpacing: "0.12em" }}
+                    >
+                      NOTIFICAÇÕES
+                    </span>
+                    {unreadCount > 0 && (
+                      <span
+                        className="px-1.5 py-0.5 font-mono font-bold bg-chrome-green text-chrome-blue-dark border border-chrome-blue-dark"
+                        style={{ fontSize: 9 }}
+                      >
+                        {unreadCount} novo{unreadCount > 1 ? "s" : ""}
+                      </span>
+                    )}
+                  </div>
+                  <button
+                    onClick={markAllRead}
+                    className="font-mono text-chrome-blue-content underline cursor-pointer"
+                    style={{
+                      fontSize: 9,
+                      background: "transparent",
+                      border: "none",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    marcar tudo lido
+                  </button>
+                </div>
+
+                {/* Notification list */}
+                <div className="overflow-y-auto" style={{ maxHeight: 280 }}>
+                  {notifications.map((n, i) => (
+                    <div
+                      key={n.id}
+                      className="flex items-start gap-3 px-3 py-2.5 cursor-pointer"
+                      style={{
+                        borderBottom:
+                          i < notifications.length - 1 ? "1px solid rgba(5,96,224,0.35)" : "none",
+                        background: n.unread ? "rgba(255,255,255,0.07)" : "transparent",
+                        transition: "background 0.15s",
+                      }}
+                      onMouseEnter={(e) =>
+                        ((e.currentTarget as HTMLDivElement).style.background =
+                          "rgba(255,255,255,0.12)")
+                      }
+                      onMouseLeave={(e) =>
+                        ((e.currentTarget as HTMLDivElement).style.background = n.unread
+                          ? "rgba(255,255,255,0.07)"
+                          : "transparent")
+                      }
+                      onClick={() =>
+                        setNotifications((prev) =>
+                          prev.map((x) => (x.id === n.id ? { ...x, unread: false } : x))
+                        )
+                      }
+                    >
+                      <div
+                        className="flex items-center justify-center flex-shrink-0 mt-0.5"
                         style={{
-                          fontSize: 9,
-                          color: "rgba(128,176,255,0.55)",
-                          letterSpacing: "0.06em",
+                          width: 28,
+                          height: 28,
+                          border: "1.5px solid var(--chrome-blue-accent)",
+                          background:
+                            "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.25), rgba(3,71,193,0.6))",
+                          fontSize: 13,
                         }}
                       >
-                        {n.time}
-                      </span>
+                        {n.icon}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="font-mono uppercase"
+                            style={{
+                              fontSize: 10,
+                              color: n.unread ? "#e0eeff" : "var(--chrome-blue-text-on-dark)",
+                              fontWeight: n.unread ? 700 : 400,
+                              letterSpacing: "0.04em",
+                            }}
+                          >
+                            {n.title}
+                          </span>
+                          {n.unread && (
+                            <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-chrome-green" />
+                          )}
+                        </div>
+                        <p
+                          className="mt-0.5 truncate font-grotesk"
+                          style={{
+                            fontSize: 11,
+                            color: "var(--chrome-blue-body)",
+                            lineHeight: 1.4,
+                          }}
+                        >
+                          {n.body}
+                        </p>
+                        <span
+                          className="font-mono"
+                          style={{
+                            fontSize: 9,
+                            color: "rgba(128,176,255,0.55)",
+                            letterSpacing: "0.06em",
+                          }}
+                        >
+                          {n.time}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
 
-              {/* Panel footer */}
-              <div
-                className="px-3 py-2 flex items-center justify-center"
-                style={{ borderTop: "2px solid var(--chrome-blue-accent)" }}
-              >
-                <button
-                  onClick={() => {
-                    markAllRead();
-                    setNotifOpen(false);
-                  }}
-                  className="font-mono text-chrome-blue-content uppercase underline cursor-pointer"
-                  style={{
-                    fontSize: 10,
-                    background: "transparent",
-                    border: "none",
-                    letterSpacing: "0.1em",
-                  }}
+                {/* Panel footer */}
+                <div
+                  className="px-3 py-2 flex items-center justify-center"
+                  style={{ borderTop: "2px solid var(--chrome-blue-accent)" }}
                 >
-                  marcar lidas e fechar →
-                </button>
+                  <button
+                    onClick={() => {
+                      markAllRead();
+                      setNotifOpen(false);
+                    }}
+                    className="font-mono text-chrome-blue-content uppercase underline cursor-pointer"
+                    style={{
+                      fontSize: 10,
+                      background: "transparent",
+                      border: "none",
+                      letterSpacing: "0.1em",
+                    }}
+                  >
+                    marcar lidas e fechar →
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
 
         {/* User area */}
         {session?.user ? (
