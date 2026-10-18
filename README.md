@@ -1,7 +1,7 @@
 # Armando — art & digital technology
 
 [![CI](https://github.com/armandomonteir-o/armando-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/armandomonteir-o/armando-blog/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![License: all rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey.svg)](./LICENSE)
 ![Next.js 16](https://img.shields.io/badge/Next.js-16-black)
 
 Personal blog by Armando Monteiro about art and digital technology.
@@ -85,6 +85,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 | Cache in two layers: ISR every hour plus on-demand revalidation | Pages are fast and static; WordPress pings the site, and the hourly rebuild covers a failed ping | [014](./docs/adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md) |
 
 | Security headers now, the CSP only reporting | `nosniff`, referrer, permissions and anti-framing are on; the CSP is `Report-Only` and keeps `'unsafe-inline'`, because a nonce would make every page dynamic and lose the cache above. The cost is a weaker CSP, and nothing collects the reports | [017](./docs/adr/ADR-017-cabecalhos-de-seguranca-e-csp-em-modo-relatorio.md) |
+| Public to read, not open source | The repository is public as a portfolio, under an all-rights-reserved license (it was MIT before). The cost: nobody can reuse the code without asking, and the repository does not take outside contributions | [019](./docs/adr/ADR-019-repositorio-publico-sem-licenca-aberta.md) |
 
 ## What is not done, and why
 
@@ -122,7 +123,7 @@ ROUTE_TEST_URL=http://localhost:3010 ROUTE_TEST_AUTH_SECRET=<same throwaway> npm
 
 ### Dependencies in CI
 
-CI runs `npm audit --omit=dev --audit-level=high` before everything else: a "high" or "critical" advisory in what ships to production turns it red. Development-only dependencies run the same audit as a warning, because tooling does not ship and an advisory with no fix would otherwise block every PR. Dependabot (`.github/dependabot.yml`) opens weekly PRs for npm and GitHub Actions, with minor and patch updates grouped in one PR and each major on its own. How to handle those PRs is in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+CI runs `npm audit --omit=dev --audit-level=high` before everything else: a "high" or "critical" advisory in what ships to production turns it red. Development-only dependencies run the same audit as a warning, because tooling does not ship and an advisory with no fix would otherwise block every PR. Dependabot (`.github/dependabot.yml`) opens weekly PRs for npm and GitHub Actions, with minor and patch updates grouped in one PR and each major on its own. How to handle those PRs is in [`docs/DEVELOPMENT.md`](./docs/DEVELOPMENT.md).
 
 The smoke test exists because login once returned 500 in production for weeks with a green build: the Auth.js variables were missing from Vercel (#91). Run it after changing environment variables or redeploying.
 
@@ -131,6 +132,7 @@ The smoke test exists because login once returned 500 in production for weeks wi
 All technical documentation lives in [`/docs`](./docs/):
 
 - [`ECOSYSTEM.md`](./docs/ECOSYSTEM.md) — hosting, domains, accounts and deploy flow
+- [`DEVELOPMENT.md`](./docs/DEVELOPMENT.md) — how work is done here: branches, commits, checks, Dependabot and `npm audit`
 - [`ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — layout system, routing, scroll behavior
 - [`DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) — colors, typography, CSS variables, dark mode
 - [`DATA-MODELS.md`](./docs/DATA-MODELS.md) — TypeScript interfaces, WP/ACF mapping
@@ -155,3 +157,7 @@ docs/          Project documentation
 ## Reference prototype
 
 The Figma Make prototype this interface was ported from lives in `Neobrutalist Art Blog Homepage/` (gitignored, local reference only). All visual decisions are derived from it. Do not change any styling without consulting it.
+
+## License
+
+All rights reserved. The repository is public so it can be read and evaluated, but it is not open source and does not accept outside contributions. See [`LICENSE`](./LICENSE) and [ADR-019](./docs/adr/ADR-019-repositorio-publico-sem-licenca-aberta.md).
