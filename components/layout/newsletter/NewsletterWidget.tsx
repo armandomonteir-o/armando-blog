@@ -4,8 +4,20 @@ import { useState } from "react";
 import { Mail, Bell, CheckCircle, Send } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { RetroWindow } from "@/components/ui/RetroWindow";
+import { isNewsletterEnabled } from "@/lib/features";
 
+// Hidden by default (#112): see lib/features.ts. The wrapper carries the spacing the call sites
+// used to add, so a hidden widget leaves no empty gap. It has no hooks, so it can return early.
 export function NewsletterWidget() {
+  if (!isNewsletterEnabled()) return null;
+  return (
+    <div className="mt-5">
+      <NewsletterForm />
+    </div>
+  );
+}
+
+function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [notifyId] = useState(() => Math.random().toString(36).substring(2, 8).toUpperCase());

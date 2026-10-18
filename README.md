@@ -40,7 +40,7 @@ The WordPress side (theme, plugin and deploy script) lives in the separate `blog
 
 | Route | Data |
 |---|---|
-| `/` (home) | **WordPress**, via WPGraphQL: the posts grid, the featured post (the pinned one, else the newest) and the latest approved comments, a section that stays hidden while there are none. The recommendations and the now-playing widget are fixed editorial content, and the "Ver Galeria" button does nothing yet |
+| `/` (home) | **WordPress**, via WPGraphQL: the posts grid, the featured post (the pinned one, else the newest) and the latest approved comments, a section that stays hidden while there are none. The recommendations and the now-playing widget are fixed editorial content, and the "Ver Galeria" button does nothing yet. The newsletter widget is hidden until it really stores e-mails (`NEXT_PUBLIC_ENABLE_NEWSLETTER`, #112) |
 | `/post/[slug]` | **WordPress**: the post, its comments and the related posts (same category). Reads and likes are not measured, so the page shows a dash |
 | comments, `/login`, `/minha-conta` | **WordPress** and Google OAuth |
 | `/posts` | **WordPress**: all posts (up to 100, paginated and filtered in the browser). Like the home, it is built ahead of time, so a new post appears after the next deploy (#68) |

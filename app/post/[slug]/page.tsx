@@ -209,9 +209,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               <ContactCTA />
             </div>
 
-            <div className="mt-5">
-              <NewsletterWidget />
-            </div>
+            <NewsletterWidget />
           </div>
         </div>
       </div>

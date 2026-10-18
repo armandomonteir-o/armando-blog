@@ -18,6 +18,7 @@ components/
 ### `Layout.tsx` (prototype)
 - **Purpose**: Root route component. Assembles Sidebar + Header + scrollable content area + Footer
 - **Props**: None (uses React Router Outlet)
+- **Newsletter**: o `NewsletterWidget` (home, post e subcategoria) fica **escondido por padrão** e só aparece com `NEXT_PUBLIC_ENABLE_NEWSLETTER=true` (`lib/features.ts`, #112), porque ainda descarta o e-mail. O `NewsletterModal` nem é montado.
 - **State**: `mobileOpen` (sidebar toggle), `notifyOpen` (newsletter modal), `scrollRef` (scroll container)
 - **Behavior**:
   - Root div: `flex h-screen w-full overflow-hidden`

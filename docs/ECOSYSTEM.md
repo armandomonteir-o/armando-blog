@@ -46,7 +46,8 @@ Variáveis de ambiente que o front lê (só nomes):
 | `REVALIDATE_SECRET` | segredo que o WordPress manda para `POST /api/revalidate`; sem ele a rota recusa todas as chamadas (503) | Vercel (Production) e `.env.local`; o mesmo valor vai na configuração do WordPress (etapa 3 da #68) |
 | `AUTH_SECRET` | cifra a sessão do Auth.js | Vercel (criada em 18/10, ver #91) |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | cliente OAuth do Google | Vercel (criadas em 18/10) |
-| `NEXT_PUBLIC_VERCEL_URL`, `NEXT_PUBLIC_ENABLE_COMMENTS`, `NEXT_PUBLIC_ENABLE_NEWSLETTER` | flags e URL pública | `.env.local`; **[conferir]** na Vercel |
+| `NEXT_PUBLIC_VERCEL_URL`, `NEXT_PUBLIC_ENABLE_COMMENTS` | flag e URL pública | `.env.local`; **[conferir]** na Vercel |
+| `NEXT_PUBLIC_ENABLE_NEWSLETTER` | mostra o widget de newsletter; **só a string exata `true` liga**, e sem a variável ele fica escondido (#112). Entra no bundle no build, então mudar na Vercel só vale no deploy seguinte | `.env.local`; na Vercel **[conferir]**: se estiver `true`, o widget continua aparecendo e descartando o e-mail |
 
 O Auth.js lê as três `AUTH_*` sozinho, sem aparecer no código. Foi por isso que a produção ficou com login quebrado (#91).
 
