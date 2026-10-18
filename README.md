@@ -126,7 +126,7 @@ ROUTE_TEST_URL=http://localhost:3010 ROUTE_TEST_AUTH_SECRET=<same throwaway> npm
 
 ### Coverage in CI
 
-CI runs the tests with coverage and fails if an area drops below its floor (overall 38% of lines, `lib/auth` and `lib/blocks` 95%, `lib/graphql` 75%, `lib/*.ts` 85%, `app/api` 35%). The floors sit just under what was measured on 2026-10-18 and only go up. There is no coverage badge: a live one needs an outside service, and a hand-written number would go stale.
+CI runs the tests with coverage and fails if an area drops below its floor (overall 45% of lines, `lib/auth`, `lib/blocks` and `lib/wp` 95%, `lib/graphql` 75%, `lib/*.ts` 90%, `app/api` 90%). The floors sit just under what was measured on 2026-10-18 and only go up. There is no coverage badge: a live one needs an outside service, and a hand-written number would go stale.
 
 ### Dependencies in CI
 

@@ -162,7 +162,7 @@ We don't test CSS. We test that components render correctly and behave as expect
 A mock written from an assumption proves nothing about the real service (PITFALL-014): test the real one at least once, and for a security guard, break the code on purpose to see the test fail.
 
 ### Coverage (measured since #130)
-`npm run test:coverage` runs the tests with coverage, and CI runs it instead of `npm test`. Measured on 2026-10-18: 41.6% of lines overall; `lib/auth` and `lib/blocks` 100%, `lib/graphql` 79%, `lib/` root 89%, `app/api` 40%, `lib/wp` 0%, and the screens and `components/` ~29%. The floors in `vitest.config.mts` sit just under those numbers (overall 38%, `lib/auth` and `lib/blocks` 95%, `lib/graphql` 75%, `lib/*.ts` 85%, `app/api` 35%), so a PR that lowers an area below its floor fails CI. Raise a floor when the coverage grows; never lower it to make a PR pass.
+`npm run test:coverage` runs the tests with coverage, and CI runs it instead of `npm test`. Measured on 2026-10-18 after #178: 49.1% of lines overall; `lib/auth`, `lib/blocks` and `lib/wp` 100%, `app/api` 94%, `lib/` root 92%, `lib/graphql` 79%, and the screens and `components/` ~28%. The floors in `vitest.config.mts` sit just under those numbers (overall 45%, `lib/auth` and `lib/blocks` 95%, `lib/wp` 95%, `app/api` 90%, `lib/*.ts` 90%, `lib/graphql` 75%), so a PR that lowers an area below its floor fails CI. Raise a floor when the coverage grows; never lower it to make a PR pass.
 - Goals the floors are walking toward: utility functions 90%+, WPGraphQL query functions 80%+
 - Page components: smoke tests (renders without crashing)
 - Critical E2E flows: Home → Post, Category → Post, Search
