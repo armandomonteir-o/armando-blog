@@ -1,6 +1,6 @@
 # Migration Guide: React SPA -> Next.js + Headless WordPress
 
-> **This is the plan, not a description of the code.** Where the two differ, the code wins. The cache section below is the original plan: what was actually decided and built is in [ADR-014](./adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md). Time-based ISR (one hour) is implemented; on-demand revalidation (`/api/revalidate`) is not yet (#68, steps 2 and 3).
+> **This is the plan, not a description of the code.** Where the two differ, the code wins. The cache section below is the original plan: what was actually decided and built is in [ADR-014](./adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md). Time-based ISR (one hour) is implemented; the on-demand route (`/api/revalidate`) exists, and the WordPress hook that calls it is not built yet (#68, step 3).
 
 ## Target Stack (2026 Best Practices)
 
@@ -11,7 +11,7 @@
 | **Styling** | Tailwind CSS v4 + inline styles (preserve current approach) |
 | **CMS** | WordPress (headless) + ACF PRO + WPGraphQL |
 | **Data Fetching** | `graphql-request` + React Server Components |
-| **Caching** | Next.js ISR (Incremental Static Regeneration) + on-demand revalidation. **Time-based ISR (1 hour) is implemented; on-demand revalidation is still planned** (see ADR-014 and #68) |
+| **Caching** | Next.js ISR (Incremental Static Regeneration) + on-demand revalidation. **Time-based ISR (1 hour) and the `/api/revalidate` route are implemented; the WordPress hook that calls it is still planned** (see ADR-014 and #68) |
 | **State Management** | **Zustand** (replaces React Context for global state) |
 | **Animation** | `motion` package (import from `motion/react`) |
 | **Icons** | `lucide-react` |

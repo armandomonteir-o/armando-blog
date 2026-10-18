@@ -43,6 +43,7 @@ Variáveis de ambiente que o front lê (só nomes):
 |---|---|---|
 | `WORDPRESS_API_URL` | endereço do endpoint WPGraphQL | Vercel (Production), `.env.local` e **variável do repositório no GitHub** (usada pelo CI; é uma URL pública, não segredo) |
 | `WP_APP_USER`, `WP_APP_PASSWORD` | credencial de aplicação do WordPress, para as rotas que escrevem (comentário, perfil) | Vercel e `.env.local` |
+| `REVALIDATE_SECRET` | segredo que o WordPress manda para `POST /api/revalidate`; sem ele a rota recusa todas as chamadas (503) | Vercel (Production) e `.env.local`; o mesmo valor vai na configuração do WordPress (etapa 3 da #68) |
 | `AUTH_SECRET` | cifra a sessão do Auth.js | Vercel (criada em 18/10, ver #91) |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | cliente OAuth do Google | Vercel (criadas em 18/10) |
 | `NEXT_PUBLIC_VERCEL_URL`, `NEXT_PUBLIC_ENABLE_COMMENTS`, `NEXT_PUBLIC_ENABLE_NEWSLETTER` | flags e URL pública | `.env.local`; **[conferir]** na Vercel |
@@ -90,7 +91,7 @@ O Auth.js lê as três `AUTH_*` sozinho, sem aparecer no código. Foi por isso q
 
 ## Como o conteúdo chega ao site (cache)
 
-A home, `/posts` e cada post são gerados no build e refeitos em segundo plano no máximo uma vez por hora (**[confirmado]**: `Revalidate 1h` na saída do `next build`, e `Cache-Control: s-maxage=3600` num servidor de produção). Post novo ou editado aparece em até uma hora, sem deploy. A decisão está no ADR-014. A revalidação sob demanda (o WordPress avisar o site quando algo muda) ainda não existe: são as etapas 2 e 3 da #68, e a 3 mexe no plugin do `blog-cms`.
+A home, `/posts` e cada post são gerados no build e refeitos em segundo plano no máximo uma vez por hora (**[confirmado]**: `Revalidate 1h` na saída do `next build`, e `Cache-Control: s-maxage=3600` num servidor de produção). Post novo ou editado aparece em até uma hora, sem deploy. A decisão está no ADR-014. A revalidação sob demanda (o WordPress avisar o site quando algo muda) tem a metade do site pronta: a rota `POST /api/revalidate` existe e recusa quem não manda o segredo **[confirmado]** (num servidor de produção local: home `HIT`, depois da chamada `MISS`, depois `HIT`). Falta a outra metade: o gancho no plugin do `blog-cms` que faz a chamada (etapa 3 da #68). Enquanto ela não existir, vale só a hora.
 
 ## Como o código chega em cada lugar
 
