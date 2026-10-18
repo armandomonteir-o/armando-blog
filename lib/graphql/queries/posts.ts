@@ -1,5 +1,5 @@
 import { wpQuery } from "../client";
-import type { WPPostsResponse, WPPostDetailResponse, WPPost, WPPostDetail } from "../types";
+import type { WPPostsResponse, WPPostDetailResponse, WPPostDetail } from "../types";
 
 const POST_FIELDS = /* GraphQL */ `
   fragment PostFields on Post {
