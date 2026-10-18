@@ -24,17 +24,18 @@ export default defineConfig({
         "constants/**/*.ts",
       ],
       exclude: ["**/*.test.ts", "**/*.d.ts", "**/*.live.test.ts"],
-      // Floors, set just under what was measured on 2026-10-18 (#130): a PR that lowers the
+      // Floors, set just under what was measured on 2026-10-18 (#130, raised by #178): a PR that lowers the
       // coverage of an area below its floor fails CI. Raise a floor when the coverage grows.
       // Areas not listed (components, most pages) have no floor of their own: they are layout and
       // are covered by smoke tests (see CLAUDE.md), only the overall floor applies.
       thresholds: {
-        lines: 38,
+        lines: 45,
         "lib/auth/**": { lines: 95 },
         "lib/blocks/**": { lines: 95 },
         "lib/graphql/**": { lines: 75 },
-        "lib/*.ts": { lines: 85 },
-        "app/api/**": { lines: 35 },
+        "lib/*.ts": { lines: 90 },
+        "lib/wp/**": { lines: 95 },
+        "app/api/**": { lines: 90 },
       },
     },
   },
