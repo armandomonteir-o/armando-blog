@@ -192,3 +192,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: `@vercel/analytics` loads the script from the same origin, `/_vercel/insights/script.js`, a path that only exists on Vercel. Locally it is a 404 with `text/plain`. In production the same URL answers 200 with `application/javascript` (checked with `curl -sI`), so `nosniff` is harmless there. The `va.vercel-scripts.com` host only appears in the library's debug mode.
 **Fix**: nothing to fix. Do not widen the CSP for it. `script-src 'self'` and `connect-src 'self'` cover Analytics in production; `va.vercel-scripts.com` and `vitals.vercel-insights.com` stay in the list only as a safety margin. To judge CSP violations locally, look only at messages that say "Content Security Policy".
 **Location**: `next.config.ts`, `app/layout.tsx`
+
+---
+
+## PITFALL-020: `npm test` fails with dozens of unrelated errors when a copy of the repository lives inside the project folder
+
+**Date discovered**: 2026-10-18
+**Symptom**: `npm test` reported 48 failures in tests nobody touched (the output was full of `import * as Tests from "./data/match-path-data"`), right after several parallel agents had finished their work. Run again on a clean checkout, the same code had zero failures.
+**Root cause**: the agents work in git worktrees under `.claude/worktrees/<name>/`, each with its own `node_modules`. Vitest's `exclude` only skipped the `node_modules` at the root, so it walked into the copies and ran the test files of the installed packages (and of the copied repository).
+**Fix**: `vitest.config.mts` excludes `**/node_modules/**` and `.claude/**`. Also remove a worktree when its PR is merged (`git worktree remove <path>`; the branch stays). `.claude/` is not in `.gitignore`, so do not `git add .` there.
+**Location**: `vitest.config.mts`

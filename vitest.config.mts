@@ -9,6 +9,8 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["**/*.test.ts"],
-    exclude: ["node_modules/**", ".next/**"],
+    // "**/node_modules/**" and ".claude/**": copies of the repo (agent worktrees) live inside
+    // .claude/ and bring their own node_modules; running their tests is not testing this code.
+    exclude: ["**/node_modules/**", ".next/**", ".claude/**"],
   },
 });

@@ -47,6 +47,7 @@ The WordPress side (theme, plugin and deploy script) lives in the separate `blog
 | `/posts` | **WordPress**: all posts (up to 100, paginated and filtered in the browser). Like the home, it is built ahead of time, so a new post appears after the next deploy (#68) |
 | `/categoria/...` | **WordPress**: which categories exist, their names and post counts, and the posts. The look of a category (colors, hero image, tags) is optional customisation in `data/categories.ts`; one without it gets a default look. A category the menu links to but WordPress doesn't have yet opens as an empty page, an unknown slug is a 404 ([ADR-015](./docs/adr/ADR-015-categorias-existem-no-wordpress-visual-no-codigo.md)) |
 | `/playlists` | mock, and the page says so on screen |
+| `/sobre` | **mock**: the bio, the skills, the timeline and the numbers on it (posts, views, comments) are fixed text written before the blog had content. Nothing on the page says so yet; reviewing it is #152 |
 | `/sitemap.xml`, `/robots.txt` | **WordPress** for the sitemap (post slugs, categories and subcategories, plus the fixed routes), rendered on each request so a WordPress failure is a 500 that is never cached. `robots.txt` allows the site, blocks `/api/` and points to the sitemap. Absolute URLs come from `NEXT_PUBLIC_SITE_URL` (#12) |
 
 ## How fresh the content is
@@ -88,7 +89,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 
 ## What is not done, and why
 
-- **`/playlists` is still mock**, and it says so on screen.
+- **`/playlists` is still mock**, and it says so on screen. **`/sobre` is mock too**, with made-up numbers and no warning on screen, until the copy review (#152).
 - **The category tree is minimal on purpose.** WordPress has only the categories the blog uses; the rest of the menu (Músicas, Filmes, Livros) opens as an empty page until there is something to put there.
 - **The search is a plain WordPress search over published posts**: up to 5 results by title, no pagination and no results page. The notifications bell in the header is hidden (`NEXT_PUBLIC_ENABLE_NOTIFICATIONS`, off by default) because its content was sample text, not real notifications (#151).
 - **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.

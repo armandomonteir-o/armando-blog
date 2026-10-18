@@ -34,7 +34,7 @@ O WordPress é só o back-end (CMS e API). Quem o visitante vê é o Next.js na 
 | Stack | Next.js 16 (App Router), Tailwind v4, TypeScript, Zustand **[confirmado]** |
 | Deploy | automático a cada push, com preview por PR **[confirmado]**: o status "Vercel" aparece nas PRs |
 | CI | GitHub Actions: `npm audit` (produção falha em high/critical, desenvolvimento só avisa), type-check, lint, test e build **[confirmado]** |
-| Dependabot | `.github/dependabot.yml` (npm e GitHub Actions, semanal, segundas, minor e patch agrupados) **[confirmado]** no arquivo; só abre PRs depois de entrar na `main` **[conferir]** na aba Insights → Dependency graph → Dependabot. Alertas e security updates ligados por API em 18/10/2026 **[confirmado]** (`dependabot_security_updates: enabled`) |
+| Dependabot | `.github/dependabot.yml` (npm e GitHub Actions, semanal, segundas, minor e patch agrupados) **[confirmado]**: depois de entrar na `main` ele abriu 6 PRs em 18/10/2026 (#159 a #164). As atualizações de menor risco entraram depois de testadas; o `graphql` 17 foi recusado porque o `graphql-request` 7.4.0 só aceita o `graphql` até a 16 (`npm ci` falha com ERESOLVE), e o Dependabot foi instruído a ignorar essa major, então **voltar a olhar quando o `graphql-request` aceitar a 17** **[confirmado]**. Alertas e security updates ligados por API em 18/10/2026 **[confirmado]** (`dependabot_security_updates: enabled`) |
 | Cabeçalhos de segurança | a Vercel manda o HSTS (`max-age=63072000; includeSubDomains; preload`) **[confirmado]** com `curl -sI` em 18/10/2026. O resto vem do `headers()` do `next.config.ts` (ADR-017): `nosniff`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options: DENY` e o CSP **só em Report-Only**. Confirmado em `next start` local, **[conferir]** em produção depois do deploy desta PR |
 | Plano da Vercel | **[conferir]** provavelmente Hobby (gratuito). Confira em Settings → Billing |
 | Domínio próprio apontando para a Vercel | ainda não. O destino será `blog.armandomonteiro.com` (ver "Endereços finais") |
@@ -116,7 +116,7 @@ A home, `/posts` e cada post são gerados no build e refeitos em segundo plano n
 
 1. **O README do `blog-cms` recomenda o que o ADR-006 proíbe.** Ele diz "GitHub OAuth (recommended)" para deploy. O ADR-003 diz o mesmo, e o ADR-006 o revogou depois que o deploy apagou o WordPress. Quem seguir o README destrói o site. Corrigido na PR #3 do `blog-cms`, já na main **[confirmado]** (commit `29571cf`).
 2. **O mesmo README citava `cms.armandomonteiro.com/graphql`**, que não existe no DNS. O endereço real de hoje é `armandomonteiro.com/graphql`.
-3. **Cache de 7 dias na resposta do GraphQL.** A resposta de `/graphql` vem com `cache-control: public, max-age=604800`. Pode ser o cache da Hostinger. Se for, isso explica conteúdo velho e pesa na decisão da #68. Vale confirmar antes de decidir a estratégia de cache.
+3. **Cache de 7 dias na resposta do GraphQL.** A resposta de `/graphql` vem com `cache-control: public, max-age=604800`. Pode ser o cache da Hostinger. A estratégia de cache do site já foi decidida (#68, ADR-014: ISR por hora mais aviso do WordPress), mas a origem desse `max-age` **[conferir]** na Hostinger.
 4. **O domínio raiz hoje é a API.** `armandomonteiro.com` serve o WordPress, que responde com `x-robots-tag: noindex` (correto para uma API), mas ele está reservado para o portfólio. Ver "Endereços finais".
 5. **Sem teste que olhe o ambiente publicado.** Cobertos por #103 (smoke test do login) e #104 (fluxo autenticado).
 
@@ -142,8 +142,6 @@ Se a ordem for trocada (raiz primeiro), a API do blog sai do ar. O passo 1 é o 
 ## Decisões em aberto (suas)
 
 - **Renovar o plano da Hostinger?** Depende do preço e de quando vence **[conferir]**. O plano agora hospeda o CMS do blog e, depois, o portfólio.
-- **Estratégia de cache (#68).**
-- **Manter `CLAUDE.md` e `AGENTS.md` versionados (#80).**
 - **O post de brincadeira `corrupted-post`:** sai ou continua como elemento fixo, sem se passar por post (#70).
 
 ## Checklist para você preencher (só o painel responde)
