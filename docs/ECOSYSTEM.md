@@ -105,6 +105,17 @@ A home, `/posts` e cada post são gerados no build e refeitos em segundo plano n
 
 `/sitemap.xml` e `/robots.txt` existem desde a #12 **[confirmado]** em um `next start` local contra o WordPress de produção: o sitemap listou 22 URLs e todas responderam 200. O sitemap é gerado a cada requisição (sem cache) a partir do WordPress; com o WordPress fora do ar ele responde 500 (verificado) e o `robots.txt`, que não depende dele, continua 200. O `robots.txt` bloqueia só `/api/`. **Enviar o sitemap ao Google Search Console** (critério de aceite da #12) **[conferir]**: só o dono da conta faz, e depende do domínio final.
 
+## Smoke test agendado (#131)
+
+O login respondeu 500 por semanas sem ninguém ver (#91), porque build e CI não olham o site no ar. Agora o workflow `.github/workflows/smoke.yml` roda o smoke test contra `https://armando-blog.vercel.app` **de hora em hora** (cron `17 * * * *`) e à mão (`workflow_dispatch`, aba Actions).
+
+- **O que ele confere** (`lib/smoke/site.test.ts` e `lib/auth/smoke.test.ts`, só rodam com `SMOKE_TEST=1`): home, `/posts`, o primeiro post do `/sitemap.xml` (o slug vem do sitemap, nunca fixo), um slug inexistente (404), `/api/auth/providers` com `google`, `POST /api/revalidate` sem segredo (401; 503 quer dizer `REVALIDATE_SECRET` ausente na Vercel), `/sitemap.xml`, `/robots.txt` e os cabeçalhos `x-content-type-options` e `x-frame-options`. A URL vem de `SMOKE_URL`. **[confirmado]**: o conjunto passou contra a produção e falhou (8 testes) apontado para uma URL errada, em 18/10/2026.
+- **Se falhar:** espera 90 s e repete uma vez (o WordPress da Hostinger oscila). Falhando de novo, abre a issue "Smoke test: o site em produção falhou" ou, se ela já estiver aberta, só comenta (uma issue, não uma por hora). A execução fica vermelha.
+- **Quando volta a passar:** o workflow fecha a issue com um comentário. Se o problema voltar, abre outra.
+- **Permissões:** `contents: read` e `issues: write`, com o `GITHUB_TOKEN` da própria execução. Não usa nenhum segredo nem variável do repositório.
+- **Limite:** o `schedule` só roda na branch padrão e o GitHub pode atrasar a execução em horas de pico (fora do controle). **[conferir]** que o repositório não pausou o agendamento: o GitHub desativa workflows agendados após 60 dias sem atividade no repositório.
+- **Ainda não provado em produção:** abrir a issue de verdade só se prova depois do merge **[conferir]**. Para provar: aba Actions, Smoke, "Run workflow", com o campo `url` apontando para algo errado (por exemplo `https://armando-blog.vercel.app/post/x`). Em uns 2 minutos a issue deve existir; o próximo disparo com `url` vazia (produção) a fecha.
+
 ## Como o código chega em cada lugar
 
 - **Front:** `git push` → Vercel faz o build e publica sozinha.
@@ -119,7 +130,7 @@ A home, `/posts` e cada post são gerados no build e refeitos em segundo plano n
 2. **O mesmo README citava `cms.armandomonteiro.com/graphql`**, que não existe no DNS. O endereço real de hoje é `armandomonteiro.com/graphql`.
 3. **Cache de 7 dias na resposta do GraphQL.** A resposta de `/graphql` vem com `cache-control: public, max-age=604800`. Pode ser o cache da Hostinger. A estratégia de cache do site já foi decidida (#68, ADR-014: ISR por hora mais aviso do WordPress), mas a origem desse `max-age` **[conferir]** na Hostinger.
 4. **O domínio raiz hoje é a API.** `armandomonteiro.com` serve o WordPress, que responde com `x-robots-tag: noindex` (correto para uma API), mas ele está reservado para o portfólio. Ver "Endereços finais".
-5. **Sem teste que olhe o ambiente publicado.** Cobertos por #103 (smoke test do login) e #104 (fluxo autenticado).
+5. **Teste que olhe o ambiente publicado.** O smoke test (login, #103) e a verificação por hora (#131, abaixo) cobrem o site no ar. Falta o fluxo autenticado (#104).
 
 ## Endereços finais (decidido em 18/10/2026)
 
