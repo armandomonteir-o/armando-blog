@@ -102,7 +102,9 @@ npm run dev      # http://localhost:3000
 npm test                          # unit tests, offline
 SMOKE_TEST=1 npm test             # also checks that login works on the published site
 SMOKE_TEST=1 SMOKE_URL=https://<preview>.vercel.app npm test   # same, against a preview
-WP_LIVE_TEST=1 npm test           # also checks the queries against the real WordPress schema
+WP_LIVE_TEST=1 npm test           # also checks the queries against the real WordPress schema and runs the
+                                  # comment moderation flow (needs WP_APP_USER and WP_APP_PASSWORD; it creates
+                                  # a test comment and always deletes it)
 ```
 
 The smoke test exists because login once returned 500 in production for weeks with a green build: the Auth.js variables were missing from Vercel (#91). Run it after changing environment variables or redeploying.
