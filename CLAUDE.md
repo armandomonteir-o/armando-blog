@@ -134,6 +134,8 @@ docs: add ADR-006 for GraphQL client choice
 refactor: extract categoryColors to constants file
 ```
 
+The format is **enforced** by a `commit-msg` hook (commitlint, `commitlint.config.mjs`), and a `pre-commit` hook runs Prettier and ESLint on the staged files only (#133). Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`; header up to 150 characters. A rejected commit means fix the message or the file, never `--no-verify` unless the hook itself is broken (see `docs/DEVELOPMENT.md`).
+
 ### Authorship
 
 No AI attribution anywhere in the repository: not in commits, PRs, issues or ADRs. Commit messages follow the pattern above, in Portuguese. Use `closes #N` only when the PR really closes the issue, and `Refs #N` otherwise (GitHub closes an issue on any "Closes ... #N" in the text, even in a sentence that says it will not).
@@ -154,14 +156,14 @@ We don't test CSS. We test that components render correctly and behave as expect
 ### Stack
 - **Vitest**, in a Node environment: unit and integration tests, run with `npm test` (offline, in CI).
 - **CI also audits dependencies:** `npm audit --omit=dev --audit-level=high` fails the build on a high or critical advisory in production; the same audit over dev dependencies is a warning only. Dependabot (`.github/dependabot.yml`) opens weekly grouped PRs. See `docs/DEVELOPMENT.md`.
-- **Opt-in live tests** that touch real services, off by default: `WP_LIVE_TEST=1` (WordPress schema and the comment moderation flow), `SMOKE_TEST=1` (login on the published site) and `ROUTE_TEST_URL` (the comment route with a session made inside the test). See the Tests section of `README.md`.
+- **Opt-in live tests** that touch real services, off by default: `WP_LIVE_TEST=1` (WordPress schema and the comment moderation flow), `SMOKE_TEST=1` (the published site: pages, 404, login, revalidate guard, sitemap, headers; also run every hour by `.github/workflows/smoke.yml`, #131) and `ROUTE_TEST_URL` (the comment route with a session made inside the test). See the Tests section of `README.md`.
 - **Not installed yet:** `@testing-library/react` (component tests) and **Playwright** (E2E and visual regression, #104).
 
 A mock written from an assumption proves nothing about the real service (PITFALL-014): test the real one at least once, and for a security guard, break the code on purpose to see the test fail.
 
-### Coverage targets (goals, not measured yet)
-- Utility functions: 90%+
-- WPGraphQL query functions: 80%+
+### Coverage (measured since #130)
+`npm run test:coverage` runs the tests with coverage, and CI runs it instead of `npm test`. Measured on 2026-10-18: 41.6% of lines overall; `lib/auth` and `lib/blocks` 100%, `lib/graphql` 79%, `lib/` root 89%, `app/api` 40%, `lib/wp` 0%, and the screens and `components/` ~29%. The floors in `vitest.config.mts` sit just under those numbers (overall 38%, `lib/auth` and `lib/blocks` 95%, `lib/graphql` 75%, `lib/*.ts` 85%, `app/api` 35%), so a PR that lowers an area below its floor fails CI. Raise a floor when the coverage grows; never lower it to make a PR pass.
+- Goals the floors are walking toward: utility functions 90%+, WPGraphQL query functions 80%+
 - Page components: smoke tests (renders without crashing)
 - Critical E2E flows: Home → Post, Category → Post, Search
 

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 //   SMOKE_TEST=1 npm test                                  (checks production)
 //   SMOKE_TEST=1 SMOKE_URL=https://<preview>.vercel.app npm test
 const smoke = process.env.SMOKE_TEST === "1";
-const baseUrl = (process.env.SMOKE_URL ?? "https://armando-blog.vercel.app").replace(/\/$/, "");
+const baseUrl = (process.env.SMOKE_URL || "https://armando-blog.vercel.app").replace(/\/$/, "");
 
 describe.runIf(smoke)(`auth config on ${baseUrl}`, () => {
   it("lists the google provider", async () => {

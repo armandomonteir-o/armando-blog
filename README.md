@@ -95,7 +95,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 - **The search is a plain WordPress search over published posts**: up to 5 results by title, no pagination and no results page. The notifications bell in the header is hidden (`NEXT_PUBLIC_ENABLE_NOTIFICATIONS`, off by default) because its content was sample text, not real notifications (#151).
 - **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.
 - **Reads and likes are not measured**, so the post page shows a dash instead of a made-up number.
-- **The request limit is per IP, not per user** (#136, ADR-018), and the avatar upload only checks the 2 MB size, not the real file type.
+- **The request limit is per IP, not per user** (#136, ADR-018), and the avatar upload checks the 2 MB size and the file type that the browser declares (`image/*`), which a client can fake; it never looks at the real content, so the only other guard is WordPress's own upload rules.
 - **The CSP is not enforced yet.** It ships as `Content-Security-Policy-Report-Only` until a real Google sign-in on production shows no violation in the browser console (#135).
 - **No custom domain yet.** The target addresses and the order of the migration are in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md).
 
@@ -113,7 +113,8 @@ npm run dev      # http://localhost:3000
 
 ```bash
 npm test                          # unit tests, offline
-SMOKE_TEST=1 npm test             # also checks that login works on the published site
+npm run test:coverage             # the same tests with coverage; fails below the floors in vitest.config.mts (CI runs this)
+SMOKE_TEST=1 npm test             # also checks the published site: pages, 404, login, revalidate guard, sitemap, headers
 SMOKE_TEST=1 SMOKE_URL=https://<preview>.vercel.app npm test   # same, against a preview
 WP_LIVE_TEST=1 npm test           # also checks the queries against the real WordPress schema and runs the
                                   # comment moderation flow (needs WP_APP_USER and WP_APP_PASSWORD; it creates
@@ -123,9 +124,15 @@ AUTH_SECRET=<throwaway> npm run dev -- -p 3010
 ROUTE_TEST_URL=http://localhost:3010 ROUTE_TEST_AUTH_SECRET=<same throwaway> npm test
 ```
 
+### Coverage in CI
+
+CI runs the tests with coverage and fails if an area drops below its floor (overall 38% of lines, `lib/auth` and `lib/blocks` 95%, `lib/graphql` 75%, `lib/*.ts` 85%, `app/api` 35%). The floors sit just under what was measured on 2026-10-18 and only go up. There is no coverage badge: a live one needs an outside service, and a hand-written number would go stale.
+
 ### Dependencies in CI
 
 CI runs `npm audit --omit=dev --audit-level=high` before everything else: a "high" or "critical" advisory in what ships to production turns it red. Development-only dependencies run the same audit as a warning, because tooling does not ship and an advisory with no fix would otherwise block every PR. Dependabot (`.github/dependabot.yml`) opens weekly PRs for npm and GitHub Actions, with minor and patch updates grouped in one PR and each major on its own. How to handle those PRs is in [`docs/DEVELOPMENT.md`](./docs/DEVELOPMENT.md).
+
+A scheduled workflow (`.github/workflows/smoke.yml`, every hour and by hand from the Actions tab) runs the smoke test against production, retries once after 90 s, and only then opens one issue (or comments on the open one); it closes the issue when the test passes again (#131, details in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md)).
 
 The smoke test exists because login once returned 500 in production for weeks with a green build: the Auth.js variables were missing from Vercel (#91). Run it after changing environment variables or redeploying.
 
@@ -142,6 +149,9 @@ All technical documentation lives in [`/docs`](./docs/):
 - [`COMPONENTS.md`](./docs/COMPONENTS.md) — component catalog with data dependencies
 - [`adr/`](./docs/adr/) — architecture decision records
 - [`pitfalls/`](./docs/pitfalls/) — known gotchas and non-obvious behavior
+- [`learnings/`](./docs/learnings/) — study notes on the techniques used here
+
+To report a vulnerability, see [`SECURITY.md`](./SECURITY.md), at the repository root where GitHub looks for it.
 
 ## Repository structure
 
