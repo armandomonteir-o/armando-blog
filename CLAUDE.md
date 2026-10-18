@@ -134,6 +134,8 @@ docs: add ADR-006 for GraphQL client choice
 refactor: extract categoryColors to constants file
 ```
 
+The format is **enforced** by a `commit-msg` hook (commitlint, `commitlint.config.mjs`), and a `pre-commit` hook runs Prettier and ESLint on the staged files only (#133). Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`; header up to 150 characters. A rejected commit means fix the message or the file, never `--no-verify` unless the hook itself is broken (see `docs/DEVELOPMENT.md`).
+
 ### Authorship
 
 No AI attribution anywhere in the repository: not in commits, PRs, issues or ADRs. Commit messages follow the pattern above, in Portuguese. Use `closes #N` only when the PR really closes the issue, and `Refs #N` otherwise (GitHub closes an issue on any "Closes ... #N" in the text, even in a sentence that says it will not).

@@ -25,3 +25,13 @@ Como tratar uma PR do Dependabot:
 - **Produção** (`npm audit --omit=dev --audit-level=high`): falha com advisory "high" ou "critical". Corrija atualizando o pacote; se o pacote vulnerável for transitivo e o dono ainda não publicou a correção, use `overrides` no `package.json` com uma PR que explique o motivo.
 - **Desenvolvimento** (mesmo comando sem `--omit=dev`): só gera um aviso (`::warning`) no log, não falha. Hoje há avisos de ferramenta de lint, que não vai para produção.
 - Advisory sem correção disponível bloqueia o CI. Não há lista de exceções: o `npm audit` não tem suporte nativo e criar uma exigiria script próprio. Se acontecer, resolva com `overrides`, ou troque o pacote, e registre em `docs/pitfalls/README.md`.
+
+## Ganchos de commit (Husky)
+
+Depois do `npm install` (o script `prepare` liga o Husky), dois ganchos rodam em todo commit:
+
+- **`pre-commit`:** `lint-staged` roda o Prettier e o ESLint (`--fix`) **só nos arquivos que entram no commit**. Um arquivo mal formatado é corrigido na hora; um erro de ESLint que não se corrige sozinho recusa o commit. Não roda `tsc` nem os testes (isso trava o fluxo; ficam para o CI e para o `npm test` antes da PR).
+- **`commit-msg`:** `commitlint` exige `tipo: descrição`, com os tipos `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore` e `revert`, e cabeçalho de até 150 caracteres. O texto vai em português. Commits de merge do Git e do GitHub são ignorados. As regras estão em `commitlint.config.mjs`, testadas em `commitlint.config.test.ts`.
+
+**Saída de emergência:** `git commit --no-verify` pula os dois. O CI (`format:check`, `lint`, `test` e `build`) pega o que passar, então use só quando o gancho atrapalhar de verdade. Os ganchos só valem depois de um `npm install` sem `--ignore-scripts`.
+
