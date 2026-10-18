@@ -113,6 +113,10 @@ AUTH_SECRET=<throwaway> npm run dev -- -p 3010
 ROUTE_TEST_URL=http://localhost:3010 ROUTE_TEST_AUTH_SECRET=<same throwaway> npm test
 ```
 
+### Dependencies in CI
+
+CI runs `npm audit --omit=dev --audit-level=high` before everything else: a "high" or "critical" advisory in what ships to production turns it red. Development-only dependencies run the same audit as a warning, because tooling does not ship and an advisory with no fix would otherwise block every PR. Dependabot (`.github/dependabot.yml`) opens weekly PRs for npm and GitHub Actions, with minor and patch updates grouped in one PR and each major on its own. How to handle those PRs is in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
 The smoke test exists because login once returned 500 in production for weeks with a green build: the Auth.js variables were missing from Vercel (#91). Run it after changing environment variables or redeploying.
 
 ## Documentation

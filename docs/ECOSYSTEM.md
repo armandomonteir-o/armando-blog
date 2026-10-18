@@ -33,7 +33,8 @@ O WordPress é só o back-end (CMS e API). Quem o visitante vê é o Next.js na 
 | Código | repositório `armandomonteir-o/armando-blog` (pasta local `blog-armandin`) **[confirmado]** |
 | Stack | Next.js 16 (App Router), Tailwind v4, TypeScript, Zustand **[confirmado]** |
 | Deploy | automático a cada push, com preview por PR **[confirmado]**: o status "Vercel" aparece nas PRs |
-| CI | GitHub Actions: type-check, lint, test e build **[confirmado]** |
+| CI | GitHub Actions: `npm audit` (produção falha em high/critical, desenvolvimento só avisa), type-check, lint, test e build **[confirmado]** |
+| Dependabot | `.github/dependabot.yml` (npm e GitHub Actions, semanal, segundas, minor e patch agrupados) **[confirmado]** no arquivo; só abre PRs depois de entrar na `main` **[conferir]** na aba Insights → Dependency graph → Dependabot. Alertas e security updates ligados por API em 18/10/2026 **[confirmado]** (`dependabot_security_updates: enabled`) |
 | Plano da Vercel | **[conferir]** provavelmente Hobby (gratuito). Confira em Settings → Billing |
 | Domínio próprio apontando para a Vercel | ainda não. O destino será `blog.armandomonteiro.com` (ver "Endereços finais") |
 
