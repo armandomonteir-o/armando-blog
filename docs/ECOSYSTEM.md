@@ -91,7 +91,7 @@ O Auth.js lê as três `AUTH_*` sozinho, sem aparecer no código. Foi por isso q
 
 ## Como o conteúdo chega ao site (cache)
 
-A home, `/posts` e cada post são gerados no build e refeitos em segundo plano no máximo uma vez por hora (**[confirmado]**: `Revalidate 1h` na saída do `next build`, e `Cache-Control: s-maxage=3600` num servidor de produção). Post novo ou editado aparece em até uma hora, sem deploy. A decisão está no ADR-014. A revalidação sob demanda (o WordPress avisar o site quando algo muda) tem a metade do site pronta: a rota `POST /api/revalidate` existe e recusa quem não manda o segredo **[confirmado]** (num servidor de produção local: home `HIT`, depois da chamada `MISS`, depois `HIT`). Falta a outra metade: o gancho no plugin do `blog-cms` que faz a chamada (etapa 3 da #68). Enquanto ela não existir, vale só a hora.
+A home, `/posts` e cada post são gerados no build e refeitos em segundo plano no máximo uma vez por hora (**[confirmado]**: `Revalidate 1h` na saída do `next build`, e `Cache-Control: s-maxage=3600` num servidor de produção). Post novo ou editado aparece em até uma hora, sem deploy. A decisão está no ADR-014. Além da hora, o WordPress **avisa o site** quando um post ou comentário muda, e as páginas afetadas são refeitas em segundos **[confirmado]** em produção em 18/10/2026: um post publicado apareceu na lista em 1,3 s, um slug renomeado virou 404 em 0,9 s, um comentário aprovado apareceu na home em 2,8 s (detalhes no ADR-014). A rota é `POST /api/revalidate` no site (protegida por `REVALIDATE_SECRET`), e quem chama é o plugin `armando-headless-plugin` (`includes/revalidate.php`, ADR-007 do `blog-cms`), que lê duas constantes do `wp-config.php` do servidor: `ARMANDO_REVALIDATE_URL` e `ARMANDO_REVALIDATE_SECRET`. Se o aviso falhar, o WordPress registra uma linha `[armando-revalidate]` no log de erros do PHP, e o site se atualiza sozinho em até uma hora.
 
 ## Como o código chega em cada lugar
 
@@ -123,6 +123,7 @@ A home, `/posts` e cada post são gerados no build e refeitos em segundo plano n
 2. Atualizar `WORDPRESS_API_URL` na Vercel e o `hostname` em `remotePatterns` no `next.config.ts` (as imagens vêm do WordPress).
 3. Apontar `blog.armandomonteiro.com` para a Vercel (registro CNAME no DNS) e cadastrar o domínio no projeto da Vercel.
 4. No Google Cloud, cadastrar `https://blog.armandomonteiro.com/api/auth/callback/google` nas URIs de redirecionamento. Sem isso o login falha com `redirect_uri_mismatch`.
+   **Também, no servidor do WordPress:** trocar a constante `ARMANDO_REVALIDATE_URL` do `wp-config.php` para `https://blog.armandomonteiro.com/api/revalidate` (`wp config set ARMANDO_REVALIDATE_URL <url> --type=constant`). Se isso for esquecido, o aviso continua indo para o endereço antigo, a falha só aparece no log, e o site vale só a hora.
 5. Só então apontar o domínio raiz para o portfólio.
 
 Se a ordem for trocada (raiz primeiro), a API do blog sai do ar. O passo 1 é o de maior risco e precisa de backup antes.
