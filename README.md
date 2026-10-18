@@ -142,6 +142,9 @@ All technical documentation lives in [`/docs`](./docs/):
 - [`COMPONENTS.md`](./docs/COMPONENTS.md) — component catalog with data dependencies
 - [`adr/`](./docs/adr/) — architecture decision records
 - [`pitfalls/`](./docs/pitfalls/) — known gotchas and non-obvious behavior
+- [`learnings/`](./docs/learnings/) — study notes on the techniques used here
+
+To report a vulnerability, see [`SECURITY.md`](./SECURITY.md), at the repository root where GitHub looks for it.
 
 ## Repository structure
 
