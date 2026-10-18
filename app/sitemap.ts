@@ -8,8 +8,9 @@ import { absoluteUrl } from "@/lib/site-url";
 // and nothing is stored. Crawlers fetch it rarely, so the cost is a few GraphQL queries.
 export const dynamic = "force-dynamic";
 
-// Only routes that really answer 200. /login and /minha-conta are not public content.
-const FIXED_PATHS = ["/", "/posts", "/sobre", "/playlists"];
+// Only routes that answer 200 with real content. /login and /minha-conta are not public content,
+// and /playlists stays out while it is mock data.
+const FIXED_PATHS = ["/", "/posts", "/sobre"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // No try/catch on purpose, like the pages: a failure must not become a smaller sitemap.

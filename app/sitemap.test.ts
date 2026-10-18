@@ -32,7 +32,6 @@ describe("sitemap", () => {
       BASE,
       `${BASE}/posts`,
       `${BASE}/sobre`,
-      `${BASE}/playlists`,
       `${BASE}/post/ola`,
       `${BASE}/post/outro`,
       `${BASE}/categoria/games`,
