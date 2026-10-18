@@ -26,6 +26,49 @@ export function normalizeSearchTerm(raw: string): NormalizedTerm {
   return { ok: true, term };
 }
 
+// Keyboard: arrow keys move the highlighted result and wrap around at both ends.
+export function moveActive(current: number, delta: number, length: number): number {
+  if (length <= 0) return 0;
+  return (((current + delta) % length) + length) % length;
+}
+
+// One character at a time, so a folded string keeps the same length as the original and the
+// indexes found in one can be cut from the other. A character whose fold changes the length stays
+// as it is.
+function fold(text: string): string {
+  return Array.from(text)
+    .map((ch) => {
+      const f = ch.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+      return f.length === ch.length ? f : ch;
+    })
+    .join("");
+}
+
+export interface HighlightPart {
+  text: string;
+  match: boolean;
+}
+
+// Cuts `text` into pieces and marks the ones that match any word of `term`, ignoring case and
+// accents. The text of each piece is the original, never the folded one.
+export function splitHighlight(text: string, term: string): HighlightPart[] {
+  const words = fold(term).split(/\s+/).filter(Boolean);
+  const folded = fold(text);
+  const marked = new Array<boolean>(text.length).fill(false);
+  for (const word of words) {
+    for (let at = folded.indexOf(word); at !== -1; at = folded.indexOf(word, at + word.length)) {
+      marked.fill(true, at, at + word.length);
+    }
+  }
+  const parts: HighlightPart[] = [];
+  for (let i = 0; i < text.length; i++) {
+    const last = parts[parts.length - 1];
+    if (last && last.match === marked[i]) last.text += text[i];
+    else parts.push({ text: text[i], match: marked[i] });
+  }
+  return parts;
+}
+
 // The browser asks our own route, never WordPress.
 export async function fetchSearchResults(
   term: string,

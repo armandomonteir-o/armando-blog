@@ -3,7 +3,9 @@ import {
   SEARCH_MAX_LENGTH,
   SEARCH_MIN_LENGTH,
   createSearchRunner,
+  moveActive,
   normalizeSearchTerm,
+  splitHighlight,
   type SearchResult,
   type SearchState,
 } from "./search";
@@ -136,5 +138,46 @@ describe("createSearchRunner", () => {
     await vi.advanceTimersByTimeAsync(1000);
     expect(calls).toEqual([]);
     expect(states.length).toBe(seen);
+  });
+});
+
+describe("moveActive", () => {
+  it("moves down and up, wrapping at both ends", () => {
+    expect(moveActive(0, 1, 3)).toBe(1);
+    expect(moveActive(2, 1, 3)).toBe(0);
+    expect(moveActive(0, -1, 3)).toBe(2);
+  });
+
+  it("stays at 0 when there is nothing to move through", () => {
+    expect(moveActive(0, 1, 0)).toBe(0);
+    expect(moveActive(0, -1, 0)).toBe(0);
+  });
+});
+
+describe("splitHighlight", () => {
+  const join = (parts: { text: string; match: boolean }[]) => parts.map((p) => p.text).join("");
+
+  it("marks every word of the term, ignoring case", () => {
+    const parts = splitHighlight("Lorem Ipsum: Pixel Art 2", "pixel lorem");
+    expect(parts.filter((p) => p.match).map((p) => p.text)).toEqual(["Lorem", "Pixel"]);
+    expect(join(parts)).toBe("Lorem Ipsum: Pixel Art 2");
+  });
+
+  it("ignores accents, keeping the original text", () => {
+    const parts = splitHighlight("Programação Criativa", "programacao");
+    expect(parts[0]).toEqual({ text: "Programação", match: true });
+    expect(join(parts)).toBe("Programação Criativa");
+  });
+
+  it("treats regex characters in the term as plain text", () => {
+    expect(splitHighlight("a (b) c", "(b)")).toEqual([
+      { text: "a ", match: false },
+      { text: "(b)", match: true },
+      { text: " c", match: false },
+    ]);
+  });
+
+  it("returns the whole text unmarked when nothing matches", () => {
+    expect(splitHighlight("Habbo 1", "zzz")).toEqual([{ text: "Habbo 1", match: false }]);
   });
 });
