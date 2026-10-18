@@ -158,12 +158,14 @@ To report a vulnerability, see [`SECURITY.md`](./SECURITY.md), at the repository
 ```
 app/           Next.js App Router (pages and layouts)
 components/    Shared React components
-lib/           GraphQL client, queries, adapters, WordPress helpers, design tokens
+lib/           GraphQL client, queries, adapters, WordPress helpers, design tokens, `env.ts` (environment check), `search.ts`, `site-url.ts`, smoke tests (`lib/smoke`)
 store/         Zustand stores
 constants/     Shared lookup tables (categoryColors, navigation) and the mock post list
 data/          Mock content for the routes not yet on WordPress
 styles/        CSS custom properties and global styles
 docs/          Project documentation
+.github/       CI, the hourly smoke test and Dependabot
+.husky/        Commit hooks (Prettier and ESLint on staged files, commitlint)
 ```
 
 ## Reference prototype

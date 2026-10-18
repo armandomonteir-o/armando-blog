@@ -227,6 +227,6 @@ Blob URLs (`blob:http://...`) e data URIs não podem ser processados pelo optimi
 
 - [Auth.js v5 docs](https://authjs.dev/)
 - [WPGraphQL createComment mutation](https://www.wpgraphql.com/)
-- [Next.js 16 — proxy.ts file convention](../node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md)
-- [ADR-012 — JWT avatarUrl cache e token migration](../docs/adr/ADR-012-jwt-avatarurl-cache-and-token-migration.md)
-- [Pitfalls do projeto](../docs/pitfalls/README.md)
+- [Next.js 16 — proxy.ts file convention](../../node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md)
+- [ADR-012 — JWT avatarUrl cache e token migration](../adr/ADR-012-jwt-avatarurl-cache-and-token-migration.md)
+- [Pitfalls do projeto](../pitfalls/README.md)

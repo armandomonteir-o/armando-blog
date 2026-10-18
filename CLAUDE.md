@@ -154,7 +154,7 @@ No AI attribution anywhere in the repository: not in commits, PRs, issues or ADR
 We don't test CSS. We test that components render correctly and behave as expected.
 
 ### Stack
-- **Vitest**, in a Node environment: unit and integration tests, run with `npm test` (offline, in CI).
+- **Vitest**, in a Node environment: unit and integration tests, run with `npm test` (offline). CI runs `npm run test:coverage`, the same tests plus the coverage floors.
 - **CI also audits dependencies:** `npm audit --omit=dev --audit-level=high` fails the build on a high or critical advisory in production; the same audit over dev dependencies is a warning only. Dependabot (`.github/dependabot.yml`) opens weekly grouped PRs. See `docs/DEVELOPMENT.md`.
 - **Opt-in live tests** that touch real services, off by default: `WP_LIVE_TEST=1` (WordPress schema and the comment moderation flow), `SMOKE_TEST=1` (the published site: pages, 404, login, revalidate guard, sitemap, headers; also run every hour by `.github/workflows/smoke.yml`, #131) and `ROUTE_TEST_URL` (the comment route with a session made inside the test). See the Tests section of `README.md`.
 - **Not installed yet:** `@testing-library/react` (component tests) and **Playwright** (E2E and visual regression, #104).
