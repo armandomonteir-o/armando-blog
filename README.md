@@ -46,6 +46,7 @@ The WordPress side (theme, plugin and deploy script) lives in the separate `blog
 | `/posts` | **WordPress**: all posts (up to 100, paginated and filtered in the browser). Like the home, it is built ahead of time, so a new post appears after the next deploy (#68) |
 | `/categoria/...` | **WordPress**: which categories exist, their names and post counts, and the posts. The look of a category (colors, hero image, tags) is optional customisation in `data/categories.ts`; one without it gets a default look. A category the menu links to but WordPress doesn't have yet opens as an empty page, an unknown slug is a 404 ([ADR-015](./docs/adr/ADR-015-categorias-existem-no-wordpress-visual-no-codigo.md)) |
 | `/playlists` | mock, and the page says so on screen |
+| `/sitemap.xml`, `/robots.txt` | **WordPress** for the sitemap (post slugs, categories and subcategories, plus the fixed routes), rendered on each request so a WordPress failure is a 500 that is never cached. `robots.txt` allows the site, blocks `/api/` and points to the sitemap. Absolute URLs come from `NEXT_PUBLIC_SITE_URL` (#12) |
 
 ## How fresh the content is
 
@@ -57,6 +58,7 @@ The home never falls back to mock posts. If WordPress answers with no posts, the
 
 - **at build time**, the build fails. On Vercel a failed build does not replace the deploy that is live, so visitors keep the last good version;
 - **at request time** (for example `/post/[slug]`), the visitor sees the `ERRO.EXE` screen from `app/error.tsx`, with a retry button.
+- **`/sitemap.xml`** is never built ahead of time, so it cannot fail a build: it answers 500 while WordPress is down, nothing is cached, and the next crawl works again.
 
 On `/post/[slug]`, "WordPress answered that the post does not exist" is a 404, and "WordPress failed" is the `ERRO.EXE` screen. They are different on purpose: a post never turns into a 404 because of an outage.
 
@@ -97,7 +99,7 @@ npm install
 npm run dev      # http://localhost:3000
 ```
 
-`WORDPRESS_API_URL` must be set in `.env.local`, pointing to the WPGraphQL endpoint.
+`WORDPRESS_API_URL` must be set in `.env.local`, pointing to the WPGraphQL endpoint. `NEXT_PUBLIC_SITE_URL` (the public address, used by the sitemap and `robots.txt`) is optional and defaults to `https://armando-blog.vercel.app`.
 
 ## Tests
 

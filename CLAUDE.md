@@ -78,7 +78,7 @@ At the end of every session, say which docs you touched, or say explicitly that 
 | CMS | Headless WordPress + WPGraphQL |
 | GraphQL client | `graphql-request` |
 | Analytics | `@vercel/analytics` |
-| Sitemap | none yet. `next-sitemap` was removed (never configured, and its dependencies carried vulnerabilities); the native one (`app/sitemap.ts`) is #12 |
+| Sitemap | native: `app/sitemap.ts` and `app/robots.ts` (#12), absolute URLs from `lib/site-url.ts` (`NEXT_PUBLIC_SITE_URL`). `next-sitemap` was removed (never configured, and its dependencies carried vulnerabilities) |
 | Deployment | Vercel |
 | Node | 22.14.0 (see `.nvmrc`) |
 

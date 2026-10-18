@@ -64,7 +64,11 @@ The app does NOT use native window scroll. The scrollable element is `#main-scro
 | `/playlists` | `PlaylistsPage` | Playlists from `playlists.ts`, genre filter |
 | `/categoria/:category` | `CategoryPage` | Category and subcategories from WordPress (`getCategories`), look from `data/categories.ts` or the default (ADR-015) |
 | `/categoria/:category/:subcategory` | `SubcategoryPage` | Subcategory and its real posts from WordPress, tag filter, empty state |
+| `/sitemap.xml` | `app/sitemap.ts` | Fixed routes, post slugs (`getPostSlugs`), categories and subcategories (`getCategories`). `force-dynamic`: rendered per request, never at build time, so a WordPress failure is a 500 and nothing is cached (PITFALL-018). Does not list `/login` or `/minha-conta` |
+| `/robots.txt` | `app/robots.ts` | Static. Allows `/`, disallows `/api/`, points to the sitemap |
 | `*` | `NotFoundPage` | None (static) |
+
+The absolute URLs of the sitemap and robots.txt come from `lib/site-url.ts`, the only reader of `NEXT_PUBLIC_SITE_URL` (default `https://armando-blog.vercel.app`). A route added to the public site must be added to `FIXED_PATHS` in `app/sitemap.ts` (posts and categories come from WordPress by themselves).
 
 ### Route Conflict Note
 
@@ -157,7 +161,7 @@ The `package.json` includes many more packages (shadcn/ui deps, MUI, etc.) but m
 | `next/font` | Optimized font loading | Built-in Next.js module. Replaces Google Fonts CSS import. Self-hosts fonts, eliminates FOUT. |
 | `@vercel/analytics` | Privacy-friendly analytics | Native Vercel integration. Add `<Analytics />` in root layout. |
 | `plausible-tracker` | Complementary analytics | Lightweight, cookie-free, GDPR-compliant. Alternative/complement to Vercel Analytics. |
-| ~~`next-sitemap`~~ | SEO: sitemap + robots.txt | **Removed on 2026-10-18 (#126):** never configured, and its dependencies carried vulnerabilities. The sitemap will be native (`app/sitemap.ts`), #12. |
+| ~~`next-sitemap`~~ | SEO: sitemap + robots.txt | **Removed on 2026-10-18 (#126):** never configured, and its dependencies carried vulnerabilities. The sitemap is native (`app/sitemap.ts`, `app/robots.ts`), #12. |
 | `graphql-request` | GraphQL client for WPGraphQL | Lightweight, works in RSC (React Server Components). |
 | `graphql` | GraphQL peer dependency | Required by `graphql-request`. |
 
