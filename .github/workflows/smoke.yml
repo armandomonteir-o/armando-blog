@@ -52,6 +52,9 @@ jobs:
         env:
           SMOKE_TEST: "1"
           NO_COLOR: "1"
+        # pipefail: without it the step takes the exit code of `tee`, which is always 0, and a
+        # failing smoke test would look green.
+        shell: bash
         run: ${{ env.SMOKE_CMD }} 2>&1 | tee "$RUNNER_TEMP/smoke.log"
 
       - name: Wait, then retry once
@@ -61,6 +64,7 @@ jobs:
         env:
           SMOKE_TEST: "1"
           NO_COLOR: "1"
+        shell: bash
         run: |
           sleep 90
           ${{ env.SMOKE_CMD }} 2>&1 | tee "$RUNNER_TEMP/smoke.log"
