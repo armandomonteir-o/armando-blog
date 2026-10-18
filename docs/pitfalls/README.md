@@ -121,3 +121,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: in Tailwind v4, `translate-x-*`, `-translate-y-*`, `scale-*` and `rotate-*` set the individual CSS properties `translate`, `scale` and `rotate`, not `transform` (v3 used `transform`). A transition on `transform` never fires for them, and `getComputedStyle(el).transform` stays `none`. The prototype came from a v3 setup, so every inline `transition: transform` paired with one of these classes silently lost its animation in the port.
 **Fix**: transition the property the class really sets (`translate`, `scale`, `rotate`), or use `transition-transform`, which in v4 covers all four. Read `getComputedStyle(el).translate` when measuring.
 **Location**: `components/layout/Sidebar.tsx` (drawer), `components/content/PostsGrid.tsx` and `CommentsSection.tsx` (`hover:-translate-y-px`)
+
+---
+
+## PITFALL-013: `status: "HOLD"` does not stop WordPress from approving a returning commenter
+
+**Date discovered**: 2026-10-18 (issue #54)
+**Symptom**: the code sends every comment with `status: "HOLD"`, yet a second comment from an email that already has an approved one went live with no moderation. Only a visitor's first comment waited in Pending.
+**Root cause**: not the code. WordPress's own rule "comment author must have a previously approved comment" (`comment_previously_approved`) approves the comment on its own, and `createComment` does not override it. The result was identical with `HOLD` and with `APPROVE` (mutation test), which is what rules out our code.
+**Fix**: none yet, it needs a decision (#54): turn the WordPress option off, or force the status in the plugin's `pre_comment_approved` filter. Both change production WordPress, so ask first. Until then, `comments.live.test.ts` keeps the case as `it.fails`; remove the `.fails` when it is fixed.
+**Location**: `lib/graphql/mutations/comments.ts`, `lib/graphql/mutations/comments.live.test.ts`
