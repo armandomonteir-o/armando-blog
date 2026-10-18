@@ -219,7 +219,7 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
                     >
                       <Eye size={10} />
                       <span className="font-mono" style={{ fontSize: "8px" }}>
-                        {post.reads}
+                        {post.reads ?? "—"}
                       </span>
                     </div>
                     <div

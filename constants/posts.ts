@@ -6,7 +6,7 @@ export interface Post {
   slug: string;
   category: string;
   date: string;
-  reads: number;
+  reads: number | null;
   comments: number;
   image: string;
   excerpt: string;

@@ -14,9 +14,26 @@ import {
   RelatedPosts,
   PostCommentsSection,
 } from "@/components/content/single-post";
-import { postData, relatedPosts } from "./_data";
-import { getPost } from "@/lib/graphql";
-import { adaptWPPostDetail, stripHtml } from "@/lib/graphql/adapters";
+import { getPost, getPosts } from "@/lib/graphql";
+import { adaptWPPost, adaptWPPostDetail, stripHtml } from "@/lib/graphql/adapters";
+
+const RELATED_COUNT = 3;
+
+// Other published posts from the same category. This is secondary content: if only this query
+// fails, the post itself still renders, without the section.
+async function getRelatedPosts(categorySlug: string | undefined, currentSlug: string) {
+  if (!categorySlug) return [];
+  try {
+    const { nodes } = await getPosts(RELATED_COUNT + 1, undefined, categorySlug);
+    return nodes
+      .filter((p) => p.slug !== currentSlug)
+      .slice(0, RELATED_COUNT)
+      .map(adaptWPPost);
+  } catch (e) {
+    console.error("[PostPage] related posts failed:", e);
+    return [];
+  }
+}
 
 export async function generateMetadata({
   params,
@@ -52,7 +69,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const wpComments = wpPost.comments?.nodes ?? [];
   const postId = wpPost.databaseId;
-  const currentPost = { ...postData, ...adaptWPPostDetail(wpPost) };
+  const currentPost = adaptWPPostDetail(wpPost);
+  const related = await getRelatedPosts(wpPost.categories.nodes[0]?.slug, slug);
 
   return (
     <div
@@ -164,9 +182,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               <AuthorCard author={currentPost.author} />
             </div>
 
-            <div className="mt-5">
-              <RelatedPosts posts={relatedPosts} categoryColors={categoryColors} />
-            </div>
+            {related.length > 0 && (
+              <div className="mt-5">
+                <RelatedPosts posts={related} categoryColors={categoryColors} />
+              </div>
+            )}
 
             <div className="mt-5">
               <PostCommentsSection postId={postId} initialComments={wpComments} />

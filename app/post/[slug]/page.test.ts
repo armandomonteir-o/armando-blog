@@ -1,3 +1,4 @@
+import { isValidElement, type ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { posts as mockPosts } from "@/constants/posts";
 
@@ -5,7 +6,11 @@ import { posts as mockPosts } from "@/constants/posts";
 // exists in the mock list rendered an invented post. A failure must reach error.tsx instead;
 // only an explicit "no such post" answer from WordPress is a 404.
 let impl: (slug: string) => Promise<unknown> = async () => null;
-vi.mock("@/lib/graphql", () => ({ getPost: (slug: string) => impl(slug) }));
+let relatedImpl: () => Promise<unknown> = async () => ({ nodes: [] });
+vi.mock("@/lib/graphql", () => ({
+  getPost: (slug: string) => impl(slug),
+  getPosts: () => relatedImpl(),
+}));
 
 const { default: PostPage, generateMetadata } = await import("./page");
 const params = (slug: string) => ({ params: Promise.resolve({ slug }) });
@@ -43,5 +48,60 @@ describe("generateMetadata", () => {
     impl = async () => null;
     const meta = await generateMetadata(params(mockPosts[0].slug));
     expect(meta.title).not.toContain(mockPosts[0].title);
+  });
+});
+
+// #71: the related posts used to be a fixed list with Unsplash images.
+const wpPost = (slug: string, title = slug) => ({
+  id: slug,
+  databaseId: slug.length,
+  slug,
+  title,
+  excerpt: "<p>Resumo</p>",
+  date: "2026-04-10T12:00:00",
+  commentCount: 0,
+  categories: { nodes: [{ name: "Tecnologia", slug: "tecnologia" }] },
+  featuredImage: null,
+  acfPostFields: null,
+  content: "<p>Corpo</p>",
+  author: { node: { name: "Armando", description: "", avatar: null } },
+  comments: { nodes: [] },
+});
+
+function findByType(node: ReactNode, type: unknown): unknown[] {
+  if (Array.isArray(node)) return node.flatMap((n) => findByType(n, type));
+  if (!isValidElement<{ children?: ReactNode }>(node)) return [];
+  const own = node.type === type ? [node] : [];
+  return [...own, ...findByType(node.props.children, type)];
+}
+
+describe("PostPage related posts", () => {
+  it("lists real posts from the same category, without the current one", async () => {
+    const { RelatedPosts } = await import("@/components/content/single-post");
+    impl = async () => wpPost("atual");
+    relatedImpl = async () => ({
+      nodes: [wpPost("atual"), wpPost("outro-1"), wpPost("outro-2")],
+    });
+    const tree = await PostPage(params("atual"));
+    const [related] = findByType(tree, RelatedPosts) as { props: { posts: { slug: string }[] } }[];
+    expect(related.props.posts.map((p) => p.slug)).toEqual(["outro-1", "outro-2"]);
+  });
+
+  it("hides the section when there are no other posts in the category", async () => {
+    const { RelatedPosts } = await import("@/components/content/single-post");
+    impl = async () => wpPost("atual");
+    relatedImpl = async () => ({ nodes: [wpPost("atual")] });
+    const tree = await PostPage(params("atual"));
+    expect(findByType(tree, RelatedPosts)).toHaveLength(0);
+  });
+
+  it("still renders the post, without the section, if only the related query fails", async () => {
+    const { RelatedPosts } = await import("@/components/content/single-post");
+    impl = async () => wpPost("atual");
+    relatedImpl = async () => {
+      throw new Error("ENOTFOUND");
+    };
+    const tree = await PostPage(params("atual"));
+    expect(findByType(tree, RelatedPosts)).toHaveLength(0);
   });
 });

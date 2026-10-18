@@ -253,7 +253,7 @@ export default function PostsPage() {
                           <div className="flex items-center gap-1 text-chrome-blue-body">
                             <Eye size={10} />
                             <span className="font-mono" style={{ fontSize: "8px" }}>
-                              {post.reads}
+                              {post.reads ?? "—"}
                             </span>
                           </div>
                           <div className="flex items-center gap-1 text-chrome-blue-body">

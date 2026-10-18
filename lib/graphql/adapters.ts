@@ -27,7 +27,7 @@ export function adaptWPPost(wp: WPPost): Post {
     slug: wp.slug,
     category: wp.categories.nodes[0]?.name ?? "Blog",
     date: formatWPDate(wp.date),
-    reads: 0,
+    reads: null,
     comments: wp.commentCount ?? 0,
     image:
       wp.acfPostFields?.heroImage?.node.sourceUrl ??
@@ -35,6 +35,14 @@ export function adaptWPPost(wp: WPPost): Post {
       FALLBACK_IMAGE,
     excerpt: stripHtml(wp.excerpt),
   };
+}
+
+// Words per minute for the estimate. The site has no stored reading time unless ACF sets one.
+const WORDS_PER_MINUTE = 200;
+
+function estimateReadTime(html: string): string {
+  const words = stripHtml(html).split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.ceil(words / WORDS_PER_MINUTE))} min`;
 }
 
 export function adaptWPPostDetail(wp: WPPostDetail) {
@@ -53,15 +61,15 @@ export function adaptWPPostDetail(wp: WPPostDetail) {
     subtitle: acf?.subtitle ?? stripHtml(wp.excerpt),
     category: wp.categories.nodes[0]?.name ?? "Blog",
     date: formatWPDate(wp.date),
-    readTime: acf?.readingTime ?? "5 min",
-    reads: 0,
+    readTime: acf?.readingTime ?? estimateReadTime(wp.content),
+    reads: null,
     comments: wp.commentCount ?? 0,
-    likes: 0,
+    likes: null,
     heroImage: acf?.heroImage?.node.sourceUrl ?? wp.featuredImage?.node.sourceUrl ?? FALLBACK_IMAGE,
     author: {
       name: wp.author?.node.name ?? "Armando",
       role: "autor",
-      avatar: wp.author?.node.avatar?.url ?? "/avatar-placeholder.jpg",
+      avatar: wp.author?.node.avatar?.url ?? "/avatar-pixel-art.png",
       bio: wp.author?.node.description ?? "",
     },
     sections,
