@@ -47,6 +47,7 @@ Variáveis de ambiente que o front lê (só nomes):
 | `REVALIDATE_SECRET` | segredo que o WordPress manda para `POST /api/revalidate`; sem ele a rota recusa todas as chamadas (503) | Vercel (Production) e `.env.local`; o mesmo valor vai na configuração do WordPress (etapa 3 da #68) |
 | `AUTH_SECRET` | cifra a sessão do Auth.js | Vercel (criada em 18/10, ver #91) |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | cliente OAuth do Google | Vercel (criadas em 18/10) |
+| `NEXT_PUBLIC_SITE_URL` | endereço público do site, usado nas URLs absolutas de `/sitemap.xml` e `/robots.txt` (#12). É opcional: sem ela vale `https://armando-blog.vercel.app` (`lib/site-url.ts`, o único lugar que a lê). Um valor sem `http://` ou `https://` é ignorado e cai no padrão. Entra no bundle no build, então mudar na Vercel só vale no deploy seguinte | Vercel (Production) quando o domínio mudar **[conferir]** se já existe lá; `.env.local` só se quiser testar outro endereço |
 | `NEXT_PUBLIC_VERCEL_URL`, `NEXT_PUBLIC_ENABLE_COMMENTS` | flag e URL pública | `.env.local`; **[conferir]** na Vercel |
 | `NEXT_PUBLIC_ENABLE_NEWSLETTER` | mostra o widget de newsletter; **só a string exata `true` liga**, e sem a variável ele fica escondido (#112). Entra no bundle no build, então mudar na Vercel só vale no deploy seguinte | `.env.local`; na Vercel **[conferir]**: se estiver `true`, o widget continua aparecendo e descartando o e-mail |
 
@@ -97,6 +98,10 @@ O Auth.js lê as três `AUTH_*` sozinho, sem aparecer no código. Foi por isso q
 
 A home, `/posts` e cada post são gerados no build e refeitos em segundo plano no máximo uma vez por hora (**[confirmado]**: `Revalidate 1h` na saída do `next build`, e `Cache-Control: s-maxage=3600` num servidor de produção). Post novo ou editado aparece em até uma hora, sem deploy. A decisão está no ADR-014. Além da hora, o WordPress **avisa o site** quando um post ou comentário muda, e as páginas afetadas são refeitas em segundos **[confirmado]** em produção em 18/10/2026: um post publicado apareceu na lista em 1,3 s, um slug renomeado virou 404 em 0,9 s, um comentário aprovado apareceu na home em 2,8 s (detalhes no ADR-014). A rota é `POST /api/revalidate` no site (protegida por `REVALIDATE_SECRET`), e quem chama é o plugin `armando-headless-plugin` (`includes/revalidate.php`, ADR-007 do `blog-cms`), que lê duas constantes do `wp-config.php` do servidor: `ARMANDO_REVALIDATE_URL` e `ARMANDO_REVALIDATE_SECRET`. O aviso cobre salvar um post e mudar ou criar um comentário. **Apagar um post em definitivo por linha de comando (`wp post delete --force`) não avisa o site**: a página continua no ar por até 1 hora. Pelo painel (mover para a lixeira) o aviso dispara. Para tirar a página na hora, chame `POST /api/revalidate` com o `slug` e o segredo **[confirmado]** em 18/10/2026 (um post apagado por linha de comando continuou em 200 até essa chamada, e então virou 404). Se o aviso falhar, o WordPress registra uma linha `[armando-revalidate]` no log de erros do PHP, e o site se atualiza sozinho em até uma hora.
 
+## Sitemap e robots.txt
+
+`/sitemap.xml` e `/robots.txt` existem desde a #12 **[confirmado]** em um `next start` local contra o WordPress de produção: o sitemap listou 22 URLs e todas responderam 200. O sitemap é gerado a cada requisição (sem cache) a partir do WordPress; com o WordPress fora do ar ele responde 500 (verificado) e o `robots.txt`, que não depende dele, continua 200. O `robots.txt` bloqueia só `/api/`. **Enviar o sitemap ao Google Search Console** (critério de aceite da #12) **[conferir]**: só o dono da conta faz, e depende do domínio final.
+
 ## Como o código chega em cada lugar
 
 - **Front:** `git push` → Vercel faz o build e publica sozinha.
@@ -125,7 +130,7 @@ A home, `/posts` e cada post são gerados no build e refeitos em segundo plano n
 
 1. Criar o subdomínio do CMS na Hostinger e mover o WordPress para ele. Atenção: mudar a URL do site no WordPress também reescreve links no banco. Fazer com backup.
 2. Atualizar `WORDPRESS_API_URL` na Vercel e o `hostname` em `remotePatterns` no `next.config.ts` (as imagens vêm do WordPress).
-3. Apontar `blog.armandomonteiro.com` para a Vercel (registro CNAME no DNS) e cadastrar o domínio no projeto da Vercel.
+3. Apontar `blog.armandomonteiro.com` para a Vercel (registro CNAME no DNS) e cadastrar o domínio no projeto da Vercel. **Também:** definir `NEXT_PUBLIC_SITE_URL=https://blog.armandomonteiro.com` na Vercel e fazer um novo deploy. Sem isso o `sitemap.xml` e o `robots.txt` continuam listando `armando-blog.vercel.app`. Depois, conferir `https://blog.armandomonteiro.com/sitemap.xml`. O Google Search Console precisa de uma propriedade nova para o domínio novo, e o sitemap deve ser enviado nela **[conferir]**: só o dono da conta faz.
 4. No Google Cloud, cadastrar `https://blog.armandomonteiro.com/api/auth/callback/google` nas URIs de redirecionamento. Sem isso o login falha com `redirect_uri_mismatch`.
    **Também, no servidor do WordPress:** trocar a constante `ARMANDO_REVALIDATE_URL` do `wp-config.php` para `https://blog.armandomonteiro.com/api/revalidate` (`wp config set ARMANDO_REVALIDATE_URL <url> --type=constant`). Se isso for esquecido, o aviso continua indo para o endereço antigo, a falha só aparece no log, e o site vale só a hora.
 5. Só então apontar o domínio raiz para o portfólio.

@@ -4,7 +4,7 @@
 
 ## Target Stack (2026 Best Practices)
 
-> **Atualizado em 18/10/2026 (#126):** o `next-sitemap` citado neste guia foi removido, porque nunca foi configurado. O sitemap será nativo do Next (`app/sitemap.ts`), na #12. As menções abaixo são do plano original.
+> **Atualizado em 18/10/2026 (#126):** o `next-sitemap` citado neste guia foi removido, porque nunca foi configurado. O sitemap agora é nativo do Next (`app/sitemap.ts` e `app/robots.ts`, #12). As menções abaixo são do plano original.
 
 | Layer | Technology |
 |---|---|
