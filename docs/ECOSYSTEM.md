@@ -40,7 +40,7 @@ O WordPress é só o back-end (CMS e API). Quem o visitante vê é o Next.js na 
 | Plano da Vercel | **[conferir]** provavelmente Hobby (gratuito). Confira em Settings → Billing |
 | Domínio próprio apontando para a Vercel | ainda não. O destino será `blog.armandomonteiro.com` (ver "Endereços finais") |
 
-Variáveis de ambiente que o front lê (só nomes):
+Variáveis de ambiente que o front lê (só nomes). **Elas são conferidas no build** (`lib/env.ts`, chamado pelo `next.config.ts`, #134) **[confirmado]**: `WORDPRESS_API_URL` é obrigatória em qualquer lugar; num deploy de **produção** da Vercel (`VERCEL_ENV=production`) também são obrigatórias `AUTH_SECRET` (32 caracteres ou mais), `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, `WP_APP_USER`, `WP_APP_PASSWORD` e `REVALIDATE_SECRET` (32 ou mais). Se faltar alguma, o build falha com o nome dela (sem mostrar valor) e a Vercel mantém o deploy anterior no ar. Um valor estranho numa flag `NEXT_PUBLIC_ENABLE_*` ou em `NEXT_PUBLIC_SITE_URL` só gera um aviso `[env]` no log. **[conferir]** depois do primeiro deploy de produção com esta mudança que o build passou, ou que a mensagem aponta a variável que falta na Vercel:
 
 | Variável | Para quê | Onde precisa existir |
 |---|---|---|

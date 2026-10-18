@@ -1,4 +1,11 @@
 import type { NextConfig } from "next";
+import { assertEnv } from "./lib/env";
+
+// Fails the build (or `next dev` / `next start`) early, naming each variable that is wrong, instead
+// of a generic 500 in production (#134, #91). Skipped under Vitest, which imports this file.
+if (!process.env.VITEST) {
+  for (const warning of assertEnv().warnings) console.warn(`[env] ${warning}`);
+}
 
 const imageHosts = [
   "images.unsplash.com",

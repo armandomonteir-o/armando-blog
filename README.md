@@ -107,7 +107,7 @@ npm install
 npm run dev      # http://localhost:3000
 ```
 
-`WORDPRESS_API_URL` must be set in `.env.local`, pointing to the WPGraphQL endpoint. `NEXT_PUBLIC_SITE_URL` (the public address, used by the sitemap and `robots.txt`) is optional and defaults to `https://armando-blog.vercel.app`.
+`WORDPRESS_API_URL` must be set in `.env.local`, pointing to the WPGraphQL endpoint. The environment variables are checked when the app builds or starts (`lib/env.ts`): a missing or wrong one stops it with the variable's name; on a Vercel production deploy the login, comment and revalidation variables are required too (see `.env.example`). `NEXT_PUBLIC_SITE_URL` (the public address, used by the sitemap and `robots.txt`) is optional and defaults to `https://armando-blog.vercel.app`.
 
 ## Tests
 
