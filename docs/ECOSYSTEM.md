@@ -45,7 +45,7 @@ Variáveis de ambiente que o front lê (só nomes). **Elas são conferidas no bu
 | Variável | Para quê | Onde precisa existir |
 |---|---|---|
 | `WORDPRESS_API_URL` | endereço do endpoint WPGraphQL | Vercel (Production), `.env.local` e **variável do repositório no GitHub** (usada pelo CI; é uma URL pública, não segredo) |
-| `WP_APP_USER`, `WP_APP_PASSWORD` | credencial de aplicação do WordPress, para as rotas que escrevem (comentário, perfil) | Vercel e `.env.local` |
+| `WP_APP_USER`, `WP_APP_PASSWORD` | credencial de aplicação do WordPress, para as rotas que escrevem (comentário, perfil) | `.env.local`. **Não estão na Vercel [confirmado]** em 18/10/2026, lendo os nomes das variáveis do projeto pela API: sem elas, comentar e editar o perfil em produção devem falhar (#174). Cadastrar em Production e refazer o deploy |
 | `REVALIDATE_SECRET` | segredo que o WordPress manda para `POST /api/revalidate`; sem ele a rota recusa todas as chamadas (503) | Vercel (Production) e `.env.local`; o mesmo valor vai na configuração do WordPress (etapa 3 da #68) |
 | `AUTH_SECRET` | cifra a sessão do Auth.js | Vercel (criada em 18/10, ver #91) |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | cliente OAuth do Google | Vercel (criadas em 18/10) |
