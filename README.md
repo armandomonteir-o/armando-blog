@@ -113,6 +113,7 @@ npm run dev      # http://localhost:3000
 
 ```bash
 npm test                          # unit tests, offline
+npm run test:coverage             # the same tests with coverage; fails below the floors in vitest.config.mts (CI runs this)
 SMOKE_TEST=1 npm test             # also checks the published site: pages, 404, login, revalidate guard, sitemap, headers
 SMOKE_TEST=1 SMOKE_URL=https://<preview>.vercel.app npm test   # same, against a preview
 WP_LIVE_TEST=1 npm test           # also checks the queries against the real WordPress schema and runs the
@@ -122,6 +123,10 @@ WP_LIVE_TEST=1 npm test           # also checks the queries against the real Wor
 AUTH_SECRET=<throwaway> npm run dev -- -p 3010
 ROUTE_TEST_URL=http://localhost:3010 ROUTE_TEST_AUTH_SECRET=<same throwaway> npm test
 ```
+
+### Coverage in CI
+
+CI runs the tests with coverage and fails if an area drops below its floor (overall 38% of lines, `lib/auth` and `lib/blocks` 95%, `lib/graphql` 75%, `lib/*.ts` 85%, `app/api` 35%). The floors sit just under what was measured on 2026-10-18 and only go up. There is no coverage badge: a live one needs an outside service, and a hand-written number would go stale.
 
 ### Dependencies in CI
 
