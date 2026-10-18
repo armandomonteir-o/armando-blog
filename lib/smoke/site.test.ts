@@ -36,7 +36,10 @@ describe.runIf(smoke)(`published site on ${baseUrl}`, () => {
     });
 
     it("serves the first post listed in the sitemap", async () => {
-      expect(slug, "No /post/<slug> in /sitemap.xml: WordPress is down or has no posts").toBeTruthy();
+      expect(
+        slug,
+        "No /post/<slug> in /sitemap.xml: WordPress is down or has no posts"
+      ).toBeTruthy();
       const res = await get(`/post/${slug}`);
       expect(res.status, `Expected 200 on /post/${slug}`).toBe(200);
     });
