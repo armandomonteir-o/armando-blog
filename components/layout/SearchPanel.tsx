@@ -98,9 +98,17 @@ export function SearchPanel({
                 }}
               >
                 <span
-                  className="flex-shrink-0"
-                  style={{ width: "6px", height: "6px", background: categoryColor(r.category) }}
-                />
+                  aria-hidden="true"
+                  className="flex-shrink-0 font-mono"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: active ? "var(--chrome-green)" : categoryColor(r.category),
+                    transition: "color var(--duration-hover)",
+                  }}
+                >
+                  &gt;
+                </span>
                 <div className="flex-1 min-w-0 sm:flex sm:items-center sm:gap-3">
                   <div
                     className="line-clamp-2 sm:truncate sm:flex-1 font-grotesk"
