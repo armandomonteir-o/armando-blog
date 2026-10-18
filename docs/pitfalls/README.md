@@ -132,3 +132,13 @@ Always check here before debugging something new — the answer may already be h
 **Fix**: set `comment_moderation = 1` on the production WordPress (Settings → Discussion → "Comment must be manually approved"), so every comment waits, returning commenters included. Done on 2026-10-18 and checked by `comments.live.test.ts`.
 **Trap**: do NOT switch `comment_previously_approved` off to "fix" this. It is the opposite of what the label suggests: with moderation off, turning it off makes WordPress approve **everything** automatically. It happened once, a test comment went public for a few minutes, and it was reverted.
 **Location**: `lib/graphql/mutations/comments.ts`, `lib/graphql/mutations/comments.live.test.ts`
+
+---
+
+## PITFALL-014: the comment mutation returns the held comment, so `comment === null` never means "queued"
+
+**Date discovered**: 2026-10-18 (issue #54)
+**Symptom**: after sending a comment, the screen did not show "✓ Comentário enviado! Aguardando aprovação." and listed the comment as if it were published (only for that visitor, and it vanished on reload). The unit tests were green.
+**Root cause**: `/api/comments` decided `queued` by `!comment`, assuming WPGraphQL hides a held comment. But `createComment` runs with the admin application password, and an admin sees held comments, so the comment came back and `queued` was `false`. The unit test mocked `null`, a case the real WordPress never produced.
+**Fix**: the mutation also asks for `status`, and the route answers `queued: true` (with `comment: null`) for anything that is not `APPROVE`. `route.test.ts` covers HOLD, SPAM and TRASH. `lib/auth/comments-route.live.test.ts` proves it against the real WordPress. A mock written from an assumption proves nothing about the real service: test the real one at least once.
+**Location**: `app/api/comments/route.ts`, `lib/graphql/mutations/comments.ts`

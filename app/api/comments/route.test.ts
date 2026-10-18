@@ -50,7 +50,12 @@ describe("POST /api/comments", () => {
   });
 
   it("creates the comment with trimmed content and the session's display name", async () => {
-    const comment = { id: "c1", content: "Belo texto", date: "2026-04-10T12:00:00" };
+    const comment = {
+      id: "c1",
+      content: "Belo texto",
+      date: "2026-04-10T12:00:00",
+      status: "APPROVE",
+    };
     mockCreate.mockResolvedValue(comment as never);
 
     const res = await POST(request({ postId: 42, content: "  Belo texto  " }));
@@ -65,13 +70,24 @@ describe("POST /api/comments", () => {
     });
   });
 
-  it("reports a held comment as queued, not as a failure", async () => {
-    // WPGraphQL returns no comment to non-admin viewers while it waits for moderation.
+  it("reports a held comment as queued when WordPress withholds it", async () => {
     mockCreate.mockResolvedValue(null);
     const res = await POST(request({ postId: 42, content: "Aguardando" }));
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ comment: null, queued: true });
   });
+
+  // Found by #54: the mutation runs with the admin application password, so WordPress DOES
+  // return the held comment. Judging by `comment === null` made the screen skip the
+  // "Aguardando aprovação" notice and list a comment that is not public.
+  it.each(["HOLD", "SPAM", "TRASH"])(
+    "reports a returned comment with status %s as queued and does not hand it back",
+    async (status) => {
+      mockCreate.mockResolvedValue({ id: "c2", content: "x", date: "d", status } as never);
+      const res = await POST(request({ postId: 42, content: "x" }));
+      expect(await res.json()).toEqual({ comment: null, queued: true });
+    }
+  );
 
   it("answers 500 when WordPress fails", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
