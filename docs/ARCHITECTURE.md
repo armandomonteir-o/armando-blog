@@ -49,7 +49,7 @@ The app does NOT use native window scroll. The scrollable element is `#main-scro
 
 - Always visible, blue background (#0347c1)
 - Contains: back button (desktop) / hamburger (mobile), search bar, notification bell, user avatars
-- Search dropdown appears inline below the search input
+- Search dropdown appears inline below the search input; its results come from `GET /api/search` (debounced, cancellable), see `docs/COMPONENTS.md`
 - Notification panel drops down from bell icon
 - z-index: 50
 
@@ -273,7 +273,7 @@ See [`docs/learnings/barrel-index-pattern.md`](learnings/barrel-index-pattern.md
 
 ## Known Data Coupling Issues
 
-- `PostsGrid.tsx` exports `posts` array and `categoryColors` map. `AllPostsPage.tsx` and `Header.tsx` (for search) import both. In the migration, all should fetch from WP independently.
+- `PostsGrid.tsx` exports `posts` array and `categoryColors` map. `AllPostsPage.tsx` imports both (the header search no longer does: it uses WordPress, #150). In the migration, all should fetch from WP independently.
 - `categoryColors` is centralized in `PostsGrid.tsx` and imported by `PostPage.tsx`, `AllPostsPage.tsx`, and `Header.tsx`. In migration, centralize in a shared constants file or derive from WP category ACF fields.
 - Category display names use accented characters (e.g. `"Músicas"` with ú). Ensure WP category names match exactly, or normalize on the frontend.
 - `date-fns` is in `package.json` but NOT imported in any custom component — only used by shadcn/ui's calendar. Not needed for migration unless you use it for WP date formatting.

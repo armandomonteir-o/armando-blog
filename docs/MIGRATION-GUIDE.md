@@ -340,6 +340,8 @@ export default async function HomePage() {
 
 ## Phase 4: Search Integration
 
+> **Done in #150.** The snippets below are the original plan. What shipped: `app/api/search/route.ts` (validates the term, calls `searchPosts`), `lib/search.ts` (`createSearchRunner`: 300 ms debounce, `AbortController`, loading / empty / error states) and `components/layout/Header.tsx`. See `docs/COMPONENTS.md`.
+
 The current search in `Header.tsx` filters from the real `posts` array imported from `PostsGrid.tsx` (an interim fix that replaced the previously hardcoded `SEARCH_POSTS` array). This works for the prototype but needs to be replaced with live WP search for production:
 
 ```tsx
