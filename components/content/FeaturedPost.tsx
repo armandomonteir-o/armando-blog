@@ -6,7 +6,14 @@ import { RetroWindow } from "@/components/ui/RetroWindow";
 import { AppImage } from "@/components/ui/AppImage";
 import type { Post } from "@/constants/posts";
 
-export function FeaturedPost({ post }: { post: Post | null }) {
+interface FeaturedPostProps {
+  post: Post | null;
+  // Link of the gallery. The "Ver Galeria" button only exists when this is given, that is, when the
+  // gallery has at least one image (no gallery yet).
+  galleryHref?: string;
+}
+
+export function FeaturedPost({ post, galleryHref }: FeaturedPostProps) {
   if (!post) return null;
 
   return (
@@ -141,20 +148,24 @@ export function FeaturedPost({ post }: { post: Post | null }) {
               >
                 Ler Post
               </Link>
-              <button
-                className="px-5 py-2.5 cursor-pointer font-grotesk font-bold bg-chrome-blue text-chrome-blue-content brutal-lift"
-                style={
-                  {
-                    border: "3px solid var(--chrome-blue-mid)",
-                    fontSize: "13px",
-                    "--lift-color": "var(--chrome-blue)",
-                    "--lift-rest": "3px",
-                    "--lift-hover": "5px",
-                  } as React.CSSProperties
-                }
-              >
-                Ver Galeria
-              </button>
+              {galleryHref && (
+                <Link
+                  href={galleryHref}
+                  className="px-5 py-2.5 cursor-pointer inline-block font-grotesk font-bold bg-chrome-blue text-chrome-blue-content brutal-lift"
+                  style={
+                    {
+                      border: "3px solid var(--chrome-blue-mid)",
+                      fontSize: "13px",
+                      textDecoration: "none",
+                      "--lift-color": "var(--chrome-blue)",
+                      "--lift-rest": "3px",
+                      "--lift-hover": "5px",
+                    } as React.CSSProperties
+                  }
+                >
+                  Ver Galeria
+                </Link>
+              )}
             </div>
           </div>
         </div>
