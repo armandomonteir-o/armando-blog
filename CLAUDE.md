@@ -134,9 +134,9 @@ docs: add ADR-006 for GraphQL client choice
 refactor: extract categoryColors to constants file
 ```
 
-### AI-assisted issue disclosure
+### Authorship
 
-Any issue implemented with significant AI assistance should have the `status: ai-assisted` label. Add a comment to the issue explaining what was generated vs. manually written.
+No AI attribution anywhere in the repository: not in commits, PRs, issues or ADRs. Commit messages follow the pattern above, in Portuguese. Use `closes #N` only when the PR really closes the issue, and `Refs #N` otherwise (GitHub closes an issue on any "Closes ... #N" in the text, even in a sentence that says it will not).
 
 ### Context files to provide at session start
 
@@ -151,16 +151,18 @@ Any issue implemented with significant AI assistance should have the `status: ai
 
 We don't test CSS. We test that components render correctly and behave as expected.
 
-### Stack (to be added in M2)
-- **Vitest** — unit and integration tests
-- **@testing-library/react** — component testing
-- **Playwright** — E2E and visual regression
+### Stack
+- **Vitest**, in a Node environment: unit and integration tests, run with `npm test` (offline, in CI).
+- **Opt-in live tests** that touch real services, off by default: `WP_LIVE_TEST=1` (WordPress schema and the comment moderation flow), `SMOKE_TEST=1` (login on the published site) and `ROUTE_TEST_URL` (the comment route with a session made inside the test). See the Tests section of `README.md`.
+- **Not installed yet:** `@testing-library/react` (component tests) and **Playwright** (E2E and visual regression, #104).
 
-### Coverage targets
+A mock written from an assumption proves nothing about the real service (PITFALL-014): test the real one at least once, and for a security guard, break the code on purpose to see the test fail.
+
+### Coverage targets (goals, not measured yet)
 - Utility functions: 90%+
 - WPGraphQL query functions: 80%+
 - Page components: smoke tests (renders without crashing)
 - Critical E2E flows: Home → Post, Category → Post, Search
 
-### Visual regression
+### Visual regression (planned, depends on Playwright)
 Playwright screenshots for each page in light mode, dark mode, mobile (375px), and tablet (768px).
