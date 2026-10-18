@@ -420,9 +420,11 @@ query GetPlaylists($first: Int!, $after: String) {
 
 ### Search posts
 
+Used by `GET /api/search` (#150), proved against the real schema in `lib/graphql/queries/live.test.ts`. The route answers `{ results: [{ title, slug, category }] }`, `category` being the first category name or an empty string.
+
 ```graphql
 query SearchPosts($query: String!) {
-  posts(where: { search: $query }, first: 5) {
+  posts(where: { search: $query, status: PUBLISH }, first: 5) {
     nodes {
       title
       slug

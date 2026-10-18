@@ -42,6 +42,7 @@ The WordPress side (theme, plugin and deploy script) lives in the separate `blog
 |---|---|
 | `/` (home) | **WordPress**, via WPGraphQL: the posts grid, the featured post (the pinned one, else the newest) and the latest approved comments, a section that stays hidden while there are none. The recommendations and the now-playing widget are fixed editorial content, and the "Ver Galeria" button does nothing yet. The newsletter widget is hidden until it really stores e-mails (`NEXT_PUBLIC_ENABLE_NEWSLETTER`, #112) |
 | `/post/[slug]` | **WordPress**: the post (its body from the Gutenberg blocks, ADR-016), its comments and the related posts (same category). Reads and likes are not measured, so the page shows a dash |
+| header search (every page) | **WordPress**, through `GET /api/search?q=` (the browser never asks WordPress): waits 300 ms after the last key, cancels the previous request, shows loading, no result and error (#150) |
 | comments, `/login`, `/minha-conta` | **WordPress** and Google OAuth |
 | `/posts` | **WordPress**: all posts (up to 100, paginated and filtered in the browser). Like the home, it is built ahead of time, so a new post appears after the next deploy (#68) |
 | `/categoria/...` | **WordPress**: which categories exist, their names and post counts, and the posts. The look of a category (colors, hero image, tags) is optional customisation in `data/categories.ts`; one without it gets a default look. A category the menu links to but WordPress doesn't have yet opens as an empty page, an unknown slug is a 404 ([ADR-015](./docs/adr/ADR-015-categorias-existem-no-wordpress-visual-no-codigo.md)) |
@@ -85,6 +86,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 
 - **`/playlists` is still mock**, and it says so on screen.
 - **The category tree is minimal on purpose.** WordPress has only the categories the blog uses; the rest of the menu (Músicas, Filmes, Livros) opens as an empty page until there is something to put there.
+- **The search is a plain WordPress search over published posts**: up to 5 results by title, no pagination and no results page. The notifications bell in the header is still fixed sample content.
 - **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.
 - **Reads and likes are not measured**, so the post page shows a dash instead of a made-up number.
 - **No custom domain yet.** The target addresses and the order of the migration are in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md).

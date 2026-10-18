@@ -32,15 +32,15 @@ components/
 ### `Header.tsx`
 - **Purpose**: Top bar with search, notifications, user avatars
 - **Props**: `onMobileMenuToggle?: () => void`
-- **State**: `notifOpen`, `notifications` (array), `searchQuery`, `searchFocused`
-- **Data dependency**: `NOTIFICATIONS` (hardcoded array), `posts` and `categoryColors` (imported from `PostsGrid.tsx` for search filtering)
+- **State**: `notifOpen`, `notifications` (array), `searchQuery`, `searchFocused`, `searchState` (`idle` / `loading` / `done` / `error`)
+- **Data dependency**: `NOTIFICATIONS` (hardcoded array); the search is **real WordPress data** (#150): `GET /api/search?q=` (`app/api/search/route.ts`) validates the term (2 to 80 characters after trim, else 400, WordPress is never called) and calls `searchPosts` (5 published posts: title, slug, first category name). A failure answers 502 with a generic message
 - **Behavior**:
-  - Search filters the real `posts` array by title match (case-insensitive, min 2 chars, excludes corrupted posts)
+  - Search: the debounce (300 ms) and the cancellation of the previous request (`AbortController`) live in `createSearchRunner` (`lib/search.ts`, tested without a DOM); the component only renders its state. Panel texts: `buscando...` while loading, `N resultados`, `NENHUM RESULTADO ENCONTRADO` (really zero), and an error line when the route fails. Clicking a result goes to `/post/<slug>`. The panel opens from 2 characters; the term rules are shared (`normalizeSearchTerm`)
   - Notification panel: dropdown with mark-all-read, individual mark-read on click
   - Back button (desktop): calls `navigate(-1)`
   - Hamburger (mobile): calls `onMobileMenuToggle`
   - Click-outside closes panels (mousedown listener)
-- **Migration**: → `components/layout/Header.tsx`. Replace search with WP search API call (debounced). Replace `useNavigate(-1)` with `router.back()`. Replace `Link` from `react-router` with Next.js `Link`.
+- **Migration**: → `components/layout/Header.tsx`. Search is done (#150). Replace `useNavigate(-1)` with `router.back()`. Replace `Link` from `react-router` with Next.js `Link`.
 
 ### `Sidebar.tsx`
 - **Purpose**: Left navigation panel
