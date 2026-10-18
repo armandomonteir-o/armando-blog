@@ -41,7 +41,7 @@ Variáveis de ambiente que o front lê (só nomes):
 
 | Variável | Para quê | Onde precisa existir |
 |---|---|---|
-| `WORDPRESS_API_URL` | endereço do endpoint WPGraphQL | Vercel (Production) e `.env.local` |
+| `WORDPRESS_API_URL` | endereço do endpoint WPGraphQL | Vercel (Production), `.env.local` e **variável do repositório no GitHub** (usada pelo CI; é uma URL pública, não segredo) |
 | `WP_APP_USER`, `WP_APP_PASSWORD` | credencial de aplicação do WordPress, para as rotas que escrevem (comentário, perfil) | Vercel e `.env.local` |
 | `AUTH_SECRET` | cifra a sessão do Auth.js | Vercel (criada em 18/10, ver #91) |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | cliente OAuth do Google | Vercel (criadas em 18/10) |
