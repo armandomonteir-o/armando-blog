@@ -84,6 +84,8 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 | The post body comes from the Gutenberg blocks, through a plugin, sanitized | Headings, images, lists, quotes and code render as the author wrote them; the cost is third-party code installed from GitHub, outside wordpress.org | [016](./docs/adr/ADR-016-corpo-do-post-pelos-blocos-do-gutenberg.md) |
 | Cache in two layers: ISR every hour plus on-demand revalidation | Pages are fast and static; WordPress pings the site, and the hourly rebuild covers a failed ping | [014](./docs/adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md) |
 
+| Security headers now, the CSP only reporting | `nosniff`, referrer, permissions and anti-framing are on; the CSP is `Report-Only` and keeps `'unsafe-inline'`, because a nonce would make every page dynamic and lose the cache above. The cost is a weaker CSP, and nothing collects the reports | [017](./docs/adr/ADR-017-cabecalhos-de-seguranca-e-csp-em-modo-relatorio.md) |
+
 ## What is not done, and why
 
 - **`/playlists` is still mock**, and it says so on screen.
@@ -91,6 +93,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 - **The search is a plain WordPress search over published posts**: up to 5 results by title, no pagination and no results page. The notifications bell in the header is still fixed sample content.
 - **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.
 - **Reads and likes are not measured**, so the post page shows a dash instead of a made-up number.
+- **The CSP is not enforced yet.** It ships as `Content-Security-Policy-Report-Only` until a real Google sign-in on production shows no violation in the browser console (#135).
 - **No custom domain yet.** The target addresses and the order of the migration are in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md).
 
 ## Getting started
