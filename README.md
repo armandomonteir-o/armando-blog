@@ -83,7 +83,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 | Categories exist in WordPress, their look lives in code | The blog creates categories as it grows, with no deploy; changing how one looks does need a deploy | [015](./docs/adr/ADR-015-categorias-existem-no-wordpress-visual-no-codigo.md) |
 | The post body comes from the Gutenberg blocks, through a plugin, sanitized | Headings, images, lists, quotes and code render as the author wrote them; the cost is third-party code installed from GitHub, outside wordpress.org | [016](./docs/adr/ADR-016-corpo-do-post-pelos-blocos-do-gutenberg.md) |
 | Cache in two layers: ISR every hour plus on-demand revalidation | Pages are fast and static; WordPress pings the site, and the hourly rebuild covers a failed ping | [014](./docs/adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md) |
-
+| Request limit at the edge, not in code | One Vercel firewall rule limits `/api/comments`, `/api/profile` and `/api/search` to 30 requests per minute per IP (429 above it, proven in production). It needs no new service or dependency; the cost is that it is per IP, not per user, the same limit for the three routes, and the rule lives in the Vercel project, not in the repository | [018](./docs/adr/ADR-018-limite-de-requisicoes-na-borda-da-vercel.md) |
 | Security headers now, the CSP only reporting | `nosniff`, referrer, permissions and anti-framing are on; the CSP is `Report-Only` and keeps `'unsafe-inline'`, because a nonce would make every page dynamic and lose the cache above. The cost is a weaker CSP, and nothing collects the reports | [017](./docs/adr/ADR-017-cabecalhos-de-seguranca-e-csp-em-modo-relatorio.md) |
 
 ## What is not done, and why
@@ -93,6 +93,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 - **The search is a plain WordPress search over published posts**: up to 5 results by title, no pagination and no results page. The notifications bell in the header is hidden (`NEXT_PUBLIC_ENABLE_NOTIFICATIONS`, off by default) because its content was sample text, not real notifications (#151).
 - **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.
 - **Reads and likes are not measured**, so the post page shows a dash instead of a made-up number.
+- **The request limit is per IP, not per user** (#136, ADR-018), and the avatar upload only checks the 2 MB size, not the real file type.
 - **The CSP is not enforced yet.** It ships as `Content-Security-Policy-Report-Only` until a real Google sign-in on production shows no violation in the browser console (#135).
 - **No custom domain yet.** The target addresses and the order of the migration are in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md).
 
