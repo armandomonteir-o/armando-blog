@@ -35,6 +35,7 @@ npm run dev      # http://localhost:3000
 
 All technical documentation lives in [`/docs`](./docs/):
 
+- [`ECOSYSTEM.md`](./docs/ECOSYSTEM.md) — hosting, domains, accounts and deploy flow
 - [`ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — layout system, routing, scroll behavior
 - [`DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) — colors, typography, CSS variables, dark mode
 - [`DATA-MODELS.md`](./docs/DATA-MODELS.md) — TypeScript interfaces, WP/ACF mapping

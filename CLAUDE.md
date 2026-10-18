@@ -14,6 +14,7 @@ The design aesthetic is a deliberate mix of **neobrutalism**, **retro-digital**,
 
 Read these before starting any work:
 
+- `/docs/ECOSYSTEM.md` — where each piece lives (Vercel, Hostinger WordPress, Google OAuth, domains), how code gets deployed, and what only the account owner can confirm
 - `/docs/ARCHITECTURE.md` — layout system, routing, scroll behavior, component hierarchy
 - `/docs/DESIGN-SYSTEM.md` — colors, typography, CSS variables, dark mode
 - `/docs/DATA-MODELS.md` — TypeScript interfaces, WordPress CPT/taxonomy/ACF mapping
@@ -21,6 +22,22 @@ Read these before starting any work:
 - `/docs/COMPONENTS.md` — component catalog with data dependencies and behavior notes
 - `/docs/adr/` — architecture decisions with full context and trade-offs
 - `/docs/pitfalls/README.md` — check this FIRST before debugging anything
+
+## Keep the documentation current
+
+Documentation that drifts is worse than none: it already sent a deploy README toward the very method that wiped WordPress twice. In the same PR as the change, update the doc it affects. Do not leave it for later.
+
+| If the PR changes... | Update |
+|---|---|
+| a host, domain, env var, deploy step, or third-party account (Vercel, Hostinger, Google) | `docs/ECOSYSTEM.md` |
+| which routes use real data versus mock | the table in `README.md` and `docs/COMPONENTS.md` |
+| a decision with real trade-offs | a new ADR in `docs/adr/` |
+| a non-obvious behavior you tripped over | `docs/pitfalls/README.md` |
+| the test, CI or build setup | `README.md` and this file |
+
+In `docs/ECOSYSTEM.md`, mark each claim **[confirmado]** (checked against code or a real request) or **[conferir]** (only the account owner can say). Never write a secret, only variable names.
+
+Before ending a session, say which docs you touched, or say that none needed it.
 
 ## Critical Rules
 
