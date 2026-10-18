@@ -142,3 +142,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: `/api/comments` decided `queued` by `!comment`, assuming WPGraphQL hides a held comment. But `createComment` runs with the admin application password, and an admin sees held comments, so the comment came back and `queued` was `false`. The unit test mocked `null`, a case the real WordPress never produced.
 **Fix**: the mutation also asks for `status`, and the route answers `queued: true` (with `comment: null`) for anything that is not `APPROVE`. `route.test.ts` covers HOLD, SPAM and TRASH. `lib/auth/comments-route.live.test.ts` proves it against the real WordPress. A mock written from an assumption proves nothing about the real service: test the real one at least once.
 **Location**: `app/api/comments/route.ts`, `lib/graphql/mutations/comments.ts`
+
+---
+
+## PITFALL-015: a parent category's count is `null`, and `revalidatePath` on a dynamic route needs `"page"`
+
+**Date discovered**: 2026-10-18 (issue #73)
+**Symptom**: (1) a category page showed 0 posts although its subcategories had posts. (2) `revalidatePath("/categoria/[category]")` throws in a route handler.
+**Root cause**: (1) WordPress counts only the posts assigned directly to a category, and WPGraphQL returns `count: null` for one with none, even though a query filtered by the parent returns the children's posts. (2) With a dynamic segment, Next 16 requires the second argument: the pattern alone is ambiguous.
+**Fix**: (1) `buildCategoryView` in `lib/categories.ts` sums the children and reads `null` as 0. (2) `revalidatePath(pattern, "page")`, as `app/api/revalidate/route.ts` does for both category routes; the docs in `node_modules/next/dist/docs/.../revalidatePath.md` are the reference.
+**Location**: `lib/categories.ts`, `app/api/revalidate/route.ts`

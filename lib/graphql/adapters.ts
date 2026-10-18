@@ -1,7 +1,7 @@
 import type { WPPost, WPPostDetail, WPRecentComment } from "./types";
 import type { Post } from "@/constants/posts";
 
-const FALLBACK_IMAGE =
+export const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop";
 
 export function stripHtml(html: string): string {

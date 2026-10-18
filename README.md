@@ -44,7 +44,7 @@ The WordPress side (theme, plugin and deploy script) lives in the separate `blog
 | `/post/[slug]` | **WordPress**: the post, its comments and the related posts (same category). Reads and likes are not measured, so the page shows a dash |
 | comments, `/login`, `/minha-conta` | **WordPress** and Google OAuth |
 | `/posts` | **WordPress**: all posts (up to 100, paginated and filtered in the browser). Like the home, it is built ahead of time, so a new post appears after the next deploy (#68) |
-| `/categoria/...` | mock, from `data/categories.ts` |
+| `/categoria/...` | **WordPress**: which categories exist, their names and post counts, and the posts. The look of a category (colors, hero image, tags) is optional customisation in `data/categories.ts`; one without it gets a default look. A category the menu links to but WordPress doesn't have yet opens as an empty page, an unknown slug is a 404 ([ADR-015](./docs/adr/ADR-015-categorias-existem-no-wordpress-visual-no-codigo.md)) |
 | `/playlists` | mock, and the page says so on screen |
 
 ## How fresh the content is
@@ -77,11 +77,13 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 | `databaseId` instead of the global `id` | Stable integer keys for React and the same ID as WP Admin and WP-CLI; the cost is exposing the database ID in the HTML and tying the field to WPGraphQL | [007](./docs/adr/ADR-007-databaseid-over-global-id.md) |
 | Sign in with Google to comment, moderated in WordPress | Google OAuth only, so no passwords are stored; comments live in WordPress and are moderated in WP Admin. The cost is two server-side credentials: the Google session says who, the WordPress application password writes the comment | [009](./docs/adr/ADR-009-comment-auth-strategy.md) |
 | Avoid ACF, prefer Gutenberg blocks | Content structure comes from Gutenberg blocks instead of plugin fields, after a plugin update broke every query once (ADR-008); the cost is that reading blocks still depends on a plugin or a parser of our own | [013](./docs/adr/ADR-013-evitar-acf-preferir-gutenberg.md) |
+| Categories exist in WordPress, their look lives in code | The blog creates categories as it grows, with no deploy; changing how one looks does need a deploy | [015](./docs/adr/ADR-015-categorias-existem-no-wordpress-visual-no-codigo.md) |
 | Cache in two layers: ISR every hour plus on-demand revalidation | Pages are fast and static; WordPress pings the site, and the hourly rebuild covers a failed ping | [014](./docs/adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md) |
 
 ## What is not done, and why
 
-- **`/categoria/...` and `/playlists` are still mock**, and `/playlists` says so on screen. The category tree is not in WordPress yet (#73).
+- **`/playlists` is still mock**, and it says so on screen.
+- **The category tree is minimal on purpose.** WordPress has only the categories the blog uses; the rest of the menu (Músicas, Filmes, Livros) opens as an empty page until there is something to put there.
 - **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.
 - **Reads and likes are not measured**, so the post page shows a dash instead of a made-up number.
 - **No custom domain yet.** The target addresses and the order of the migration are in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md).

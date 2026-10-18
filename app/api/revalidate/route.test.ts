@@ -58,20 +58,32 @@ describe("POST /api/revalidate: who may call it", () => {
 });
 
 describe("POST /api/revalidate: what it refreshes", () => {
-  it("refreshes the home, the list and the post that changed", async () => {
+  // The category pages list posts and their comment counts, so they refresh too (#73). A dynamic
+  // route pattern needs the explicit "page" type, or Next throws.
+  const CATEGORY_PAGES = [
+    ["/categoria/[category]", "page"],
+    ["/categoria/[category]/[subcategory]", "page"],
+  ];
+
+  it("refreshes the home, the list, the post that changed and the category pages", async () => {
     const res = await route.POST(request({ slug: "um-post" }, bearer(SECRET)));
     expect(res.status).toBe(200);
-    expect(mockRevalidate.mock.calls.map((c) => c[0])).toEqual(["/", "/posts", "/post/um-post"]);
+    expect(mockRevalidate.mock.calls).toEqual([
+      ["/"],
+      ["/posts"],
+      ["/post/um-post"],
+      ...CATEGORY_PAGES,
+    ]);
     expect(await res.json()).toEqual({
       revalidated: true,
-      paths: ["/", "/posts", "/post/um-post"],
+      paths: ["/", "/posts", "/post/um-post", ...CATEGORY_PAGES.map(([p]) => p)],
     });
   });
 
-  it("refreshes only the home and the list when no slug is given", async () => {
+  it("refreshes everything but the post when no slug is given", async () => {
     const res = await route.POST(request({}, bearer(SECRET)));
     expect(res.status).toBe(200);
-    expect(mockRevalidate.mock.calls.map((c) => c[0])).toEqual(["/", "/posts"]);
+    expect(mockRevalidate.mock.calls).toEqual([["/"], ["/posts"], ...CATEGORY_PAGES]);
   });
 });
 

@@ -42,9 +42,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
   }
 
-  const paths = ["/", "/posts", ...(slug ? [`/post/${slug}`] : [])];
+  // The category pages list posts and comment counts, so they refresh with every change (#73).
+  // A route pattern with dynamic segments needs the explicit "page" type.
+  const categoryPages = ["/categoria/[category]", "/categoria/[category]/[subcategory]"];
+  const paths = ["/", "/posts", ...(slug ? [`/post/${slug}`] : []), ...categoryPages];
   try {
-    for (const path of paths) revalidatePath(path);
+    for (const path of paths) {
+      if (categoryPages.includes(path)) revalidatePath(path, "page");
+      else revalidatePath(path);
+    }
   } catch (err) {
     console.error("[POST /api/revalidate]", err);
     return NextResponse.json({ error: "Failed to revalidate" }, { status: 500 });

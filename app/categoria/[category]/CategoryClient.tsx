@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { ArrowRight, Hash, FileText } from "lucide-react";
 import { motion } from "motion/react";
 import { WavyText } from "@/components/ui/WavyText";
@@ -12,20 +10,11 @@ import { AeroElements } from "@/components/ui/AeroElements";
 import { AppImage } from "@/components/ui/AppImage";
 import { Pagination } from "@/components/ui/Pagination";
 import { CategoryHero } from "@/components/ui/CategoryHero";
-import { getCategoryBySlug } from "@/data/categories";
-
-// TODO issue #13: replace with generateMetadata() from WPGraphQL
+import type { CategoryView } from "@/lib/categories";
 
 const SUBCATS_PER_PAGE = 4;
 
-export default function CategoryClient() {
-  const routeParams = useParams();
-  const categorySlug = routeParams.category as string;
-  const category = getCategoryBySlug(categorySlug);
-
-  if (!category) redirect("/");
-
-  const totalPosts = category.subcategories.reduce((a, s) => a + s.postCount, 0);
+export default function CategoryClient({ category }: { category: CategoryView }) {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(category.subcategories.length / SUBCATS_PER_PAGE);
   const startIdx = (currentPage - 1) * SUBCATS_PER_PAGE;
@@ -61,7 +50,7 @@ export default function CategoryClient() {
             <div className="flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.8)" }}>
               <FileText size={13} />
               <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
-                {totalPosts}
+                {category.postCount}
               </span>
               <span
                 className="font-mono"
@@ -102,6 +91,15 @@ export default function CategoryClient() {
                   {category.subcategories.length} ENTRIES FOUND
                 </span>
               </div>
+
+              {category.subcategories.length === 0 && (
+                <p
+                  className="font-mono font-bold text-chrome-blue-body py-10 text-center"
+                  style={{ fontSize: "11px" }}
+                >
+                  NENHUMA SUBCATEGORIA POR AQUI AINDA.
+                </p>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {currentSubcats.map((sub, i) => (
