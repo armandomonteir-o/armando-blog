@@ -95,7 +95,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 - **The search is a plain WordPress search over published posts**: up to 5 results by title, no pagination and no results page. The notifications bell in the header is hidden (`NEXT_PUBLIC_ENABLE_NOTIFICATIONS`, off by default) because its content was sample text, not real notifications (#151).
 - **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.
 - **Reads and likes are not measured**, so the post page shows a dash instead of a made-up number.
-- **The request limit is per IP, not per user** (#136, ADR-018), and the avatar upload only checks the 2 MB size, not the real file type.
+- **The request limit is per IP, not per user** (#136, ADR-018), and the avatar upload checks the 2 MB size and the file type that the browser declares (`image/*`), which a client can fake; it never looks at the real content, so the only other guard is WordPress's own upload rules.
 - **The CSP is not enforced yet.** It ships as `Content-Security-Policy-Report-Only` until a real Google sign-in on production shows no violation in the browser console (#135).
 - **No custom domain yet.** The target addresses and the order of the migration are in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md).
 

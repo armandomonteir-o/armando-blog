@@ -62,7 +62,7 @@ A regra foi criada pela API da Vercel (`PATCH /v1/security/firewall/config`, `ru
 ## O que falta para fechar a #136
 
 - Limite **por usuário** (a conta do Google), com chave própria, e `Retry-After` na resposta.
-- Conferir o **tipo real** do arquivo no envio de avatar (hoje há só o limite de 2 MB).
+- Conferir o **tipo real** do arquivo no envio de avatar. Hoje a rota confere o tamanho (2 MB) e o tipo que o **navegador declara** (`file.type.startsWith("image/")`), que um cliente malicioso pode falsificar; o conteúdo nunca é olhado. A outra defesa é o filtro de upload do próprio WordPress.
 - Testes de código para esses dois pontos. Só vale a pena se aparecer abuso real, porque exigem Upstash ou o pacote `@vercel/firewall` com chave por usuário.
 
 ## Alternativas consideradas
