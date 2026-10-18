@@ -9,6 +9,7 @@ const CREATE_COMMENT = /* GraphQL */ `
         id
         content
         date
+        status
         author {
           node {
             name
@@ -25,7 +26,7 @@ const CREATE_COMMENT = /* GraphQL */ `
 interface CreateCommentResponse {
   createComment: {
     success: boolean;
-    comment: WPComment | null;
+    comment: (WPComment & { status: string }) | null;
   };
 }
 
@@ -39,7 +40,7 @@ export async function createWPComment({
   content: string;
   authorName: string;
   authorEmail: string;
-}): Promise<WPComment | null> {
+}): Promise<(WPComment & { status: string }) | null> {
   const data = await wpMutation<CreateCommentResponse>(CREATE_COMMENT, {
     input: {
       commentOn: postId,

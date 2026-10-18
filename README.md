@@ -105,6 +105,9 @@ SMOKE_TEST=1 SMOKE_URL=https://<preview>.vercel.app npm test   # same, against a
 WP_LIVE_TEST=1 npm test           # also checks the queries against the real WordPress schema and runs the
                                   # comment moderation flow (needs WP_APP_USER and WP_APP_PASSWORD; it creates
                                   # a test comment and always deletes it)
+# Comment route with a session made inside the test, no Google (needs a local server with the same throwaway secret):
+AUTH_SECRET=<throwaway> npm run dev -- -p 3010
+ROUTE_TEST_URL=http://localhost:3010 ROUTE_TEST_AUTH_SECRET=<same throwaway> npm test
 ```
 
 The smoke test exists because login once returned 500 in production for weeks with a green build: the Auth.js variables were missing from Vercel (#91). Run it after changing environment variables or redeploying.

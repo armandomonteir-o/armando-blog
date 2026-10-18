@@ -28,8 +28,13 @@ export async function POST(req: Request) {
       authorName,
       authorEmail: session.user.email,
     });
-    // comment is null when WPGraphQL withholds held/pending comments from non-admin viewers
-    return NextResponse.json({ comment, queued: !comment });
+    // Only an APPROVE comment is public. WordPress returns the held comment too (the mutation
+    // runs with an admin credential), so `status` decides, not `comment === null`: null still
+    // happens when WPGraphQL withholds it.
+    if (!comment || comment.status !== "APPROVE") {
+      return NextResponse.json({ comment: null, queued: true });
+    }
+    return NextResponse.json({ comment, queued: false });
   } catch (err) {
     console.error("[POST /api/comments]", err);
     return NextResponse.json({ error: "Failed to create comment" }, { status: 500 });
