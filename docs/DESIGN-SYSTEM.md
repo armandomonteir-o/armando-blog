@@ -246,16 +246,16 @@ background: var(--arm-bg-glass);  /* semi-transparent */
 
 ### Blocos do corpo do post (#84)
 
-Os blocos do Gutenberg se vestem com os padrões que o site já tem (`components/content/single-post/PostBody/`), sem token novo:
+Os blocos do Gutenberg se vestem com os padrões que o site já tem (`components/content/single-post/PostBody/`), sem token novo. O destaque deles é **uma variável só**, `--post-accent` (hoje o azul claro `--chrome-blue-soft`, `#80b0ff`), com `--post-accent-soft` e `--post-accent-tint`, definidas em `styles/theme.css`. Trocar a cor do post inteiro é mudar essas linhas (o comentário no arquivo diz como voltar ao verde).
 
 | Bloco | Como aparece |
 |---|---|
 | Imagem, código, embed | `WindowFrame`: janela com barra de título (`FOTO.JPG`, `CODE.TXT`, `EMBED.LNK`), dois quadradinhos, borda de 3px e sombra dura `4px 4px 0`. A imagem leva scanlines |
-| Citação | barra verde de 6px, fundo `--arm-panel-bg`, aspa decorativa grande em verde a 14% (a do protótipo), texto de 18px e o autor em mono verde |
-| Título menor | prompt `>` verde em mono e linha tracejada embaixo |
-| Lista | marcadores quadrados verdes (`marker:`), números em mono nas ordenadas |
-| Embed | cartão inteiro clicável com `brutal-lift`, botão de play quadrado verde |
-| Texto de autor | classe `.post-prose` em `styles/theme.css`: link verde sublinhado com tinta no hover, negrito em branco, `code` inline em mono verde-suave |
+| Citação | barra de destaque de 6px, fundo `--arm-panel-bg`, aspa decorativa grande (120px, a do protótipo) em `--post-accent` a 40%, texto de 18px e o autor em mono |
+| Título menor | prompt `>` em mono no destaque e linha tracejada embaixo |
+| Lista | marcadores quadrados no destaque (`marker:`), números em mono nas ordenadas |
+| Embed | cartão inteiro clicável com `brutal-lift`, botão de play quadrado |
+| Texto de autor | classe `.post-prose` em `styles/theme.css`: link no destaque, sublinhado, com tinta no hover; negrito em branco; `code` inline em mono |
 
 ### Glossy Bubble Decorations
 

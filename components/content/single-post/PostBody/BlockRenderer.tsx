@@ -63,7 +63,7 @@ function HeadingBlock({ block }: { block: EditorBlock }) {
       <span
         aria-hidden="true"
         className="font-mono font-bold flex-shrink-0"
-        style={{ fontSize: "16px", color: "var(--chrome-green)" }}
+        style={{ fontSize: "16px", color: "var(--post-accent)" }}
       >
         &gt;
       </span>
@@ -82,7 +82,7 @@ function List({ block }: { block: EditorBlock }) {
   const Tag = ordered ? "ol" : "ul";
   return (
     <Tag
-      className={`mb-5 pl-6 ${BODY_CLASS} marker:text-chrome-green marker:font-bold ${ordered ? "marker:font-mono" : ""}`}
+      className={`mb-5 pl-6 ${BODY_CLASS} marker:text-[color:var(--post-accent)] marker:font-bold ${ordered ? "marker:font-mono" : ""}`}
       style={{ ...BODY_STYLE, listStyleType: ordered ? "decimal" : "square" }}
       start={typeof block.attributes?.start === "number" ? block.attributes.start : undefined}
       reversed={block.attributes?.reversed === true ? true : undefined}
@@ -101,7 +101,7 @@ function ListItem({ block }: { block: EditorBlock }) {
   );
 }
 
-// The decorative quote mark of the prototype, in the accent at low opacity, and a green bar.
+// The decorative quote mark of the prototype, in the accent at low opacity, and an accent bar.
 function Quote({ block }: { block: EditorBlock }) {
   const citation = block.attributes?.citation;
   return (
@@ -110,7 +110,7 @@ function Quote({ block }: { block: EditorBlock }) {
       style={{
         backgroundColor: "var(--arm-panel-bg)",
         border: "3px solid var(--arm-panel-border)",
-        borderLeft: "6px solid var(--chrome-green)",
+        borderLeft: "6px solid var(--post-accent)",
         boxShadow: "4px 4px 0 var(--arm-panel-bg-deep)",
       }}
     >
@@ -118,12 +118,12 @@ function Quote({ block }: { block: EditorBlock }) {
         aria-hidden="true"
         className="absolute pointer-events-none select-none font-grotesk font-bold"
         style={{
-          top: "4px",
-          right: "14px",
-          fontSize: "88px",
+          top: "-2px",
+          right: "16px",
+          fontSize: "120px",
           lineHeight: 1,
-          color: "var(--chrome-green)",
-          opacity: 0.14,
+          color: "var(--post-accent)",
+          opacity: 0.4,
         }}
       >
         &ldquo;
@@ -135,7 +135,7 @@ function Quote({ block }: { block: EditorBlock }) {
             as="cite"
             html={citation}
             className={`post-prose block mt-3 not-italic font-bold ${CAPTION_CLASS}`}
-            style={{ fontSize: "11px", color: "var(--chrome-green)" }}
+            style={{ fontSize: "11px", color: "var(--post-accent)" }}
           />
         )}
       </div>
@@ -156,7 +156,7 @@ function Code({ block }: { block: EditorBlock }) {
         style={{
           fontSize: "13px",
           lineHeight: 1.7,
-          color: "var(--chrome-green-soft)",
+          color: "var(--post-accent-soft)",
           backgroundColor: "var(--arm-panel-bg-deep)",
           backgroundImage: SCANLINES,
         }}
@@ -238,9 +238,9 @@ function Embed({ block }: { block: EditorBlock }) {
               width: "44px",
               height: "44px",
               fontSize: "18px",
-              color: "var(--chrome-green)",
+              color: "var(--post-accent)",
               backgroundColor: "var(--arm-panel-bg-deep)",
-              border: "2px solid var(--chrome-green)",
+              border: "2px solid var(--post-accent)",
             }}
           >
             &#9654;
@@ -251,7 +251,7 @@ function Embed({ block }: { block: EditorBlock }) {
             </span>
             <span
               className="block font-grotesk break-all"
-              style={{ fontSize: "14px", color: "var(--chrome-green)" }}
+              style={{ fontSize: "14px", color: "var(--post-accent)" }}
             >
               {url}
             </span>

@@ -17,6 +17,12 @@
   --chrome-green: #34d399;
   --chrome-green-soft: #6ee7b7;
   --chrome-green-tint: rgba(52, 211, 153, 0.08);
+
+  /* Accent of the blocks inside a post (#84). One place to flip it: the site's light blue, or
+     --chrome-green / --chrome-green-soft / --chrome-green-tint for the green. */
+  --post-accent: var(--chrome-blue-soft);
+  --post-accent-soft: var(--chrome-blue-content);
+  --post-accent-tint: rgba(128, 176, 255, 0.14);
   --chrome-red: #e05050;
   --chrome-red-soft: #ff6b6b;
   --chrome-purple: #c084fc;
@@ -363,7 +369,7 @@
 /* Text an author wrote inside a post (#84): links, bold and inline code in the site's own
    accents. The HTML comes from WordPress, so the elements can't take inline styles. */
 .post-prose a {
-  color: var(--chrome-green);
+  color: var(--post-accent);
   font-weight: 700;
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -373,7 +379,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .post-prose a:hover {
-    background-color: var(--chrome-green-tint);
+    background-color: var(--post-accent-tint);
   }
 }
 
@@ -385,7 +391,7 @@
   font-family: var(--font-mono);
   font-size: 0.9em;
   padding: 1px 6px;
-  color: var(--chrome-green-soft);
+  color: var(--post-accent-soft);
   background-color: var(--arm-panel-bg-deep);
   border: 1px solid var(--arm-panel-border);
 }
