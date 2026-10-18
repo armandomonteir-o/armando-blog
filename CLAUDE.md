@@ -23,21 +23,30 @@ Read these before starting any work:
 - `/docs/adr/` — architecture decisions with full context and trade-offs
 - `/docs/pitfalls/README.md` — check this FIRST before debugging anything
 
-## Keep the documentation current
+## Keep the documentation current (MANDATORY)
 
-Documentation that drifts is worse than none: it already sent a deploy README toward the very method that wiped WordPress twice. In the same PR as the change, update the doc it affects. Do not leave it for later.
+**Updating the documentation is part of the work, not a follow-up.** A task is not done, and a PR must not be opened, until every document the change affects has been updated in that same PR. This covers the `README.md`, the ADRs in `docs/adr/`, `docs/ECOSYSTEM.md`, `docs/pitfalls/README.md`, `docs/COMPONENTS.md`, `docs/ARCHITECTURE.md`, `docs/DATA-MODELS.md`, `docs/DESIGN-SYSTEM.md` and this file. Do not wait to be asked, and do not leave it for later.
+
+Documentation that drifts is worse than none: it already sent a deploy README toward the very method that wiped WordPress twice, and an ADR kept saying "Accepted" for a mock fallback the code no longer had.
+
+Before every commit, ask: _what did this change make false in the docs?_ Then search for it (`grep -rn` for the route, variable, flag or behavior name in `README.md` and `docs/`) and fix it.
 
 | If the PR changes... | Update |
 |---|---|
 | a host, domain, env var, deploy step, or third-party account (Vercel, Hostinger, Google) | `docs/ECOSYSTEM.md` |
 | which routes use real data versus mock | the table in `README.md` and `docs/COMPONENTS.md` |
-| a decision with real trade-offs | a new ADR in `docs/adr/` |
+| a decision with real trade-offs | a new ADR in `docs/adr/`, plus its line in the "Decisions and trade-offs" table of `README.md` |
+| a decision that replaces or weakens an earlier ADR | the status line of the old ADR, so it never contradicts the code |
 | a non-obvious behavior you tripped over | `docs/pitfalls/README.md` |
 | the test, CI or build setup | `README.md` and this file |
+| a component's data source or behavior | `docs/COMPONENTS.md` |
+| the layout, routing or scroll system | `docs/ARCHITECTURE.md` |
+| types or the WordPress mapping | `docs/DATA-MODELS.md` |
+| colors, fonts or CSS variables | `docs/DESIGN-SYSTEM.md` |
 
 In `docs/ECOSYSTEM.md`, mark each claim **[confirmado]** (checked against code or a real request) or **[conferir]** (only the account owner can say). Never write a secret, only variable names.
 
-Before ending a session, say which docs you touched, or say that none needed it.
+At the end of every session, say which docs you touched, or say explicitly that none needed it and why. Also keep `.claude/handoff.md` up to date.
 
 ## Critical Rules
 
