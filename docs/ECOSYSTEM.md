@@ -88,6 +88,10 @@ O Auth.js lê as três `AUTH_*` sozinho, sem aparecer no código. Foi por isso q
 | `armandomonteir-o/armando-blog` | front-end Next.js (pasta local `blog-armandin`) |
 | `armandomonteir-o/blog-cms` | tema e plugin do WordPress, mais scripts de deploy |
 
+## Como o conteúdo chega ao site (cache)
+
+A home, `/posts` e cada post são gerados no build e refeitos em segundo plano no máximo uma vez por hora (**[confirmado]**: `Revalidate 1h` na saída do `next build`, e `Cache-Control: s-maxage=3600` num servidor de produção). Post novo ou editado aparece em até uma hora, sem deploy. A decisão está no ADR-014. A revalidação sob demanda (o WordPress avisar o site quando algo muda) ainda não existe: são as etapas 2 e 3 da #68, e a 3 mexe no plugin do `blog-cms`.
+
 ## Como o código chega em cada lugar
 
 - **Front:** `git push` → Vercel faz o build e publica sozinha.

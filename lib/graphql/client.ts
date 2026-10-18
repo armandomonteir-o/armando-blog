@@ -1,4 +1,5 @@
 import { GraphQLClient } from "graphql-request";
+import { withRetry } from "./retry";
 
 const endpoint = process.env.WORDPRESS_API_URL;
 
@@ -10,8 +11,10 @@ export const wpClient = new GraphQLClient(endpoint, {
   headers: { "Content-Type": "application/json" },
 });
 
+// Reads are retried on passing failures (see retry.ts). Writes (wpMutation) never are:
+// repeating a "create comment" could post it twice.
 export async function wpQuery<T>(query: string, variables?: Record<string, unknown>): Promise<T> {
-  return wpClient.request<T>(query, variables ?? {});
+  return withRetry(() => wpClient.request<T>(query, variables ?? {}));
 }
 
 // Authenticated client using WP Application Password — for mutations only (server-side)
@@ -42,5 +45,5 @@ export async function wpAuthQuery<T>(
   query: string,
   variables?: Record<string, unknown>
 ): Promise<T> {
-  return getWpAuthClient().request<T>(query, variables ?? {});
+  return withRetry(() => getWpAuthClient().request<T>(query, variables ?? {}));
 }

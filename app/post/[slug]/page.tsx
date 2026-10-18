@@ -14,7 +14,7 @@ import {
   RelatedPosts,
   PostCommentsSection,
 } from "@/components/content/single-post";
-import { getPost, getPosts } from "@/lib/graphql";
+import { getPost, getPosts, getPostSlugs } from "@/lib/graphql";
 import { adaptWPPost, adaptWPPostDetail, stripHtml } from "@/lib/graphql/adapters";
 
 const RELATED_COUNT = 3;
@@ -33,6 +33,19 @@ async function getRelatedPosts(categorySlug: string | undefined, currentSlug: st
     console.error("[PostPage] related posts failed:", e);
     return [];
   }
+}
+
+// Time-based revalidation (#68): the page is rebuilt in the background at most once an hour.
+// Must be a literal number in each file (Next reads it statically); cache-config.test.ts keeps
+// the three in sync.
+export const revalidate = 3600;
+
+// Prerenders the posts WordPress has at build time. A post published later (not in this list)
+// is generated on its first visit and then cached like the others: `dynamicParams` stays at its
+// default, `true`. A slug that does not exist is a 404.
+export async function generateStaticParams() {
+  const slugs = await getPostSlugs(100);
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({

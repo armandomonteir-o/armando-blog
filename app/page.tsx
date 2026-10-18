@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   description: "Blog pessoal sobre arte, tecnologia e filosofia digital.",
 };
 
+// Time-based revalidation (#68): the page is rebuilt in the background at most once an hour.
+// Must be a literal number in each file (Next reads it statically); cache-config.test.ts keeps
+// the three in sync.
+export const revalidate = 3600;
+
 export default async function HomePage() {
   // No try/catch on purpose: a WordPress failure must reach error.tsx (or fail the build),
   // never fall back to the mock posts. An empty list means WordPress answered with no posts.
