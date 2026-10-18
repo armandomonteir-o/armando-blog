@@ -10,6 +10,7 @@ const POST_FIELDS = /* GraphQL */ `
     excerpt
     date
     commentCount
+    isSticky
     categories {
       nodes {
         name
@@ -135,13 +136,6 @@ export async function getPosts(
     categorySlug: categorySlug ?? null,
   });
   return data.posts;
-}
-
-// WPGraphQL does not accept metaKey/metaValue in `where`, so the ACF flag is
-// filtered here, among the most recent posts.
-export async function getFeaturedPost(scan = 20): Promise<WPPost | null> {
-  const { nodes } = await getPosts(scan);
-  return nodes.find((post) => post.acfPostFields?.isFeatured) ?? null;
 }
 
 export async function getPost(slug: string): Promise<WPPostDetail | null> {

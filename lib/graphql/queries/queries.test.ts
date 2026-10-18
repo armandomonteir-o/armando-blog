@@ -12,22 +12,10 @@ vi.mock("graphql-request", () => ({
   }),
 }));
 
-import { getFeaturedPost, getPost, getPosts } from "./posts";
+import { getPost, getPosts } from "./posts";
+import { getRecentComments } from "./comments";
 import { getCategoryPosts } from "./categories";
 import { searchPosts } from "./search";
-
-function post(slug: string, isFeatured: boolean | null) {
-  return {
-    slug,
-    acfPostFields: {
-      heroImage: null,
-      readingTime: null,
-      isFeatured,
-      subtitle: null,
-      postSections: null,
-    },
-  };
-}
 
 beforeEach(() => {
   request.mockReset();
@@ -59,25 +47,22 @@ describe("getCategoryPosts", () => {
   });
 });
 
-describe("getFeaturedPost", () => {
-  it("returns the first post flagged in ACF", async () => {
-    request.mockResolvedValue({
-      posts: { nodes: [post("a", false), post("b", true), post("c", true)], pageInfo: {} },
-    });
-    expect((await getFeaturedPost())?.slug).toBe("b");
+describe("getRecentComments", () => {
+  it("asks for the newest approved comments on posts, limited by the argument", async () => {
+    request.mockResolvedValue({ comments: { nodes: [] } });
+    await getRecentComments(4);
+    const [query, variables] = request.mock.calls[0];
+    expect(query).toContain('status: "approve"');
+    expect(query).toContain("contentType: POST");
+    expect(query).toContain("order: DESC");
+    expect(variables).toEqual({ first: 4 });
   });
 
-  it("returns null when no post is flagged", async () => {
-    request.mockResolvedValue({
-      posts: { nodes: [post("a", false), post("b", null)], pageInfo: {} },
-    });
-    expect(await getFeaturedPost()).toBeNull();
-  });
-
-  it("does not filter by meta in the query, which WPGraphQL rejects", async () => {
-    request.mockResolvedValue({ posts: { nodes: [], pageInfo: {} } });
-    await getFeaturedPost();
-    expect(request.mock.calls[0][0]).not.toContain("metaKey");
+  it("returns the nodes, and lets a WordPress failure propagate", async () => {
+    request.mockResolvedValue({ comments: { nodes: [{ id: "x" }] } });
+    expect(await getRecentComments()).toEqual([{ id: "x" }]);
+    request.mockRejectedValue(new Error("network"));
+    await expect(getRecentComments()).rejects.toThrow("network");
   });
 });
 
