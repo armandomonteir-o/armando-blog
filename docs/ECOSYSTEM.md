@@ -34,6 +34,7 @@ O WordPress é só o back-end (CMS e API). Quem o visitante vê é o Next.js na 
 | Stack | Next.js 16 (App Router), Tailwind v4, TypeScript, Zustand **[confirmado]** |
 | Deploy | automático a cada push, com preview por PR **[confirmado]**: o status "Vercel" aparece nas PRs |
 | CI | GitHub Actions: type-check, lint, test e build **[confirmado]** |
+| Cabeçalhos de segurança | a Vercel manda o HSTS (`max-age=63072000; includeSubDomains; preload`) **[confirmado]** com `curl -sI` em 18/10/2026. O resto vem do `headers()` do `next.config.ts` (ADR-017): `nosniff`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options: DENY` e o CSP **só em Report-Only**. Confirmado em `next start` local, **[conferir]** em produção depois do deploy desta PR |
 | Plano da Vercel | **[conferir]** provavelmente Hobby (gratuito). Confira em Settings → Billing |
 | Domínio próprio apontando para a Vercel | ainda não. O destino será `blog.armandomonteiro.com` (ver "Endereços finais") |
 
@@ -123,7 +124,7 @@ A home, `/posts` e cada post são gerados no build e refeitos em segundo plano n
 **Migração, na ordem em que precisa acontecer** (nada disso foi feito ainda):
 
 1. Criar o subdomínio do CMS na Hostinger e mover o WordPress para ele. Atenção: mudar a URL do site no WordPress também reescreve links no banco. Fazer com backup.
-2. Atualizar `WORDPRESS_API_URL` na Vercel e o `hostname` em `remotePatterns` no `next.config.ts` (as imagens vêm do WordPress).
+2. Atualizar `WORDPRESS_API_URL` na Vercel e o host na lista `imageHosts` do `next.config.ts` (as imagens vêm do WordPress; a lista alimenta o `remotePatterns` e o `img-src` do CSP, ADR-017).
 3. Apontar `blog.armandomonteiro.com` para a Vercel (registro CNAME no DNS) e cadastrar o domínio no projeto da Vercel.
 4. No Google Cloud, cadastrar `https://blog.armandomonteiro.com/api/auth/callback/google` nas URIs de redirecionamento. Sem isso o login falha com `redirect_uri_mismatch`.
    **Também, no servidor do WordPress:** trocar a constante `ARMANDO_REVALIDATE_URL` do `wp-config.php` para `https://blog.armandomonteiro.com/api/revalidate` (`wp config set ARMANDO_REVALIDATE_URL <url> --type=constant`). Se isso for esquecido, o aviso continua indo para o endereço antigo, a falha só aparece no log, e o site vale só a hora.

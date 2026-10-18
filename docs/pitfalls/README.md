@@ -182,3 +182,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: a page with `revalidate = 3600` keeps the responses of its `fetch` calls in Next's data cache (`.next/cache/fetch-cache`, and the build cache Vercel restores) for that long. A GraphQL error comes back with HTTP 200, so the failed answer was cached like a good one.
 **Fix**: nothing to fix in the code. After installing, removing or updating a WordPress plugin that changes the schema, wait up to an hour, or delete `.next/cache/fetch-cache` locally (`rm -rf .next/cache/fetch-cache`) before judging a build. The `revalidate` route (`/api/revalidate`) refreshes the page, not always the data cache entry, so do not rely on it for this.
 **Location**: `.next/cache/fetch-cache`, `app/post/[slug]/page.tsx`
+
+---
+
+## PITFALL-019: locally, Vercel Analytics logs a MIME error that is not a bug, and the CSP needs no extra host for it
+
+**Date discovered**: 2026-10-18 (issue #135)
+**Symptom**: with `next start` on localhost and the security headers on, the browser console shows `Refused to execute script from '/_vercel/insights/script.js' because its MIME type ('text/plain') is not executable`. It looks like `X-Content-Type-Options: nosniff` broke Analytics.
+**Root cause**: `@vercel/analytics` loads the script from the same origin, `/_vercel/insights/script.js`, a path that only exists on Vercel. Locally it is a 404 with `text/plain`. In production the same URL answers 200 with `application/javascript` (checked with `curl -sI`), so `nosniff` is harmless there. The `va.vercel-scripts.com` host only appears in the library's debug mode.
+**Fix**: nothing to fix. Do not widen the CSP for it. `script-src 'self'` and `connect-src 'self'` cover Analytics in production; `va.vercel-scripts.com` and `vitals.vercel-insights.com` stay in the list only as a safety margin. To judge CSP violations locally, look only at messages that say "Content Security Policy".
+**Location**: `next.config.ts`, `app/layout.tsx`
