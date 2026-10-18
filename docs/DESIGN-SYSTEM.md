@@ -244,6 +244,19 @@ background: var(--arm-bg-glass);  /* semi-transparent */
 /* Plus a gradient sheen overlay */
 ```
 
+### Blocos do corpo do post (#84)
+
+Os blocos do Gutenberg se vestem com os padrões que o site já tem (`components/content/single-post/PostBody/`), sem token novo:
+
+| Bloco | Como aparece |
+|---|---|
+| Imagem, código, embed | `WindowFrame`: janela com barra de título (`FOTO.JPG`, `CODE.TXT`, `EMBED.LNK`), dois quadradinhos, borda de 3px e sombra dura `4px 4px 0`. A imagem leva scanlines |
+| Citação | barra verde de 6px, fundo `--arm-panel-bg`, aspa decorativa grande em verde a 14% (a do protótipo), texto de 18px e o autor em mono verde |
+| Título menor | prompt `>` verde em mono e linha tracejada embaixo |
+| Lista | marcadores quadrados verdes (`marker:`), números em mono nas ordenadas |
+| Embed | cartão inteiro clicável com `brutal-lift`, botão de play quadrado verde |
+| Texto de autor | classe `.post-prose` em `styles/theme.css`: link verde sublinhado com tinta no hover, negrito em branco, `code` inline em mono verde-suave |
+
 ### Glossy Bubble Decorations
 
 Radial gradient circles with blur, placed as absolute positioned decorative elements:

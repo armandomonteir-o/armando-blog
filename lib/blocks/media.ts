@@ -49,3 +49,24 @@ export function embedLabel(attributes: Record<string, unknown> | null | undefine
   const url = safeUrl(attributes?.url);
   return url ? new URL(url).hostname.replace(/^www\./, "").toUpperCase() : "LINK";
 }
+
+const MAX_FILE_NAME = 24;
+
+// The name in the title bar of an image, like a file on the old desktop: the last part of the url
+// in capitals, shortened so it fits, with a generic one when the url has no name to show.
+export function imageFileName(src: string): string {
+  const url = safeUrl(src);
+  if (!url) return "IMAGE.PNG";
+  let name = new URL(url).pathname.split("/").filter(Boolean).pop() ?? "";
+  try {
+    name = decodeURIComponent(name);
+  } catch {
+    // keep the raw name when it is not valid percent-encoding
+  }
+  if (!name) return "IMAGE.PNG";
+  name = name.toUpperCase();
+  if (name.length <= MAX_FILE_NAME) return name;
+  const dot = name.lastIndexOf(".");
+  const ext = dot > 0 ? name.slice(dot) : "";
+  return `${name.slice(0, MAX_FILE_NAME - ext.length - 1)}…${ext}`;
+}

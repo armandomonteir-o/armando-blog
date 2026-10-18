@@ -40,7 +40,7 @@ describe("BlockRenderer with a real post", () => {
     expect(html).toContain("<h3");
     expect(html).toContain("<ul");
     expect(html).toContain("<ol");
-    expect(html).toContain("<li>");
+    expect(html).toContain("<li ");
     expect(html).toContain("<blockquote");
     expect(html).toContain("<pre");
     expect(html).toContain("Legenda da foto");
@@ -57,7 +57,7 @@ describe("BlockRenderer with a real post", () => {
   it("nests the items inside their list", () => {
     const ul = render(named("core/list"));
     expect(ul).toMatch(
-      /<ul[^>]*><li><span>item um<\/span><\/li><li><span>item <a[^>]*>dois<\/a><\/span><\/li><\/ul>/
+      /<ul[^>]*><li[^>]*><span>item um<\/span><\/li><li[^>]*><span>item <a[^>]*>dois<\/a><\/span><\/li><\/ul>/
     );
   });
 
@@ -69,7 +69,8 @@ describe("BlockRenderer with a real post", () => {
 
   it("shows an embed as a link, with no iframe or script from the provider", () => {
     const embed = render(named("core/embed"));
-    expect(embed).toContain("EMBED · YOUTUBE");
+    expect(embed).toContain("EMBED.LNK");
+    expect(embed).toContain("YOUTUBE");
     expect(embed).toContain('href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"');
     expect(embed).not.toContain("<iframe");
   });

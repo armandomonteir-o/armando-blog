@@ -359,3 +359,33 @@
     var(--lift-color);
   transition-duration: var(--duration-press);
 }
+
+/* Text an author wrote inside a post (#84): links, bold and inline code in the site's own
+   accents. The HTML comes from WordPress, so the elements can't take inline styles. */
+.post-prose a {
+  color: var(--chrome-green);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: background-color var(--duration-hover) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .post-prose a:hover {
+    background-color: var(--chrome-green-tint);
+  }
+}
+
+.post-prose strong {
+  color: var(--arm-panel-text);
+}
+
+.post-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 1px 6px;
+  color: var(--chrome-green-soft);
+  background-color: var(--arm-panel-bg-deep);
+  border: 1px solid var(--arm-panel-border);
+}

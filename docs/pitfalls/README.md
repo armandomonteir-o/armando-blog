@@ -172,3 +172,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: (1) WPGraphQL Content Blocks returns every block in one flat list, each with a `parentClientId`, unless you pass `editorBlocks(flat: false)`. (2) the `content` attribute of `core/code` is already HTML-escaped. (3) the plugin is distributed only as a GitHub release.
 **Fix**: (1) ask for `flat: false` and read `innerBlocks`, three levels deep. (2) `plainText()` decodes it once, and React escapes it as a child. (3) install the pinned zip from the release (see ADR-016); the introspection of the production schema is closed, so validate by running a real query, like `getPostBlocks` in `live.test.ts`.
 **Location**: `lib/graphql/queries/posts.ts`, `components/content/single-post/PostBody/BlockRenderer.tsx`
+
+---
+
+## PITFALL-018: right after a plugin change, builds still show the old GraphQL error for up to an hour
+
+**Date discovered**: 2026-10-18 (issue #84)
+**Symptom**: the Content Blocks plugin was installed and active, `getPostBlocks` passed against production, yet `npm run build` kept logging `Unknown type "EditorBlock"` for the posts it had already fetched (all of them but the newest). The preview on Vercel showed plain text for a while too.
+**Root cause**: a page with `revalidate = 3600` keeps the responses of its `fetch` calls in Next's data cache (`.next/cache/fetch-cache`, and the build cache Vercel restores) for that long. A GraphQL error comes back with HTTP 200, so the failed answer was cached like a good one.
+**Fix**: nothing to fix in the code. After installing, removing or updating a WordPress plugin that changes the schema, wait up to an hour, or delete `.next/cache/fetch-cache` locally (`rm -rf .next/cache/fetch-cache`) before judging a build. The `revalidate` route (`/api/revalidate`) refreshes the page, not always the data cache entry, so do not rely on it for this.
+**Location**: `.next/cache/fetch-cache`, `app/post/[slug]/page.tsx`
