@@ -1,0 +1,113 @@
+name: Smoke
+
+# Looks at the published site every hour (#131). Build and CI cannot see a missing Vercel variable
+# or a WordPress outage; login answered 500 for weeks like that (#91). Runs the opt-in smoke tests
+# (SMOKE_TEST=1) against production. On a failure it retries once after a pause (the Hostinger
+# WordPress is flaky), and only then opens an issue, or comments on the one already open.
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Base URL to check (empty means production). A wrong URL proves the issue gets opened."
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: smoke
+  cancel-in-progress: false
+
+env:
+  ISSUE_TITLE: "Smoke test: o site em produção falhou"
+  SMOKE_URL: ${{ inputs.url }}
+  SMOKE_CMD: npx vitest run lib/smoke lib/auth/smoke.test.ts
+
+jobs:
+  smoke:
+    name: smoke test (production)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Smoke test
+        id: first
+        continue-on-error: true
+        env:
+          SMOKE_TEST: "1"
+          NO_COLOR: "1"
+        # pipefail: without it the step takes the exit code of `tee`, which is always 0, and a
+        # failing smoke test would look green.
+        shell: bash
+        run: ${{ env.SMOKE_CMD }} 2>&1 | tee "$RUNNER_TEMP/smoke.log"
+
+      - name: Wait, then retry once
+        id: second
+        if: steps.first.outcome == 'failure'
+        continue-on-error: true
+        env:
+          SMOKE_TEST: "1"
+          NO_COLOR: "1"
+        shell: bash
+        run: |
+          sleep 90
+          ${{ env.SMOKE_CMD }} 2>&1 | tee "$RUNNER_TEMP/smoke.log"
+
+      - name: Open or update the issue (failed twice)
+        if: steps.second.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          {
+            echo "O smoke test falhou duas vezes seguidas (com 90 s de pausa) contra a produção."
+            echo
+            echo "Execução: $RUN_URL"
+            echo
+            echo '```'
+            tail -c 3000 "$RUNNER_TEMP/smoke.log"
+            echo '```'
+          } > "$RUNNER_TEMP/body.md"
+
+          number=$(gh issue list --state open --limit 100 --json number,title \
+            --jq "map(select(.title == env.ISSUE_TITLE)) | .[0].number // empty")
+
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh issue create --title "$ISSUE_TITLE" --body-file "$RUNNER_TEMP/body.md"
+          fi
+
+      - name: Close the issue when it passes again
+        if: steps.first.outcome == 'success' || steps.second.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          number=$(gh issue list --state open --limit 100 --json number,title \
+            --jq "map(select(.title == env.ISSUE_TITLE)) | .[0].number // empty")
+          if [ -n "$number" ]; then
+            gh issue close "$number" --comment "O smoke test voltou a passar: $RUN_URL"
+          fi
+
+      - name: Fail the job when the site is down
+        if: steps.second.outcome == 'failure'
+        run: |
+          echo "::error title=Smoke test::the published site failed twice (see the log and the open issue)"
+          exit 1

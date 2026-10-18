@@ -113,7 +113,7 @@ npm run dev      # http://localhost:3000
 
 ```bash
 npm test                          # unit tests, offline
-SMOKE_TEST=1 npm test             # also checks that login works on the published site
+SMOKE_TEST=1 npm test             # also checks the published site: pages, 404, login, revalidate guard, sitemap, headers
 SMOKE_TEST=1 SMOKE_URL=https://<preview>.vercel.app npm test   # same, against a preview
 WP_LIVE_TEST=1 npm test           # also checks the queries against the real WordPress schema and runs the
                                   # comment moderation flow (needs WP_APP_USER and WP_APP_PASSWORD; it creates
@@ -126,6 +126,8 @@ ROUTE_TEST_URL=http://localhost:3010 ROUTE_TEST_AUTH_SECRET=<same throwaway> npm
 ### Dependencies in CI
 
 CI runs `npm audit --omit=dev --audit-level=high` before everything else: a "high" or "critical" advisory in what ships to production turns it red. Development-only dependencies run the same audit as a warning, because tooling does not ship and an advisory with no fix would otherwise block every PR. Dependabot (`.github/dependabot.yml`) opens weekly PRs for npm and GitHub Actions, with minor and patch updates grouped in one PR and each major on its own. How to handle those PRs is in [`docs/DEVELOPMENT.md`](./docs/DEVELOPMENT.md).
+
+A scheduled workflow (`.github/workflows/smoke.yml`, every hour and by hand from the Actions tab) runs the smoke test against production, retries once after 90 s, and only then opens one issue (or comments on the open one); it closes the issue when the test passes again (#131, details in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md)).
 
 The smoke test exists because login once returned 500 in production for weeks with a green build: the Auth.js variables were missing from Vercel (#91). Run it after changing environment variables or redeploying.
 
