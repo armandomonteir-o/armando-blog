@@ -65,172 +65,184 @@ export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
           </div>
         </div>
 
+        {data.length === 0 && (
+          <div
+            className="font-mono py-10"
+            style={{ fontSize: "12px", color: "var(--arm-panel-text-muted)" }}
+          >
+            {">"} NENHUM POST PUBLICADO AINDA_
+          </div>
+        )}
+
         {/* Grid */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
-          style={{ minHeight: 632 }}
-        >
-          {currentPosts.map((post) => (
-            <Link
-              key={post.id}
-              href={post.isCorrupted ? "/void/corrupted/0x404" : `/post/${post.slug}`}
-              className="flex flex-col cursor-pointer group h-[300px] brutal-lift"
-              style={
-                {
-                  border: post.isCorrupted
-                    ? "2px solid #ff0000"
-                    : "2px solid var(--arm-panel-border)",
-                  backgroundColor: post.isCorrupted ? "#1a0000" : "var(--arm-panel-bg)",
-                  textDecoration: "none",
-                  animation: post.isCorrupted
-                    ? "corruptedPulse 2s ease-in-out infinite"
-                    : undefined,
-                  "--lift-color": post.isCorrupted ? "#ff0000" : "rgba(0,0,0,0.5)",
-                  "--lift-rest": "0px",
-                  "--lift-hover": "4px",
-                } as React.CSSProperties
-              }
-            >
-              {/* Mini title bar */}
-              <div
-                className="flex items-center justify-between px-2 py-1"
-                style={{
-                  backgroundColor: post.isCorrupted ? "#330000" : "var(--arm-panel-border)",
-                  borderBottom: post.isCorrupted
-                    ? "2px solid #ff0000"
-                    : "2px solid var(--arm-panel-border)",
-                }}
+        {data.length > 0 && (
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
+            style={{ minHeight: 632 }}
+          >
+            {currentPosts.map((post) => (
+              <Link
+                key={post.id}
+                href={post.isCorrupted ? "/void/corrupted/0x404" : `/post/${post.slug}`}
+                className="flex flex-col cursor-pointer group h-[300px] brutal-lift"
+                style={
+                  {
+                    border: post.isCorrupted
+                      ? "2px solid #ff0000"
+                      : "2px solid var(--arm-panel-border)",
+                    backgroundColor: post.isCorrupted ? "#1a0000" : "var(--arm-panel-bg)",
+                    textDecoration: "none",
+                    animation: post.isCorrupted
+                      ? "corruptedPulse 2s ease-in-out infinite"
+                      : undefined,
+                    "--lift-color": post.isCorrupted ? "#ff0000" : "rgba(0,0,0,0.5)",
+                    "--lift-rest": "0px",
+                    "--lift-hover": "4px",
+                  } as React.CSSProperties
+                }
               >
-                <span
-                  className="font-mono"
+                {/* Mini title bar */}
+                <div
+                  className="flex items-center justify-between px-2 py-1"
                   style={{
-                    fontSize: "8px",
-                    color: post.isCorrupted ? "#ff4444" : "var(--arm-panel-text-muted)",
+                    backgroundColor: post.isCorrupted ? "#330000" : "var(--arm-panel-border)",
+                    borderBottom: post.isCorrupted
+                      ? "2px solid #ff0000"
+                      : "2px solid var(--arm-panel-border)",
                   }}
                 >
-                  {post.isCorrupted
-                    ? "⚠ CORRUPTED.ERR"
-                    : `POST-${String(post.id).padStart(3, "0")}.MD`}
-                </span>
-                <div className="flex gap-1">
-                  <div
-                    className="w-2 h-2"
+                  <span
+                    className="font-mono"
                     style={{
-                      backgroundColor: "var(--arm-panel-bg-darker)",
-                      border: "1px solid var(--arm-panel-bg-deep)",
+                      fontSize: "8px",
+                      color: post.isCorrupted ? "#ff4444" : "var(--arm-panel-text-muted)",
+                    }}
+                  >
+                    {post.isCorrupted
+                      ? "⚠ CORRUPTED.ERR"
+                      : `POST-${String(post.id).padStart(3, "0")}.MD`}
+                  </span>
+                  <div className="flex gap-1">
+                    <div
+                      className="w-2 h-2"
+                      style={{
+                        backgroundColor: "var(--arm-panel-bg-darker)",
+                        border: "1px solid var(--arm-panel-bg-deep)",
+                      }}
+                    />
+                    <div
+                      className="w-2 h-2 bg-chrome-red"
+                      style={{ border: "1px solid var(--arm-panel-bg-deep)" }}
+                    />
+                  </div>
+                </div>
+
+                {/* Image */}
+                <div className="h-[140px] overflow-hidden relative">
+                  <AppImage
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-40"
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
                     }}
                   />
                   <div
-                    className="w-2 h-2 bg-chrome-red"
-                    style={{ border: "1px solid var(--arm-panel-bg-deep)" }}
+                    className="absolute top-2 left-2 px-2 py-0.5 font-mono font-bold"
+                    style={{
+                      backgroundColor:
+                        categoryColors[post.category] || "var(--arm-panel-bg-darker)",
+                      border: "2px solid var(--arm-panel-bg-deep)",
+                      fontSize: "8px",
+                      color: "var(--arm-panel-bg-deep)",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                    }}
+                  >
+                    {post.category.toUpperCase()}
+                  </div>
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: "linear-gradient(to top, rgba(3,71,193,0.25), transparent 60%)",
+                    }}
                   />
                 </div>
-              </div>
 
-              {/* Image */}
-              <div className="h-[140px] overflow-hidden relative">
-                <AppImage
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-40"
-                  style={{
-                    backgroundImage:
-                      "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
-                  }}
-                />
-                <div
-                  className="absolute top-2 left-2 px-2 py-0.5 font-mono font-bold"
-                  style={{
-                    backgroundColor: categoryColors[post.category] || "var(--arm-panel-bg-darker)",
-                    border: "2px solid var(--arm-panel-bg-deep)",
-                    fontSize: "8px",
-                    color: "var(--arm-panel-bg-deep)",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                  }}
-                >
-                  {post.category.toUpperCase()}
-                </div>
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: "linear-gradient(to top, rgba(3,71,193,0.25), transparent 60%)",
-                  }}
-                />
-              </div>
+                {/* Content */}
+                <div className="p-3 flex flex-col flex-1 overflow-hidden">
+                  <h3
+                    className="line-clamp-2 font-grotesk font-bold"
+                    style={{
+                      fontSize: "14px",
+                      color: "var(--arm-panel-text)",
+                      lineHeight: 1.3,
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {post.title}
+                  </h3>
+                  <p
+                    className="flex-1 line-clamp-3 font-mono"
+                    style={{
+                      fontSize: "11px",
+                      lineHeight: 1.55,
+                      color: "var(--arm-panel-text-content)",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    {post.excerpt}
+                  </p>
 
-              {/* Content */}
-              <div className="p-3 flex flex-col flex-1 overflow-hidden">
-                <h3
-                  className="line-clamp-2 font-grotesk font-bold"
-                  style={{
-                    fontSize: "14px",
-                    color: "var(--arm-panel-text)",
-                    lineHeight: 1.3,
-                    marginBottom: "6px",
-                  }}
-                >
-                  {post.title}
-                </h3>
-                <p
-                  className="flex-1 line-clamp-3 font-mono"
-                  style={{
-                    fontSize: "11px",
-                    lineHeight: 1.55,
-                    color: "var(--arm-panel-text-content)",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {post.excerpt}
-                </p>
-
-                {/* Meta */}
-                <div
-                  className="flex items-center gap-3 pt-2"
-                  style={{ borderTop: "1px solid var(--arm-panel-border)" }}
-                >
+                  {/* Meta */}
                   <div
-                    className="flex items-center gap-1"
-                    style={{ color: "var(--arm-panel-text-soft)" }}
+                    className="flex items-center gap-3 pt-2"
+                    style={{ borderTop: "1px solid var(--arm-panel-border)" }}
                   >
-                    <Clock size={10} />
-                    <span className="font-mono" style={{ fontSize: "8px" }}>
-                      {post.date}
-                    </span>
-                  </div>
-                  <div
-                    className="flex items-center gap-1"
-                    style={{ color: "var(--arm-panel-text-soft)" }}
-                  >
-                    <Eye size={10} />
-                    <span className="font-mono" style={{ fontSize: "8px" }}>
-                      {post.reads}
-                    </span>
-                  </div>
-                  <div
-                    className="flex items-center gap-1"
-                    style={{ color: "var(--arm-panel-text-soft)" }}
-                  >
-                    <MessageCircle size={10} />
-                    <span className="font-mono" style={{ fontSize: "8px" }}>
-                      {post.comments}
-                    </span>
+                    <div
+                      className="flex items-center gap-1"
+                      style={{ color: "var(--arm-panel-text-soft)" }}
+                    >
+                      <Clock size={10} />
+                      <span className="font-mono" style={{ fontSize: "8px" }}>
+                        {post.date}
+                      </span>
+                    </div>
+                    <div
+                      className="flex items-center gap-1"
+                      style={{ color: "var(--arm-panel-text-soft)" }}
+                    >
+                      <Eye size={10} />
+                      <span className="font-mono" style={{ fontSize: "8px" }}>
+                        {post.reads}
+                      </span>
+                    </div>
+                    <div
+                      className="flex items-center gap-1"
+                      style={{ color: "var(--arm-panel-text-soft)" }}
+                    >
+                      <MessageCircle size={10} />
+                      <span className="font-mono" style={{ fontSize: "8px" }}>
+                        {post.comments}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        )}
 
         {totalPages > 1 && (
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            totalItems={posts.length}
+            totalItems={data.length}
             itemsPerPage={POSTS_PER_PAGE}
             onPageChange={setCurrentPage}
           />

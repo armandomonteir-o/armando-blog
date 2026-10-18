@@ -9,7 +9,6 @@ import { NowPlaying } from "@/components/content/NowPlaying";
 import { NewsletterWidget } from "@/components/layout/newsletter";
 import { getPosts } from "@/lib/graphql";
 import { adaptWPPost } from "@/lib/graphql/adapters";
-import type { Post } from "@/constants/posts";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,13 +17,10 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  let realPosts: Post[] = [];
-  try {
-    const { nodes } = await getPosts(12);
-    realPosts = nodes.map(adaptWPPost);
-  } catch (e) {
-    console.error("[HomePage] WP fetch failed:", e);
-  }
+  // No try/catch on purpose: a WordPress failure must reach error.tsx (or fail the build),
+  // never fall back to the mock posts. An empty list means WordPress answered with no posts.
+  const { nodes } = await getPosts(12);
+  const realPosts = nodes.map(adaptWPPost);
 
   return (
     <div
@@ -86,7 +82,7 @@ export default async function HomePage() {
 
         {/* Latest Posts Grid */}
         <div className="mb-5">
-          <PostsGrid posts={realPosts.length ? realPosts : undefined} />
+          <PostsGrid posts={realPosts} />
         </div>
 
         {/* Comments */}

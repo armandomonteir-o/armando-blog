@@ -38,4 +38,5 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          WORDPRESS_API_URL: ${{ secrets.WORDPRESS_API_URL || 'https://placeholder.example.com/graphql' }}
+          # The build fetches posts from WordPress on purpose (#66): no placeholder fallback.
+          WORDPRESS_API_URL: ${{ vars.WORDPRESS_API_URL }}
