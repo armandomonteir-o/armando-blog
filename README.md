@@ -23,7 +23,7 @@ Personal blog by Armando Monteiro about art and digital technology.
 
 ## How fresh the content is
 
-The home, `/posts` and each post are built ahead of time and rebuilt in the background at most once an hour (ISR). A new or edited post therefore shows up within an hour, with no deploy. Read-only calls to WordPress are retried up to three times on a passing network failure, so a blip does not break a build. Instant updates (WordPress telling the site what changed) are planned: see [ADR-014](./docs/adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md) and #68.
+The home, `/posts` and each post are built ahead of time and rebuilt in the background at most once an hour (ISR). A new or edited post therefore shows up within an hour, with no deploy. Read-only calls to WordPress are retried up to three times on a passing network failure, so a blip does not break a build. Instant updates (WordPress telling the site what changed) are half done: the `POST /api/revalidate` route exists and is protected by `REVALIDATE_SECRET`, and the WordPress hook that calls it is the last step. See [ADR-014](./docs/adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md) and #68.
 
 ## When WordPress is down
 
