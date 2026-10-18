@@ -5,7 +5,7 @@ import { RetroWindow } from "@/components/ui/RetroWindow";
 import { WavyText } from "@/components/ui/WavyText";
 import { ContactCTA } from "@/components/content/ContactCTA";
 import { NewsletterWidget } from "@/components/layout/newsletter/NewsletterWidget";
-import { posts, categoryColors } from "@/constants/posts";
+import { categoryColors } from "@/constants/posts";
 import {
   ReadingProgress,
   TableOfContents,
@@ -24,60 +24,35 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const wpPost = await getPost(slug).catch(() => null);
-  if (wpPost) {
-    return {
-      title: `${wpPost.title} — Armando`,
-      description: wpPost.acfPostFields?.subtitle ?? stripHtml(wpPost.excerpt),
-      openGraph: {
-        title: wpPost.title,
-        description: wpPost.acfPostFields?.subtitle ?? stripHtml(wpPost.excerpt),
-        images: wpPost.acfPostFields?.heroImage?.node.sourceUrl
-          ? [wpPost.acfPostFields.heroImage.node.sourceUrl]
-          : wpPost.featuredImage?.node.sourceUrl
-            ? [wpPost.featuredImage.node.sourceUrl]
-            : [],
-      },
-    };
-  }
-  const matched = posts.find((p) => p.slug === slug);
+  // No catch on purpose: null means WordPress answered "no such post"; a failure must propagate.
+  const wpPost = await getPost(slug);
+  if (!wpPost) return { title: "Post não encontrado — Armando" };
   return {
-    title: matched ? `${matched.title} — Armando` : "Post — Armando",
-    description: matched?.excerpt ?? "Leia este post no blog Armando.",
+    title: `${wpPost.title} — Armando`,
+    description: wpPost.acfPostFields?.subtitle ?? stripHtml(wpPost.excerpt),
+    openGraph: {
+      title: wpPost.title,
+      description: wpPost.acfPostFields?.subtitle ?? stripHtml(wpPost.excerpt),
+      images: wpPost.acfPostFields?.heroImage?.node.sourceUrl
+        ? [wpPost.acfPostFields.heroImage.node.sourceUrl]
+        : wpPost.featuredImage?.node.sourceUrl
+          ? [wpPost.featuredImage.node.sourceUrl]
+          : [],
+    },
   };
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  // Try WordPress first
-  const wpPost = await getPost(slug).catch((e) => {
-    console.error("[PostPage] WP fetch failed:", e);
-    return null;
-  });
+  // No catch on purpose: null means WordPress answered "no such post" (404). If WordPress fails,
+  // the error reaches error.tsx. Never fall back to the mock posts.
+  const wpPost = await getPost(slug);
+  if (!wpPost) notFound();
 
-  const wpComments = wpPost?.comments?.nodes ?? [];
-  const postId = wpPost?.databaseId ?? null;
-
-  let currentPost: typeof postData;
-
-  if (wpPost) {
-    currentPost = { ...postData, ...adaptWPPostDetail(wpPost) };
-  } else {
-    // Fallback to mock data
-    const matchedPost = posts.find((p) => p.slug === slug);
-    if (!matchedPost) notFound();
-    currentPost = {
-      ...postData,
-      title: matchedPost.title,
-      category: matchedPost.category,
-      date: matchedPost.date,
-      heroImage: matchedPost.image,
-      reads: matchedPost.reads,
-      comments: matchedPost.comments,
-      subtitle: matchedPost.excerpt,
-    };
-  }
+  const wpComments = wpPost.comments?.nodes ?? [];
+  const postId = wpPost.databaseId;
+  const currentPost = { ...postData, ...adaptWPPostDetail(wpPost) };
 
   return (
     <div
