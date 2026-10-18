@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { adaptWPPost, adaptWPPostDetail, formatWPDate, stripHtml } from "./adapters";
 import type { WPPost, WPPostDetail } from "./types";
@@ -83,7 +85,7 @@ describe("adaptWPPost", () => {
       slug: "arte-e-codigo",
       category: "Tecnologia",
       date: "10 abr 2026",
-      reads: 0,
+      reads: null,
       comments: 3,
       image: "https://exemplo.com/destaque.jpg",
       excerpt: "Um resumo curto.",
@@ -149,5 +151,26 @@ describe("adaptWPPostDetail", () => {
     expect(out.sections).toEqual([{ id: "intro", title: "Intro", content: "Olá" }]);
     expect(out.subtitle).toBe("Subtítulo");
     expect(out.readTime).toBe("8 min");
+  });
+
+  it("has no read or like count, because the site does not measure either (#71)", () => {
+    const out = adaptWPPostDetail(detail);
+    expect(out.reads).toBeNull();
+    expect(out.likes).toBeNull();
+  });
+
+  it("computes the reading time from the text when ACF has none, instead of inventing one", () => {
+    const words = (n: number) => `<p>${Array.from({ length: n }, () => "palavra").join(" ")}</p>`;
+    expect(adaptWPPostDetail({ ...detail, content: words(450) }).readTime).toBe("3 min");
+    expect(adaptWPPostDetail({ ...detail, content: words(1) }).readTime).toBe("1 min");
+  });
+
+  it("falls back to an avatar file that exists when the author has none", () => {
+    const noAvatar = {
+      ...detail,
+      author: { node: { name: "Armando", description: "", avatar: null } },
+    } as unknown as WPPostDetail;
+    const { avatar } = adaptWPPostDetail(noAvatar).author;
+    expect(existsSync(join(process.cwd(), "public", avatar))).toBe(true);
   });
 });

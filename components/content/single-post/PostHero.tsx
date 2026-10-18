@@ -12,8 +12,8 @@ interface PostHeroProps {
   category: string;
   date: string;
   readTime: string;
-  reads: number;
-  likes: number;
+  reads: number | null;
+  likes: number | null;
   comments: number;
   heroImage: string;
   categoryColors: Record<string, string>;
@@ -232,7 +232,7 @@ export function PostHero({
             >
               <stat.icon size={14} />
               <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
-                {stat.value}
+                {stat.value ?? "—"}
               </span>
               <span
                 className="font-mono"

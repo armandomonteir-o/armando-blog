@@ -15,7 +15,7 @@ Personal blog by Armando Monteiro about art and digital technology.
 | Route | Data |
 |---|---|
 | `/` (home) | **WordPress**, via WPGraphQL |
-| `/post/[slug]` | **WordPress** for the post; read, like and related-post counts are still placeholders |
+| `/post/[slug]` | **WordPress**: the post, its comments and the related posts (same category). Reads and likes are not measured, so the page shows a dash |
 | comments, `/login`, `/minha-conta` | **WordPress** and Google OAuth |
 | `/posts` | mock, from `constants/posts.ts` |
 | `/categoria/...` | mock, from `data/categories.ts` |
