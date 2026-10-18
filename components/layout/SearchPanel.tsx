@@ -90,33 +90,34 @@ export function SearchPanel({
                 href={`/post/${r.slug}`}
                 onClick={onSelect}
                 onMouseEnter={() => onActiveChange(i)}
-                className="flex items-center gap-3 pl-3 pr-3 py-2.5"
+                className="flex items-center gap-3 px-3 py-2"
                 style={{
                   background: active ? "var(--chrome-blue-accent)" : "transparent",
-                  borderLeft: `4px solid ${active ? categoryColor(r.category) : "transparent"}`,
-                  borderBottom:
-                    i < results.length - 1 ? "1px solid var(--chrome-blue-accent)" : "none",
                   textDecoration: "none",
                   transition: "background var(--duration-hover) var(--ease-out)",
                 }}
               >
-                <div className="flex-1 min-w-0">
+                <span
+                  className="flex-shrink-0"
+                  style={{ width: "6px", height: "6px", background: categoryColor(r.category) }}
+                />
+                <div className="flex-1 min-w-0 sm:flex sm:items-center sm:gap-3">
                   <div
-                    className="line-clamp-2 sm:truncate font-grotesk text-white"
-                    style={{ fontSize: "13px", fontWeight: 700 }}
+                    className="line-clamp-2 sm:truncate sm:flex-1 font-grotesk"
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: 500,
+                      color: "var(--chrome-blue-content)",
+                    }}
                   >
                     {splitHighlight(r.title, query).map((part, j) =>
                       part.match ? (
-                        <mark
+                        <span
                           key={j}
-                          style={{
-                            background: "var(--chrome-green)",
-                            color: "var(--chrome-blue-dark)",
-                            padding: "0 2px",
-                          }}
+                          style={{ color: "var(--chrome-green-soft)", fontWeight: 700 }}
                         >
                           {part.text}
-                        </mark>
+                        </span>
                       ) : (
                         <span key={j}>{part.text}</span>
                       )
@@ -124,21 +125,15 @@ export function SearchPanel({
                   </div>
                   {r.category && (
                     <span
-                      className="inline-block mt-1 font-mono"
-                      style={{
-                        fontSize: "9px",
-                        letterSpacing: "0.08em",
-                        padding: "1px 6px",
-                        background: categoryColor(r.category),
-                        color: "var(--chrome-blue-dark)",
-                      }}
+                      className="block sm:flex-shrink-0 font-mono text-chrome-blue-soft"
+                      style={{ fontSize: "9px", letterSpacing: "0.08em" }}
                     >
                       {r.category.toUpperCase()}
                     </span>
                   )}
                 </div>
                 <CornerDownLeft
-                  size={13}
+                  size={12}
                   className="flex-shrink-0 text-chrome-green"
                   style={{ opacity: active ? 1 : 0, transition: "opacity var(--duration-hover)" }}
                 />
