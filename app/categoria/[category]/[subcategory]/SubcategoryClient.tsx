@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { Clock, Eye, MessageCircle, Hash, ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 import { WavyText } from "@/components/ui/WavyText";
@@ -13,99 +11,18 @@ import { AppImage } from "@/components/ui/AppImage";
 import { Pagination } from "@/components/ui/Pagination";
 import { CategoryHero } from "@/components/ui/CategoryHero";
 import { NewsletterWidget } from "@/components/layout/newsletter";
-import { getSubcategoryBySlug, type Subcategory, type Category } from "@/data/categories";
+import type { Post } from "@/constants/posts";
+import type { CategoryView, SubcategoryView } from "@/lib/categories";
 
-// TODO issue #13: replace with generateMetadata() from WPGraphQL
-
-function generateMockPosts(subcategory: Subcategory, category: Category) {
-  const mockTitles: Record<string, string[]> = {
-    punk: [
-      "DIGITAL HARDCORE: O PUNK QUE VIVE NO CODIGO",
-      "DIY OU MORRA: MANIFESTO DE UM PUNK DIGITAL",
-      "ATARI TEENAGE RIOT E A ANTI-ARTE",
-      "FANZINES DIGITAIS: A NOVA RESISTENCIA",
-      "NOISE COMO LINGUAGEM: ALEM DO SOM",
-      "A ETICA PUNK NA ERA DOS ALGORITMOS",
-    ],
-    synthwave: [
-      "OUTRUN: A ESTETICA DO HORIZONTE NEON",
-      "PERTURBATOR E O CINEMA SOMBRIO SONICO",
-      "COMO PRODUZIR SYNTHWAVE EM 2026",
-      "KAVINSKY: O PILOTO QUE NUNCA PAROU",
-      "MOOG E JUNO: OS SINTETIZADORES QUE MOLDARAM O GENERO",
-      "RETROWAVE VS SYNTHWAVE: UM DEBATE NECESSARIO",
-    ],
-    "lo-fi": [
-      "NUJABES E O NASCIMENTO DO LO-FI HIP HOP",
-      "TEXTURAS ANALOGICAS EM PRODUCAO DIGITAL",
-      "A GAROTA ESTUDANDO: ICONE DE UMA GERACAO",
-      "COMO O LOFI VIROU TRILHA DA PRODUTIVIDADE",
-      "SAMPLING COMO ARQUEOLOGIA MUSICAL",
-      "BEDROOM PRODUCERS: HISTORIA E TECNICA",
-    ],
-    ambient: [
-      "BRIAN ENO: O ARQUITETO DO SOM INVISIVEL",
-      "MUSICA PARA AEROPORTOS E ESPACOS LIMINAIS",
-      "FIELD RECORDINGS COMO ARTE SONORA",
-      "DRONE MUSIC: QUANDO O SOM SE TORNA ESPACO",
-      "AMBIENT E MEDITACAO: INTERSECCOES",
-      "STARS OF THE LID: A BELEZA DA LENTIDAO",
-    ],
-    cyberpunk: [
-      "BLADE RUNNER 2049: A SOLIDAO DO REPLICANTE",
-      "AKIRA E A PROFECIA URBANA",
-      "GHOST IN THE SHELL: IDENTIDADE POS-HUMANA",
-      "NEON COMO LINGUAGEM VISUAL",
-      "O LEGADO DE WILLIAM GIBSON NO CINEMA",
-      "CYBERPUNK 2077: QUANDO O JOGO VIRA FILME",
-    ],
-    "pixel-art": [
-      "DITHERING: A TECNICA QUE DEFINE O PIXEL ART",
-      "PALETAS LIMITADAS: 16 CORES E INFINITAS POSSIBILIDADES",
-      "DO ATARI AO INDIE: HISTORIA DO PIXEL",
-      "ANIMACAO SPRITE: QUADRO A QUADRO",
-      "ISOMETRICO: MUNDOS EM PERSPECTIVA FALSA",
-      "ASEPRITE MASTERCLASS: WORKFLOW COMPLETO",
-    ],
-  };
-  const titles = mockTitles[subcategory.slug] || [
-    "POST SOBRE " + subcategory.name.toUpperCase(),
-    "EXPLORANDO " + subcategory.name.toUpperCase(),
-    "REFLEXOES SOBRE " + subcategory.name.toUpperCase(),
-    "GUIA DEFINITIVO: " + subcategory.name.toUpperCase(),
-    "A HISTORIA DE " + subcategory.name.toUpperCase(),
-    "FUTURO DE " + subcategory.name.toUpperCase(),
-  ];
-  const images = [
-    subcategory.heroImage,
-    category.heroImage,
-    subcategory.heroImage,
-    category.heroImage,
-    subcategory.heroImage,
-    category.heroImage,
-  ];
-  return titles.slice(0, Math.min(6, subcategory.postCount)).map((title, i) => ({
-    id: i + 1,
-    title,
-    category: category.name,
-    subcategory: subcategory.name,
-    date: `${28 - i * 4} Fev 2026`,
-    reads: Math.floor(Math.random() * 200) + 40,
-    comments: Math.floor(Math.random() * 30) + 5,
-    image: images[i % images.length],
-    excerpt: subcategory.description.slice(0, 100 + Math.floor(Math.random() * 40)) + "...",
-  }));
-}
-
-export default function SubcategoryClient() {
-  const routeParams = useParams();
-  const categorySlug = routeParams.category as string;
-  const subcategorySlug = routeParams.subcategory as string;
-  const result = getSubcategoryBySlug(categorySlug, subcategorySlug);
-  if (!result) redirect("/");
-  const { category, subcategory } = result;
-  const posts = generateMockPosts(subcategory, category);
-
+export default function SubcategoryClient({
+  category,
+  subcategory,
+  posts,
+}: {
+  category: CategoryView;
+  subcategory: SubcategoryView;
+  posts: Post[];
+}) {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const POSTS_PER_PAGE = 6;
   const [currentPage, setCurrentPage] = useState(1);
@@ -251,6 +168,15 @@ export default function SubcategoryClient() {
                 </span>
               </div>
 
+              {filteredPosts.length === 0 && (
+                <p
+                  className="font-mono font-bold text-chrome-blue-body py-10 text-center"
+                  style={{ fontSize: "11px" }}
+                >
+                  NENHUM POST AQUI AINDA.
+                </p>
+              )}
+
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {currentPosts.map((post, i) => (
                   <motion.div
@@ -261,7 +187,7 @@ export default function SubcategoryClient() {
                     transition={{ duration: 0.4, delay: i * 0.08 }}
                   >
                     <Link
-                      href="/post/a-revolucao-do-algoritmo"
+                      href={`/post/${post.slug}`}
                       className="flex flex-col cursor-pointer group border-2 border-chrome-blue-accent bg-chrome-blue-mid"
                       style={{ textDecoration: "none" }}
                     >
@@ -300,7 +226,7 @@ export default function SubcategoryClient() {
                             boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                           }}
                         >
-                          {post.subcategory.toUpperCase()}
+                          {subcategory.name.toUpperCase()}
                         </div>
                         <div
                           className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -333,7 +259,7 @@ export default function SubcategoryClient() {
                           <div className="flex items-center gap-1 text-chrome-blue-body">
                             <Eye size={10} />
                             <span className="font-mono" style={{ fontSize: "8px" }}>
-                              {post.reads}
+                              {post.reads ?? "—"}
                             </span>
                           </div>
                           <div className="flex items-center gap-1 text-chrome-blue-body">

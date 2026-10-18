@@ -62,8 +62,8 @@ The app does NOT use native window scroll. The scrollable element is `#main-scro
 | `/post/:slug` | `PostPage` | Single post data, related posts, comments |
 | `/sobre` | `AboutPage` | Author bio, skills, stats (currently all hardcoded) |
 | `/playlists` | `PlaylistsPage` | Playlists from `playlists.ts`, genre filter |
-| `/:categorySlug` | `CategoryPage` | Category + subcategories from `categories.ts` |
-| `/:categorySlug/:subcategorySlug` | `SubcategoryPage` | Subcategory + generated mock posts, tag filter |
+| `/categoria/:category` | `CategoryPage` | Category and subcategories from WordPress (`getCategories`), look from `data/categories.ts` or the default (ADR-015) |
+| `/categoria/:category/:subcategory` | `SubcategoryPage` | Subcategory and its real posts from WordPress, tag filter, empty state |
 | `*` | `NotFoundPage` | None (static) |
 
 ### Route Conflict Note

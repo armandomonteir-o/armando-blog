@@ -2,7 +2,9 @@
 
 ## Current TypeScript Interfaces
 
-### Category (prototype: `/src/app/data/categories.ts` → migration target: `lib/queries/categories.ts`)
+### Category (prototype: `/src/app/data/categories.ts`)
+
+> **Atualizado em 18/10/2026 (#73, ADR-015).** `data/categories.ts` é só personalização visual. Quem existe, o nome e o `postCount` vêm do WordPress, e `lib/categories.ts` (`CategoryView`) junta os dois. O bloco abaixo é o formato do protótipo.
 
 ```typescript
 interface Subcategory {
