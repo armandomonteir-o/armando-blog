@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { CornerDownLeft, SearchX, TriangleAlert, X } from "lucide-react";
-import { categoryColor } from "@/constants/posts";
+import { CornerDownLeft, FileText, SearchX, TriangleAlert, X } from "lucide-react";
 import { easeOut } from "@/lib/motion";
 import { splitHighlight, type SearchResult, type SearchState } from "@/lib/search";
 
@@ -97,18 +96,15 @@ export function SearchPanel({
                   transition: "background var(--duration-hover) var(--ease-out)",
                 }}
               >
-                <span
+                <FileText
+                  size={14}
                   aria-hidden="true"
-                  className="flex-shrink-0 font-mono"
+                  className="flex-shrink-0"
                   style={{
-                    fontSize: "12px",
-                    fontWeight: 700,
-                    color: active ? "var(--chrome-green)" : categoryColor(r.category),
+                    color: active ? "var(--chrome-green)" : "var(--chrome-blue-muted)",
                     transition: "color var(--duration-hover)",
                   }}
-                >
-                  &gt;
-                </span>
+                />
                 <div className="flex-1 min-w-0 sm:flex sm:items-center sm:gap-3">
                   <div
                     className="line-clamp-2 sm:truncate sm:flex-1 font-grotesk"
