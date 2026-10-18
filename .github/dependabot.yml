@@ -1,0 +1,36 @@
+# Atualização automática de dependências (#127).
+# O Dependabot só começa a abrir PRs depois que este arquivo está na branch padrão (main).
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Sao_Paulo
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    groups:
+      # Menor risco (minor e patch) entra junto: uma PR por semana e por grupo, não vinte.
+      producao-minor-patch:
+        dependency-type: production
+        update-types: [minor, patch]
+      desenvolvimento-minor-patch:
+        dependency-type: development
+        update-types: [minor, patch]
+    # Major fica fora dos grupos: abre uma PR própria, para ser lida e testada sozinha.
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Sao_Paulo
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      actions:
+        patterns: ["*"]

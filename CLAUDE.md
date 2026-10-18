@@ -78,7 +78,7 @@ At the end of every session, say which docs you touched, or say explicitly that 
 | CMS | Headless WordPress + WPGraphQL |
 | GraphQL client | `graphql-request` |
 | Analytics | `@vercel/analytics` |
-| Sitemap | none yet. `next-sitemap` was removed (never configured, and its dependencies carried vulnerabilities); the native one (`app/sitemap.ts`) is #12 |
+| Sitemap | native: `app/sitemap.ts` and `app/robots.ts` (#12), absolute URLs from `lib/site-url.ts` (`NEXT_PUBLIC_SITE_URL`). `next-sitemap` was removed (never configured, and its dependencies carried vulnerabilities) |
 | Deployment | Vercel |
 | Node | 22.14.0 (see `.nvmrc`) |
 
@@ -153,6 +153,7 @@ We don't test CSS. We test that components render correctly and behave as expect
 
 ### Stack
 - **Vitest**, in a Node environment: unit and integration tests, run with `npm test` (offline, in CI).
+- **CI also audits dependencies:** `npm audit --omit=dev --audit-level=high` fails the build on a high or critical advisory in production; the same audit over dev dependencies is a warning only. Dependabot (`.github/dependabot.yml`) opens weekly grouped PRs. See `CONTRIBUTING.md`.
 - **Opt-in live tests** that touch real services, off by default: `WP_LIVE_TEST=1` (WordPress schema and the comment moderation flow), `SMOKE_TEST=1` (login on the published site) and `ROUTE_TEST_URL` (the comment route with a session made inside the test). See the Tests section of `README.md`.
 - **Not installed yet:** `@testing-library/react` (component tests) and **Playwright** (E2E and visual regression, #104).
 

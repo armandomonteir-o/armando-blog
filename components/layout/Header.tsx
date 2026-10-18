@@ -6,15 +6,17 @@ import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  createSearchRunner,
+  fetchSearchResults,
+  moveActive,
+  type SearchResult,
+  type SearchState,
+} from "@/lib/search";
+import { SearchPanel, SEARCH_LISTBOX_ID, searchOptionId } from "./SearchPanel";
 
 interface HeaderProps {
   onMobileMenuToggle?: () => void;
-}
-
-interface SearchResult {
-  title: string;
-  slug: string;
-  category: string;
 }
 
 const NOTIFICATIONS = [
@@ -72,14 +74,47 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
   const [notifications, setNotifications] = useState(NOTIFICATIONS);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
+  const [searchState, setSearchState] = useState<SearchState>({ status: "idle" });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const searchRunner = useRef<ReturnType<typeof createSearchRunner>>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const unreadCount = notifications.filter((n) => n.unread).length;
 
-  // Search is wired to WP search API in issue #10 — empty until then
-  const searchResults: SearchResult[] = [];
+  const searchResults: SearchResult[] = searchState.status === "done" ? searchState.results : [];
   const showSearchDropdown = searchFocused && searchQuery.trim().length >= 2;
+
+  function closeSearch() {
+    setSearchQuery("");
+    setSearchFocused(false);
+    searchRunner.current?.update("");
+  }
+
+  function handleSearchKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Escape") {
+      setSearchFocused(false);
+      e.currentTarget.blur();
+    } else if (showSearchDropdown && searchResults.length > 0) {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        setActiveIndex((i) => moveActive(i, e.key === "ArrowDown" ? 1 : -1, searchResults.length));
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        router.push(`/post/${searchResults[activeIndex].slug}`);
+        closeSearch();
+      }
+    }
+  }
+
+  useEffect(() => {
+    const runner = createSearchRunner({
+      fetchResults: fetchSearchResults,
+      onState: setSearchState,
+    });
+    searchRunner.current = runner;
+    return runner.cancel;
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -164,8 +199,22 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             className="flex-1 bg-transparent outline-none min-w-0 font-mono text-chrome-blue-content"
             style={{ fontSize: "12px" }}
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setActiveIndex(0);
+              searchRunner.current?.update(e.target.value);
+            }}
             onFocus={() => setSearchFocused(true)}
+            onKeyDown={handleSearchKeyDown}
+            role="combobox"
+            aria-expanded={showSearchDropdown}
+            aria-controls={SEARCH_LISTBOX_ID}
+            aria-activedescendant={
+              showSearchDropdown && searchResults.length > 0
+                ? searchOptionId(activeIndex)
+                : undefined
+            }
+            aria-label="Pesquisar posts"
           />
           {searchQuery && (
             <button
@@ -174,6 +223,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               onClick={() => {
                 setSearchQuery("");
                 setSearchFocused(false);
+                searchRunner.current?.update("");
               }}
             >
               <X size={12} />
@@ -183,73 +233,15 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
 
         {/* Search results dropdown */}
         {showSearchDropdown && (
-          <div
-            className="absolute left-0 right-0 mt-1 bg-chrome-blue"
-            style={{
-              border: "2.5px solid var(--chrome-blue)",
-              boxShadow: "4px 4px 0 var(--chrome-blue)",
-              zIndex: 9999,
-            }}
-          >
-            <div
-              className="px-3 py-1 flex items-center gap-2 bg-chrome-blue-mid"
-              style={{ borderBottom: "2px solid var(--chrome-blue-accent)" }}
-            >
-              <span
-                className="font-mono text-chrome-blue-content"
-                style={{ fontSize: "9px", letterSpacing: "0.1em" }}
-              >
-                SEARCH.EXE
-              </span>
-              <span className="font-mono text-chrome-green" style={{ fontSize: "9px" }}>
-                {searchResults.length} resultado{searchResults.length !== 1 ? "s" : ""}
-              </span>
-            </div>
-            {searchResults.length > 0 ? (
-              searchResults.map((r, i) => (
-                <Link
-                  key={i}
-                  href={`/post/${r.slug}`}
-                  className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
-                  style={{
-                    borderBottom:
-                      i < searchResults.length - 1 ? "1px solid rgba(5,96,224,0.35)" : "none",
-                    textDecoration: "none",
-                    transition: "background 0.15s",
-                  }}
-                  onClick={() => {
-                    setSearchQuery("");
-                    setSearchFocused(false);
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                  }}
-                >
-                  <Search size={11} style={{ color: "var(--chrome-blue-body)", flexShrink: 0 }} />
-                  <div className="flex-1 min-w-0">
-                    <div
-                      className="truncate font-grotesk"
-                      style={{ fontSize: "12px", color: "#e0eeff" }}
-                    >
-                      {r.title}
-                    </div>
-                    <span className="font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
-                      {r.category.toUpperCase()}
-                    </span>
-                  </div>
-                </Link>
-              ))
-            ) : (
-              <div className="px-3 py-3 text-center">
-                <span className="font-mono text-chrome-blue-body" style={{ fontSize: "10px" }}>
-                  NENHUM RESULTADO ENCONTRADO
-                </span>
-              </div>
-            )}
-          </div>
+          <SearchPanel
+            query={searchQuery}
+            state={searchState}
+            activeIndex={activeIndex}
+            onActiveChange={setActiveIndex}
+            onSelect={closeSearch}
+            onRetry={() => searchRunner.current?.update(searchQuery)}
+            onClose={closeSearch}
+          />
         )}
       </div>
 
