@@ -40,8 +40,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Test
-        run: npm test
+      - name: Test (with coverage floors)
+        # Same tests as `npm test`, plus the coverage thresholds in vitest.config.mts (#130).
+        run: npm run test:coverage
 
       - name: Build
         run: npm run build
