@@ -46,7 +46,7 @@ Variáveis de ambiente que o front lê (só nomes). **Elas são conferidas no bu
 | Variável | Para quê | Onde precisa existir |
 |---|---|---|
 | `WORDPRESS_API_URL` | endereço do endpoint WPGraphQL | Vercel (Production), `.env.local` e **variável do repositório no GitHub** (usada pelo CI; é uma URL pública, não segredo) |
-| `WP_APP_USER`, `WP_APP_PASSWORD` | credencial de aplicação do WordPress, para as rotas que escrevem (comentário, perfil) | `.env.local`. **Não estão na Vercel [confirmado]** em 18/10/2026, lendo os nomes das variáveis do projeto pela API: sem elas, comentar e editar o perfil em produção devem falhar (#174). Cadastrar em Production e refazer o deploy |
+| `WP_APP_USER`, `WP_APP_PASSWORD` | credencial de aplicação do WordPress, para as rotas que escrevem (comentário, perfil) | `.env.local` e Vercel (Production). **Não existiam na Vercel** até 18/10/2026 (#174): foram cadastradas por API nesse dia (`WP_APP_USER` como variável cifrada e `WP_APP_PASSWORD` como sensível, que a Vercel não mostra de volta), e o deploy de produção seguinte passou, o que prova que o `lib/env.ts` aceita o ambiente real **[confirmado]**. Que um comentário enviado por uma conta real chegue ao WordPress em produção **[conferir]** (precisa de uma sessão do Google) |
 | `REVALIDATE_SECRET` | segredo que o WordPress manda para `POST /api/revalidate`; sem ele a rota recusa todas as chamadas (503) | Vercel (Production) e `.env.local`; o mesmo valor vai na configuração do WordPress (etapa 3 da #68) |
 | `AUTH_SECRET` | cifra a sessão do Auth.js | Vercel (criada em 18/10, ver #91) |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | cliente OAuth do Google | Vercel (criadas em 18/10) |
@@ -115,7 +115,7 @@ O login respondeu 500 por semanas sem ninguém ver (#91), porque build e CI não
 - **Quando volta a passar:** o workflow fecha a issue com um comentário. Se o problema voltar, abre outra.
 - **Permissões:** `contents: read` e `issues: write`, com o `GITHUB_TOKEN` da própria execução. Não usa nenhum segredo nem variável do repositório.
 - **Limite:** o `schedule` só roda na branch padrão e o GitHub pode atrasar a execução em horas de pico (fora do controle). **[conferir]** que o repositório não pausou o agendamento: o GitHub desativa workflows agendados após 60 dias sem atividade no repositório.
-- **Ainda não provado em produção:** abrir a issue de verdade só se prova depois do merge **[conferir]**. Para provar: aba Actions, Smoke, "Run workflow", com o campo `url` apontando para algo errado (por exemplo `https://armando-blog.vercel.app/post/x`). Em uns 2 minutos a issue deve existir; o próximo disparo com `url` vazia (produção) a fecha.
+- **Provado em produção** em 18/10/2026 **[confirmado]**: um disparo à mão com `url` errada (`/post/x`) deixou a execução vermelha e abriu a issue sozinho (#179); um disparo seguinte com `url` vazia ficou verde e fechou a issue. Isso também confirmou que o repositório deixa o workflow criar e fechar issues. O retry de 90 s e o cron de hora em hora continuam sem prova própria **[conferir]**.
 
 ## Como o código chega em cada lugar
 
