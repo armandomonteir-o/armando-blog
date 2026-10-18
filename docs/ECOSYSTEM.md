@@ -41,12 +41,12 @@ O WordPress é só o back-end (CMS e API). Quem o visitante vê é o Next.js na 
 | Plano da Vercel | **[conferir]** provavelmente Hobby (gratuito). Confira em Settings → Billing |
 | Domínio próprio apontando para a Vercel | ainda não. O destino será `blog.armandomonteiro.com` (ver "Endereços finais") |
 
-Variáveis de ambiente que o front lê (só nomes):
+Variáveis de ambiente que o front lê (só nomes). **Elas são conferidas no build** (`lib/env.ts`, chamado pelo `next.config.ts`, #134) **[confirmado]**: `WORDPRESS_API_URL` é obrigatória em qualquer lugar; num deploy de **produção** da Vercel (`VERCEL_ENV=production`) também são obrigatórias `AUTH_SECRET` (32 caracteres ou mais), `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, `WP_APP_USER`, `WP_APP_PASSWORD` e `REVALIDATE_SECRET` (32 ou mais). Se faltar alguma, o build falha com o nome dela (sem mostrar valor) e a Vercel mantém o deploy anterior no ar. Um valor estranho numa flag `NEXT_PUBLIC_ENABLE_*` ou em `NEXT_PUBLIC_SITE_URL` só gera um aviso `[env]` no log. **[conferir]** depois do primeiro deploy de produção com esta mudança que o build passou, ou que a mensagem aponta a variável que falta na Vercel:
 
 | Variável | Para quê | Onde precisa existir |
 |---|---|---|
 | `WORDPRESS_API_URL` | endereço do endpoint WPGraphQL | Vercel (Production), `.env.local` e **variável do repositório no GitHub** (usada pelo CI; é uma URL pública, não segredo) |
-| `WP_APP_USER`, `WP_APP_PASSWORD` | credencial de aplicação do WordPress, para as rotas que escrevem (comentário, perfil) | Vercel e `.env.local` |
+| `WP_APP_USER`, `WP_APP_PASSWORD` | credencial de aplicação do WordPress, para as rotas que escrevem (comentário, perfil) | `.env.local`. **Não estão na Vercel [confirmado]** em 18/10/2026, lendo os nomes das variáveis do projeto pela API: sem elas, comentar e editar o perfil em produção devem falhar (#174). Cadastrar em Production e refazer o deploy |
 | `REVALIDATE_SECRET` | segredo que o WordPress manda para `POST /api/revalidate`; sem ele a rota recusa todas as chamadas (503) | Vercel (Production) e `.env.local`; o mesmo valor vai na configuração do WordPress (etapa 3 da #68) |
 | `AUTH_SECRET` | cifra a sessão do Auth.js | Vercel (criada em 18/10, ver #91) |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | cliente OAuth do Google | Vercel (criadas em 18/10) |

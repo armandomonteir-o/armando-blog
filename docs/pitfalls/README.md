@@ -202,3 +202,13 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: the agents work in git worktrees under `.claude/worktrees/<name>/`, each with its own `node_modules`. Vitest's `exclude` only skipped the `node_modules` at the root, so it walked into the copies and ran the test files of the installed packages (and of the copied repository).
 **Fix**: `vitest.config.mts` excludes `**/node_modules/**` and `.claude/**`. Also remove a worktree when its PR is merged (`git worktree remove <path>`; the branch stays). `.claude/` is not in `.gitignore`, so do not `git add .` there.
 **Location**: `vitest.config.mts`
+
+---
+
+## PITFALL-021: validating an environment variable through a module does not replace reading it where it is used, for `NEXT_PUBLIC_*`
+
+**Date discovered**: 2026-10-18 (issue #134)
+**Symptom**: the obvious design for "validate the environment" is one module that parses `process.env` with a schema and exports the typed result, so every file reads from it. For a `NEXT_PUBLIC_*` variable that would leave the value `undefined` in the browser.
+**Root cause**: Next inlines `process.env.NEXT_PUBLIC_X` into the client bundle at build time, and only when it is written as that exact literal. `process.env` itself does not exist in the browser, so a read through an object or a loop is not replaced. Components such as the header read the notification flag, so they must keep the literal read.
+**Fix**: `lib/env.ts` only **checks** the variables, at build time and at start (called from `next.config.ts`, because `instrumentation.ts` does not run during `next build`). The reads stay where they are. `NEXT_PUBLIC_*` problems are warnings; a missing server variable fails the build, naming it and never printing a value. The production-only variables are required only when `VERCEL_ENV=production`, so CI and previews still build without them.
+**Location**: `lib/env.ts`, `next.config.ts`
