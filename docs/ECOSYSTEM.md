@@ -64,7 +64,7 @@ O Auth.js lê as três `AUTH_*` sozinho, sem aparecer no código. Foi por isso q
 | Código próprio | tema `armando-headless` (vazio, o WP exige um) e plugin `armando-headless-plugin` (CORS, CPT de playlists, limites do GraphQL, hardening, grupos ACF) **[confirmado]**, no repositório `blog-cms` |
 | Conteúdo hoje | 6 posts de **teste** em lorem ipsum (ids 17 a 22), nas subcategorias `games/stardew-valley`, `games/habbo`, `estudos/pixel-art` e `estudos/programacao-criativa`, criadas em 18/10/2026 **[confirmado]** por `wp term list` e pelo GraphQL. As categorias antigas (`arte, blog, cultura, design, filosofia, tecnologia`) continuam, sem posts. Os 6 posts de exemplo originais foram apagados em 18/10/2026 por decisão do dono (não eram autorais), com backup em XML na máquina dele. **Apagar os posts lorem ipsum antes de apresentar o blog como demo final.** |
 | Moderação de comentários | `comment_moderation = 1` (todo comentário espera aprovação) e `comment_previously_approved = 1` **[confirmado]** por `wp option get` e pelo teste `comments.live.test.ts` em 18/10/2026. Se alguém desligar a moderação, comentaristas recorrentes publicam sem aprovação (PITFALL-013) |
-| Fuso do WordPress | vazio, ou seja, UTC **[confirmado]**: o GraphQL devolve `timezone: ""` (#78) |
+| Fuso do WordPress | `America/Sao_Paulo` desde 18/10/2026 **[confirmado]**: o GraphQL devolve `timezone: "America\/Sao_Paulo"`, e um post publicado às 01:30 UTC saiu com `date` `2026-10-17T22:30:00` e `dateGmt` `2026-10-18T01:30:00`. Antes estava vazio (UTC) e o dia saía errado à noite (#78). Se alguém zerar, o teste live `has a timezone set` acusa |
 
 ### 3. Login: Google
 
