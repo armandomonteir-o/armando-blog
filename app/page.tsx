@@ -7,8 +7,13 @@ import { PostsGrid } from "@/components/content/PostsGrid";
 import { CommentsSection } from "@/components/content/CommentsSection";
 import { NowPlaying } from "@/components/content/NowPlaying";
 import { NewsletterWidget } from "@/components/layout/newsletter";
-import { getPosts } from "@/lib/graphql";
-import { adaptWPPost } from "@/lib/graphql/adapters";
+import { getPosts, getRecentComments } from "@/lib/graphql";
+import {
+  adaptHomeComment,
+  adaptWPPost,
+  pickFeaturedPost,
+  type HomeComment,
+} from "@/lib/graphql/adapters";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,6 +26,10 @@ export default async function HomePage() {
   // never fall back to the mock posts. An empty list means WordPress answered with no posts.
   const { nodes } = await getPosts(12);
   const realPosts = nodes.map(adaptWPPost);
+  const featured = pickFeaturedPost(nodes);
+  const comments = (await getRecentComments(6))
+    .map(adaptHomeComment)
+    .filter((c): c is HomeComment => c !== null);
 
   return (
     <div
@@ -68,7 +77,7 @@ export default async function HomePage() {
         {/* Main grid: Featured + Side */}
         <div className="flex flex-col xl:flex-row gap-5 mb-5">
           <div className="flex-1 min-w-0">
-            <FeaturedPost />
+            <FeaturedPost post={featured ? adaptWPPost(featured) : null} />
           </div>
           <div className="xl:w-[280px] xl:flex-shrink-0 w-full">
             <SideContent />
@@ -86,7 +95,7 @@ export default async function HomePage() {
         </div>
 
         {/* Comments */}
-        <CommentsSection />
+        {comments.length > 0 && <CommentsSection comments={comments} />}
 
         {/* Newsletter Widget */}
         <div className="mt-5">

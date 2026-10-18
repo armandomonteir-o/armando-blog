@@ -4,8 +4,11 @@ import Link from "next/link";
 import { WavyText } from "@/components/ui/WavyText";
 import { RetroWindow } from "@/components/ui/RetroWindow";
 import { AppImage } from "@/components/ui/AppImage";
+import type { Post } from "@/constants/posts";
 
-export function FeaturedPost() {
+export function FeaturedPost({ post }: { post: Post | null }) {
+  if (!post) return null;
+
   return (
     <RetroWindow title="FEATURED-POST.PSD" variant="dark">
       <div className="p-5">
@@ -18,8 +21,8 @@ export function FeaturedPost() {
             {/* Mobile: aspect-ratio box */}
             <div style={{ paddingBottom: "75%", position: "relative" }} className="md:hidden">
               <AppImage
-                src="https://images.unsplash.com/photo-1649877508777-1554357604eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXRybyUyMGNvbXB1dGVyJTIwcGl4ZWwlMjBhZXN0aGV0aWN8ZW58MXx8fHwxNzcyODMzNDYxfDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Cyberpunk digital art"
+                src={post.image}
+                alt={post.title}
                 fill
                 preload
                 sizes="(max-width: 768px) 100vw, 260px"
@@ -53,8 +56,8 @@ export function FeaturedPost() {
             {/* Desktop: fixed-height */}
             <div className="hidden md:block relative" style={{ height: "100%", minHeight: 260 }}>
               <AppImage
-                src="https://images.unsplash.com/photo-1649877508777-1554357604eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXRybyUyMGNvbXB1dGVyJTIwcGl4ZWwlMjBhZXN0aGV0aWN8ZW58MXx8fHwxNzcyODMzNDYxfDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Cyberpunk digital art"
+                src={post.image}
+                alt={post.title}
                 fill
                 preload
                 sizes="260px"
@@ -89,27 +92,19 @@ export function FeaturedPost() {
           {/* Content */}
           <div className="flex flex-col justify-between flex-1 min-w-0">
             <div>
-              <WavyText
-                text="A REVOLUCAO DO ALGORITMO"
-                variant="stacked"
-                fontSize={34}
-                color="#fff"
-              />
+              <WavyText text={post.title} variant="stacked" fontSize={34} color="#fff" />
               <p
                 className="mt-2 mb-4 font-mono text-chrome-blue-content"
                 style={{ fontSize: "12px", lineHeight: 1.7 }}
               >
-                Um manifesto sobre como a arte digital transcende os limites do humano e do codigo.
-                Explorando as fronteiras entre criatividade artificial e expressao autentica na era
-                pos-digital.
+                {post.excerpt}
               </p>
 
               <div className="flex flex-wrap gap-2 sm:gap-3 mt-2">
                 {[
-                  { value: "42+", label: "leituras" },
-                  { value: "#1", label: "manifesto" },
-                  { value: "3 sem", label: "publicado" },
-                  { value: "18", label: "reacoes" },
+                  { value: post.category, label: "categoria" },
+                  { value: post.date, label: "publicado" },
+                  { value: String(post.comments), label: "comentarios" },
                 ].map((stat) => (
                   <div
                     key={stat.label}
@@ -131,7 +126,7 @@ export function FeaturedPost() {
 
             <div className="flex gap-3 mt-5">
               <Link
-                href="/post/a-revolucao-do-algoritmo"
+                href={`/post/${post.slug}`}
                 className="px-5 py-2.5 cursor-pointer inline-block font-grotesk font-bold bg-white text-chrome-blue brutal-lift"
                 style={
                   {
@@ -144,7 +139,7 @@ export function FeaturedPost() {
                   } as React.CSSProperties
                 }
               >
-                Ler Manifesto
+                Ler Post
               </Link>
               <button
                 className="px-5 py-2.5 cursor-pointer font-grotesk font-bold bg-chrome-blue text-chrome-blue-content brutal-lift"

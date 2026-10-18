@@ -1,8 +1,15 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { adaptWPPost, adaptWPPostDetail, formatWPDate, stripHtml } from "./adapters";
-import type { WPPost, WPPostDetail } from "./types";
+import {
+  adaptHomeComment,
+  adaptWPPost,
+  adaptWPPostDetail,
+  formatWPDate,
+  pickFeaturedPost,
+  stripHtml,
+} from "./adapters";
+import type { WPPost, WPPostDetail, WPRecentComment } from "./types";
 
 const post: WPPost = {
   id: "cG9zdDo0Mg==",
@@ -12,6 +19,7 @@ const post: WPPost = {
   excerpt: "<p>Um resumo <strong>curto</strong>.</p>\n",
   date: "2026-04-10T12:00:00",
   commentCount: 3,
+  isSticky: false,
   categories: { nodes: [{ name: "Tecnologia", slug: "tecnologia" }] },
   featuredImage: { node: { sourceUrl: "https://exemplo.com/destaque.jpg" } },
   acfPostFields: null,
@@ -172,5 +180,53 @@ describe("adaptWPPostDetail", () => {
     } as unknown as WPPostDetail;
     const { avatar } = adaptWPPostDetail(noAvatar).author;
     expect(existsSync(join(process.cwd(), "public", avatar))).toBe(true);
+  });
+});
+
+describe("pickFeaturedPost (#72)", () => {
+  const p = (slug: string, isSticky: boolean | null): WPPost => ({ ...post, slug, isSticky });
+
+  it("prefers a sticky post, WordPress's native way of pinning one", () => {
+    expect(pickFeaturedPost([p("a", false), p("b", true), p("c", true)])?.slug).toBe("b");
+  });
+
+  it("falls back to the newest post, which WordPress lists first, when none is pinned", () => {
+    expect(pickFeaturedPost([p("novo", false), p("velho", null)])?.slug).toBe("novo");
+  });
+
+  it("is null when there are no posts at all", () => {
+    expect(pickFeaturedPost([])).toBeNull();
+  });
+});
+
+describe("adaptHomeComment (#72)", () => {
+  const comment: WPRecentComment = {
+    id: "c1",
+    date: "2026-05-17 17:04:54",
+    content: "<p>Gostei <strong>muito</strong>.</p>\n",
+    author: { node: { name: "Ana", avatar: { url: "https://exemplo.com/ana.jpg" } } },
+    commentedOn: { node: { slug: "arte-e-codigo", title: "Arte e código" } },
+  };
+
+  it("keeps only what WordPress has: author, plain text, day, avatar and the post it is on", () => {
+    expect(adaptHomeComment(comment)).toEqual({
+      id: "c1",
+      name: "Ana",
+      avatar: "https://exemplo.com/ana.jpg",
+      text: "Gostei muito.",
+      date: "17 mai 2026",
+      postSlug: "arte-e-codigo",
+      postTitle: "Arte e código",
+    });
+  });
+
+  it("drops a comment that is not on a post, such as one on a page", () => {
+    expect(adaptHomeComment({ ...comment, commentedOn: { node: {} } })).toBeNull();
+    expect(adaptHomeComment({ ...comment, commentedOn: null })).toBeNull();
+  });
+
+  it("uses the local avatar when the commenter has none", () => {
+    const noAvatar = { ...comment, author: { node: { name: "Ana", avatar: null } } };
+    expect(adaptHomeComment(noAvatar)?.avatar).toBe("/avatar-pixel-art.png");
   });
 });

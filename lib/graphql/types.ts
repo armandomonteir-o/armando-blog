@@ -37,6 +37,7 @@ export interface WPPost {
   excerpt: string;
   date: string;
   commentCount: number | null;
+  isSticky: boolean | null;
   categories: { nodes: WPCategory[] };
   featuredImage: { node: WPImage } | null;
   acfPostFields: WPAcfPostFields | null;
@@ -86,6 +87,20 @@ export interface WPSubcategory {
   name: string;
   description: string | null;
   count: number | null;
+}
+
+// A comment as the home page lists it: newest first, with the post it is on.
+// `commentedOn.node` is empty when the comment is on something that is not a post.
+export interface WPRecentComment {
+  id: string;
+  content: string;
+  date: string;
+  author: { node: { name: string; avatar: { url: string } | null } };
+  commentedOn: { node: { slug?: string; title?: string } | null } | null;
+}
+
+export interface WPRecentCommentsResponse {
+  comments: { nodes: WPRecentComment[] };
 }
 
 export interface WPCategoryWithChildren extends WPSubcategory {

@@ -14,7 +14,7 @@ Personal blog by Armando Monteiro about art and digital technology.
 
 | Route | Data |
 |---|---|
-| `/` (home) | **WordPress**, via WPGraphQL |
+| `/` (home) | **WordPress**, via WPGraphQL: the posts grid, the featured post (the pinned one, else the newest) and the latest approved comments, a section that stays hidden while there are none. The recommendations and the now-playing widget are fixed editorial content, and the "Ver Galeria" button does nothing yet |
 | `/post/[slug]` | **WordPress**: the post, its comments and the related posts (same category). Reads and likes are not measured, so the page shows a dash |
 | comments, `/login`, `/minha-conta` | **WordPress** and Google OAuth |
 | `/posts` | mock, from `constants/posts.ts` |

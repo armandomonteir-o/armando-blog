@@ -6,6 +6,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 const live = process.env.WP_LIVE_TEST === "1";
 
 type Queries = typeof import("./posts") &
+  typeof import("./comments") &
   typeof import("./categories") &
   typeof import("./playlists") &
   typeof import("./search");
@@ -18,6 +19,7 @@ describe.runIf(live)("queries against the live WordPress schema", () => {
     q = Object.assign(
       {},
       await import("./posts"),
+      await import("./comments"),
       await import("./categories"),
       await import("./playlists"),
       await import("./search")
@@ -30,8 +32,8 @@ describe.runIf(live)("queries against the live WordPress schema", () => {
     expect(typeof nodes[0].databaseId).toBe("number");
   });
 
-  it("getFeaturedPost resolves", async () => {
-    await expect(q.getFeaturedPost()).resolves.not.toThrow();
+  it("getRecentComments resolves", async () => {
+    await expect(q.getRecentComments(3)).resolves.toBeInstanceOf(Array);
   });
 
   it("getPost resolves a real slug and null for a missing one", async () => {

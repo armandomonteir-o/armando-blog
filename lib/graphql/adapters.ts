@@ -1,4 +1,4 @@
-import type { WPPost, WPPostDetail } from "./types";
+import type { WPPost, WPPostDetail, WPRecentComment } from "./types";
 import type { Post } from "@/constants/posts";
 
 const FALLBACK_IMAGE =
@@ -43,6 +43,37 @@ const WORDS_PER_MINUTE = 200;
 function estimateReadTime(html: string): string {
   const words = stripHtml(html).split(/\s+/).filter(Boolean).length;
   return `${Math.max(1, Math.ceil(words / WORDS_PER_MINUTE))} min`;
+}
+
+// The post for the home page's featured block: a pinned ("sticky") post if there is one, else
+// the newest, which WordPress lists first. Pinning is WordPress's own feature, no ACF field.
+export function pickFeaturedPost(posts: WPPost[]): WPPost | null {
+  return posts.find((post) => post.isSticky) ?? posts[0] ?? null;
+}
+
+export interface HomeComment {
+  id: string;
+  name: string;
+  avatar: string;
+  text: string;
+  date: string;
+  postSlug: string;
+  postTitle: string;
+}
+
+// Null for a comment that is not on a post, so the home never links to something that is not one.
+export function adaptHomeComment(wp: WPRecentComment): HomeComment | null {
+  const post = wp.commentedOn?.node;
+  if (!post?.slug || !post.title) return null;
+  return {
+    id: wp.id,
+    name: wp.author.node.name,
+    avatar: wp.author.node.avatar?.url ?? "/avatar-pixel-art.png",
+    text: stripHtml(wp.content),
+    date: formatWPDate(wp.date),
+    postSlug: post.slug,
+    postTitle: post.title,
+  };
 }
 
 export function adaptWPPostDetail(wp: WPPostDetail) {
