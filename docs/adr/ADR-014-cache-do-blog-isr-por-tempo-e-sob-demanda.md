@@ -40,7 +40,7 @@ A quarta, e a mais relevante para o futuro, foi adotar o Cache Components do Nex
 
 Há mais uma peça para manter: na segunda e na terceira etapas, um segredo precisa existir em dois lugares, na Vercel e no WordPress. O aviso do WordPress pode falhar sem barulho, e o custo disso é aceitar até uma hora de atraso nesse caso raro.
 
-O cache também guarda respostas 404: medido num servidor de produção, o 404 de um endereço que não existe recebe a mesma regra de uma hora. Se alguém abrir o endereço de um post antes de ele ser publicado, o 404 pode ficar preso até uma hora. A revalidação sob demanda da segunda e da terceira etapas resolve isso para o endereço do post novo, mas enquanto elas não existirem esse atraso vale.
+O 404 de um endereço que não existe pode ou não ficar em cache, e isso depende de onde se mede. Num servidor de produção local (`next start`) a resposta 404 vem com a mesma regra de uma hora (`s-maxage=3600`). Na Vercel, o 404 de um endereço novo respondeu `x-vercel-cache: MISS` duas vezes seguidas, ou seja, não ficou preso no cache dela. A primeira medida foi lida como se valesse para a Vercel, e não vale; a que vale é a segunda. Mesmo assim, a revalidação sob demanda refaz o endereço do post novo no momento em que ele é publicado, então o resultado é o mesmo.
 
 A tentativa repetida alonga o build quando o WordPress está lento. O limite de três tentativas existe para que ela não vire espera infinita, e um WordPress que continua fora do ar depois delas ainda derruba o build, de propósito: o deploy anterior continua no ar e o erro fica visível, em vez de um site congelado com conteúdo falso.
 
@@ -49,3 +49,7 @@ Por fim, a revalidação precisa ser um número literal em cada arquivo de rota,
 ## Relação com outras decisões
 
 Esta decisão é consequência de #66, #67 e #70, que tiraram o fallback de mock e tornaram o build dependente do WordPress. Ela não contradiz nenhum ADR existente. O ADR-013 (evitar o ACF) é independente: nada aqui depende de como o conteúdo é modelado no WordPress. As rotas `/categoria/*` ainda são mock e entram no mesmo cache quando virarem dado real (#73).
+
+## Estado das etapas
+
+As três etapas estão feitas e foram verificadas de ponta a ponta em produção em 18/10/2026: a rota `/api/revalidate` no site, o gancho no plugin do `blog-cms` e o segredo nos dois lados. Com um post de teste (criado e apagado pelo próprio teste), a lista `/posts` passou a mostrá-lo em 1,3 s, o slug antigo virou 404 em 0,9 s depois de um renome, o post sumiu em 2,2 s depois de ir para a lixeira, e um comentário aprovado apareceu na página do post em 2,1 s e na home em 2,8 s. Sem o gancho, cada uma dessas páginas estáticas teria esperado até uma hora. O teste não prova sozinho que um post novo aparece (o endereço, que não está em cache, também apareceria por conta própria); o que prova o gancho são a lista, o renome, a lixeira e os comentários.
