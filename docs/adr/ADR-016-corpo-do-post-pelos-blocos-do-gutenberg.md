@@ -35,7 +35,7 @@ O ADR-013 já decidiu preferir os blocos do Gutenberg ao ACF. Faltava escolher *
 ## Custo aceito
 
 - É **código de terceiros instalado fora do diretório oficial**. Nenhuma atualização automática o alcança, então uma atualização do WPGraphQL pode quebrar a combinação sem aviso. O teste live `getPostBlocks` existe para pegar isso, e vale rodá-lo depois de atualizar o WPGraphQL.
-- O `setup.sh` do `blog-cms` precisa instalar o plugin pelo zip fixo, e não pelo slug. Quem recriar o WordPress do zero tem de usar esse caminho.
+- O plugin não se instala pelo slug. O `setup.sh` do `blog-cms` o instala pelo mesmo zip fixo, conferindo o hash antes (ADR-008 do `blog-cms`), então quem recriar o WordPress do zero o recebe.
 - Cada tipo de bloco novo que o autor passar a usar precisa de um componente, ou cai no fallback.
 
 ## Relação com outras decisões
