@@ -78,7 +78,7 @@ At the end of every session, say which docs you touched, or say explicitly that 
 | CMS | Headless WordPress + WPGraphQL |
 | GraphQL client | `graphql-request` |
 | Analytics | `@vercel/analytics` |
-| Sitemap | `next-sitemap` |
+| Sitemap | none yet. `next-sitemap` was removed (never configured, and its dependencies carried vulnerabilities); the native one (`app/sitemap.ts`) is #12 |
 | Deployment | Vercel |
 | Node | 22.14.0 (see `.nvmrc`) |
 
@@ -129,7 +129,7 @@ app/
 ```
 feat: add WPGraphQL client configuration
 fix: resolve dark mode flicker on initial load
-chore: update next-sitemap config
+chore: update next to 16.4.2
 docs: add ADR-006 for GraphQL client choice
 refactor: extract categoryColors to constants file
 ```
