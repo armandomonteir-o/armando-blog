@@ -124,10 +124,11 @@ Always check here before debugging something new — the answer may already be h
 
 ---
 
-## PITFALL-013: `status: "HOLD"` does not stop WordPress from approving a returning commenter
+## PITFALL-013: `status: "HOLD"` does not hold a comment, the WordPress moderation option does
 
 **Date discovered**: 2026-10-18 (issue #54)
-**Symptom**: the code sends every comment with `status: "HOLD"`, yet a second comment from an email that already has an approved one went live with no moderation. Only a visitor's first comment waited in Pending.
-**Root cause**: not the code. WordPress's own rule "comment author must have a previously approved comment" (`comment_previously_approved`) approves the comment on its own, and `createComment` does not override it. The result was identical with `HOLD` and with `APPROVE` (mutation test), which is what rules out our code.
-**Fix**: none yet, it needs a decision (#54): turn the WordPress option off, or force the status in the plugin's `pre_comment_approved` filter. Both change production WordPress, so ask first. Until then, `comments.live.test.ts` keeps the case as `it.fails`; remove the `.fails` when it is fixed.
+**Symptom**: the code sends every comment with `status: "HOLD"`, yet a second comment from an email that already had an approved one went live with no moderation. Only a visitor's first comment waited in Pending.
+**Root cause**: not our code. WordPress decides the status itself, and `createComment` does not override it. With "Comment must be manually approved" off (`comment_moderation = 0`), the only thing holding comments was "Comment author must have a previously approved comment" (`comment_previously_approved = 1`), which by definition lets returning commenters through. The result was identical with `HOLD` and with `APPROVE` (mutation test), which is what rules out our code.
+**Fix**: set `comment_moderation = 1` on the production WordPress (Settings → Discussion → "Comment must be manually approved"), so every comment waits, returning commenters included. Done on 2026-10-18 and checked by `comments.live.test.ts`.
+**Trap**: do NOT switch `comment_previously_approved` off to "fix" this. It is the opposite of what the label suggests: with moderation off, turning it off makes WordPress approve **everything** automatically. It happened once, a test comment went public for a few minutes, and it was reverted.
 **Location**: `lib/graphql/mutations/comments.ts`, `lib/graphql/mutations/comments.live.test.ts`

@@ -71,30 +71,25 @@ describe.runIf(live)("comment moderation against the live WordPress", () => {
     expect(await publicHasMarker()).toBe(true);
   });
 
-  // KNOWN BUG, found by #54: WordPress auto-approves a comment from an email that already has an
-  // approved one ("comment author must have a previously approved comment"), even though we send
-  // status HOLD. Only a visitor's FIRST comment is moderated. `it.fails` keeps the bug visible
-  // without breaking the run: when WordPress is fixed this starts passing, vitest reports it as a
-  // failure, and the `.fails` should be removed. The same result with HOLD or APPROVE is what
-  // proves it is WordPress, not our code (the offline comments.test.ts guards the HOLD itself).
-  it.fails(
-    "still holds a second comment from an email that already has an approved one",
-    async () => {
-      const [slug] = await getPostSlugs(1);
-      const post = await getPost(slug);
-      const second = `${marker}-segundo`;
-      await create({
-        postId: post!.databaseId,
-        content: second,
-        authorName: "Teste de moderação",
-        authorEmail: "teste-moderacao@example.com",
-      });
-      const held = await (await rest(`/comments?status=hold&search=${second}`)).json();
-      for (const c of held) created.push(c.id);
-      const approved = await (await rest(`/comments?status=approve&search=${second}`)).json();
-      for (const c of approved) created.push(c.id);
-      expect(approved).toHaveLength(0);
-      expect(held).toHaveLength(1);
-    }
-  );
+  // The `status: "HOLD"` we send is not what holds a returning commenter: WordPress decides, and
+  // before #54 it approved a second comment from an email that already had an approved one.
+  // The guard is the WordPress option "Comment must be manually approved" (`comment_moderation`
+  // = 1, see PITFALL-013 and docs/ECOSYSTEM.md). This test fails if someone turns it off.
+  it("still holds a second comment from an email that already has an approved one", async () => {
+    const [slug] = await getPostSlugs(1);
+    const post = await getPost(slug);
+    const second = `${marker}-segundo`;
+    await create({
+      postId: post!.databaseId,
+      content: second,
+      authorName: "Teste de moderação",
+      authorEmail: "teste-moderacao@example.com",
+    });
+    const held = await (await rest(`/comments?status=hold&search=${second}`)).json();
+    for (const c of held) created.push(c.id);
+    const approved = await (await rest(`/comments?status=approve&search=${second}`)).json();
+    for (const c of approved) created.push(c.id);
+    expect(approved).toHaveLength(0);
+    expect(held).toHaveLength(1);
+  });
 });
