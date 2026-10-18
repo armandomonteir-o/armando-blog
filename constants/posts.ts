@@ -198,5 +198,12 @@ export const categoryColors: Record<string, string> = {
   Músicas: "#f59e0b",
   Filmes: "#e05050",
   Livros: "#80b0ff",
+  // The categories WordPress has. Same accents as the design system, no new hex; the tag text
+  // is dark (chrome-blue-dark), so each color must stay light enough to read it.
+  Arte: "#e05050",
+  Cultura: "#f59e0b",
+  Design: "#34d399",
+  Tecnologia: "#80b0ff",
+  Blog: "#a0c4ff",
   ERROR: "#ff0000",
 };

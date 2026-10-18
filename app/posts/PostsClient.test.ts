@@ -40,4 +40,17 @@ describe("PostsClient (#70)", () => {
     expect(html).toContain("NENHUM POST PUBLICADO");
     for (const mock of mockPosts) expect(html).not.toContain(mock.title);
   });
+
+  it("does not stretch the grid to a fixed height when everything fits on one page", () => {
+    const html = renderToStaticMarkup(
+      createElement(PostsClient, { posts: [post(1, "Design"), post(2, "Arte")] })
+    );
+    expect(html).not.toContain("min-height:940px");
+  });
+
+  it("keeps the fixed height when there are several pages, so the page does not jump", () => {
+    const many = Array.from({ length: 10 }, (_, i) => post(i + 1, "Design"));
+    const html = renderToStaticMarkup(createElement(PostsClient, { posts: many }));
+    expect(html).toContain("min-height:940px");
+  });
 });

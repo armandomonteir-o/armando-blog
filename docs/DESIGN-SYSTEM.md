@@ -70,7 +70,18 @@ const categoryColors: Record<string, string> = {
 };
 ```
 
-This map is defined in `PostsGrid.tsx` and exported. `PostPage.tsx`, `AllPostsPage.tsx`, and `Header.tsx` all import it from there. In the migration, centralize it or derive from WP category ACF `accentColor` fields.
+> **Atualizado em 18/10/2026.** O mapa real está em `constants/posts.ts` (`categoryColors` e o auxiliar `categoryColor()`), não em `PostsGrid.tsx`. Além das categorias do protótipo acima (hoje só `Filosofia` existe no WordPress), ele define as categorias que o WordPress tem, **reaproveitando os acentos do design system, sem hex novo**:
+>
+> | Categoria | Cor |
+> |---|---|
+> | Arte | `#e05050` (vermelho) |
+> | Cultura | `#f59e0b` (âmbar) |
+> | Design | `#34d399` (verde) |
+> | Filosofia | `#c084fc` (roxo) |
+> | Tecnologia | `#80b0ff` (azul claro) |
+> | Blog (categoria padrão) | `#a0c4ff` (azul do corpo do texto) |
+>
+> O texto do rótulo da categoria é escuro, então toda cor nova precisa ser clara o bastante para ele. Categoria sem cor definida usa `#80b0ff`. A decisão de derivar a cor de um campo do WordPress (em vez de manter o mapa no código) é da #73.
 
 ## CSS Custom Properties (`/src/styles/theme.css`)
 

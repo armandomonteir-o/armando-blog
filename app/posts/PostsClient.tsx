@@ -153,7 +153,9 @@ export default function PostsPage({ posts }: { posts: Post[] }) {
               {filteredPosts.length > 0 && (
                 <div
                   className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
-                  style={{ minHeight: 940 }}
+                  // Fixed height only when there are several pages, so the page does not jump
+                  // between a full page and the last one.
+                  style={{ minHeight: totalPages > 1 ? 940 : undefined }}
                 >
                   {currentPosts.map((post, i) => (
                     <motion.div
