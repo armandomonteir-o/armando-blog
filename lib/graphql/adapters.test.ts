@@ -138,10 +138,29 @@ describe("adaptWPPostDetail", () => {
     comments: { nodes: [] },
   };
 
-  it("uses the whole content as one section when ACF has no sections", () => {
-    expect(adaptWPPostDetail(detail).sections).toEqual([
-      { id: "content", title: "", content: "Corpo do post." },
+  // The body is always a list of sections of blocks (#84). Without Gutenberg blocks, the text
+  // goes in one section of paragraph blocks, as before.
+  const texts = (out: ReturnType<typeof adaptWPPostDetail>) =>
+    out.sections.map((s) => ({
+      id: s.id,
+      title: s.title,
+      paragraphs: s.blocks.map((b) => b.attributes?.content),
+    }));
+
+  it("uses the whole content as one section when there are no blocks and no ACF sections", () => {
+    expect(texts(adaptWPPostDetail(detail))).toEqual([
+      { id: "content", title: "", paragraphs: ["Corpo do post."] },
     ]);
+  });
+
+  it("splits the fallback text into paragraphs and keeps entities escaped, to be shown as text", () => {
+    const out = adaptWPPostDetail({ ...detail, content: "<p>A &amp; B</p>\n\n<p>C &lt;d&gt;</p>" });
+    expect(texts(out)[0].paragraphs).toEqual(["A &amp; B", "C &lt;d&gt;"]);
+  });
+
+  it("keeps the fallback text as text: a literal < never becomes a tag", () => {
+    const out = adaptWPPostDetail({ ...detail, content: "<p>1 &lt; 2 &lt;script&gt;</p>" });
+    expect(out.sections[0].blocks[0].attributes?.content).toBe("1 &lt; 2 &lt;script&gt;");
   });
 
   it("uses the ACF sections when there are any", () => {
@@ -156,9 +175,41 @@ describe("adaptWPPostDetail", () => {
       },
     };
     const out = adaptWPPostDetail(withSections);
-    expect(out.sections).toEqual([{ id: "intro", title: "Intro", content: "Olá" }]);
+    expect(texts(out)).toEqual([{ id: "intro", title: "Intro", paragraphs: ["Olá"] }]);
     expect(out.subtitle).toBe("Subtítulo");
     expect(out.readTime).toBe("8 min");
+  });
+
+  describe("with Gutenberg blocks", () => {
+    const heading = (content: string) => ({
+      __typename: "CoreHeading",
+      name: "core/heading",
+      clientId: content,
+      renderedHtml: "",
+      attributes: { content, level: 2, anchor: null },
+    });
+    const para = (content: string) => ({
+      __typename: "CoreParagraph",
+      name: "core/paragraph",
+      clientId: content,
+      renderedHtml: "",
+      attributes: { content },
+    });
+
+    it("builds the sections from the blocks, which win over the plain content", () => {
+      const out = adaptWPPostDetail(detail, [heading("Um"), para("a"), heading("Dois"), para("b")]);
+      expect(texts(out)).toEqual([
+        { id: "um", title: "Um", paragraphs: ["a"] },
+        { id: "dois", title: "Dois", paragraphs: ["b"] },
+      ]);
+    });
+
+    it("falls back to the plain content when WordPress returns no blocks", () => {
+      expect(texts(adaptWPPostDetail(detail, []))).toEqual([
+        { id: "content", title: "", paragraphs: ["Corpo do post."] },
+      ]);
+      expect(texts(adaptWPPostDetail(detail, null))[0].id).toBe("content");
+    });
   });
 
   it("has no read or like count, because the site does not measure either (#71)", () => {

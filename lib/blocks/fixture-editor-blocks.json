@@ -1,0 +1,163 @@
+[
+  {
+    "__typename": "CoreHeading",
+    "name": "core/heading",
+    "clientId": "6ad5253586b4b",
+    "renderedHtml": "\n<h2 class=\"wp-block-heading\">Primeira seção</h2>\n",
+    "attributes": {
+      "content": "Primeira seção",
+      "level": 2,
+      "anchor": null
+    },
+    "innerBlocks": []
+  },
+  {
+    "__typename": "CoreParagraph",
+    "name": "core/paragraph",
+    "clientId": "6ad5253586b65",
+    "renderedHtml": "\n<p class=\"wp-block-paragraph\">Um parágrafo com <strong>negrito</strong>, <em>itálico</em> e um <a href=\"https://example.com/x?a=1&amp;b=2\">link</a>.</p>\n",
+    "attributes": {
+      "content": "Um parágrafo com <strong>negrito</strong>, <em>itálico</em> e um <a href=\"https://example.com/x?a=1&amp;b=2\">link</a>."
+    },
+    "innerBlocks": []
+  },
+  {
+    "__typename": "CoreImage",
+    "name": "core/image",
+    "clientId": "6ad5253586b67",
+    "renderedHtml": "\n<figure class=\"wp-block-image size-large\"><img src=\"https://example.com/foto.jpg\" alt=\"Texto alternativo da foto\" width=\"800\" height=\"600\"/><figcaption class=\"wp-element-caption\">Legenda da foto</figcaption></figure>\n",
+    "attributes": {
+      "url": "https://example.com/foto.jpg",
+      "alt": "Texto alternativo da foto",
+      "caption": "Legenda da foto",
+      "width": null,
+      "height": null
+    },
+    "innerBlocks": []
+  },
+  {
+    "__typename": "CoreHeading",
+    "name": "core/heading",
+    "clientId": "6ad5253586b68",
+    "renderedHtml": "\n<h3 class=\"wp-block-heading\">Uma subseção</h3>\n",
+    "attributes": {
+      "content": "Uma subseção",
+      "level": 3,
+      "anchor": null
+    },
+    "innerBlocks": []
+  },
+  {
+    "__typename": "CoreList",
+    "name": "core/list",
+    "clientId": "6ad5253586b69",
+    "renderedHtml": "\n<ul class=\"wp-block-list\">\n<li>item um</li>\n\n<li>item <a href=\"https://example.com\">dois</a></li>\n</ul>\n",
+    "attributes": {
+      "ordered": false,
+      "start": null,
+      "reversed": null
+    },
+    "innerBlocks": [
+      {
+        "__typename": "CoreListItem",
+        "name": "core/list-item",
+        "clientId": "6ad5253586b6a",
+        "renderedHtml": "\n<li>item um</li>\n",
+        "attributes": {
+          "content": "item um"
+        },
+        "innerBlocks": []
+      },
+      {
+        "__typename": "CoreListItem",
+        "name": "core/list-item",
+        "clientId": "6ad5253586b6b",
+        "renderedHtml": "\n<li>item <a href=\"https://example.com\">dois</a></li>\n",
+        "attributes": {
+          "content": "item <a href=\"https://example.com\">dois</a>"
+        },
+        "innerBlocks": []
+      }
+    ]
+  },
+  {
+    "__typename": "CoreList",
+    "name": "core/list",
+    "clientId": "6ad5253586b6c",
+    "renderedHtml": "\n<ol class=\"wp-block-list\">\n<li>primeiro</li>\n</ol>\n",
+    "attributes": {
+      "ordered": true,
+      "start": null,
+      "reversed": null
+    },
+    "innerBlocks": [
+      {
+        "__typename": "CoreListItem",
+        "name": "core/list-item",
+        "clientId": "6ad5253586b6d",
+        "renderedHtml": "\n<li>primeiro</li>\n",
+        "attributes": {
+          "content": "primeiro"
+        },
+        "innerBlocks": []
+      }
+    ]
+  },
+  {
+    "__typename": "CoreQuote",
+    "name": "core/quote",
+    "clientId": "6ad5253586b6e",
+    "renderedHtml": "\n<blockquote class=\"wp-block-quote is-layout-flow wp-block-quote-is-layout-flow\">\n<p class=\"wp-block-paragraph\">Uma citação marcante.</p>\n<cite>Alguém Famoso</cite></blockquote>\n",
+    "attributes": {
+      "citation": "Alguém Famoso"
+    },
+    "innerBlocks": [
+      {
+        "__typename": "CoreParagraph",
+        "name": "core/paragraph",
+        "clientId": "6ad5253586b6f",
+        "renderedHtml": "\n<p class=\"wp-block-paragraph\">Uma citação marcante.</p>\n",
+        "attributes": {
+          "content": "Uma citação marcante."
+        },
+        "innerBlocks": []
+      }
+    ]
+  },
+  {
+    "__typename": "CoreCode",
+    "name": "core/code",
+    "clientId": "6ad5253586b70",
+    "renderedHtml": "\n<pre class=\"wp-block-code\"><code>const x = 1 &lt; 2 &amp;&amp; \"ok\";</code></pre>\n",
+    "attributes": {
+      "content": "const x = 1 &lt; 2 &amp;&amp; \"ok\";"
+    },
+    "innerBlocks": []
+  },
+  {
+    "__typename": "CoreEmbed",
+    "name": "core/embed",
+    "clientId": "6ad5253586b71",
+    "renderedHtml": "\n<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube\"><div class=\"wp-block-embed__wrapper\">\nhttps://www.youtube.com/watch?v=dQw4w9WgXcQ\n</div></figure>\n",
+    "attributes": {
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "providerNameSlug": "youtube",
+      "caption": ""
+    },
+    "innerBlocks": []
+  },
+  {
+    "__typename": "CoreSeparator",
+    "name": "core/separator",
+    "clientId": "6ad5253586b72",
+    "renderedHtml": "\n<hr class=\"wp-block-separator has-alpha-channel-opacity\"/>\n",
+    "innerBlocks": []
+  },
+  {
+    "__typename": "CoreHtml",
+    "name": "core/html",
+    "clientId": "6ad5253586b73",
+    "renderedHtml": "\n<script>alert(\"xss\")</script><div onclick=\"x()\">html cru</div>\n",
+    "innerBlocks": []
+  }
+]

@@ -1,5 +1,6 @@
 import type { WPPost, WPPostDetail, WPRecentComment } from "./types";
 import type { Post } from "@/constants/posts";
+import { plainText, sectionsFromBlocks, type EditorBlock, type PostSection } from "@/lib/blocks";
 
 export const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop";
@@ -76,16 +77,39 @@ export function adaptHomeComment(wp: WPRecentComment): HomeComment | null {
   };
 }
 
-export function adaptWPPostDetail(wp: WPPostDetail) {
+function escapeHtml(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Plain text as paragraph blocks, for a post that has no Gutenberg blocks to read. The text is
+// escaped, so a literal "<" in it stays text and never becomes a tag.
+function paragraphBlocks(html: string, idPrefix: string): EditorBlock[] {
+  return plainText(html.replace(/<\/p>/gi, "\n\n"))
+    .split(/\n{2,}/)
+    .filter((text) => text.trim())
+    .map((text, i) => ({
+      __typename: "CoreParagraph",
+      name: "core/paragraph",
+      clientId: `${idPrefix}-${i}`,
+      renderedHtml: "",
+      attributes: { content: escapeHtml(text.trim()) },
+    }));
+}
+
+// The body is always a list of sections of blocks. Gutenberg blocks win; without them, the ACF
+// sections (being retired, ADR-013), and last the plain text of the content.
+export function adaptWPPostDetail(wp: WPPostDetail, blocks?: EditorBlock[] | null) {
   const acf = wp.acfPostFields;
 
-  const sections = acf?.postSections?.length
-    ? acf.postSections.map((s) => ({
-        id: s.sectionId,
-        title: s.sectionTitle,
-        content: stripHtml(s.sectionContent),
-      }))
-    : [{ id: "content", title: "", content: stripHtml(wp.content) }];
+  const sections: PostSection[] = blocks?.length
+    ? sectionsFromBlocks(blocks)
+    : acf?.postSections?.length
+      ? acf.postSections.map((s) => ({
+          id: s.sectionId,
+          title: s.sectionTitle,
+          blocks: paragraphBlocks(s.sectionContent, s.sectionId),
+        }))
+      : [{ id: "content", title: "", blocks: paragraphBlocks(wp.content, "content") }];
 
   return {
     title: wp.title,

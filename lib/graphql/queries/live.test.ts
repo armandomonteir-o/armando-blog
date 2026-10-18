@@ -77,4 +77,14 @@ describe.runIf(live)("queries against the live WordPress schema", () => {
     );
     expect(data.generalSettings.timezone).not.toBe("");
   });
+
+  // #84: needs the WPGraphQL Content Blocks plugin on the WordPress. Against a WordPress without
+  // it this fails, which is the point: the post page then shows plain text and logs the error.
+  it("getPostBlocks returns the blocks of a real post, as a tree", async () => {
+    const [slug] = await q.getPostSlugs(1);
+    const blocks = await q.getPostBlocks(slug);
+    expect(blocks).toBeInstanceOf(Array);
+    expect(blocks!.length).toBeGreaterThan(0);
+    expect(typeof blocks![0].name).toBe("string");
+  });
 });

@@ -13,11 +13,28 @@ import {
   AuthorCard,
   RelatedPosts,
   PostCommentsSection,
+  BlockRenderer,
 } from "@/components/content/single-post";
-import { getPost, getPosts, getPostSlugs } from "@/lib/graphql";
+import { getPost, getPostBlocks, getPosts, getPostSlugs } from "@/lib/graphql";
 import { adaptWPPost, adaptWPPostDetail, stripHtml } from "@/lib/graphql/adapters";
 
 const RELATED_COUNT = 3;
+
+// The body as Gutenberg blocks (#84). Secondary to the post itself: if only this query fails (for
+// example the plugin is not installed), the post still shows its text, and the failure is logged
+// so it is not silent. A WordPress outage still fails the page, because the post query comes first.
+async function loadPostBlocks(slug: string) {
+  try {
+    return await getPostBlocks(slug);
+  } catch (e) {
+    // Only the start of the message: the full error repeats the whole query on every page.
+    const reason = e instanceof Error ? e.message.slice(0, 120) : String(e).slice(0, 120);
+    console.error(
+      `[PostPage] blocks query failed for "${slug}", showing the plain text: ${reason}`
+    );
+    return null;
+  }
+}
 
 // Other published posts from the same category. This is secondary content: if only this query
 // fails, the post itself still renders, without the section.
@@ -82,7 +99,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const wpComments = wpPost.comments?.nodes ?? [];
   const postId = wpPost.databaseId;
-  const currentPost = adaptWPPostDetail(wpPost);
+  const currentPost = adaptWPPostDetail(wpPost, await loadPostBlocks(slug));
   const related = await getRelatedPosts(wpPost.categories.nodes[0]?.slug, slug);
 
   return (
@@ -129,7 +146,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           {/* Table of contents sidebar — hidden on mobile */}
           <div className="hidden xl:block xl:w-[220px] xl:flex-shrink-0">
             <TableOfContents
-              sections={currentPost.sections}
+              sections={currentPost.sections
+                .filter((section) => section.title)
+                .map(({ id, title }) => ({ id, title }))}
               readTime={currentPost.readTime}
               reads={currentPost.reads}
             />
@@ -160,18 +179,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                       color="#fff"
                     />
                     <div className="mt-4">
-                      {section.content.split("\n\n").map((paragraph, pIdx) => (
-                        <p
-                          key={pIdx}
-                          className="mb-4 font-grotesk text-chrome-blue-content"
-                          style={{
-                            fontSize: "15px",
-                            lineHeight: 1.85,
-                            letterSpacing: "0.01em",
-                          }}
-                        >
-                          {paragraph}
-                        </p>
+                      {section.blocks.map((block) => (
+                        <BlockRenderer key={block.clientId} block={block} />
                       ))}
                     </div>
 
