@@ -186,11 +186,24 @@ export const posts: Post[] = [
   },
 ];
 
+// WordPress categories the site has no color for (Cultura, Design, Arte...) use the accent of
+// the "TODOS" filter, so a selected filter never gets an undefined color.
+export function categoryColor(category: string): string {
+  return categoryColors[category] ?? "#80b0ff";
+}
+
 export const categoryColors: Record<string, string> = {
   Estudos: "#34d399",
   Filosofia: "#c084fc",
   Músicas: "#f59e0b",
   Filmes: "#e05050",
   Livros: "#80b0ff",
+  // The categories WordPress has. Same accents as the design system, no new hex; the tag text
+  // is dark (chrome-blue-dark), so each color must stay light enough to read it.
+  Arte: "#e05050",
+  Cultura: "#f59e0b",
+  Design: "#34d399",
+  Tecnologia: "#80b0ff",
+  Blog: "#a0c4ff",
   ERROR: "#ff0000",
 };

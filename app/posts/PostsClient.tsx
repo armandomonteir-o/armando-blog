@@ -10,22 +10,23 @@ import { AeroElements } from "@/components/ui/AeroElements";
 import { AppImage } from "@/components/ui/AppImage";
 import { Pagination } from "@/components/ui/Pagination";
 import { CategoryHero } from "@/components/ui/CategoryHero";
-import { posts, categoryColors } from "@/components/content/PostsGrid";
-// TODO issue #13: replace with generateMetadata() from WPGraphQL
+import { categoryColors, categoryColor } from "@/constants/posts";
+import type { Post } from "@/constants/posts";
 
 const POSTS_PER_PAGE = 9;
-const allCategories = Array.from(
-  new Set(posts.filter((p) => !p.isCorrupted).map((p) => p.category))
-);
 
-export default function PostsPage() {
+export default function PostsPage({ posts }: { posts: Post[] }) {
+  const allCategories = useMemo(
+    () => Array.from(new Set(posts.filter((p) => !p.isCorrupted).map((p) => p.category))),
+    [posts]
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredPosts = useMemo(() => {
     if (!selectedCategory) return posts;
     return posts.filter((p) => p.category === selectedCategory);
-  }, [selectedCategory]);
+  }, [posts, selectedCategory]);
 
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
   const startIdx = (currentPage - 1) * POSTS_PER_PAGE;
@@ -127,8 +128,8 @@ export default function PostsPage() {
                       key={cat}
                       className="px-3 py-1 cursor-pointer transition-colors duration-150 font-mono font-bold"
                       style={{
-                        border: `2px solid ${selectedCategory === cat ? categoryColors[cat] : "#0560e0"}`,
-                        backgroundColor: selectedCategory === cat ? categoryColors[cat] : "#0458d4",
+                        border: `2px solid ${selectedCategory === cat ? categoryColor(cat) : "#0560e0"}`,
+                        backgroundColor: selectedCategory === cat ? categoryColor(cat) : "#0458d4",
                         fontSize: "10px",
                         color: selectedCategory === cat ? "#022a6e" : "#a0c4ff",
                       }}
@@ -140,134 +141,147 @@ export default function PostsPage() {
                 </div>
               </div>
 
-              <div
-                className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
-                style={{ minHeight: 940 }}
-              >
-                {currentPosts.map((post, i) => (
-                  <motion.div
-                    key={post.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, delay: 0.05 * i }}
-                  >
-                    <Link
-                      href={post.isCorrupted ? "/void/corrupted/0x404" : `/post/${post.slug}`}
-                      className="flex flex-col cursor-pointer group h-[300px] brutal-lift"
-                      style={
-                        {
-                          border: post.isCorrupted ? "2px solid #ff0000" : "2px solid #0560e0",
-                          backgroundColor: post.isCorrupted ? "#1a0000" : "#0458d4",
-                          textDecoration: "none",
-                          animation: post.isCorrupted
-                            ? "corruptedPulse 2s ease-in-out infinite"
-                            : undefined,
-                          "--lift-color": post.isCorrupted ? "#ff0000" : "#022a6e",
-                          "--lift-rest": "0px",
-                          "--lift-hover": "4px",
-                        } as React.CSSProperties
-                      }
+              {filteredPosts.length === 0 && (
+                <div
+                  className="font-mono py-10"
+                  style={{ fontSize: "12px", color: "var(--arm-panel-text-muted)" }}
+                >
+                  {">"} NENHUM POST PUBLICADO AINDA_
+                </div>
+              )}
+
+              {filteredPosts.length > 0 && (
+                <div
+                  className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
+                  // Fixed height only when there are several pages, so the page does not jump
+                  // between a full page and the last one.
+                  style={{ minHeight: totalPages > 1 ? 940 : undefined }}
+                >
+                  {currentPosts.map((post, i) => (
+                    <motion.div
+                      key={post.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.35, delay: 0.05 * i }}
                     >
-                      <div
-                        className="flex items-center justify-between px-2 py-1"
-                        style={{
-                          backgroundColor: post.isCorrupted ? "#330000" : "#0560e0",
-                          borderBottom: post.isCorrupted
-                            ? "2px solid #ff0000"
-                            : "2px solid #0560e0",
-                        }}
+                      <Link
+                        href={post.isCorrupted ? "/void/corrupted/0x404" : `/post/${post.slug}`}
+                        className="flex flex-col cursor-pointer group h-[300px] brutal-lift"
+                        style={
+                          {
+                            border: post.isCorrupted ? "2px solid #ff0000" : "2px solid #0560e0",
+                            backgroundColor: post.isCorrupted ? "#1a0000" : "#0458d4",
+                            textDecoration: "none",
+                            animation: post.isCorrupted
+                              ? "corruptedPulse 2s ease-in-out infinite"
+                              : undefined,
+                            "--lift-color": post.isCorrupted ? "#ff0000" : "#022a6e",
+                            "--lift-rest": "0px",
+                            "--lift-hover": "4px",
+                          } as React.CSSProperties
+                        }
                       >
-                        <span
-                          className="font-mono"
+                        <div
+                          className="flex items-center justify-between px-2 py-1"
                           style={{
-                            fontSize: "8px",
-                            color: post.isCorrupted ? "#ff4444" : "#a0c4ff",
+                            backgroundColor: post.isCorrupted ? "#330000" : "#0560e0",
+                            borderBottom: post.isCorrupted
+                              ? "2px solid #ff0000"
+                              : "2px solid #0560e0",
                           }}
                         >
-                          {post.isCorrupted
-                            ? "⚠ CORRUPTED.ERR"
-                            : `POST-${String(post.id).padStart(3, "0")}.MD`}
-                        </span>
-                        <div className="flex gap-1">
-                          <div className="w-2 h-2 bg-chrome-blue border border-chrome-blue-dark" />
-                          <div className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark" />
+                          <span
+                            className="font-mono"
+                            style={{
+                              fontSize: "8px",
+                              color: post.isCorrupted ? "#ff4444" : "#a0c4ff",
+                            }}
+                          >
+                            {post.isCorrupted
+                              ? "⚠ CORRUPTED.ERR"
+                              : `POST-${String(post.id).padStart(3, "0")}.MD`}
+                          </span>
+                          <div className="flex gap-1">
+                            <div className="w-2 h-2 bg-chrome-blue border border-chrome-blue-dark" />
+                            <div className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark" />
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="h-[140px] overflow-hidden relative">
-                        <AppImage
-                          src={post.image}
-                          alt={post.title}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          preload={i === 0}
-                        />
-                        <div
-                          className="absolute inset-0 pointer-events-none opacity-40"
-                          style={{
-                            backgroundImage:
-                              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
-                          }}
-                        />
-                        <div
-                          className="absolute top-2 left-2 px-2 py-0.5 font-mono font-bold text-chrome-blue-dark border-2 border-chrome-blue-dark"
-                          style={{
-                            backgroundColor:
-                              categoryColors[post.category] || "var(--chrome-blue-mid)",
-                            fontSize: "8px",
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                          }}
-                        >
-                          {post.category.toUpperCase()}
+                        <div className="h-[140px] overflow-hidden relative">
+                          <AppImage
+                            src={post.image}
+                            alt={post.title}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            preload={i === 0}
+                          />
+                          <div
+                            className="absolute inset-0 pointer-events-none opacity-40"
+                            style={{
+                              backgroundImage:
+                                "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
+                            }}
+                          />
+                          <div
+                            className="absolute top-2 left-2 px-2 py-0.5 font-mono font-bold text-chrome-blue-dark border-2 border-chrome-blue-dark"
+                            style={{
+                              backgroundColor:
+                                categoryColors[post.category] || "var(--chrome-blue-mid)",
+                              fontSize: "8px",
+                              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                            }}
+                          >
+                            {post.category.toUpperCase()}
+                          </div>
+                          <div
+                            className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            style={{
+                              background:
+                                "linear-gradient(to top, rgba(3,71,193,0.25), transparent 60%)",
+                            }}
+                          />
                         </div>
-                        <div
-                          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                          style={{
-                            background:
-                              "linear-gradient(to top, rgba(3,71,193,0.25), transparent 60%)",
-                          }}
-                        />
-                      </div>
 
-                      <div className="p-3 flex flex-col flex-1 overflow-hidden">
-                        <h3
-                          className="line-clamp-2 font-grotesk font-bold text-white"
-                          style={{ fontSize: "13px", lineHeight: 1.3, marginBottom: "6px" }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p
-                          className="flex-1 line-clamp-3 font-mono text-chrome-blue-text-on-dark"
-                          style={{ fontSize: "10px", lineHeight: 1.5, marginBottom: "8px" }}
-                        >
-                          {post.excerpt}
-                        </p>
-                        <div className="flex items-center gap-3 pt-2 border-t border-chrome-blue-accent">
-                          <div className="flex items-center gap-1 text-chrome-blue-body">
-                            <Clock size={10} />
-                            <span className="font-mono" style={{ fontSize: "8px" }}>
-                              {post.date}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1 text-chrome-blue-body">
-                            <Eye size={10} />
-                            <span className="font-mono" style={{ fontSize: "8px" }}>
-                              {post.reads ?? "—"}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1 text-chrome-blue-body">
-                            <MessageCircle size={10} />
-                            <span className="font-mono" style={{ fontSize: "8px" }}>
-                              {post.comments}
-                            </span>
+                        <div className="p-3 flex flex-col flex-1 overflow-hidden">
+                          <h3
+                            className="line-clamp-2 font-grotesk font-bold text-white"
+                            style={{ fontSize: "13px", lineHeight: 1.3, marginBottom: "6px" }}
+                          >
+                            {post.title}
+                          </h3>
+                          <p
+                            className="flex-1 line-clamp-3 font-mono text-chrome-blue-text-on-dark"
+                            style={{ fontSize: "10px", lineHeight: 1.5, marginBottom: "8px" }}
+                          >
+                            {post.excerpt}
+                          </p>
+                          <div className="flex items-center gap-3 pt-2 border-t border-chrome-blue-accent">
+                            <div className="flex items-center gap-1 text-chrome-blue-body">
+                              <Clock size={10} />
+                              <span className="font-mono" style={{ fontSize: "8px" }}>
+                                {post.date}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1 text-chrome-blue-body">
+                              <Eye size={10} />
+                              <span className="font-mono" style={{ fontSize: "8px" }}>
+                                {post.reads ?? "—"}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1 text-chrome-blue-body">
+                              <MessageCircle size={10} />
+                              <span className="font-mono" style={{ fontSize: "8px" }}>
+                                {post.comments}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
 
               {totalPages > 1 && (
                 <Pagination
