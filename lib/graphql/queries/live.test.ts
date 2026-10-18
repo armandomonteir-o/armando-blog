@@ -64,8 +64,15 @@ describe.runIf(live)("queries against the live WordPress schema", () => {
     await expect(q.getPlaylist("slug-that-does-not-exist-xyz")).resolves.toBeNull();
   });
 
-  it("searchPosts resolves", async () => {
-    await expect(q.searchPosts("a")).resolves.toBeDefined();
+  // #150: the header search. A term taken from a real post must find it, with the shape the
+  // route reads (title, slug, categories.nodes[].name); a term that matches nothing is [].
+  it("searchPosts finds a real post by a word of its title, and nothing for gibberish", async () => {
+    const { nodes } = await q.getPosts(1);
+    const word = nodes[0].title.split(/\s+/).find((w) => w.length >= 4) ?? nodes[0].title;
+    const found = await q.searchPosts(word);
+    expect(found.map((p) => p.slug)).toContain(nodes[0].slug);
+    expect(found[0].categories.nodes).toBeInstanceOf(Array);
+    await expect(q.searchPosts("zzqxjkvw-nada-assim")).resolves.toEqual([]);
   });
 
   // #78: with the timezone empty (UTC), a post published at 22h in Brasília got the next day's
