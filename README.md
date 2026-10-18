@@ -1,14 +1,40 @@
 # Armando — art & digital technology
 
+[![CI](https://github.com/armandomonteir-o/armando-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/armandomonteir-o/armando-blog/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+![Next.js 16](https://img.shields.io/badge/Next.js-16-black)
+
 Personal blog by Armando Monteiro about art and digital technology.
 
 **Live:** [armando-blog.vercel.app](https://armando-blog.vercel.app)
+
+![The home page, then a post, scrolling](./docs/media/demo.gif)
+
+<!-- Regravar o GIF quando o blog tiver mais posts, comentários e leituras: hoje ele mostra 6 posts, 0 comentários e traços nas leituras. -->
+
+## The problem
+
+A personal blog that is an editor's tool and a designer's canvas at the same time. Posts need to be written in a real CMS, with moderated comments and Google sign-in, but the page itself has to look like nothing a WordPress theme can produce: neobrutalism, retro-digital and Frutiger Aero, deliberately loud. So the CMS and the interface are separate. WordPress (headless, through WPGraphQL) only stores and serves content, and a Next.js app draws everything the visitor sees.
+
+It is a portfolio project, built to show how the pieces fit and why each one was chosen, not to be a template. The "Decisions and trade-offs" section below has the reasoning, one line per decision.
 
 **Where the interface came from:** the visual layer is a port. It started as a React (Vite) SPA prototype generated in Figma Make, and I migrated it to Next.js 16 with the App Router, server components and real data from WordPress. The work in this repository is that migration and everything behind the screens: the WPGraphQL data layer, Google sign-in, moderated comments and the CI.
 
 **Design aesthetic**: Neobrutalism + Retro-digital + Frutiger Aero — intentional, non-negotiable.
 
 **Stack**: Next.js 16 (App Router) · Tailwind v4 · TypeScript · Headless WordPress · WPGraphQL · Zustand
+
+## How the pieces fit
+
+```mermaid
+flowchart LR
+    V([Visitor]) --> N["Next.js on Vercel<br/>this repository"]
+    N -- "GraphQL (reads)<br/>REST (comments, profile)" --> W["WordPress headless<br/>Hostinger, blog-cms repo"]
+    N -- "OAuth sign-in" --> G[Google]
+    W -- "POST /api/revalidate<br/>when a post or comment changes" --> N
+```
+
+The WordPress side (theme, plugin and deploy script) lives in the separate `blog-cms` repository. Hosting, domains, environment variables and deploy flow are in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md).
 
 ## What is real data and what is still mock
 
@@ -35,6 +61,30 @@ The home never falls back to mock posts. If WordPress answers with no posts, the
 On `/post/[slug]`, "WordPress answered that the post does not exist" is a 404, and "WordPress failed" is the `ERRO.EXE` screen. They are different on purpose: a post never turns into a 404 because of an outage.
 
 For this reason CI builds against the real WordPress, through the `WORDPRESS_API_URL` repository variable (a public URL, not a secret). A red CI with `ENOTFOUND` means WordPress is unreachable, not that the code is broken.
+
+## Decisions and trade-offs
+
+One line each; the full context and the alternatives are in [`docs/adr/`](./docs/adr/).
+
+| Decision | Why, and what it costs | ADR |
+|---|---|---|
+| Next.js 16 over Remix or Astro | Server components and ISR fit a mostly-read site; the cost is that Next 16 changes APIs often | [001](./docs/adr/ADR-001-nextjs-over-remix-astro.md) |
+| Zustand over React Context | Global theme state that survives navigation, with no Provider wrapper and `localStorage` sync in a few lines; the cost is one small dependency | [002](./docs/adr/ADR-002-zustand-over-context.md) |
+| WordPress as headless CMS | A real editor and moderation for free; the cost is hosting a PHP stack just for an API | [003](./docs/adr/ADR-003-wordpress-headless-cms.md) |
+| WPGraphQL over the REST API | Ask for exactly the fields a page needs; the introspection is closed in production, so queries are validated by running them | [004](./docs/adr/ADR-004-wpgraphql-over-rest.md) |
+| Tailwind v4 | The prototype already used v4, and going back to v3 would mean rewriting every utility class; the cost is a different, CSS-first configuration model | [005](./docs/adr/ADR-005-tailwind-v4.md) |
+| Adapters from WordPress types to local types | Components never see the GraphQL shape. The silent mock fallback it first included was later removed, on purpose, so a demo never passes mock for real data | [006](./docs/adr/ADR-006-adapter-pattern-wp-to-local-types.md) |
+| `databaseId` instead of the global `id` | Stable integer keys for React and the same ID as WP Admin and WP-CLI; the cost is exposing the database ID in the HTML and tying the field to WPGraphQL | [007](./docs/adr/ADR-007-databaseid-over-global-id.md) |
+| Sign in with Google to comment, moderated in WordPress | Google OAuth only, so no passwords are stored; comments live in WordPress and are moderated in WP Admin. The cost is two server-side credentials: the Google session says who, the WordPress application password writes the comment | [009](./docs/adr/ADR-009-comment-auth-strategy.md) |
+| Avoid ACF, prefer Gutenberg blocks | Content structure comes from Gutenberg blocks instead of plugin fields, after a plugin update broke every query once (ADR-008); the cost is that reading blocks still depends on a plugin or a parser of our own | [013](./docs/adr/ADR-013-evitar-acf-preferir-gutenberg.md) |
+| Cache in two layers: ISR every hour plus on-demand revalidation | Pages are fast and static; WordPress pings the site, and the hourly rebuild covers a failed ping | [014](./docs/adr/ADR-014-cache-do-blog-isr-por-tempo-e-sob-demanda.md) |
+
+## What is not done, and why
+
+- **`/categoria/...` and `/playlists` are still mock**, and `/playlists` says so on screen. The category tree is not in WordPress yet (#73).
+- **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.
+- **Reads and likes are not measured**, so the post page shows a dash instead of a made-up number.
+- **No custom domain yet.** The target addresses and the order of the migration are in [`docs/ECOSYSTEM.md`](./docs/ECOSYSTEM.md).
 
 ## Getting started
 

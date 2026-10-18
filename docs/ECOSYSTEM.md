@@ -33,7 +33,7 @@ O WordPress é só o back-end (CMS e API). Quem o visitante vê é o Next.js na 
 | Código | repositório `armandomonteir-o/armando-blog` (pasta local `blog-armandin`) **[confirmado]** |
 | Stack | Next.js 16 (App Router), Tailwind v4, TypeScript, Zustand **[confirmado]** |
 | Deploy | automático a cada push, com preview por PR **[confirmado]**: o status "Vercel" aparece nas PRs |
-| CI | GitHub Actions: type-check, lint, test e build **[confirmado]**. Ainda sem `format:check` (#77) |
+| CI | GitHub Actions: type-check, lint, test e build **[confirmado]** |
 | Plano da Vercel | **[conferir]** provavelmente Hobby (gratuito). Confira em Settings → Billing |
 | Domínio próprio apontando para a Vercel | ainda não. O destino será `blog.armandomonteiro.com` (ver "Endereços finais") |
 
@@ -103,7 +103,7 @@ A home, `/posts` e cada post são gerados no build e refeitos em segundo plano n
 
 ## Problemas conhecidos no ecossistema
 
-1. **O README do `blog-cms` recomenda o que o ADR-006 proíbe.** Ele diz "GitHub OAuth (recommended)" para deploy. O ADR-003 diz o mesmo, e o ADR-006 o revogou depois que o deploy apagou o WordPress. Quem seguir o README destrói o site. Corrigido na PR #3 do `blog-cms` (aberta, ainda não mergeada).
+1. **O README do `blog-cms` recomenda o que o ADR-006 proíbe.** Ele diz "GitHub OAuth (recommended)" para deploy. O ADR-003 diz o mesmo, e o ADR-006 o revogou depois que o deploy apagou o WordPress. Quem seguir o README destrói o site. Corrigido na PR #3 do `blog-cms`, já na main **[confirmado]** (commit `29571cf`).
 2. **O mesmo README citava `cms.armandomonteiro.com/graphql`**, que não existe no DNS. O endereço real de hoje é `armandomonteiro.com/graphql`.
 3. **Cache de 7 dias na resposta do GraphQL.** A resposta de `/graphql` vem com `cache-control: public, max-age=604800`. Pode ser o cache da Hostinger. Se for, isso explica conteúdo velho e pesa na decisão da #68. Vale confirmar antes de decidir a estratégia de cache.
 4. **O domínio raiz hoje é a API.** `armandomonteiro.com` serve o WordPress, que responde com `x-robots-tag: noindex` (correto para uma API), mas ele está reservado para o portfólio. Ver "Endereços finais".

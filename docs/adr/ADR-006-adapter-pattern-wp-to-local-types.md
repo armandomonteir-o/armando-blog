@@ -1,7 +1,7 @@
 # ADR-006: Adapter Pattern to Map WP GraphQL → Local Types with Mock Fallback
 
 **Date**: 2026-05-16
-**Status**: Accepted
+**Status**: Accepted, em parte substituída: o adaptador continua valendo, mas o fallback silencioso para mock descrito abaixo foi removido da home, de `/posts` e de `/post/[slug]` (#66, #67, #70). Hoje, se o WordPress falha, o build falha ou aparece a tela `ERRO.EXE`. Ver o README, seção "When WordPress is down".
 **Deciders**: Armando Monteiro
 
 ## Context
