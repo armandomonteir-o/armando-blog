@@ -1,6 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { isNewsletterEnabled } from "./features";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { isNewsletterEnabled, isNotificationsEnabled } from "./features";
+import { Header } from "@/components/layout/Header";
 import { NewsletterWidget } from "@/components/layout/newsletter/NewsletterWidget";
+
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: () => {}, back: () => {} }) }));
+vi.mock("next-auth/react", () => ({
+  useSession: () => ({ data: null, status: "unauthenticated" }),
+  signOut: () => {},
+}));
 
 afterEach(() => vi.unstubAllEnvs());
 
@@ -33,5 +42,37 @@ describe("NewsletterWidget", () => {
   it("renders the form when the newsletter is on", () => {
     vi.stubEnv("NEXT_PUBLIC_ENABLE_NEWSLETTER", "true");
     expect(NewsletterWidget()).not.toBeNull();
+  });
+});
+
+// #151: the bell showed notifications written in the code, with an unread count, to every visitor.
+describe("isNotificationsEnabled", () => {
+  it("is off when the variable is not set", () => {
+    vi.stubEnv("NEXT_PUBLIC_ENABLE_NOTIFICATIONS", undefined as unknown as string);
+    expect(isNotificationsEnabled()).toBe(false);
+  });
+
+  it.each(["", "false", "0", "1", "yes", "TRUE", " true"])("is off for %j", (value) => {
+    vi.stubEnv("NEXT_PUBLIC_ENABLE_NOTIFICATIONS", value);
+    expect(isNotificationsEnabled()).toBe(false);
+  });
+
+  it("is on only for the exact string true", () => {
+    vi.stubEnv("NEXT_PUBLIC_ENABLE_NOTIFICATIONS", "true");
+    expect(isNotificationsEnabled()).toBe(true);
+  });
+});
+
+describe("Header bell", () => {
+  const html = () => renderToStaticMarkup(createElement(Header));
+
+  it("shows no bell and no sample notification while the flag is off", () => {
+    vi.stubEnv("NEXT_PUBLIC_ENABLE_NOTIFICATIONS", "false");
+    expect(html()).not.toContain("Notificações");
+  });
+
+  it("shows the bell when the flag is on", () => {
+    vi.stubEnv("NEXT_PUBLIC_ENABLE_NOTIFICATIONS", "true");
+    expect(html()).toContain("Notificações");
   });
 });

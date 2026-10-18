@@ -90,7 +90,7 @@ One line each; the full context and the alternatives are in [`docs/adr/`](./docs
 
 - **`/playlists` is still mock**, and it says so on screen.
 - **The category tree is minimal on purpose.** WordPress has only the categories the blog uses; the rest of the menu (Músicas, Filmes, Livros) opens as an empty page until there is something to put there.
-- **The search is a plain WordPress search over published posts**: up to 5 results by title, no pagination and no results page. The notifications bell in the header is still fixed sample content.
+- **The search is a plain WordPress search over published posts**: up to 5 results by title, no pagination and no results page. The notifications bell in the header is hidden (`NEXT_PUBLIC_ENABLE_NOTIFICATIONS`, off by default) because its content was sample text, not real notifications (#151).
 - **Likes, notifications, replies and share buttons** were left out on purpose, to finish the blog first.
 - **Reads and likes are not measured**, so the post page shows a dash instead of a made-up number.
 - **The CSP is not enforced yet.** It ships as `Content-Security-Policy-Report-Only` until a real Google sign-in on production shows no violation in the browser console (#135).
