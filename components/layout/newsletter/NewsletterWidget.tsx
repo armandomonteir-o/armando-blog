@@ -102,7 +102,10 @@ export function NewsletterWidget() {
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => { setEmail(e.target.value); if (error) setError(""); }}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (error) setError("");
+                      }}
                       placeholder="seu@email.com"
                       className="w-full pl-8 pr-3 py-2.5 font-mono text-white bg-chrome-blue-dark border-2 border-chrome-blue-accent outline-none"
                       aria-invalid={!!error}
@@ -171,10 +174,7 @@ export function NewsletterWidget() {
                   )}
                 </AnimatePresence>
 
-                <p
-                  className="mt-2 font-mono text-chrome-blue-dim"
-                  style={{ fontSize: "8px" }}
-                >
+                <p className="mt-2 font-mono text-chrome-blue-dim" style={{ fontSize: "8px" }}>
                   * Cancele quando quiser. Nada de conteudo exclusivo — tudo esta aqui no blog.
                 </p>
               </motion.form>
@@ -205,10 +205,7 @@ export function NewsletterWidget() {
                   >
                     Pronto! Voce vai saber quando sair post novo.
                   </span>
-                  <p
-                    className="mt-0.5 font-mono text-chrome-blue-body"
-                    style={{ fontSize: "9px" }}
-                  >
+                  <p className="mt-0.5 font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
                     ID: #{notifyId} — confira sua caixa de entrada.
                   </p>
                 </div>

@@ -113,82 +113,85 @@ export function MusicConsentBar({
   return (
     <AnimatePresence>
       {visible && (
-    <motion.div
-      className="fixed bottom-0 left-0 right-0 z-50 flex justify-center p-3"
-      style={{ pointerEvents: "none" }}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 40 }}
-      transition={{ type: "spring", stiffness: 280, damping: 26 }}
-    >
-      <div
-        className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 px-4 py-3 max-w-xl w-full"
-        style={{
-          pointerEvents: "auto",
-          border: "3px solid var(--arm-panel-bg-deep)",
-          backgroundColor: "rgba(13,58,138,0.92)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          boxShadow: "4px 4px 0 var(--arm-panel-bg-deep), 0 -4px 24px rgba(13,58,138,0.3)",
-        }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%)",
-          }}
-        />
-
-        <div className="flex items-center gap-3 relative z-10 flex-1 min-w-0">
+        <motion.div
+          className="fixed bottom-0 left-0 right-0 z-50 flex justify-center p-3"
+          style={{ pointerEvents: "none" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 40 }}
+          transition={{ type: "spring", stiffness: 280, damping: 26 }}
+        >
           <div
-            className="w-9 h-9 flex items-center justify-center flex-shrink-0 border-2 border-chrome-blue-soft bg-chrome-blue"
+            className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 px-4 py-3 max-w-xl w-full"
+            style={{
+              pointerEvents: "auto",
+              border: "3px solid var(--arm-panel-bg-deep)",
+              backgroundColor: "rgba(13,58,138,0.92)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              boxShadow: "4px 4px 0 var(--arm-panel-bg-deep), 0 -4px 24px rgba(13,58,138,0.3)",
+            }}
           >
-            <Music size={16} color="var(--chrome-green)" />
-          </div>
-          <div className="min-w-0">
-            <div className="font-grotesk font-bold text-white" style={{ fontSize: "13px" }}>
-              Quer ouvir música?
-            </div>
-            <div className="font-mono text-chrome-blue-text-on-dark" style={{ fontSize: "9px" }}>
-              Toque uma playlist enquanto navega pelo blog
-            </div>
-          </div>
-        </div>
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%)",
+              }}
+            />
 
-        <div className="flex items-center gap-2 relative z-10 flex-shrink-0">
-          <button
-            onClick={onAccept}
-            className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue bg-white border-2 border-chrome-blue-dark brutal-lift"
-            style={{
-              fontSize: "12px",
-              "--lift-color": "var(--arm-panel-bg-deep)",
-              "--lift-rest": "2px",
-              "--lift-hover": "3px",
-              "--lift-distance": "1px",
-            } as React.CSSProperties}
-          >
-            Sim!
-          </button>
-          <button
-            onClick={onDecline}
-            className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue-text-on-dark border-2 border-chrome-blue-mid"
-            style={{
-              fontSize: "12px",
-              backgroundColor: "transparent",
-              transition: "background 0.15s",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.06)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-            }}
-          >
-            Não
-          </button>
-        </div>
-      </div>
-    </motion.div>
+            <div className="flex items-center gap-3 relative z-10 flex-1 min-w-0">
+              <div className="w-9 h-9 flex items-center justify-center flex-shrink-0 border-2 border-chrome-blue-soft bg-chrome-blue">
+                <Music size={16} color="var(--chrome-green)" />
+              </div>
+              <div className="min-w-0">
+                <div className="font-grotesk font-bold text-white" style={{ fontSize: "13px" }}>
+                  Quer ouvir música?
+                </div>
+                <div
+                  className="font-mono text-chrome-blue-text-on-dark"
+                  style={{ fontSize: "9px" }}
+                >
+                  Toque uma playlist enquanto navega pelo blog
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 relative z-10 flex-shrink-0">
+              <button
+                onClick={onAccept}
+                className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue bg-white border-2 border-chrome-blue-dark brutal-lift"
+                style={
+                  {
+                    fontSize: "12px",
+                    "--lift-color": "var(--arm-panel-bg-deep)",
+                    "--lift-rest": "2px",
+                    "--lift-hover": "3px",
+                    "--lift-distance": "1px",
+                  } as React.CSSProperties
+                }
+              >
+                Sim!
+              </button>
+              <button
+                onClick={onDecline}
+                className="px-4 py-1.5 cursor-pointer font-grotesk font-bold text-chrome-blue-text-on-dark border-2 border-chrome-blue-mid"
+                style={{
+                  fontSize: "12px",
+                  backgroundColor: "transparent",
+                  transition: "background 0.15s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.06)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
+              >
+                Não
+              </button>
+            </div>
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
@@ -378,9 +381,7 @@ export function NowPlayingWidget() {
           >
             _
           </button>
-          <div
-            className="w-4 h-4 bg-chrome-red border-2 border-chrome-blue-dark"
-          />
+          <div className="w-4 h-4 bg-chrome-red border-2 border-chrome-blue-dark" />
         </div>
       </div>
 
@@ -458,8 +459,12 @@ export function NowPlayingWidget() {
                 onClick={prevTrack}
                 className="w-7 h-7 flex items-center justify-center cursor-pointer border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
                 style={{ transition: "background 0.15s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--arm-panel-border)")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--arm-panel-bg)")}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--arm-panel-border)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--arm-panel-bg)")
+                }
               >
                 <SkipBack size={12} fill="currentColor" />
               </button>
@@ -483,8 +488,12 @@ export function NowPlayingWidget() {
                 onClick={nextTrack}
                 className="w-7 h-7 flex items-center justify-center cursor-pointer border-2 border-chrome-blue-accent bg-chrome-blue-mid text-chrome-blue-content"
                 style={{ transition: "background 0.15s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--arm-panel-border)")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--arm-panel-bg)")}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--arm-panel-border)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--arm-panel-bg)")
+                }
               >
                 <SkipForward size={12} fill="currentColor" />
               </button>
@@ -520,7 +529,10 @@ export function NowPlayingWidget() {
       </div>
 
       {/* Track list — foobar2000 style */}
-      <div className="bg-chrome-blue-dark" style={{ borderTop: "2px solid var(--arm-panel-bg-deep)" }}>
+      <div
+        className="bg-chrome-blue-dark"
+        style={{ borderTop: "2px solid var(--arm-panel-bg-deep)" }}
+      >
         {TRACKS.map((t, i) => (
           <div
             key={i}
@@ -536,7 +548,8 @@ export function NowPlayingWidget() {
               setTimeout(() => audioRef.current?.play().catch(() => {}), 100);
             }}
             onMouseEnter={(e) => {
-              if (i !== currentTrack) e.currentTarget.style.backgroundColor = "var(--arm-panel-bg-deep)";
+              if (i !== currentTrack)
+                e.currentTarget.style.backgroundColor = "var(--arm-panel-bg-deep)";
             }}
             onMouseLeave={(e) => {
               if (i !== currentTrack) e.currentTarget.style.backgroundColor = "transparent";
@@ -559,7 +572,8 @@ export function NowPlayingWidget() {
               style={{
                 fontSize: "11px",
                 fontWeight: i === currentTrack ? 700 : 400,
-                color: i === currentTrack ? "var(--arm-panel-text)" : "var(--arm-panel-text-content)",
+                color:
+                  i === currentTrack ? "var(--arm-panel-text)" : "var(--arm-panel-text-content)",
               }}
             >
               {t.artist} — {t.title}

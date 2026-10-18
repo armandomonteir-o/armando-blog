@@ -75,10 +75,7 @@ export function SideContent() {
           <svg width="16" height="20" viewBox="0 0 16 20">
             <polygon points="0,0 0,16 4,12 8,20 10,19 6,11 12,11" fill="var(--arm-text)" />
           </svg>
-          <div
-            className="font-mono"
-            style={{ fontSize: "9px", color: "var(--arm-text)" }}
-          >
+          <div className="font-mono" style={{ fontSize: "9px", color: "var(--arm-text)" }}>
             CLICK TO EXPLORE...
           </div>
         </div>

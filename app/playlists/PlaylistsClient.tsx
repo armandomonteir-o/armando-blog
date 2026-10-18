@@ -107,7 +107,10 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
                 className={isHovered ? "animate-spin" : ""}
                 style={{ color: playlist.accentColor, animationDuration: "3s" }}
               />
-              <span className="font-mono font-bold text-chrome-blue-text-on-dark" style={{ fontSize: "8px" }}>
+              <span
+                className="font-mono font-bold text-chrome-blue-text-on-dark"
+                style={{ fontSize: "8px" }}
+              >
                 PLAYLIST-{playlist.id.split("-")[1]}.SPT
               </span>
             </div>
@@ -271,10 +274,16 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <div className="flex-1 min-w-0">
-                          <div className="truncate font-grotesk font-semibold text-white" style={{ fontSize: "11px" }}>
+                          <div
+                            className="truncate font-grotesk font-semibold text-white"
+                            style={{ fontSize: "11px" }}
+                          >
                             {track.title}
                           </div>
-                          <div className="truncate font-mono text-chrome-blue-body" style={{ fontSize: "8px" }}>
+                          <div
+                            className="truncate font-mono text-chrome-blue-body"
+                            style={{ fontSize: "8px" }}
+                          >
                             {track.artist}
                           </div>
                         </div>
@@ -296,14 +305,16 @@ const PlaylistCard = React.forwardRef<HTMLDivElement, { playlist: Playlist; inde
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-2 cursor-pointer font-mono font-bold text-white no-underline border-2 border-chrome-blue-dark brutal-lift"
-              style={{
-                backgroundColor: "#1DB954",
-                fontSize: "10px",
-                "--lift-color": "#022a6e",
-                "--lift-rest": "3px",
-                "--lift-hover": "4px",
-                "--lift-distance": "1px",
-              } as React.CSSProperties}
+              style={
+                {
+                  backgroundColor: "#1DB954",
+                  fontSize: "10px",
+                  "--lift-color": "#022a6e",
+                  "--lift-rest": "3px",
+                  "--lift-hover": "4px",
+                  "--lift-distance": "1px",
+                } as React.CSSProperties
+              }
             >
               <ExternalLink size={12} />
               ABRIR NO SPOTIFY
@@ -360,7 +371,10 @@ export default function PlaylistsPage() {
               <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
                 {filteredPlaylists.length}
               </span>
-              <span className="font-mono" style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>
+              <span
+                className="font-mono"
+                style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
+              >
                 playlists
               </span>
             </div>
@@ -369,7 +383,10 @@ export default function PlaylistsPage() {
               <span className="font-grotesk font-bold" style={{ fontSize: "14px" }}>
                 {totalTracks}
               </span>
-              <span className="font-mono" style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}>
+              <span
+                className="font-mono"
+                style={{ fontSize: "9px", color: "rgba(255,255,255,0.5)" }}
+              >
                 tracks
               </span>
             </div>
@@ -432,10 +449,7 @@ export default function PlaylistsPage() {
         }
       />
 
-      <div
-        className="relative bg-arm-bg"
-        style={{ transition: "background-color 0.3s ease" }}
-      >
+      <div className="relative bg-arm-bg" style={{ transition: "background-color 0.3s ease" }}>
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{
@@ -452,7 +466,10 @@ export default function PlaylistsPage() {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <Filter size={14} className="text-arm-text" />
-                  <span className="font-grotesk font-bold text-arm-text" style={{ fontSize: "14px" }}>
+                  <span
+                    className="font-grotesk font-bold text-arm-text"
+                    style={{ fontSize: "14px" }}
+                  >
                     Filtrar por Genero
                   </span>
                 </div>
@@ -509,7 +526,10 @@ export default function PlaylistsPage() {
                           border: "1.5px solid rgba(3,71,193,0.2)",
                         }}
                       >
-                        <span className="font-mono text-arm-text-secondary" style={{ fontSize: "9px" }}>
+                        <span
+                          className="font-mono text-arm-text-secondary"
+                          style={{ fontSize: "9px" }}
+                        >
                           FILTRANDO: {selectedGenres.map((g) => g.toUpperCase()).join(" + ")}
                           {" → "}
                           {filteredPlaylists.length} resultado

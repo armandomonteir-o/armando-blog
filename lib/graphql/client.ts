@@ -10,10 +10,7 @@ export const wpClient = new GraphQLClient(endpoint, {
   headers: { "Content-Type": "application/json" },
 });
 
-export async function wpQuery<T>(
-  query: string,
-  variables?: Record<string, unknown>
-): Promise<T> {
+export async function wpQuery<T>(query: string, variables?: Record<string, unknown>): Promise<T> {
   return wpClient.request<T>(query, variables ?? {});
 }
 

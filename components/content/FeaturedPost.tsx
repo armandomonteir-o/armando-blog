@@ -121,10 +121,7 @@ export function FeaturedPost() {
                     >
                       {stat.value}
                     </div>
-                    <div
-                      className="font-mono text-chrome-blue-body"
-                      style={{ fontSize: "9px" }}
-                    >
+                    <div className="font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
                       {stat.label}
                     </div>
                   </div>

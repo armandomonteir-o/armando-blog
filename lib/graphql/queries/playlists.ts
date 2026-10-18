@@ -6,7 +6,10 @@ import type { WPPlaylistsResponse, WPPlaylist } from "../types";
 const GET_PLAYLISTS = /* GraphQL */ `
   query GetPlaylists($first: Int!, $after: String) {
     playlists(first: $first, after: $after) {
-      pageInfo { hasNextPage endCursor }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       nodes {
         id
         slug

@@ -7,16 +7,17 @@ const SEARCH_POSTS = /* GraphQL */ `
       nodes {
         title
         slug
-        categories { nodes { name } }
+        categories {
+          nodes {
+            name
+          }
+        }
       }
     }
   }
 `;
 
-export async function searchPosts(
-  query: string,
-  first = 5
-): Promise<WPSearchResult[]> {
+export async function searchPosts(query: string, first = 5): Promise<WPSearchResult[]> {
   if (!query.trim()) return [];
   const data = await wpQuery<WPSearchResponse>(SEARCH_POSTS, { query, first });
   return data.posts.nodes;

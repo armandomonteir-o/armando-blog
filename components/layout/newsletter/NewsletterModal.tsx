@@ -230,7 +230,10 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                             <input
                               type="email"
                               value={email}
-                              onChange={(e) => { setEmail(e.target.value); if (error) setError(""); }}
+                              onChange={(e) => {
+                                setEmail(e.target.value);
+                                if (error) setError("");
+                              }}
                               placeholder="seu@email.com"
                               autoFocus
                               className="w-full pl-9 pr-4 py-3 font-mono text-white bg-chrome-blue-dark border-2 border-chrome-blue-accent outline-none"
@@ -304,17 +307,16 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                         </form>
 
                         {/* Privacy notice */}
-                        <div
-                          className="mt-4 p-3 flex gap-2.5 bg-chrome-blue-dark border border-chrome-blue-accent"
-                        >
-                          <Lock
-                            size={13}
-                            className="flex-shrink-0 mt-0.5 text-chrome-blue-body"
-                          />
+                        <div className="mt-4 p-3 flex gap-2.5 bg-chrome-blue-dark border border-chrome-blue-accent">
+                          <Lock size={13} className="flex-shrink-0 mt-0.5 text-chrome-blue-body" />
                           <div>
                             <span
                               className="font-mono font-bold text-chrome-blue-content block"
-                              style={{ fontSize: "9px", letterSpacing: "0.03em", marginBottom: "3px" }}
+                              style={{
+                                fontSize: "9px",
+                                letterSpacing: "0.03em",
+                                marginBottom: "3px",
+                              }}
                             >
                               PRIVACIDADE
                             </span>

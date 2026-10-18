@@ -35,15 +35,10 @@ export function RelatedPosts({ posts, categoryColors }: RelatedPostsProps) {
                 className="flex items-center justify-between px-2 py-1 bg-chrome-blue-accent"
                 style={{ borderBottom: "2px solid #0560e0" }}
               >
-                <span
-                  className="font-mono text-chrome-blue-body"
-                  style={{ fontSize: "8px" }}
-                >
+                <span className="font-mono text-chrome-blue-body" style={{ fontSize: "8px" }}>
                   RELATED-{String(post.id).padStart(2, "0")}.MD
                 </span>
-                <div
-                  className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark"
-                />
+                <div className="w-2 h-2 bg-chrome-red border border-chrome-blue-dark" />
               </div>
 
               {/* Image */}

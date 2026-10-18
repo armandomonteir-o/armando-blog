@@ -198,19 +198,15 @@ export default function NotFound() {
 
             <div
               className="mb-5 p-3 bg-chrome-blue"
-              style={{ border: "3px solid var(--arm-panel-bg-deep)", boxShadow: "3px 3px 0 var(--arm-shadow)" }}
+              style={{
+                border: "3px solid var(--arm-panel-bg-deep)",
+                boxShadow: "3px 3px 0 var(--arm-shadow)",
+              }}
             >
               <div className="flex items-center gap-2 mb-2">
-                <div
-                  className="w-2.5 h-2.5 bg-chrome-red border border-chrome-blue-dark"
-                />
-                <div
-                  className="w-2.5 h-2.5 bg-chrome-green border border-chrome-blue-dark"
-                />
-                <span
-                  className="font-mono"
-                  style={{ fontSize: "8px", color: "#e8f4ff" }}
-                >
+                <div className="w-2.5 h-2.5 bg-chrome-red border border-chrome-blue-dark" />
+                <div className="w-2.5 h-2.5 bg-chrome-green border border-chrome-blue-dark" />
+                <span className="font-mono" style={{ fontSize: "8px", color: "#e8f4ff" }}>
                   TERMINAL_OUTPUT.LOG
                 </span>
               </div>
@@ -276,13 +272,15 @@ export default function NotFound() {
               <Link
                 href="/"
                 className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2 font-grotesk font-bold bg-white text-chrome-blue brutal-lift"
-                style={{
-                  border: "3px solid var(--arm-panel-bg-deep)",
-                  fontSize: "12px",
-                  textDecoration: "none",
-                  "--lift-rest": "3px",
-                  "--lift-hover": "5px",
-                } as React.CSSProperties}
+                style={
+                  {
+                    border: "3px solid var(--arm-panel-bg-deep)",
+                    fontSize: "12px",
+                    textDecoration: "none",
+                    "--lift-rest": "3px",
+                    "--lift-hover": "5px",
+                  } as React.CSSProperties
+                }
               >
                 <Home size={14} />
                 Voltar ao Inicio
@@ -290,13 +288,15 @@ export default function NotFound() {
 
               <button
                 className="px-5 py-2.5 cursor-pointer inline-flex items-center gap-2 font-grotesk font-bold bg-chrome-blue-mid brutal-lift"
-                style={{
-                  color: "#e8f4ff",
-                  border: "3px solid var(--arm-panel-bg-deep)",
-                  fontSize: "12px",
-                  "--lift-rest": "3px",
-                  "--lift-hover": "5px",
-                } as React.CSSProperties}
+                style={
+                  {
+                    color: "#e8f4ff",
+                    border: "3px solid var(--arm-panel-bg-deep)",
+                    fontSize: "12px",
+                    "--lift-rest": "3px",
+                    "--lift-hover": "5px",
+                  } as React.CSSProperties
+                }
                 onClick={() => window.history.back()}
               >
                 <ArrowLeft size={14} />
@@ -306,16 +306,10 @@ export default function NotFound() {
 
             <div className="mt-5">
               <div className="flex items-center justify-between mb-1">
-                <span
-                  className="font-mono text-chrome-blue-body"
-                  style={{ fontSize: "8px" }}
-                >
+                <span className="font-mono text-chrome-blue-body" style={{ fontSize: "8px" }}>
                   SEARCHING_REALITY.EXE...
                 </span>
-                <span
-                  className="font-mono text-chrome-red"
-                  style={{ fontSize: "8px" }}
-                >
+                <span className="font-mono text-chrome-red" style={{ fontSize: "8px" }}>
                   FAILED
                 </span>
               </div>

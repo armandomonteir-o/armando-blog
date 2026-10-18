@@ -24,14 +24,21 @@ export function RetroWindow({
   const isDark = variant === "dark";
   const isGlass = variant === "glass";
 
-  const borderColor = borderColorOverride ?? (isDark ? "var(--arm-panel-bg-deep)" : "var(--arm-border)");
-  const titleBg = titleBgOverride ?? (isGlass
-    ? "var(--arm-bg-glass-title)"
-    : isDark
-      ? "var(--arm-panel-bg)"
-      : "var(--arm-bg-card-title)");
+  const borderColor =
+    borderColorOverride ?? (isDark ? "var(--arm-panel-bg-deep)" : "var(--arm-border)");
+  const titleBg =
+    titleBgOverride ??
+    (isGlass
+      ? "var(--arm-bg-glass-title)"
+      : isDark
+        ? "var(--arm-panel-bg)"
+        : "var(--arm-bg-card-title)");
   const titleText = "var(--arm-panel-text)";
-  const bodyBg = isGlass ? "var(--arm-glass-body)" : isDark ? "var(--arm-panel-bg-darker)" : "var(--arm-bg-card)";
+  const bodyBg = isGlass
+    ? "var(--arm-glass-body)"
+    : isDark
+      ? "var(--arm-panel-bg-darker)"
+      : "var(--arm-bg-card)";
 
   const glassStyles: React.CSSProperties = isGlass
     ? {

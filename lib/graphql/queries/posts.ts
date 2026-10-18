@@ -1,10 +1,5 @@
 import { wpQuery } from "../client";
-import type {
-  WPPostsResponse,
-  WPPostDetailResponse,
-  WPPost,
-  WPPostDetail,
-} from "../types";
+import type { WPPostsResponse, WPPostDetailResponse, WPPost, WPPostDetail } from "../types";
 
 const POST_FIELDS = /* GraphQL */ `
   fragment PostFields on Post {
@@ -15,10 +10,23 @@ const POST_FIELDS = /* GraphQL */ `
     excerpt
     date
     commentCount
-    categories { nodes { name slug } }
-    featuredImage { node { sourceUrl } }
+    categories {
+      nodes {
+        name
+        slug
+      }
+    }
+    featuredImage {
+      node {
+        sourceUrl
+      }
+    }
     acfPostFields {
-      heroImage { node { sourceUrl } }
+      heroImage {
+        node {
+          sourceUrl
+        }
+      }
       readingTime
       isFeatured
       subtitle
@@ -29,13 +37,14 @@ const POST_FIELDS = /* GraphQL */ `
 const GET_POSTS = /* GraphQL */ `
   ${POST_FIELDS}
   query GetPosts($first: Int!, $after: String, $categorySlug: String) {
-    posts(
-      first: $first
-      after: $after
-      where: { categoryName: $categorySlug, status: PUBLISH }
-    ) {
-      pageInfo { hasNextPage endCursor }
-      nodes { ...PostFields }
+    posts(first: $first, after: $after, where: { categoryName: $categorySlug, status: PUBLISH }) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...PostFields
+      }
     }
   }
 `;
@@ -51,11 +60,32 @@ const GET_POST = /* GraphQL */ `
       excerpt
       date
       commentCount
-      categories { nodes { name slug } }
-      featuredImage { node { sourceUrl } }
-      author { node { name description avatar { url } } }
+      categories {
+        nodes {
+          name
+          slug
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      author {
+        node {
+          name
+          description
+          avatar {
+            url
+          }
+        }
+      }
       acfPostFields {
-        heroImage { node { sourceUrl } }
+        heroImage {
+          node {
+            sourceUrl
+          }
+        }
         readingTime
         isFeatured
         subtitle
@@ -70,7 +100,14 @@ const GET_POST = /* GraphQL */ `
           id
           content
           date
-          author { node { name avatar { url } } }
+          author {
+            node {
+              name
+              avatar {
+                url
+              }
+            }
+          }
         }
       }
     }
@@ -80,7 +117,9 @@ const GET_POST = /* GraphQL */ `
 const GET_POST_SLUGS = /* GraphQL */ `
   query GetPostSlugs($first: Int!) {
     posts(first: $first, where: { status: PUBLISH }) {
-      nodes { slug }
+      nodes {
+        slug
+      }
     }
   }
 `;
@@ -111,9 +150,6 @@ export async function getPost(slug: string): Promise<WPPostDetail | null> {
 }
 
 export async function getPostSlugs(first = 100): Promise<string[]> {
-  const data = await wpQuery<{ posts: { nodes: { slug: string }[] } }>(
-    GET_POST_SLUGS,
-    { first }
-  );
+  const data = await wpQuery<{ posts: { nodes: { slug: string }[] } }>(GET_POST_SLUGS, { first });
   return data.posts.nodes.map((n) => n.slug);
 }

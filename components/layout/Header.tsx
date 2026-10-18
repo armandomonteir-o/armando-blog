@@ -145,14 +145,18 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         <div
           className="flex items-center px-3 py-1.5 font-mono bg-chrome-blue-mid"
           style={{
-            border: searchFocused ? "2px solid var(--chrome-green)" : "2px solid var(--chrome-blue-accent)",
+            border: searchFocused
+              ? "2px solid var(--chrome-green)"
+              : "2px solid var(--chrome-blue-accent)",
             transition: "border-color 0.2s",
           }}
         >
           <Search
             size={14}
             className="mr-2 sm:mr-3 flex-shrink-0"
-            style={{ color: searchFocused ? "var(--chrome-green)" : "var(--chrome-blue-text-on-dark)" }}
+            style={{
+              color: searchFocused ? "var(--chrome-green)" : "var(--chrome-blue-text-on-dark)",
+            }}
           />
           <input
             type="text"
@@ -197,10 +201,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               >
                 SEARCH.EXE
               </span>
-              <span
-                className="font-mono text-chrome-green"
-                style={{ fontSize: "9px" }}
-              >
+              <span className="font-mono text-chrome-green" style={{ fontSize: "9px" }}>
                 {searchResults.length} resultado{searchResults.length !== 1 ? "s" : ""}
               </span>
             </div>
@@ -235,10 +236,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                     >
                       {r.title}
                     </div>
-                    <span
-                      className="font-mono text-chrome-blue-body"
-                      style={{ fontSize: "9px" }}
-                    >
+                    <span className="font-mono text-chrome-blue-body" style={{ fontSize: "9px" }}>
                       {r.category.toUpperCase()}
                     </span>
                   </div>
@@ -246,10 +244,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               ))
             ) : (
               <div className="px-3 py-3 text-center">
-                <span
-                  className="font-mono text-chrome-blue-body"
-                  style={{ fontSize: "10px" }}
-                >
+                <span className="font-mono text-chrome-blue-body" style={{ fontSize: "10px" }}>
                   NENHUM RESULTADO ENCONTRADO
                 </span>
               </div>
@@ -271,7 +266,10 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             {unreadCount > 0 && (
               <div
                 className="absolute -top-1 -right-1 w-3 h-3"
-                style={{ backgroundColor: "var(--chrome-green)", border: "1.5px solid var(--chrome-blue)" }}
+                style={{
+                  backgroundColor: "var(--chrome-green)",
+                  border: "1.5px solid var(--chrome-blue)",
+                }}
               />
             )}
           </button>
@@ -295,7 +293,8 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                 className="flex items-center justify-between px-3 py-1.5 flex-shrink-0"
                 style={{
                   borderBottom: "2px solid var(--chrome-blue-accent)",
-                  background: "linear-gradient(90deg, var(--chrome-blue-mid) 0%, var(--chrome-blue-accent) 60%, var(--chrome-blue-mid) 100%)",
+                  background:
+                    "linear-gradient(90deg, var(--chrome-blue-mid) 0%, var(--chrome-blue-accent) 60%, var(--chrome-blue-mid) 100%)",
                 }}
               >
                 <div className="flex items-center gap-2">
@@ -396,9 +395,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                           {n.title}
                         </span>
                         {n.unread && (
-                          <span
-                            className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-chrome-green"
-                          />
+                          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-chrome-green" />
                         )}
                       </div>
                       <p
@@ -409,7 +406,11 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                       </p>
                       <span
                         className="font-mono"
-                        style={{ fontSize: 9, color: "rgba(128,176,255,0.55)", letterSpacing: "0.06em" }}
+                        style={{
+                          fontSize: 9,
+                          color: "rgba(128,176,255,0.55)",
+                          letterSpacing: "0.06em",
+                        }}
                       >
                         {n.time}
                       </span>
@@ -463,7 +464,10 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-chrome-blue-mid flex items-center justify-center font-mono text-chrome-blue-content" style={{ fontSize: 14 }}>
+                  <div
+                    className="w-full h-full bg-chrome-blue-mid flex items-center justify-center font-mono text-chrome-blue-content"
+                    style={{ fontSize: 14 }}
+                  >
                     {(session.user.displayName ?? session.user.name)?.[0]?.toUpperCase() ?? "?"}
                   </div>
                 )}

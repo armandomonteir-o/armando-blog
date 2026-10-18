@@ -97,11 +97,15 @@ export function ProfileForm() {
 
   const displayAvatar = previewUrl ?? session?.user?.image ?? null;
   const displayName_ = displayName || session?.user?.name || "?";
-  const canSave = !saving && uploadState !== "uploading" && (displayName.trim() !== "" || avatarUrl !== "");
+  const canSave =
+    !saving && uploadState !== "uploading" && (displayName.trim() !== "" || avatarUrl !== "");
 
   if (loading) {
     return (
-      <p className="font-mono text-center py-10" style={{ fontSize: "11px", color: "var(--arm-text-secondary)" }}>
+      <p
+        className="font-mono text-center py-10"
+        style={{ fontSize: "11px", color: "var(--arm-text-secondary)" }}
+      >
         CARREGANDO...
       </p>
     );
@@ -114,7 +118,6 @@ export function ProfileForm() {
       style={{ maxWidth: 520, margin: "0 auto" }}
     >
       <div className="p-6 flex flex-col gap-6">
-
         {/* Avatar preview */}
         <div className="flex flex-col items-center gap-3">
           <div
@@ -140,7 +143,10 @@ export function ProfileForm() {
                 className="object-cover"
               />
             ) : (
-              <span className="font-grotesk font-bold" style={{ fontSize: 28, color: "var(--arm-text)" }}>
+              <span
+                className="font-grotesk font-bold"
+                style={{ fontSize: 28, color: "var(--arm-text)" }}
+              >
                 {displayName_[0]?.toUpperCase()}
               </span>
             )}
@@ -148,9 +154,13 @@ export function ProfileForm() {
           <p className="font-mono font-bold" style={{ fontSize: "13px", color: "var(--arm-text)" }}>
             {displayName_.toUpperCase()}
           </p>
-          <p className="font-mono text-center" style={{ fontSize: "9px", color: "var(--arm-text-secondary)", lineHeight: 1.6 }}>
+          <p
+            className="font-mono text-center"
+            style={{ fontSize: "9px", color: "var(--arm-text-secondary)", lineHeight: 1.6 }}
+          >
             Esses dados aparecem nos seus comentários.
-            <br />Os dados do Google são usados como fallback.
+            <br />
+            Os dados do Google são usados como fallback.
           </p>
         </div>
 
@@ -158,7 +168,10 @@ export function ProfileForm() {
 
         {/* Display name */}
         <div className="flex flex-col gap-2">
-          <label className="font-mono" style={{ fontSize: "9px", color: "var(--arm-text-secondary)", letterSpacing: "0.1em" }}>
+          <label
+            className="font-mono"
+            style={{ fontSize: "9px", color: "var(--arm-text-secondary)", letterSpacing: "0.1em" }}
+          >
             NOME DE EXIBIÇÃO
           </label>
           <input
@@ -180,7 +193,10 @@ export function ProfileForm() {
 
         {/* Avatar upload */}
         <div className="flex flex-col gap-2">
-          <label className="font-mono" style={{ fontSize: "9px", color: "var(--arm-text-secondary)", letterSpacing: "0.1em" }}>
+          <label
+            className="font-mono"
+            style={{ fontSize: "9px", color: "var(--arm-text-secondary)", letterSpacing: "0.1em" }}
+          >
             FOTO DE PERFIL
           </label>
 
@@ -199,18 +215,20 @@ export function ProfileForm() {
               onClick={() => fileRef.current?.click()}
               disabled={uploadState === "uploading"}
               className="font-mono font-bold brutal-lift"
-              style={{
-                border: "2px solid var(--arm-border)",
-                backgroundColor: "var(--arm-bg-card)",
-                color: "var(--arm-text)",
-                fontSize: "10px",
-                padding: "6px 14px",
-                cursor: uploadState === "uploading" ? "wait" : "pointer",
-                letterSpacing: "0.06em",
-                "--lift-color": "var(--arm-border)",
-                "--lift-rest": "0px",
-                "--lift-hover": "3px",
-              } as React.CSSProperties}
+              style={
+                {
+                  border: "2px solid var(--arm-border)",
+                  backgroundColor: "var(--arm-bg-card)",
+                  color: "var(--arm-text)",
+                  fontSize: "10px",
+                  padding: "6px 14px",
+                  cursor: uploadState === "uploading" ? "wait" : "pointer",
+                  letterSpacing: "0.06em",
+                  "--lift-color": "var(--arm-border)",
+                  "--lift-rest": "0px",
+                  "--lift-hover": "3px",
+                } as React.CSSProperties
+              }
             >
               {uploadState === "uploading" ? "ENVIANDO..." : "ESCOLHER ARQUIVO"}
             </button>
@@ -236,17 +254,26 @@ export function ProfileForm() {
           </div>
 
           {uploadState === "done" && (
-            <p className="font-mono" style={{ fontSize: "9px", color: "var(--chrome-green)", letterSpacing: "0.05em" }}>
+            <p
+              className="font-mono"
+              style={{ fontSize: "9px", color: "var(--chrome-green)", letterSpacing: "0.05em" }}
+            >
               ✓ Upload concluído — clique em SALVAR PERFIL para confirmar
             </p>
           )}
           {uploadState === "error" && uploadError && (
-            <p className="font-mono" style={{ fontSize: "9px", color: "var(--chrome-red)", letterSpacing: "0.05em" }}>
+            <p
+              className="font-mono"
+              style={{ fontSize: "9px", color: "var(--chrome-red)", letterSpacing: "0.05em" }}
+            >
               ✗ {uploadError}
             </p>
           )}
 
-          <p className="font-mono" style={{ fontSize: "9px", color: "var(--arm-text-secondary)", opacity: 0.6 }}>
+          <p
+            className="font-mono"
+            style={{ fontSize: "9px", color: "var(--arm-text-secondary)", opacity: 0.6 }}
+          >
             JPG, PNG, WEBP ou GIF · máx. 2MB
           </p>
         </div>
@@ -261,7 +288,8 @@ export function ProfileForm() {
               letterSpacing: "0.05em",
             }}
           >
-            {feedback.ok ? "✓ " : "✗ "}{feedback.msg}
+            {feedback.ok ? "✓ " : "✗ "}
+            {feedback.msg}
           </p>
         )}
 
@@ -271,23 +299,24 @@ export function ProfileForm() {
           onClick={handleSave}
           disabled={!canSave}
           className="w-full font-mono font-bold brutal-lift"
-          style={{
-            border: "2px solid var(--arm-border)",
-            backgroundColor: "var(--arm-bg)",
-            color: "var(--arm-text)",
-            fontSize: "11px",
-            letterSpacing: "0.08em",
-            padding: "10px 16px",
-            cursor: !canSave ? "not-allowed" : "pointer",
-            opacity: !canSave ? 0.5 : 1,
-            "--lift-color": "var(--arm-border)",
-            "--lift-rest": "0px",
-            "--lift-hover": "4px",
-          } as React.CSSProperties}
+          style={
+            {
+              border: "2px solid var(--arm-border)",
+              backgroundColor: "var(--arm-bg)",
+              color: "var(--arm-text)",
+              fontSize: "11px",
+              letterSpacing: "0.08em",
+              padding: "10px 16px",
+              cursor: !canSave ? "not-allowed" : "pointer",
+              opacity: !canSave ? 0.5 : 1,
+              "--lift-color": "var(--arm-border)",
+              "--lift-rest": "0px",
+              "--lift-hover": "4px",
+            } as React.CSSProperties
+          }
         >
           {saving ? "SALVANDO..." : "SALVAR PERFIL"}
         </button>
-
       </div>
     </RetroWindow>
   );

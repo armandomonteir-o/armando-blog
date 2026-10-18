@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 
-const wpBase = process.env.WORDPRESS_API_URL
-  ?.replace(/\/graphql\/?$/, "")
-  .replace(/\/$/, "");
+const wpBase = process.env.WORDPRESS_API_URL?.replace(/\/graphql\/?$/, "").replace(/\/$/, "");
 
 function getAuthHeader() {
   const user = process.env.WP_APP_USER;

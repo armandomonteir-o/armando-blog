@@ -46,12 +46,22 @@ export function Pagination({
   return (
     <div className="mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       <div className="flex items-center gap-2">
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "9px", color: "var(--arm-panel-text-body)" }}>
+        <span
+          style={{
+            fontFamily: "'Space Mono', monospace",
+            fontSize: "9px",
+            color: "var(--arm-panel-text-body)",
+          }}
+        >
           SHOWING {startIdx + 1}-{Math.min(startIdx + itemsPerPage, totalItems)} OF {totalItems}
         </span>
         <div
           className="h-2 overflow-hidden"
-          style={{ width: "80px", border: "1.5px solid var(--arm-panel-border)", backgroundColor: "var(--arm-panel-bg-deep)" }}
+          style={{
+            width: "80px",
+            border: "1.5px solid var(--arm-panel-border)",
+            backgroundColor: "var(--arm-panel-bg-deep)",
+          }}
         >
           <div
             className="h-full"

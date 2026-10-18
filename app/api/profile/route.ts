@@ -5,9 +5,7 @@ import { getUserProfile } from "@/lib/graphql/queries/profile";
 import { logProfileEvent } from "@/lib/wp";
 
 // Derive WP REST base from WORDPRESS_API_URL (strips /graphql suffix)
-const wpRestBase = process.env.WORDPRESS_API_URL
-  ?.replace(/\/graphql\/?$/, "")
-  .replace(/\/$/, "");
+const wpRestBase = process.env.WORDPRESS_API_URL?.replace(/\/graphql\/?$/, "").replace(/\/$/, "");
 
 function getAuthHeader() {
   const user = process.env.WP_APP_USER;
@@ -82,11 +80,13 @@ export async function PUT(req: Request) {
   // Log events in parallel — non-blocking, failures don't break the save
   const events: Promise<void>[] = [];
   if (displayName && displayName !== existing?.displayName) {
-    events.push(logProfileEvent({
-      hash,
-      event: "nick_change",
-      extra: { from: existing?.displayName ?? "", to: displayName },
-    }));
+    events.push(
+      logProfileEvent({
+        hash,
+        event: "nick_change",
+        extra: { from: existing?.displayName ?? "", to: displayName },
+      })
+    );
   }
   if (avatarUrl) {
     events.push(logProfileEvent({ hash, event: "avatar_change" }));

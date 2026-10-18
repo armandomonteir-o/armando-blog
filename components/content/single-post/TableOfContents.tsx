@@ -141,7 +141,9 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
           </div>
           <div className="flex items-center gap-1" style={{ color: "#5a6a8e" }}>
             <Eye size={11} />
-            <span className="font-mono" style={{ fontSize: "9px" }}>{reads}</span>
+            <span className="font-mono" style={{ fontSize: "9px" }}>
+              {reads}
+            </span>
           </div>
         </div>
       </div>
