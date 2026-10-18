@@ -31,6 +31,17 @@ npm run dev      # http://localhost:3000
 
 `WORDPRESS_API_URL` must be set in `.env.local`, pointing to the WPGraphQL endpoint.
 
+## Tests
+
+```bash
+npm test                          # unit tests, offline
+SMOKE_TEST=1 npm test             # also checks that login works on the published site
+SMOKE_TEST=1 SMOKE_URL=https://<preview>.vercel.app npm test   # same, against a preview
+WP_LIVE_TEST=1 npm test           # also checks the queries against the real WordPress schema
+```
+
+The smoke test exists because login once returned 500 in production for weeks with a green build: the Auth.js variables were missing from Vercel (#91). Run it after changing environment variables or redeploying.
+
 ## Documentation
 
 All technical documentation lives in [`/docs`](./docs/):
