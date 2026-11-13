@@ -30,7 +30,6 @@ const POST_FIELDS = /* GraphQL */ `
         }
       }
       readingTime
-      isFeatured
       subtitle
     }
   }
@@ -89,7 +88,6 @@ const GET_POST = /* GraphQL */ `
           }
         }
         readingTime
-        isFeatured
         subtitle
         postSections {
           sectionId
