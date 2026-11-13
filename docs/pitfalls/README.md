@@ -212,3 +212,33 @@ Always check here before debugging something new — the answer may already be h
 **Root cause**: Next inlines `process.env.NEXT_PUBLIC_X` into the client bundle at build time, and only when it is written as that exact literal. `process.env` itself does not exist in the browser, so a read through an object or a loop is not replaced. Components such as the header read the notification flag, so they must keep the literal read.
 **Fix**: `lib/env.ts` only **checks** the variables, at build time and at start (called from `next.config.ts`, because `instrumentation.ts` does not run during `next build`). The reads stay where they are. `NEXT_PUBLIC_*` problems are warnings; a missing server variable fails the build, naming it and never printing a value. The production-only variables are required only when `VERCEL_ENV=production`, so CI and previews still build without them.
 **Location**: `lib/env.ts`, `next.config.ts`
+
+---
+
+## PITFALL-022: a GitHub Actions step that ends in `| tee` never fails, so the check looks green
+
+**Date discovered**: 2026-10-18 (issue #131)
+**Symptom**: the scheduled smoke test ran `vitest ... 2>&1 | tee smoke.log` in a plain `run:` step. A failing test would have left the step green, and the alert issue would never open.
+**Root cause**: the default shell of a `run:` step on Linux is `bash -e {0}`, **without** `pipefail`. The exit code of a pipeline is then the one of its **last** command, and `tee` returns 0. `bash -e -c 'false | tee /dev/null'` exits 0; with `-o pipefail` it exits 1.
+**Fix**: put `shell: bash` on the step (GitHub then runs `bash -eo pipefail`), or `set -o pipefail` first. Proof: dispatch the workflow with a wrong URL and see it fail, then with the right one and see it pass.
+**Location**: `.github/workflows/smoke.yml`
+
+---
+
+## PITFALL-023: previews fail with "Deployment rate limited" after a day with many pushes
+
+**Date discovered**: 2026-10-18
+**Symptom**: the "Vercel" check of several PRs failed with `Deployment rate limited — retry in 24 hours`, while the GitHub CI of the same commits was green.
+**Root cause**: the Hobby plan has a daily limit of deployments, and every push to a PR branch (and every Dependabot PR) creates a preview deployment. A day with a dozen PRs, merges and rebases reaches it.
+**Fix**: nothing in the code. A PR whose only failing check is this one (and whose CI is green) is safe to merge; do not use `gh pr merge --admin` to skip checks. To lower the pressure, push less often per PR. The production deploy of `main` kept working.
+**Location**: Vercel project, not the repository
+
+---
+
+## PITFALL-024: a route test cannot set an environment variable that the route reads when the module loads, unless it is hoisted
+
+**Date discovered**: 2026-10-18 (issue #178)
+**Symptom**: tests of `/api/profile` and `/api/profile/avatar` built the URL `undefined/wp-json/...` even though the test called `vi.stubEnv("WORDPRESS_API_URL", ...)` at the top of the file.
+**Root cause**: both routes read `process.env.WORDPRESS_API_URL` into a constant when the module loads, and ES `import` statements run before any other statement in the test file, including `vi.stubEnv`.
+**Fix**: set the variables inside `vi.hoisted(() => { process.env.X = ... })`, which Vitest runs before the imports. Reading the variable inside the function (as `lib/wp/profile-events.ts` does) would also have avoided it.
+**Location**: `app/api/profile/route.test.ts`, `app/api/profile/avatar/route.test.ts`
