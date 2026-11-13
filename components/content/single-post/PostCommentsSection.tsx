@@ -208,7 +208,7 @@ export function PostCommentsSection({ postId, initialComments }: PostCommentsSec
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="w-10 h-10 overflow-hidden relative border-2 border-chrome-blue-accent flex-shrink-0">
                           <AppImage
-                            src={comment.author.node.avatar?.url ?? "/avatar-placeholder.jpg"}
+                            src={comment.author.node.avatar?.url ?? "/avatar-pixel-art.png"}
                             alt={comment.author.node.name}
                             fill
                             sizes="40px"

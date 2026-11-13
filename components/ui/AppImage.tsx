@@ -12,7 +12,11 @@ interface AppImageProps extends Omit<ImageProps, "sizes"> {
 }
 
 export function AppImage({ src, alt, preload, loading, unoptimized, ...props }: AppImageProps) {
-  const [imgSrc, setImgSrc] = useState(src);
+  // Remembers which src failed, not which src to show: a copy of `src` in state would keep the
+  // first image forever when the prop changes (the avatar preview in /minha-conta, the header
+  // avatar after a profile save).
+  const [failedSrc, setFailedSrc] = useState<ImageProps["src"] | null>(null);
+  const imgSrc = failedSrc === src ? FALLBACK_DATA_URI : src;
 
   // Blob URLs (created via URL.createObjectURL) and data URIs are browser-local
   // and can't go through the Next.js image optimizer. Detect them automatically
@@ -29,7 +33,7 @@ export function AppImage({ src, alt, preload, loading, unoptimized, ...props }: 
       // preload overrides loading: a preloaded image is always eager
       loading={preload ? "eager" : loading}
       unoptimized={isBlobOrData || unoptimized}
-      onError={() => setImgSrc(FALLBACK_DATA_URI)}
+      onError={() => setFailedSrc(src)}
     />
   );
 }

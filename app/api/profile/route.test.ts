@@ -107,6 +107,47 @@ describe("PUT /api/profile: guards", () => {
   );
 });
 
+describe("PUT /api/profile: malformed input and outages", () => {
+  // A body field that is not a string used to reach `.trim()` and throw, an unhandled 500.
+  it.each([
+    ["a number as the name", { displayName: 42 }],
+    ["an object as the avatar", { avatarUrl: { href: "https://exemplo.com/a.png" } }],
+    ["a body that is a JSON array", [1, 2]],
+  ])("rejects %s with 400 instead of throwing", async (_name, body) => {
+    const res = await PUT(put(body));
+    expect(res.status).toBe(400);
+    expect(fetchCalls).toEqual([]);
+  });
+
+  it("rejects a name longer than the 60 characters the form allows", async () => {
+    const res = await PUT(put({ displayName: "a".repeat(61) }));
+    expect(res.status).toBe(400);
+    expect(fetchCalls).toEqual([]);
+  });
+
+  it("answers 500 as JSON, not an unhandled error, when WordPress is unreachable", async () => {
+    vi.stubGlobal("fetch", async () => {
+      throw new Error("ECONNRESET");
+    });
+    const res = await PUT(put({ displayName: "Eu" }));
+    expect(res.status).toBe(500);
+    expect(await res.json()).toEqual({ error: "Falha ao salvar perfil" });
+  });
+
+  it("answers 500 as JSON when the application password is missing", async () => {
+    const saved = process.env.WP_APP_PASSWORD;
+    delete process.env.WP_APP_PASSWORD;
+    try {
+      const res = await PUT(put({ displayName: "Eu" }));
+      expect(res.status).toBe(500);
+      expect(await res.json()).toEqual({ error: "Falha ao salvar perfil" });
+      expect(fetchCalls).toEqual([]);
+    } finally {
+      process.env.WP_APP_PASSWORD = saved;
+    }
+  });
+});
+
 describe("PUT /api/profile: writing", () => {
   it("creates the profile, keyed by the hash of the session's e-mail, with the application password", async () => {
     const res = await PUT(put({ displayName: "  Leitor Fiel  " }));

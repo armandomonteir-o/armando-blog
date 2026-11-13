@@ -14,6 +14,12 @@ function getAuthHeader() {
   return `Basic ${Buffer.from(`${user}:${pass}`).toString("base64")}`;
 }
 
+// Same limit as the form field in /minha-conta.
+const MAX_DISPLAY_NAME = 60;
+
+// Anything that is not a string counts as not sent, so a number or an object never reaches .trim().
+const text = (value: unknown) => (typeof value === "string" ? value.trim() : "");
+
 function emailHash(email: string) {
   return createHash("sha256").update(email.toLowerCase().trim()).digest("hex");
 }
@@ -35,11 +41,18 @@ export async function PUT(req: Request) {
   }
 
   const body = await req.json().catch(() => null);
-  const displayName = (body?.displayName ?? "").trim();
-  const avatarUrl = (body?.avatarUrl ?? "").trim();
+  const displayName = text(body?.displayName);
+  const avatarUrl = text(body?.avatarUrl);
 
   if (!displayName && !avatarUrl) {
     return NextResponse.json({ error: "Nenhum campo informado" }, { status: 400 });
+  }
+
+  if (displayName.length > MAX_DISPLAY_NAME) {
+    return NextResponse.json(
+      { error: `Nome deve ter no máximo ${MAX_DISPLAY_NAME} caracteres` },
+      { status: 400 }
+    );
   }
 
   // Validate avatar URL if provided
@@ -48,33 +61,40 @@ export async function PUT(req: Request) {
   }
 
   const hash = emailHash(session.user.email);
-  const authHeader = getAuthHeader();
   const meta: Record<string, string> = {};
   if (displayName) meta.display_name = displayName;
   if (avatarUrl) meta.avatar_url = avatarUrl;
 
   const existing = await getUserProfile(hash).catch(() => null);
 
-  if (existing) {
-    const res = await fetch(`${wpRestBase}/wp-json/wp/v2/user-profile/${existing.databaseId}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: authHeader },
-      body: JSON.stringify({ meta }),
-    });
-    if (!res.ok) {
-      console.error("[PUT /api/profile] WP update failed:", await res.text());
-      return NextResponse.json({ error: "Falha ao atualizar perfil" }, { status: 500 });
+  // The try covers a missing credential and a WordPress that does not answer: both used to leave
+  // the route as an unhandled error, which the form cannot read as JSON.
+  try {
+    const authHeader = getAuthHeader();
+    if (existing) {
+      const res = await fetch(`${wpRestBase}/wp-json/wp/v2/user-profile/${existing.databaseId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: authHeader },
+        body: JSON.stringify({ meta }),
+      });
+      if (!res.ok) {
+        console.error("[PUT /api/profile] WP update failed:", await res.text());
+        return NextResponse.json({ error: "Falha ao atualizar perfil" }, { status: 500 });
+      }
+    } else {
+      const res = await fetch(`${wpRestBase}/wp-json/wp/v2/user-profile`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: authHeader },
+        body: JSON.stringify({ title: hash, slug: hash, status: "publish", meta }),
+      });
+      if (!res.ok) {
+        console.error("[PUT /api/profile] WP create failed:", await res.text());
+        return NextResponse.json({ error: "Falha ao criar perfil" }, { status: 500 });
+      }
     }
-  } else {
-    const res = await fetch(`${wpRestBase}/wp-json/wp/v2/user-profile`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: authHeader },
-      body: JSON.stringify({ title: hash, slug: hash, status: "publish", meta }),
-    });
-    if (!res.ok) {
-      console.error("[PUT /api/profile] WP create failed:", await res.text());
-      return NextResponse.json({ error: "Falha ao criar perfil" }, { status: 500 });
-    }
+  } catch (err) {
+    console.error("[PUT /api/profile]", err);
+    return NextResponse.json({ error: "Falha ao salvar perfil" }, { status: 500 });
   }
 
   // Log events in parallel — non-blocking, failures don't break the save
