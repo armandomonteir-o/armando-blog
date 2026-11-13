@@ -104,9 +104,9 @@ Replaced by `store/useThemeStore.ts` (Zustand). The `useThemeStore()` hook repla
 
 ### `PostsGrid.tsx`
 - **Purpose**: Grid of post cards with pagination
-- **Props**: None (uses internal state + hardcoded `posts` array)
-- **Exports**: `posts: Post[]` (imported by `AllPostsPage`, `Header`, `PostPage`), `categoryColors: Record<string, string>`
-- **Data dependency**: 13 hardcoded posts (each with unique `slug` field)
+- **Props**: `posts: Post[]`, required. The home passes the WordPress posts already adapted (`adaptWPPost`); there is no fallback list
+- **Exports**: `PostsGrid` only. `categoryColors` and the `Post` type come from `constants/posts.ts`
+- **Data dependency**: WordPress, through the `posts` prop. An empty list shows the "NENHUM POST PUBLICADO" state
 - **Behavior**:
   - 6 posts per page, 3-column grid (responsive)
   - Each card: mini title bar, image with scanline overlay + category badge, title, excerpt, meta (date, reads, comments)
