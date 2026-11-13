@@ -1,5 +1,5 @@
 // Conventional Commits in Portuguese: "tipo: descrição" (CLAUDE.md, #133).
-export default {
+const config = {
   extends: ["@commitlint/config-conventional"],
   rules: {
     // The types the project really uses, no more.
@@ -29,3 +29,5 @@ export default {
     "footer-max-line-length": [0],
   },
 };
+
+export default config;

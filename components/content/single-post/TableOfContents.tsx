@@ -29,7 +29,7 @@ export function TableOfContents({ sections, readTime, reads }: TableOfContentsPr
       }
       setActiveSection(current);
     };
-    scrollContainer.addEventListener("scroll", handleScroll);
+    scrollContainer.addEventListener("scroll", handleScroll, { passive: true });
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, [sections]);
 

@@ -47,6 +47,7 @@ Always check here before debugging something new — the answer may already be h
 **Symptom**: Renaming or splitting `PostsGrid.tsx` breaks `PostPage.tsx`, `AllPostsPage.tsx`, and `Header.tsx`
 **Root cause**: `categoryColors` is exported from `PostsGrid.tsx` and imported in three other files. It's not a PostsGrid concern — it's shared data.
 **Fix (in migration)**: Centralize in `/constants/categories.ts`. All files import from there. See issue #[TBD].
+**Resolved**: `categoryColors` lives in `constants/posts.ts` and every file imports it from there. The leftover re-export in `PostsGrid.tsx` (with the mock `posts` list it used as a fallback) was removed on 2026-11-13; `PostsGrid` now requires its `posts` prop.
 
 ---
 

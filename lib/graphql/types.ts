@@ -12,7 +12,7 @@ export interface WPCategory {
 export interface WPAuthor {
   name: string;
   description: string;
-  avatar: { url: string };
+  avatar: { url: string } | null;
 }
 
 export interface WPPostSection {
@@ -24,7 +24,6 @@ export interface WPPostSection {
 export interface WPAcfPostFields {
   heroImage: { node: WPImage } | null;
   readingTime: string | null;
-  isFeatured: boolean | null;
   subtitle: string | null;
   postSections: WPPostSection[] | null;
 }
@@ -67,17 +66,11 @@ export interface WPPostDetailResponse {
 
 // ── Comments ──────────────────────────────────────────────────────────────────
 
-export interface WPAcfCommentFields {
-  role: string | null;
-  rating: number | null;
-}
-
 export interface WPComment {
   id: string;
   content: string;
   date: string;
-  author: { node: { name: string; avatar: { url: string } } };
-  acfCommentFields: WPAcfCommentFields | null;
+  author: { node: { name: string; avatar: { url: string } | null } };
 }
 
 // ── Categories ────────────────────────────────────────────────────────────────

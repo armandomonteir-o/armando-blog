@@ -7,17 +7,13 @@ import { RetroWindow } from "@/components/ui/RetroWindow";
 import { AppImage } from "@/components/ui/AppImage";
 import { Pagination } from "@/components/ui/Pagination";
 import { Clock, Eye, MessageCircle } from "lucide-react";
-import { posts, categoryColors } from "@/constants/posts";
+import { categoryColors } from "@/constants/posts";
 import type { Post } from "@/constants/posts";
-
-// Re-export so existing imports (Header, AllPostsPage) continue to work
-export { posts, categoryColors };
-export type { Post };
 
 const POSTS_PER_PAGE = 6;
 
-export function PostsGrid({ posts: propPosts }: { posts?: Post[] } = {}) {
-  const data = propPosts ?? posts;
+// `posts` is required on purpose: without it the grid used to fall back to the mock list.
+export function PostsGrid({ posts: data }: { posts: Post[] }) {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / POSTS_PER_PAGE);
 

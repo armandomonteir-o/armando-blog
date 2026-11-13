@@ -173,7 +173,7 @@ const navItems = [
 > **Target mapping, not the current WordPress.** Checked against the live endpoint on 2026-09-26 (issue #69):
 > - categories are `arte`, `blog`, `cultura`, `design`, `filosofia` and `tecnologia`, with no subcategories, and no ACF group is registered for categories (issue #73)
 > - the `playlist` post type exists, with no ACF group and no entries
-> - the post ACF group exists; `is_featured` cannot be filtered in a WPGraphQL `where` (`metaKey` is rejected), so `getFeaturedPost()` filters the most recent posts in code
+> - the post ACF group exists; `is_featured` cannot be filtered in a WPGraphQL `where` (`metaKey` is rejected), so the code never used it to pick the featured post: `pickFeaturedPost()` takes the pinned (sticky) post, else the newest, and the queries no longer ask for `isFeatured` (2026-11-13)
 > - `lib/graphql/queries/live.test.ts` checks the queries against the real schema
 
 
@@ -209,7 +209,7 @@ ACF fields:
 |---|---|---|
 | `hero_image` | Image (URL) | `Post.image` / `postData.heroImage` |
 | `reading_time` | Text | `postData.readTime` |
-| `is_featured` | True/False | Used to query featured post |
+| `is_featured` | True/False | **Not read anymore.** The featured post is the pinned (sticky) one, else the newest (`pickFeaturedPost` in `lib/graphql/adapters.ts`); the field left the queries and the `WPAcfPostFields` type on 2026-11-13 |
 | `subtitle` | Text | `postData.subtitle` |
 | `post_sections` | Repeater | `postData.sections` array |
 | `post_sections.section_id` | Text | `sections[].id` (anchor) |
@@ -379,7 +379,6 @@ query GetPost($slug: ID!) {
         content
         date
         author { node { name avatar { url } } }
-        acfCommentFields { role rating }
       }
     }
   }

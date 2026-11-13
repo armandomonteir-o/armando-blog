@@ -106,7 +106,6 @@ describe("adaptWPPost", () => {
       acfPostFields: {
         heroImage: { node: { sourceUrl: "https://exemplo.com/hero.jpg" } },
         readingTime: null,
-        isFeatured: null,
         subtitle: null,
         postSections: null,
       },
@@ -169,7 +168,6 @@ describe("adaptWPPostDetail", () => {
       acfPostFields: {
         heroImage: null,
         readingTime: "8 min",
-        isFeatured: null,
         subtitle: "Subtítulo",
         postSections: [{ sectionId: "intro", sectionTitle: "Intro", sectionContent: "<p>Olá</p>" }],
       },
